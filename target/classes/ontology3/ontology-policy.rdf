@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema#" 
+xmlns="http://jena.hpl.hp.com/schemas/2003/03/ont-manager#" 
+xml:base="http://jena.hpl.hp.com/schemas/2003/03/ont-manager#">
+	
+	
+	<OntologySpec>
+		<publicURI rdf:resource="http://www.semanticweb.org/dorin/ontologies/food"/>
+		<altURL rdf:resource="file:ontology3/food.owl"/>
+		<prefix rdf:datatype="http://www.w3.org/2001/XMLSchema#string">food</prefix>
+		<language rdf:resource="http://www.w3.org/2002/07/owl"/>
+	</OntologySpec>
+	
+	
+	<OntologySpec>
+		<publicURI rdf:resource="http://www.semanticweb.org/linabarakat/ontologies/2014/8/foodprovider"/>
+		<altURL rdf:resource="file:ontology3/foodprovider.owl"/>
+		<prefix rdf:datatype="http://www.w3.org/2001/XMLSchema#string">foodprovider</prefix>
+		<language rdf:resource="http://www.w3.org/2002/07/owl"/>
+	</OntologySpec>
+	
+	
+	<OntologySpec>
+		<publicURI rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritionassessment"/>
+		<altURL rdf:resource="file:ontology3/nutritionassessment.owl"/>
+		<prefix rdf:datatype="http://www.w3.org/2001/XMLSchema#string">nutritionassessment</prefix>
+		<language rdf:resource="http://www.w3.org/2002/07/owl"/>
+	</OntologySpec>
+	
+	<OntologySpec>
+		<publicURI rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritioncareprocess"/>
+		<altURL rdf:resource="file:ontology3/nutritioncareprocess.owl"/>
+		<prefix rdf:datatype="http://www.w3.org/2001/XMLSchema#string">nutritioncareprocess</prefix>
+		<language rdf:resource="http://www.w3.org/2002/07/owl"/>
+	</OntologySpec>
+	
+	<OntologySpec>
+		<publicURI rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic"/>
+		<altURL rdf:resource="file:ontology3/nutritiondiagnostic.owl"/>
+		<prefix rdf:datatype="http://www.w3.org/2001/XMLSchema#string">nutritiondiagnostic</prefix>
+		<language rdf:resource="http://www.w3.org/2002/07/owl"/>
+	</OntologySpec>
+	
+	<OntologySpec>
+		<publicURI rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritionintervention"/>
+		<altURL rdf:resource="file:ontology3/nutritionintervention.owl"/>
+		<prefix rdf:datatype="http://www.w3.org/2001/XMLSchema#string">nutritionintervention</prefix>
+		<language rdf:resource="http://www.w3.org/2002/07/owl"/>
+	</OntologySpec>
+	
+	<OntologySpec>
+		<publicURI rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritionmonitoring"/>
+		<altURL rdf:resource="file:ontology3/nutritionmonitoring.owl"/>
+		<prefix rdf:datatype="http://www.w3.org/2001/XMLSchema#string">nutritionmonitoring</prefix>
+		<language rdf:resource="http://www.w3.org/2002/07/owl"/>
+	</OntologySpec>
+	
+	<OntologySpec>
+		<publicURI rdf:resource="http://www.semanticweb.org/linabarakat/ontologies/2014/9/ReliabilityMonitoring"/>
+		<altURL rdf:resource="file:ontology3/ReliabilityMonitoring.owl"/>
+		<prefix rdf:datatype="http://www.w3.org/2001/XMLSchema#string">reliabilitymonitoring</prefix>
+		<language rdf:resource="http://www.w3.org/2002/07/owl"/>
+	</OntologySpec>
+	
+	<DocumentManagerPolicy>
+		<cacheModels rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</cacheModels>
+		<processImports rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</processImports>
+	</DocumentManagerPolicy>
+</rdf:RDF>

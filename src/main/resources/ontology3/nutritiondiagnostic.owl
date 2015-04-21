@@ -1,0 +1,250 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#"
+     xml:base="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#hasPriority -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#hasPriority">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#NutritionDiagnostic"/>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#hasValue -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#hasValue">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#NutritionDiagnostic"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#ActivityBasedDiagnostic -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#ActivityBasedDiagnostic">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#NutritionDiagnostic"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#EnergyBalanceDiagnostic -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#EnergyBalanceDiagnostic">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#NutritionDiagnostic"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#FluidIntakeDiagnostic -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#FluidIntakeDiagnostic">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#NutritionDiagnostic"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#ImbalanceOfNutrients -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#ImbalanceOfNutrients">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#NutritionDiagnostic"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#Malnutrition -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#Malnutrition">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#NutritionDiagnostic"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#NutritionDiagnostic -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#NutritionDiagnostic"/>
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#WeightDiagnostic -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#WeightDiagnostic">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#NutritionDiagnostic"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#ExcessiveEnergyIntake -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#ExcessiveEnergyIntake">
+        <rdf:type rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#EnergyBalanceDiagnostic"/>
+        <hasPriority rdf:datatype="&xsd;int">0</hasPriority>
+        <hasValue rdf:datatype="&xsd;string">Excessive Energy Intake</hasValue>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#ExcessiveFluidIntake -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#ExcessiveFluidIntake">
+        <rdf:type rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#FluidIntakeDiagnostic"/>
+        <hasPriority rdf:datatype="&xsd;int">0</hasPriority>
+        <hasValue rdf:datatype="&xsd;string">Excessive Fluid Intake</hasValue>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#ExcessivePhysicalActivity -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#ExcessivePhysicalActivity">
+        <rdf:type rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#ActivityBasedDiagnostic"/>
+        <hasValue rdf:datatype="&xsd;string">Excessive Physical Activity</hasValue>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#NormalWeight -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#NormalWeight">
+        <rdf:type rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#WeightDiagnostic"/>
+        <hasValue rdf:datatype="&xsd;string">Normal Weight</hasValue>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#Obesity -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#Obesity">
+        <rdf:type rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#WeightDiagnostic"/>
+        <hasValue rdf:datatype="&xsd;string">Obesity</hasValue>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#Overweight -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#Overweight">
+        <rdf:type rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#WeightDiagnostic"/>
+        <hasValue rdf:datatype="&xsd;string">Overweight</hasValue>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#PhysicalInactivity -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#PhysicalInactivity">
+        <rdf:type rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#ActivityBasedDiagnostic"/>
+        <hasValue rdf:datatype="&xsd;string">Physical Inactivity</hasValue>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#Self-FeedingDifficulty -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#Self-FeedingDifficulty">
+        <rdf:type rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#ActivityBasedDiagnostic"/>
+        <hasValue rdf:datatype="&xsd;string">Self-feeding Difficulty</hasValue>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#SuboptimalEnergyIntake -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#SuboptimalEnergyIntake">
+        <rdf:type rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#EnergyBalanceDiagnostic"/>
+        <hasPriority rdf:datatype="&xsd;int">1</hasPriority>
+        <hasValue rdf:datatype="&xsd;string">Suboptimal Energy Intake</hasValue>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#SuboptimalFluidIntake -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#SuboptimalFluidIntake">
+        <rdf:type rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#FluidIntakeDiagnostic"/>
+        <hasPriority rdf:datatype="&xsd;int">1</hasPriority>
+        <hasValue rdf:datatype="&xsd;string">Suboptimal Fluid Intake</hasValue>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#Underweight -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#Underweight">
+        <rdf:type rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#WeightDiagnostic"/>
+        <hasValue rdf:datatype="&xsd;string">Underweight</hasValue>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#UnintededWeightGain -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#UnintededWeightGain">
+        <rdf:type rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#WeightDiagnostic"/>
+        <hasValue rdf:datatype="&xsd;string">Unintended Weight Gain</hasValue>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#UnintendedWeightLoss -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#UnintendedWeightLoss">
+        <rdf:type rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritiondiagnostic#WeightDiagnostic"/>
+        <hasValue rdf:datatype="&xsd;string">Unintended Weight Loss</hasValue>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+

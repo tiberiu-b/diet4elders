@@ -1,0 +1,189 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY swrl "http://www.w3.org/2003/11/swrl#" >
+    <!ENTITY swrlb "http://www.w3.org/2003/11/swrlb#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.semanticweb.org/dorin/ontologies/nutritionintervention#"
+     xml:base="http://www.semanticweb.org/dorin/ontologies/nutritionintervention"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritionintervention"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritionintervention#hasEnergyFromFatPercentHigherLimit -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritionintervention#hasEnergyFromFatPercentHigherLimit">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritionintervention#NutritionPrescription"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritionintervention#hasEnergyFromFatPercentLowerLimit -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritionintervention#hasEnergyFromFatPercentLowerLimit">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritionintervention#NutritionPrescription"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritionintervention#hasMinimumServesOfFruitsOrVegetablesPerDay -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritionintervention#hasMinimumServesOfFruitsOrVegetablesPerDay">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritionintervention#NutritionPrescription"/>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritionintervention#hasReduceCalorieIntakeValue -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritionintervention#hasReduceCalorieIntakeValue">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritionintervention#NutritionPrescription"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritionintervention#hasSodiumUpperLimit -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritionintervention#hasSodiumUpperLimit">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritionintervention#NutritionPrescription"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritionintervention#FoodOrdering -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritionintervention#FoodOrdering">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritionintervention#NutritionIntervention"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritionintervention#NutritionEducation -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritionintervention#NutritionEducation">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritionintervention#NutritionIntervention"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritionintervention#NutritionIntervention -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritionintervention#NutritionIntervention"/>
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritionintervention#NutritionPrescription -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritionintervention#NutritionPrescription">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritionintervention#NutritionIntervention"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritionintervention#CVDDiet -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritionintervention#CVDDiet">
+        <rdf:type rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritionintervention#NutritionPrescription"/>
+        <hasEnergyFromFatPercentLowerLimit rdf:datatype="&xsd;double">20.0</hasEnergyFromFatPercentLowerLimit>
+        <hasEnergyFromFatPercentHigherLimit rdf:datatype="&xsd;double">35.0</hasEnergyFromFatPercentHigherLimit>
+        <hasMinimumServesOfFruitsOrVegetablesPerDay rdf:datatype="&xsd;int">5</hasMinimumServesOfFruitsOrVegetablesPerDay>
+        <hasSodiumUpperLimit rdf:datatype="&xsd;double">6.0</hasSodiumUpperLimit>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritionintervention#CarbohydrateModifiedDiet -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritionintervention#CarbohydrateModifiedDiet">
+        <rdf:type rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritionintervention#NutritionPrescription"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritionintervention#DiabetType2Diet -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritionintervention#DiabetType2Diet">
+        <rdf:type rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritionintervention#NutritionPrescription"/>
+        <hasReduceCalorieIntakeValue rdf:datatype="&xsd;double">250.0</hasReduceCalorieIntakeValue>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritionintervention#IndividualizedDiet -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritionintervention#IndividualizedDiet">
+        <rdf:type rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritionintervention#NutritionPrescription"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritionintervention#ProteinModifiedDiet -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritionintervention#ProteinModifiedDiet">
+        <rdf:type rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritionintervention#NutritionPrescription"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/dorin/ontologies/nutritionintervention#RDIDiet -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/dorin/ontologies/nutritionintervention#RDIDiet">
+        <rdf:type rdf:resource="http://www.semanticweb.org/dorin/ontologies/nutritionintervention#NutritionPrescription"/>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+
