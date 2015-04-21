@@ -12,6 +12,7 @@ public class MainLic {
 
 		long start = System.currentTimeMillis();
 
+		
 		foodProviderOntology = new FoodProviderOntology();
 		model = foodProviderOntology.getOntModel();
 		data = foodProviderOntology.getD2rData();
