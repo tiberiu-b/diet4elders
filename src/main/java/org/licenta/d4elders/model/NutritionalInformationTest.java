@@ -1,5 +1,4 @@
-package Meals.Model;
-
+package org.licenta.d4elders.model;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

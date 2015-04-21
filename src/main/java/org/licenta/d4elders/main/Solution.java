@@ -1,4 +1,4 @@
-import Meals.Model.*;
+package org.licenta.d4elders.main;
 import com.sun.istack.internal.NotNull;
 
 import java.lang.Comparable;
@@ -11,13 +11,15 @@ import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.licenta.d4elders.model.*;
+
 /**
  * The bee.
  */
 public class Solution implements Comparable<Solution> {
     private static final Logger log = Logger.getLogger( Solution.class.getName() );
 
-    private DayMeal dayMeal;
+	private DayMeal dayMeal;
 
     private int speed = 100;
     private int energy = 100;

@@ -1,5 +1,4 @@
-package Meals.Model;
-
+package org.licenta.d4elders.model;
 import com.sun.istack.internal.NotNull;
 
 import java.util.*;

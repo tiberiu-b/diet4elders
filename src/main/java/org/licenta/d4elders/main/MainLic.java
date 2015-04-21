@@ -12,7 +12,6 @@ public class MainLic {
 
 		long start = System.currentTimeMillis();
 
-		
 		foodProviderOntology = new FoodProviderOntology();
 		model = foodProviderOntology.getOntModel();
 		data = foodProviderOntology.getD2rData();
@@ -23,7 +22,7 @@ public class MainLic {
 		// query4();
 		// query5();
 		// query6();
-		// query7();
+		 query7();
 		// query8();
 		long end = System.currentTimeMillis();
 		System.out.println("Time is: " + (end - start));

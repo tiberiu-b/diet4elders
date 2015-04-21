@@ -1,5 +1,4 @@
-package Meals.Model;
-
+package org.licenta.d4elders.model;
 import javax.persistence.*;
 import java.util.HashMap;
 import java.util.Map;

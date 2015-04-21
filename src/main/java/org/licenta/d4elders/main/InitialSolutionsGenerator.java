@@ -1,5 +1,6 @@
-import Meals.Model.*;
+package org.licenta.d4elders.main;
 
+import org.licenta.d4elders.model.*;
 import java.util.Random;
 import java.util.SortedSet;
 import java.util.TreeSet;

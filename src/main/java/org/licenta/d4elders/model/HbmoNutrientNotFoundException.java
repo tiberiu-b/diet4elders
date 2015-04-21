@@ -1,5 +1,4 @@
-package Meals.Model;
-
+package org.licenta.d4elders.model;
 /**
  * Created by cristiprg on 21.04.2015.
  */

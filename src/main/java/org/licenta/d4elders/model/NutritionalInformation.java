@@ -1,5 +1,4 @@
-package Meals.Model;
-
+package org.licenta.d4elders.model;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;

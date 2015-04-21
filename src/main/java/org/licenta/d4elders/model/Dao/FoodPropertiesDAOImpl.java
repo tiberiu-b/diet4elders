@@ -1,6 +1,6 @@
-package Meals.Model.Dao;
+package org.licenta.d4elders.model.Dao;
 
-import Meals.Model.FoodProperties;
+import org.licenta.d4elders.model.FoodProperties;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

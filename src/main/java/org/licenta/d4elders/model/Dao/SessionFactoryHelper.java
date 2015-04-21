@@ -1,4 +1,4 @@
-package Meals.Model.Dao;
+package org.licenta.d4elders.model.Dao;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;

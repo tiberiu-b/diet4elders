@@ -1,6 +1,5 @@
-package Meals.Model.Dao;
-
-import Meals.Model.FoodProperties;
+package org.licenta.d4elders.model.Dao;
+import org.licenta.d4elders.model.FoodProperties;
 
 import java.util.List;
 

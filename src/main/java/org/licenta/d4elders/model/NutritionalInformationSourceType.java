@@ -1,10 +1,8 @@
-package Meals.Model;
+package org.licenta.d4elders.model;
+
 /**
  * 
  */
 public enum NutritionalInformationSourceType {
-    GeneralRecommendation,
-    DoctorPrescription,
-    FinalDoctorPrescription,
-    Ideal
+	GeneralRecommendation, DoctorPrescription, FinalDoctorPrescription, Ideal
 }
