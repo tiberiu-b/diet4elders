@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="connection.url">jdbc:mysql://localhost:3306/nutritioncareprocess</property>
+    <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+      <property name="connection.username">cristiprg</property>
+      <property name="connection.password">12345</property>
+      <!--<property name="show_sql">true</property>-->
+    <!--<property name="format_sql">true</property>-->
+    <!--<property name="use_sql_comments">true</property>-->
+     <!--<mapping class="Meals.Model.FoodProperties"/>  -->
+     <mapping class="org.licenta.d4elders.model.FoodProperties"/>
+
+     <!-- <mapping class="Meals.Model.NutrientsIdealValues"/> --> 
+      <!-- DB schema will be updated if needed -->
+    <!-- <property name="hbm2ddl.auto">update</property> -->
+  </session-factory>
+</hibernate-configuration>
