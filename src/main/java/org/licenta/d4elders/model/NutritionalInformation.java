@@ -1,4 +1,5 @@
 package org.licenta.d4elders.model;
+
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -296,16 +297,22 @@ public class NutritionalInformation {
      * For example, this.nutrientsInformation = {calories}, prescrition.nutrientsInformation = {carbo} =>
      * this.nutrientsInformation = {calories, carbo} after this method call.
      * @param nutritionalInformation
-     * @param allowSameNutrients Allows nutrients to get overwritten if set to true.
+     * @param finalPrescription Allows nutrients to get overwritten (including weights, quantities) if set to true.
      * @return this
      */
     private NutritionalInformation combineNutritionalInformation(NutritionalInformation nutritionalInformation,
-                                                                 boolean allowSameNutrients)
+                                                                 boolean finalPrescription)
     {
         assert (nutritionalInformation != null);
         for(SingleNutrientInformation nutrientInformation : nutritionalInformation.getNutrientsInformation())
         {
-            if(!allowSameNutrients)
+            if(!finalPrescription)
+            {
+                // TODO: reviese weights here
+                // Multiply the weight 10 times, sin
+                nutrientInformation.setWeight(nutrientInformation.getWeight() * 10);
+            }
+            else
             {
                 assert (!nutrientExists.get(nutrientInformation.getName()));
             }

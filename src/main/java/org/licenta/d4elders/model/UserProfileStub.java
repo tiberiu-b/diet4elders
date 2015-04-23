@@ -13,6 +13,13 @@ public class UserProfileStub {
         setWeight(79);
         setGender(GenderType.Male);
         setPAF(1.2);
+
+        likeSet.add("Chocolate biscuits, full coated");
+        likeSet.add("Chocolate biscuits, cream filled, full coated");
+
+        dislikeSet.add("Gingernut biscuits");
+        dislikeSet.add("Oat based biscuits");
+
     }
 
     public int getWeight() {
@@ -71,6 +78,22 @@ public class UserProfileStub {
         this.gender = gender;
     }
 
+    public Set<String> getDislikeSet() {
+        return dislikeSet;
+    }
+
+    public void setDislikeSet(Set<String> dislikeSet) {
+        this.dislikeSet = dislikeSet;
+    }
+
+    public Set<String> getLikeSet() {
+        return likeSet;
+    }
+
+    public void setLikeSet(Set<String> likeSet) {
+        this.likeSet = likeSet;
+    }
+
     private int weight;
 
     private int height;
@@ -84,6 +107,10 @@ public class UserProfileStub {
     private boolean weight_loss = false;
 
     private GenderType gender;
+
+    private Set<String> likeSet = new TreeSet<String>();
+
+    private Set<String> dislikeSet = new TreeSet<String>();
 
     @Override
     public String toString() {

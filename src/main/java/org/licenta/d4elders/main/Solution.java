@@ -1,17 +1,13 @@
 package org.licenta.d4elders.main;
+import org.licenta.d4elders.model.*;
 import com.sun.istack.internal.NotNull;
 
 import java.lang.Comparable;
 import java.lang.Math;
 import java.lang.Override;
-import java.util.Map;
-import java.util.Random;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.licenta.d4elders.model.*;
 
 /**
  * The bee.
@@ -19,7 +15,7 @@ import org.licenta.d4elders.model.*;
 public class Solution implements Comparable<Solution> {
     private static final Logger log = Logger.getLogger( Solution.class.getName() );
 
-	private DayMeal dayMeal;
+    private DayMeal dayMeal;
 
     private int speed = 100;
     private int energy = 100;
@@ -81,18 +77,28 @@ public class Solution implements Comparable<Solution> {
     private void computeFitness() {
         //return (Math.exp(-x * x) + Math.exp(-y * y)) / 2.0;
         //return 0.5 * (getFitnessLevel1() + getFitnessLevel2());
-        fitness = getFitnessLevel1();
+        fitness =  0.5* ( getFitnessLevel1() + getFitnessLevel2() );
     }
 
     private double getFitnessLevel1() {
-        Map<String, Double> nutrientsValueMap = dayMeal.getNutrientsValuesMap();
+        Map<String, Double> mealNutrientsValueMap = dayMeal.getNutrientsValuesMap();
         Double sum = new Double(0);
-        for (String key : nutrientsValueMap.keySet()) {
+        double err;
+        int weigth = 1, sum_weights = 0;
+        Double[] interval;
+        for (String key : mealNutrientsValueMap.keySet()) {
             try {
-                // TODO implement weigths
-                double err = errorMargin(nutrientsValueMap.get(key), NutrientsIdealValuesHelper.getIdealValueForNutrient(key));
-                sum += err;
+                weigth = NutrientsIdealValuesHelper.getWeightForNutrient(key);
+                if(NutrientsIdealValuesHelper.nutrientHasInterval(key)) {
+                    interval = NutrientsIdealValuesHelper.getIdealIntervalForNutrient(key);
+                    err = errorMarginInterval(mealNutrientsValueMap.get(key), interval[0], interval[1]);
+                }
+                else{
+                    err = errorMargin(mealNutrientsValueMap.get(key), NutrientsIdealValuesHelper.getIdealValueForNutrient(key));
+                }
 
+                sum += weigth * err;
+                sum_weights += weigth;
             }
             catch (HbmoNutrientNotFoundException ex)
             {
@@ -101,15 +107,54 @@ public class Solution implements Comparable<Solution> {
 
             //System.out.println(key + " " + " " + nutrientsValueMap.get(key) + " " + NutrientsIdealValuesHelper.getIdealValueForNutrient(key) + " " + err);
             //System.out.println(nutrientsValueMap.get(key) + " " + NutrientsIdealValuesHelper.getIdealValueForNutrient(key) + " " + err);
+        }
+
+        return sum / sum_weights;
+    }
+
+    private double getFitnessLevel2(){
+        Set<String> dayMealIngredientsSet = dayMeal.getNutrientsValuesMap().keySet();
+        Set<String> preferenceSet = UserProfileHelper.getPreferenceSet();
+        Set<String> allIngredientsSet = new TreeSet<String>(dayMealIngredientsSet);
+        allIngredientsSet.addAll(preferenceSet);
+
+        Set<String> likeSet = UserProfileHelper.getLikeList();
+        Set<String> disLikeSet = UserProfileHelper.getDisLikeList();
+
+        final int weight = 1;
+        int sum_weights = 0;
+        double sum = 0;
+        int ideal = 0;
+        int real = 0;
+
+        for(String ingredient : preferenceSet){
+
+                ideal = likeSet.contains(ingredient) ? 1 : 0; // 1 for likeSet, 0 for disLike
+                real = dayMealIngredientsSet.contains(ingredient) ? 1 : 0;
+
+                sum += weight * errorMarginIngredients(real, ideal);
+                sum_weights += weight;
 
         }
 
-        return sum / nutrientsValueMap.size();
+        return sum / sum_weights;
     }
 
-    private double getFitnessLevel2()
-    {
-        return 0;
+    /**
+     * Computes the error margin for fitness level 2. It is based on the lookup table described in the documentation.
+     * @param real the
+     * @param ideal
+     * @return
+     */
+    private double errorMarginIngredients(int real, int ideal) {
+        // Look table
+        if(real == 1)
+            return ideal;
+
+        if(ideal == 0)
+            return 1;
+
+        return .7;
     }
 
     private double errorMargin(Double x, Double ideal)
@@ -121,8 +166,17 @@ public class Solution implements Comparable<Solution> {
         ideal = MAX;
         //System.out.println("x = " + x + " ideal = " + ideal + "\n");
         return Math.exp(- (x - ideal) * (x - ideal));
+    }
 
-        //return Math.exp(- (x*x/(ideal*ideal)));
+    private double  errorMarginInterval(Double x, Double lower_limit, Double upper_limit)
+    {
+        if (lower_limit <= x && x <= upper_limit)
+            return 1;
+        else if (x < lower_limit)
+            return errorMargin(x, lower_limit);
+        else
+            return errorMargin(x, upper_limit);
+
     }
 
     /**
