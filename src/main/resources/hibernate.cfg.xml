@@ -13,7 +13,7 @@
     <!--<property name="format_sql">true</property>-->
     <!--<property name="use_sql_comments">true</property>-->
      <!--<mapping class="Meals.Model.FoodProperties"/>  -->
-     <mapping class="org.licenta.d4elders.model.FoodProperties"/>
+     <mapping class="org.licenta.d4elders.model.outdated.FoodProperties"/>
 
      <!-- <mapping class="Meals.Model.NutrientsIdealValues"/> --> 
       <!-- DB schema will be updated if needed -->
