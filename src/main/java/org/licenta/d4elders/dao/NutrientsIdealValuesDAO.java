@@ -1,6 +1,6 @@
-package org.licenta.d4elders.model.Dao;
+package org.licenta.d4elders.dao;
 
-import org.licenta.d4elders.model.NutrientsIdealValues;
+import org.licenta.d4elders.model.outdated.NutrientsIdealValues;
 
 import java.util.List;
 

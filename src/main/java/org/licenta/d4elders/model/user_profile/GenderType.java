@@ -1,4 +1,4 @@
-package org.licenta.d4elders.model;
+package org.licenta.d4elders.model.user_profile;
 /**
  * Created by cristiprg on 20.04.2015.
  */

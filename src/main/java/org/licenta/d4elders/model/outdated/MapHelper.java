@@ -1,4 +1,4 @@
-package org.licenta.d4elders.model;
+package org.licenta.d4elders.model.outdated;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -6,7 +6,7 @@ import java.util.Map;
  * Created by cristiprg on 02.03.2015.
  */
 public class MapHelper {
-    protected static Map<String, Double> addNutrientsMaps(Map<String, Double> map1, Map<String, Double> map2)
+    public static Map<String, Double> addNutrientsMaps(Map<String, Double> map1, Map<String, Double> map2)
     {
         Map<String, Double> resultMap = new HashMap<String, Double>();
         for(String key : map1.keySet())
@@ -24,7 +24,7 @@ public class MapHelper {
         return resultMap;
     }
 
-    protected static Map<String, Double> addNutrientsMaps(Map<String, Double> map1,
+    public static Map<String, Double> addNutrientsMaps(Map<String, Double> map1,
                                                           Map<String, Double> map2,
                                                           Map<String, Double> map3)
     {
@@ -39,7 +39,7 @@ public class MapHelper {
         return addNutrientsMaps( addNutrientsMaps(map1, map2, map3 ), map4);
     }
 
-    protected static Map<String, Double> addNutrientsMaps(Map<String, Double> map1,
+    public static Map<String, Double> addNutrientsMaps(Map<String, Double> map1,
                                                           Map<String, Double> map2,
                                                           Map<String, Double> map3,
                                                           Map<String, Double> map4,

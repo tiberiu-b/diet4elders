@@ -1,6 +1,16 @@
 package org.licenta.d4elders.main;
 
+import org.licenta.d4elders.dal.FoodFactory;
 import org.licenta.d4elders.model.*;
+import org.licenta.d4elders.model.dish.Desert;
+import org.licenta.d4elders.model.dish.MainCourse;
+import org.licenta.d4elders.model.dish.StarterDish;
+import org.licenta.d4elders.model.meal.Breakfast;
+import org.licenta.d4elders.model.meal.DayMeal;
+import org.licenta.d4elders.model.meal.Dinner;
+import org.licenta.d4elders.model.meal.Lunch;
+import org.licenta.d4elders.model.meal.Snack;
+
 import java.util.Random;
 import java.util.SortedSet;
 import java.util.TreeSet;

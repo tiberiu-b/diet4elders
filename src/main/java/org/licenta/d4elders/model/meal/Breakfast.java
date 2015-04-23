@@ -1,21 +1,17 @@
-package org.licenta.d4elders.model;
+package org.licenta.d4elders.model.meal;
 import java.util.*;
+
+import org.licenta.d4elders.model.dish.Desert;
+import org.licenta.d4elders.model.dish.MainCourse;
+import org.licenta.d4elders.model.outdated.MapHelper;
 
 /**
  * 
  */
-public class Lunch extends BasicMeal{
-    protected StarterDish starterDish;
+public class Breakfast extends BasicMeal {
+
     protected MainCourse mainCourse;
     protected Desert desert;
-
-    public StarterDish getStarterDish() {
-        return starterDish;
-    }
-
-    public void setStarterDish(StarterDish starterDish) {
-        this.starterDish = starterDish;
-    }
 
     public MainCourse getMainCourse() {
         return mainCourse;
@@ -36,14 +32,13 @@ public class Lunch extends BasicMeal{
     /**
      * 
      */
-    public Lunch()
+    public Breakfast()
     {
-        this(null, null, null);
+        this(null, null);
     }
 
-    public Lunch(StarterDish starterDish, MainCourse mainCourse, Desert desert)
+    public Breakfast(MainCourse mainCourse, Desert desert)
     {
-        this.starterDish = starterDish;
         this.mainCourse = mainCourse;
         this.desert = desert;
     }
@@ -52,18 +47,16 @@ public class Lunch extends BasicMeal{
     public Map<String, Double> computeNutrientsValues()
     {
         nutrientsValuesMap = MapHelper.addNutrientsMaps(
-                starterDish.getNutrientsIdealValuesMap(),
                 mainCourse.getNutrientsIdealValuesMap(),
                 desert.getNutrientsIdealValuesMap());
 
         return getNutrientsValuesMap();
     }
 
-
     @Override
     public String toString()
     {
-        return starterDish.toString() + " " + mainCourse.toString() + " " + desert.toString();
+        return mainCourse.toString() + " " + desert.toString();
     }
 
     @Override
@@ -72,12 +65,12 @@ public class Lunch extends BasicMeal{
         if (this == other)
             return true;
 
-        if (!(other instanceof Lunch))
+        if (!(other instanceof Breakfast))
             return false;
 
-        Lunch _other = (Lunch) other;
-        return starterDish.equals(_other.starterDish)   &&
-                mainCourse.equals(_other.mainCourse)    &&
+        Breakfast _other = (Breakfast) other;
+        return mainCourse.equals(_other.mainCourse) &&
                 desert.equals(_other.desert);
     }
+
 }

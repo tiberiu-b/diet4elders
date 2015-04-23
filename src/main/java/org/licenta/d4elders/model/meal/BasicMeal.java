@@ -1,6 +1,5 @@
-package org.licenta.d4elders.model;
+package org.licenta.d4elders.model.meal;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**

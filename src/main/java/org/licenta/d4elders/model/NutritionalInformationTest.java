@@ -1,8 +1,8 @@
 package org.licenta.d4elders.model;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.licenta.d4elders.model.user_profile.UserProfileStub;
 
 import java.util.AbstractCollection;
 import java.util.Arrays;

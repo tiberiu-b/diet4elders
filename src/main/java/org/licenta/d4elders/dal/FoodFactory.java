@@ -1,5 +1,6 @@
-package org.licenta.d4elders.model;
-import org.licenta.d4elders.model.Dao.FoodPropertiesDAOImpl;
+package org.licenta.d4elders.dal;
+import org.licenta.d4elders.dao.FoodPropertiesDAOImpl;
+import org.licenta.d4elders.model.outdated.FoodProperties;
 
 import java.util.*;
 

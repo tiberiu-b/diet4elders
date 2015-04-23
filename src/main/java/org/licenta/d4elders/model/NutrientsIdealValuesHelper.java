@@ -1,10 +1,7 @@
 package org.licenta.d4elders.model;
 
-import org.licenta.d4elders.model.Dao.*;
+import org.licenta.d4elders.model.user_profile.UserProfileStub;
 
-import java.util.Map;
-import java.util.Set;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**

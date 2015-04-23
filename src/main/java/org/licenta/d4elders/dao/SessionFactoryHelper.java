@@ -1,4 +1,4 @@
-package org.licenta.d4elders.model.Dao;
+package org.licenta.d4elders.dao;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;

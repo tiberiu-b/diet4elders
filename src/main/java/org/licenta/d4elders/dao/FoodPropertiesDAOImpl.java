@@ -1,6 +1,6 @@
-package org.licenta.d4elders.model.Dao;
+package org.licenta.d4elders.dao;
 
-import org.licenta.d4elders.model.FoodProperties;
+import org.licenta.d4elders.model.outdated.FoodProperties;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

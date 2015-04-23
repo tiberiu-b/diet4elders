@@ -4,6 +4,9 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.licenta.d4elders.model.user_profile.GenderType;
+import org.licenta.d4elders.model.user_profile.UserProfileStub;
+
 /**
  * Computes and stores the nutritional values for a user.
  * TODO: Generic variables like names, lower and upper limits have to be read from a configuration file.

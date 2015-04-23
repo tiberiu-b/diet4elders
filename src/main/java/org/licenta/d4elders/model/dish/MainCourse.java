@@ -1,5 +1,6 @@
-package org.licenta.d4elders.model;
-import java.util.*;
+package org.licenta.d4elders.model.dish;
+
+import org.licenta.d4elders.model.outdated.FoodProperties;
 
 /**
  *

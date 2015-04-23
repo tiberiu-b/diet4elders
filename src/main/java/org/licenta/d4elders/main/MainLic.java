@@ -22,7 +22,7 @@ public class MainLic {
 		// query4();
 		// query5();
 		// query6();
-		 query7();
+		query7();
 		// query8();
 		long end = System.currentTimeMillis();
 		System.out.println("Time is: " + (end - start));
@@ -97,7 +97,8 @@ public class MainLic {
 				+ "?recipe foodprovider:recipeHasEnergy_kcal ?e." + "?recipe foodprovider:recipeHasIron_mg ?i."
 				+ "?recipe foodprovider:recipeHasSodium_mg ?s." + "?recipe foodprovider:recipeHasCalcium_mg ?ca."
 				+ "?recipe foodprovider:recipeHasVitaminA_ug ?va." + "?recipe foodprovider:recipeHasVitaminB6_mg ?vb."
-				+ "?recipe foodprovider:recipeHasVitaminC_mg ?vc." + "?recipe foodprovider:recipeHasVitaminD_ug ?vd}";
+				+ "?recipe foodprovider:recipeHasVitaminC_mg ?vc."
+				+ "?recipe foodprovider:recipeHasVitaminD_ug ?vd}";
 
 		foodProviderOntology.queryModel(queryString, foodProviderOntology.getOntModel(),
 				foodProviderOntology.getD2rData());

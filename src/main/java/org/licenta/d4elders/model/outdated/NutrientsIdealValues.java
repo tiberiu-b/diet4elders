@@ -1,5 +1,6 @@
-package org.licenta.d4elders.model;
+package org.licenta.d4elders.model.outdated;
 import javax.persistence.*;
+
 import java.util.HashMap;
 import java.util.Map;
 

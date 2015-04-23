@@ -1,5 +1,10 @@
-package org.licenta.d4elders.model;
+package org.licenta.d4elders.model.meal;
 import java.util.*;
+
+import org.licenta.d4elders.model.dish.Desert;
+import org.licenta.d4elders.model.dish.MainCourse;
+import org.licenta.d4elders.model.dish.StarterDish;
+import org.licenta.d4elders.model.outdated.MapHelper;
 
 /**
  * 

@@ -1,4 +1,4 @@
-package org.licenta.d4elders.model;
+package org.licenta.d4elders.model.user_profile;
 import java.util.Set;
 import java.util.TreeSet;
 
