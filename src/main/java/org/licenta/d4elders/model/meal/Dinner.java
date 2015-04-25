@@ -1,88 +1,102 @@
 package org.licenta.d4elders.model.meal;
-import java.util.*;
 
-import org.licenta.d4elders.model.dish.Desert;
-import org.licenta.d4elders.model.dish.MainCourse;
-import org.licenta.d4elders.model.dish.StarterDish;
-import org.licenta.d4elders.model.outdated.MapHelper;
+import org.licenta.d4elders.model.dish.*;
 
 /**
  * 
  */
-public class Dinner extends BasicMeal{
-    protected StarterDish starterDish;
-    protected MainCourse mainCourse;
-    protected Desert desert;
+public class Dinner extends Meal {
+	protected StarterDish starterDish;
+	protected Desert desert;
 
-    public StarterDish getStarterDish() {
-        return starterDish;
-    }
+	public StarterDish getStarterDish() {
+		return starterDish;
+	}
 
-    public void setStarterDish(StarterDish starterDish) {
-        this.starterDish = starterDish;
-    }
+	public void setStarterDish(StarterDish starterDish) {
+		this.starterDish = starterDish;
+	}
 
-    public MainCourse getMainCourse() {
-        return mainCourse;
-    }
+	public Desert getDesert() {
+		return desert;
+	}
 
-    public void setMainCourse(MainCourse mainCourse) {
-        this.mainCourse = mainCourse;
-    }
+	public void setDesert(Desert desert) {
+		this.desert = desert;
+	}
 
-    public Desert getDesert() {
-        return desert;
-    }
-
-    public void setDesert(Desert desert) {
-        this.desert = desert;
-    }
-
-    /**
+	/**
      * 
      */
-    public Dinner()
-    {
-        this(null, null, null);
-    }
+	public Dinner() {
+		this(null, null, null);
+	}
 
-    public Dinner(StarterDish starterDish, MainCourse mainCourse, Desert desert)
-    {
-        this.starterDish = starterDish;
-        this.mainCourse = mainCourse;
-        this.desert = desert;
-    }
+	public Dinner(StarterDish starterDish, MainCourse mainCourse, Desert desert) {
+		this.starterDish = starterDish;
+		this.mainCourse = mainCourse;
+		this.desert = desert;
+	}
 
-    @Override
-    public Map<String, Double> computeNutrientsValues()
-    {
-        nutrientsValuesMap = MapHelper.addNutrientsMaps(
-                starterDish.getNutrientsIdealValuesMap(),
-                mainCourse.getNutrientsIdealValuesMap(),
-                desert.getNutrientsIdealValuesMap());
+	@Override
+	public String toString() {
+		return starterDish.toString() + " " + mainCourse.toString() + " " + desert.toString();
+	}
 
-        return getNutrientsValuesMap();
-    }
+	@Override
+	public boolean equals(Object other) {
+		if (this == other)
+			return true;
 
+		if (!(other instanceof Dinner))
+			return false;
 
-    @Override
-    public String toString()
-    {
-        return starterDish.toString() + " " + mainCourse.toString() + " " + desert.toString();
-    }
+		Dinner _other = (Dinner) other;
+		return starterDish.equals(_other.starterDish) && mainCourse.equals(_other.mainCourse)
+				&& desert.equals(_other.desert);
+	}
 
-    @Override
-    public boolean equals(Object other)
-    {
-        if (this == other)
-            return true;
+	public float getProteins() {
+		return desert.getProteins() + mainCourse.getProteins() + starterDish.getProteins();
+	}
 
-        if (!(other instanceof Dinner))
-            return false;
+	public float getLipids() {
+		return desert.getLipids() + mainCourse.getLipids() + starterDish.getLipids();
+	}
 
-        Dinner _other = (Dinner) other;
-        return starterDish.equals(_other.starterDish)   &&
-                mainCourse.equals(_other.mainCourse)    &&
-                desert.equals(_other.desert);
-    }
+	public float getCarbohydrates() {
+		return desert.getCarbohydrates() + mainCourse.getCarbohydrates() + starterDish.getCarbohydrates();
+	}
+
+	public float getEnergy() {
+		return desert.getEnergy() + mainCourse.getEnergy() + starterDish.getEnergy();
+	}
+
+	public float getCalcium() {
+		return desert.getCalcium() + mainCourse.getCalcium() + starterDish.getCalcium();
+	}
+
+	public float getIron() {
+		return desert.getIron() + mainCourse.getIron() + starterDish.getIron();
+	}
+
+	public float getSodium() {
+		return desert.getSodium() + mainCourse.getSodium() + starterDish.getSodium();
+	}
+
+	public float getVitA() {
+		return desert.getVitA() + mainCourse.getVitA() + starterDish.getVitA();
+	}
+
+	public float getVitB() {
+		return desert.getVitB() + mainCourse.getVitB() + starterDish.getVitB();
+	}
+
+	public float getVitC() {
+		return desert.getVitC() + mainCourse.getVitC() + starterDish.getVitC();
+	}
+
+	public float getVitD() {
+		return desert.getVitD() + mainCourse.getVitD() + starterDish.getVitD();
+	}
 }

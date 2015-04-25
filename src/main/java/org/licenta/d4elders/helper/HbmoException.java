@@ -1,4 +1,4 @@
-package org.licenta.d4elders.model;
+package org.licenta.d4elders.helper;
 /**
  * Created by cristiprg on 21.04.2015.
  */

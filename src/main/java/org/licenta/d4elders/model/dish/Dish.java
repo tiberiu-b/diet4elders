@@ -1,53 +1,82 @@
 package org.licenta.d4elders.model.dish;
-import java.util.*;
 
-import org.licenta.d4elders.model.outdated.FoodProperties;
+import org.licenta.d4elders.model.Recipe;
 
-/**
- * 
- */
 public abstract class Dish {
 
-    protected FoodProperties foodProperties = null; // Ar trebui sa fie mai multe aici? Adica un Dish poate sa aiba mai multe mancaruri ... ?
+	protected Recipe recipeMain;
 
-    public FoodProperties getFoodProperties() {
-        return foodProperties;
-    }
+	public Dish() {
 
-    public void setFoodProperties(FoodProperties foodProperties) {
-        this.foodProperties = foodProperties;
-    }
-    /**
-     * 
-     */
-    public Dish() {
-        this(null);
-    }
+	}
 
-    public Dish(FoodProperties foodProperties)
-    {
-        this.foodProperties = foodProperties;
-    }
+	public Dish(Recipe recipe) {
+		recipeMain = recipe;
+	}
 
-    public Map<String, Double> getNutrientsIdealValuesMap() {
-        return foodProperties.getNutrientsIdealValuesMap();
-    }
+	@Override
+	public String toString() {
+		// return foodProperties.getCode() + " - " + foodProperties.getName();
+		return recipeMain.getRecipeId() + " - " + recipeMain.getName();
+	}
 
-    @Override
-    public String toString()
-    {
-        return foodProperties.getCode() + " - " + foodProperties.getName();
-    }
+	@Override
+	public boolean equals(Object other) {
+		if (this == other)
+			return true;
 
-    @Override
-    public boolean equals(Object other)
-    {
-        if (this == other)
-            return true;
+		if (!(other instanceof Dish))
+			return false;
 
-        if (!(other instanceof Dish))
-            return false;
+		return recipeMain.equals(((Dish) other).recipeMain);
+	}
 
-        return foodProperties.equals(((Dish) other).foodProperties);
-    }
+	public Recipe getRecipeMain() {
+		return recipeMain;
+	}
+
+	public float getProteins() {
+		return recipeMain.getProteins();
+	}
+
+	public float getLipids() {
+		return recipeMain.getLipids();
+	}
+
+	public float getCarbohydrates() {
+		return recipeMain.getCarbohydrates();
+	}
+
+	public float getEnergy() {
+		return recipeMain.getEnergy();
+	}
+
+	public float getCalcium() {
+		return recipeMain.getCalcium();
+	}
+
+	public float getIron() {
+		return recipeMain.getIron();
+	}
+
+	public float getSodium() {
+		return recipeMain.getSodium();
+	}
+
+	public float getVitA() {
+		return recipeMain.getVitA();
+	}
+
+	public float getVitB() {
+		return recipeMain.getVitB();
+	}
+
+	public float getVitC() {
+		return recipeMain.getVitC();
+	}
+
+	public float getVitD() {
+		return recipeMain.getVitD();
+	}
+
 }

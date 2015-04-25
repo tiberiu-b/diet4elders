@@ -9,6 +9,7 @@ import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
 import com.hp.hpl.jena.query.QueryFactory;
+import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.query.ResultSetFormatter;
 import com.hp.hpl.jena.rdf.model.InfModel;
@@ -101,7 +102,18 @@ public class FoodProviderOntology {
 		// System.out.println(row.getLiteral("first_name"));
 		// }
 
-		qexec.close();
+		// while (rs.hasNext()) {
+		// QuerySolution row = rs.nextSolution();
+		// if (row.getResource("recipe") != null) {
+		// // System.out.print(row.getLiteral("recipe") + "   ");
+		// System.out.println(row.getLiteral("name"));
+		// System.out.println("P: " + row.getLiteral("p"));
+		// System.out.println("F: " + row.get("f"));
+		// }
+		// }
+
+		// This has been commented - Should see if it affects memory by not closing it!
+		// qexec.close();
 		return rs;
 	}
 

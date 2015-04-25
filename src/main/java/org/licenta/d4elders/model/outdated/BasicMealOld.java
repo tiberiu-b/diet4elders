@@ -1,11 +1,11 @@
-package org.licenta.d4elders.model.meal;
+package org.licenta.d4elders.model.outdated;
 
 import java.util.Map;
 
 /**
  * Created by cristiprg on 02.03.2015.
  */
-public abstract class BasicMeal {
+public abstract class BasicMealOld {
 	protected Map<String, Double> nutrientsValuesMap = null;
 
 	public Map<String, Double> getNutrientsValuesMap() {
