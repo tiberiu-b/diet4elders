@@ -33,22 +33,22 @@ public class NutrientsIdealValuesHelper {
             NutritionalInformationSourceType.GeneralRecommendation,
             new UserProfileStub());
 
-    public static Double getIdealValueForNutrient(String nutrientName) throws HbmoNutrientNotFoundException {
+    public static synchronized Double getIdealValueForNutrient(String nutrientName) throws HbmoNutrientNotFoundException {
         SingleNutrientInformation nutrient = getSingleNutrientInformation(nutrientName);
         return nutrient.getFixedValue();
     }
 
-    public static Double[] getIdealIntervalForNutrient(String nutrientName) throws HbmoNutrientNotFoundException {
+    public static synchronized Double[] getIdealIntervalForNutrient(String nutrientName) throws HbmoNutrientNotFoundException {
         SingleNutrientInformation nutrient = getSingleNutrientInformation(nutrientName);
         return new Double[] {nutrient.getLowerLimit(), nutrient.getUpperLimit()};
     }
 
-    public static boolean nutrientHasInterval(String nutrientName) throws HbmoNutrientNotFoundException{
+    public static synchronized boolean nutrientHasInterval(String nutrientName) throws HbmoNutrientNotFoundException{
         SingleNutrientInformation nutrient = getSingleNutrientInformation(nutrientName);
         return nutrient.getLowerLimit() != null && nutrient.getUpperLimit() != null;
     }
 
-    public static Integer getWeightForNutrient(String nutrientName)throws HbmoNutrientNotFoundException{
+    public static synchronized Integer getWeightForNutrient(String nutrientName)throws HbmoNutrientNotFoundException{
         SingleNutrientInformation nutrient = nutritionalInformation.getNutrient(nutrientName);
         return nutrient.getWeight();
     }

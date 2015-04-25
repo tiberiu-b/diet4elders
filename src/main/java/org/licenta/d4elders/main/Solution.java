@@ -1,4 +1,5 @@
 package org.licenta.d4elders.main;
+import org.licenta.d4elders.dal.FoodFactory;
 import org.licenta.d4elders.model.*;
 import org.licenta.d4elders.model.dish.Desert;
 import org.licenta.d4elders.model.dish.MainCourse;
@@ -8,6 +9,7 @@ import org.licenta.d4elders.model.meal.DayMeal;
 import org.licenta.d4elders.model.meal.Dinner;
 import org.licenta.d4elders.model.meal.Lunch;
 import org.licenta.d4elders.model.meal.Snack;
+import org.licenta.d4elders.model.outdated.FoodProperties;
 import org.licenta.d4elders.model.user_profile.UserProfileHelper;
 
 import com.sun.istack.internal.NotNull;
@@ -367,6 +369,59 @@ public class Solution implements Comparable<Solution> {
                 drone.dayMeal.getSnack2());
 */
         return new Solution(brood);
+    }
+
+    /**
+     * Returns a new instance of Solution which has exactly the same components as
+     * this exept one component randomly selected which is replaced with a random
+     * value.
+     * @return a new Solution
+     */
+    public Solution randomMutation(){
+    	Random r = new Random();
+    	Breakfast breakfast = dayMeal.getBreakfast();
+    	Lunch lunch = dayMeal.getLunch();
+    	Dinner dinner = dayMeal.getDinner();
+    	Snack snack1 = dayMeal.getSnack1();
+    	Snack snack2 = dayMeal.getSnack2();
+
+    	switch(r.nextInt(5)){
+    	case 0:
+    		// Replace Breakfast
+    		Breakfast b = new Breakfast(
+    				new MainCourse(FoodFactory.getRandomFoodProperties()),
+    				new Desert(FoodFactory.getRandomFoodProperties()));
+
+    		return new Solution(new DayMeal(b, lunch, dinner, snack1, snack2));
+
+    	case 1:
+    		// Replace Lunch
+    		Lunch l = new Lunch(
+    				new StarterDish(FoodFactory.getRandomFoodProperties()),
+    				new MainCourse(FoodFactory.getRandomFoodProperties()),
+    				new Desert(FoodFactory.getRandomFoodProperties()));
+
+    		return new Solution(new DayMeal(breakfast, l, dinner, snack1, snack2));
+
+    	case 2:
+    		// Replace dinner
+    		Dinner d = new Dinner(
+    				new StarterDish(FoodFactory.getRandomFoodProperties()),
+    				new MainCourse(FoodFactory.getRandomFoodProperties()),
+    				new Desert(FoodFactory.getRandomFoodProperties()));
+
+    		return new Solution(new DayMeal(breakfast, lunch, d, snack1, snack2));
+    	case 3:
+    	case 4:
+    		// Replace snacks
+    		Snack s = new Snack(new MainCourse(FoodFactory.getRandomFoodProperties()));
+    		if(r.nextBoolean())
+    			return new Solution(new DayMeal(breakfast, lunch, dinner, s, snack2));
+    		else
+    			return new Solution(new DayMeal(breakfast, lunch, dinner, snack1, s));
+    	default:
+    		return null;
+    	}
     }
 
     public boolean hasEnergy() {

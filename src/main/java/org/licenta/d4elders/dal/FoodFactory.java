@@ -11,16 +11,16 @@ import java.util.*;
  */
 public class FoodFactory {
 
-    List<FoodProperties> foodPropertiesList;
+    private final static List<FoodProperties> foodPropertiesList;
     /**
      * 
      */
-    public FoodFactory() {
+    static {
         // Get all the food items
         foodPropertiesList = new FoodPropertiesDAOImpl().listFoodProperties();
     }
 
-    public FoodProperties getRandomFoodProperties()
+    static public synchronized FoodProperties getRandomFoodProperties()
     {
         Random r = new Random();
         return foodPropertiesList.get(r.nextInt(foodPropertiesList.size()));

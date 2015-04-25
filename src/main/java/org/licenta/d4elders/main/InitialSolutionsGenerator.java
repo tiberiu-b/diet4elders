@@ -11,6 +11,7 @@ import org.licenta.d4elders.model.meal.Dinner;
 import org.licenta.d4elders.model.meal.Lunch;
 import org.licenta.d4elders.model.meal.Snack;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -31,11 +32,11 @@ public class InitialSolutionsGenerator {
      *
      * @return A SortedSet (Tree) filled with random solutions.
      */
-    public static SortedSet<Solution> generateRandomSolutions() {
-        SortedSet<Solution> solutions = new TreeSet<Solution>();
+    public static SortedSet<Solution> generateRandomSolutions(final int size) {
+    	SortedSet<Solution> solutions = new TreeSet<Solution>();
         FoodFactory foodFactory = new FoodFactory();
 
-        for (int i = 0; i < NR_INITIAL_SOLUTIONS; i++)
+        for (int i = 0; i < size; i++)
         {
             Breakfast breakfast = new Breakfast(
                     new MainCourse(foodFactory.getRandomFoodProperties()),
@@ -72,5 +73,9 @@ public class InitialSolutionsGenerator {
         }
 
         return solutions;
+    }
+
+    public static SortedSet<Solution> generateRandomSolutions(){
+    	return generateRandomSolutions(NR_INITIAL_SOLUTIONS);
     }
 }
