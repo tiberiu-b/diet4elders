@@ -28,6 +28,7 @@ public class BroodImproverHelper{
 	static {
 		addSearchAlgorithm("Simulated Annealing", new SimulatedAnnealingBroodImprover(new AnnealingScheduler(1, 90, 0.1)));
 		addSearchAlgorithm("Hill Climbing", new HillClimbingBroodImprover());
+		addSearchAlgorithm("Tabu Search", new TabuSearchBroodImprover());
 	}
 
 	/**
@@ -117,6 +118,7 @@ public class BroodImproverHelper{
 		public void run() {
 			int size = bucket.size();
 			for(int i = size-1; i >= 0; --i){
+				// Replace the solution on the current index with the improved one.
 				bucket.set(i, improve(bucket.get(i)));
 			}
 		}
