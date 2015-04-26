@@ -27,6 +27,7 @@ public class BroodImproverHelper{
 
 	static {
 		addSearchAlgorithm("Simulated Annealing", new SimulatedAnnealingBroodImprover(new AnnealingScheduler(1, 90, 0.1)));
+		addSearchAlgorithm("Hill Climbing", new HillClimbingBroodImprover());
 	}
 
 	/**
