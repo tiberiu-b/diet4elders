@@ -1,12 +1,9 @@
 package org.licenta.d4elders.model.dish;
 
-import org.licenta.d4elders.model.outdated.FoodProperties;
+import org.licenta.d4elders.model.Recipe;
 
-/**
- * 
- */
 public class Desert extends Dish {
-	public Desert(FoodProperties foodProperties) {
-		super(foodProperties);
+	public Desert(Recipe recipe) {
+		super(recipe);
 	}
 }

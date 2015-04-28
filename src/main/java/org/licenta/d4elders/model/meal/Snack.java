@@ -1,58 +1,82 @@
 package org.licenta.d4elders.model.meal;
-import java.util.*;
 
 import org.licenta.d4elders.model.dish.MainCourse;
 
 /**
  * 
  */
-public class Snack extends BasicMeal{
-    protected MainCourse mainCourse;
+public class Snack extends Meal {
 
-    public MainCourse getMainCourse() {
-        return mainCourse;
-    }
-
-    public void setMainCourse(MainCourse mainCourse) {
-        this.mainCourse = mainCourse;
-    }
-
-    /**
+	/**
      * 
      */
-    public Snack() {
-        this(null);
-    }
+	public Snack() {
+		this(null);
+	}
 
-    public Snack(MainCourse mainCourse)
-    {
-        this.mainCourse = mainCourse;
-    }
+	public Snack(MainCourse mainCourse) {
+		this.mainCourse = mainCourse;
+	}
 
-    @Override
-    public Map<String, Double> computeNutrientsValues()
-    {
-        nutrientsValuesMap = mainCourse.getNutrientsIdealValuesMap();
-        return getNutrientsValuesMap();
-    }
+	@Override
+	public String toString() {
+		return mainCourse.toString();
+	}
 
+	@Override
+	public boolean equals(Object other) {
+		if (this == other)
+			return true;
 
-    @Override
-    public String toString()
-    {
-        return mainCourse.toString();
-    }
+		if (!(other instanceof Snack))
+			return false;
 
-    @Override
-    public boolean equals(Object other)
-    {
-        if (this == other)
-            return true;
+		Snack _other = (Snack) other;
+		return mainCourse.equals(_other.mainCourse);
+	}
 
-        if (!(other instanceof Snack))
-            return false;
+	public float getProteins() {
+		return mainCourse.getProteins();
+	}
 
-        Snack _other = (Snack) other;
-        return mainCourse.equals(_other.mainCourse);
-    }
+	public float getLipids() {
+		return mainCourse.getLipids();
+	}
+
+	public float getCarbohydrates() {
+		return mainCourse.getCarbohydrates();
+	}
+
+	public float getEnergy() {
+		return mainCourse.getEnergy();
+	}
+
+	public float getCalcium() {
+		return mainCourse.getCalcium();
+	}
+
+	public float getIron() {
+		return mainCourse.getIron();
+	}
+
+	public float getSodium() {
+		return mainCourse.getSodium();
+	}
+
+	public float getVitA() {
+		return mainCourse.getVitA();
+	}
+
+	public float getVitB() {
+		return mainCourse.getVitB();
+	}
+
+	public float getVitC() {
+		return mainCourse.getVitC();
+	}
+
+	public float getVitD() {
+		return mainCourse.getVitD();
+	}
+
 }

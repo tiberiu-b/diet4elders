@@ -1,76 +1,94 @@
 package org.licenta.d4elders.model.meal;
-import java.util.*;
 
 import org.licenta.d4elders.model.dish.Desert;
 import org.licenta.d4elders.model.dish.MainCourse;
-import org.licenta.d4elders.model.outdated.MapHelper;
 
 /**
  * 
  */
-public class Breakfast extends BasicMeal {
+public class Breakfast extends Meal {
 
-    protected MainCourse mainCourse;
-    protected Desert desert;
+	protected Desert desert;
 
-    public MainCourse getMainCourse() {
-        return mainCourse;
-    }
+	public Desert getDesert() {
+		return desert;
+	}
 
-    public void setMainCourse(MainCourse mainCourse) {
-        this.mainCourse = mainCourse;
-    }
+	public void setDesert(Desert desert) {
+		this.desert = desert;
+	}
 
-    public Desert getDesert() {
-        return desert;
-    }
-
-    public void setDesert(Desert desert) {
-        this.desert = desert;
-    }
-
-    /**
+	/**
      * 
      */
-    public Breakfast()
-    {
-        this(null, null);
-    }
+	public Breakfast() {
+		this(null, null);
+	}
 
-    public Breakfast(MainCourse mainCourse, Desert desert)
-    {
-        this.mainCourse = mainCourse;
-        this.desert = desert;
-    }
+	public Breakfast(MainCourse mainCourse, Desert desert) {
+		this.mainCourse = mainCourse;
+		this.desert = desert;
+	}
 
-    @Override
-    public Map<String, Double> computeNutrientsValues()
-    {
-        nutrientsValuesMap = MapHelper.addNutrientsMaps(
-                mainCourse.getNutrientsIdealValuesMap(),
-                desert.getNutrientsIdealValuesMap());
+	@Override
+	public String toString() {
+		return mainCourse.toString() + " " + desert.toString();
+	}
 
-        return getNutrientsValuesMap();
-    }
+	@Override
+	public boolean equals(Object other) {
+		if (this == other)
+			return true;
 
-    @Override
-    public String toString()
-    {
-        return mainCourse.toString() + " " + desert.toString();
-    }
+		if (!(other instanceof Breakfast))
+			return false;
 
-    @Override
-    public boolean equals(Object other)
-    {
-        if (this == other)
-            return true;
+		Breakfast _other = (Breakfast) other;
+		return mainCourse.equals(_other.mainCourse) && desert.equals(_other.desert);
+	}
 
-        if (!(other instanceof Breakfast))
-            return false;
+	public float getProteins() {
+		return desert.getProteins() + mainCourse.getProteins();
+	}
 
-        Breakfast _other = (Breakfast) other;
-        return mainCourse.equals(_other.mainCourse) &&
-                desert.equals(_other.desert);
-    }
+	public float getLipids() {
+		return desert.getLipids() + mainCourse.getLipids();
+	}
+
+	public float getCarbohydrates() {
+		return desert.getCarbohydrates() + mainCourse.getCarbohydrates();
+	}
+
+	public float getEnergy() {
+		return desert.getEnergy() + mainCourse.getEnergy();
+	}
+
+	public float getCalcium() {
+		return desert.getCalcium() + mainCourse.getCalcium();
+	}
+
+	public float getIron() {
+		return desert.getIron() + mainCourse.getIron();
+	}
+
+	public float getSodium() {
+		return desert.getSodium() + mainCourse.getSodium();
+	}
+
+	public float getVitA() {
+		return desert.getVitA() + mainCourse.getVitA();
+	}
+
+	public float getVitB() {
+		return desert.getVitB() + mainCourse.getVitB();
+	}
+
+	public float getVitC() {
+		return desert.getVitC() + mainCourse.getVitC();
+	}
+
+	public float getVitD() {
+		return desert.getVitD() + mainCourse.getVitD();
+	}
 
 }

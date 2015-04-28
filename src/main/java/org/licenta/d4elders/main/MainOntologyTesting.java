@@ -3,12 +3,12 @@ package org.licenta.d4elders.main;
 import org.licenta.d4elders.ontology.FoodProviderOntology;
 import com.hp.hpl.jena.rdf.model.Model;
 
-public class MainLic {
+public class MainOntologyTesting {
 	private static FoodProviderOntology foodProviderOntology;
 	private static Model model;
 	private static Model data;
 
-	public static void main(String[] args) {
+	public static void main1(String[] args) {
 
 		long start = System.currentTimeMillis();
 
@@ -97,8 +97,7 @@ public class MainLic {
 				+ "?recipe foodprovider:recipeHasEnergy_kcal ?e." + "?recipe foodprovider:recipeHasIron_mg ?i."
 				+ "?recipe foodprovider:recipeHasSodium_mg ?s." + "?recipe foodprovider:recipeHasCalcium_mg ?ca."
 				+ "?recipe foodprovider:recipeHasVitaminA_ug ?va." + "?recipe foodprovider:recipeHasVitaminB6_mg ?vb."
-				+ "?recipe foodprovider:recipeHasVitaminC_mg ?vc."
-				+ "?recipe foodprovider:recipeHasVitaminD_ug ?vd}";
+				+ "?recipe foodprovider:recipeHasVitaminC_mg ?vc." + "?recipe foodprovider:recipeHasVitaminD_ug ?vd}";
 
 		foodProviderOntology.queryModel(queryString, foodProviderOntology.getOntModel(),
 				foodProviderOntology.getD2rData());

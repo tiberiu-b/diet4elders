@@ -5,72 +5,67 @@ package org.licenta.d4elders.model;
  */
 public class SingleNutrientInformation {
 
-    /**
-     * 
-     */
-    public SingleNutrientInformation() {
-    }
+	private String name = null;
 
-    public SingleNutrientInformation(String name) {
-        setName(name);
-    }
+	private Double lowerLimit = null;
+	private Double upperLimit = null;
+	private Double fixedValue = null;
+	private Double tolerableUpperIntakeLevel = null;
+	private Integer weight = 1;
 
-    public String getName() {
-        return name;
-    }
+	public SingleNutrientInformation() {
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public SingleNutrientInformation(String name) {
+		setName(name);
+	}
 
-    public Double getLowerLimit() {
-        return lowerLimit;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setLowerLimit(Double lowerLimit) {
-        this.lowerLimit = lowerLimit;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public Double getUpperLimit() {
-        return upperLimit;
-    }
+	public Double getLowerLimit() {
+		return lowerLimit;
+	}
 
-    public void setUpperLimit(Double upperLimit) {
-        this.upperLimit = upperLimit;
-    }
+	public void setLowerLimit(Double lowerLimit) {
+		this.lowerLimit = lowerLimit;
+	}
 
-    public Double getFixedValue() {
-        return fixedValue;
-    }
+	public Double getUpperLimit() {
+		return upperLimit;
+	}
 
-    public void setFixedValue(Double fixedValue) {
-        this.fixedValue = fixedValue;
-    }
+	public void setUpperLimit(Double upperLimit) {
+		this.upperLimit = upperLimit;
+	}
 
-    public Double getTolerableUpperIntakeLevel() {
-        return tolerableUpperIntakeLevel;
-    }
+	public Double getFixedValue() {
+		return fixedValue;
+	}
 
-    public void setTolerableUpperIntakeLevel(Double tolerableUpperIntakeLevel) {
-        this.tolerableUpperIntakeLevel = tolerableUpperIntakeLevel;
-    }
+	public void setFixedValue(Double fixedValue) {
+		this.fixedValue = fixedValue;
+	}
 
-    public Integer getWeight() {
-        return weight;
-    }
+	public Double getTolerableUpperIntakeLevel() {
+		return tolerableUpperIntakeLevel;
+	}
 
-    public void setWeight(Integer weight) {
-        this.weight = weight;
-    }
+	public void setTolerableUpperIntakeLevel(Double tolerableUpperIntakeLevel) {
+		this.tolerableUpperIntakeLevel = tolerableUpperIntakeLevel;
+	}
 
-    /**
-     * 
-     */
-    private String name = null;
+	public Integer getWeight() {
+		return weight;
+	}
 
-    private Double lowerLimit = null;
-    private Double upperLimit = null;
-    private Double fixedValue = null;
-    private Double tolerableUpperIntakeLevel = null;
-    private Integer weight = 1;
+	public void setWeight(Integer weight) {
+		this.weight = weight;
+	}
+
 }

@@ -1,7 +1,8 @@
-package org.licenta.d4elders.model;
+package org.licenta.d4elders.helper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.licenta.d4elders.model.SingleNutrientInformation;
 import org.licenta.d4elders.model.user_profile.UserProfileStub;
 
 import java.util.AbstractCollection;

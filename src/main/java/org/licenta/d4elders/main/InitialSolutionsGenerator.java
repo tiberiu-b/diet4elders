@@ -1,5 +1,6 @@
 package org.licenta.d4elders.main;
 
+/*
 import org.licenta.d4elders.dal.FoodFactory;
 import org.licenta.d4elders.model.*;
 import org.licenta.d4elders.model.dish.Desert;
@@ -11,71 +12,75 @@ import org.licenta.d4elders.model.meal.Dinner;
 import org.licenta.d4elders.model.meal.Lunch;
 import org.licenta.d4elders.model.meal.Snack;
 
+*/
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-/**
- * Created by cristiprg on 1/18/2015.
- */
+import org.licenta.d4elders.dal.*;
+import org.licenta.d4elders.model.Solution;
+import org.licenta.d4elders.model.meal.*;
+import org.licenta.d4elders.model.user_profile.NutritionalRecommendation;
+
 public class InitialSolutionsGenerator {
 
-    public static final int NR_INITIAL_SOLUTIONS = 10000;
-    // public static final double MIN = 0.8;
-    // public static final double MAX = 1.2;
-    public static final double MIN = -100;
-    public static final double MAX = 100;
+	public static final int NR_INITIAL_SOLUTIONS = 200;
+	// public static final double MIN = 0.8;
+	// public static final double MAX = 1.2;
+	public static final double MIN = -100;
+	public static final double MAX = 100;
 
-    /**
-     * Aicia vine Honey Bee Colony in actiune. Deocamdata facem random
-     *
-     * @return A SortedSet (Tree) filled with random solutions.
-     */
-    public static SortedSet<Solution> generateRandomSolutions(final int size) {
-    	SortedSet<Solution> solutions = new TreeSet<Solution>();
-        FoodFactory foodFactory = new FoodFactory();
+	public static NutritionalRecommendation nutrRec;
 
-        for (int i = 0; i < size; i++)
-        {
-            Breakfast breakfast = new Breakfast(
-                    new MainCourse(foodFactory.getRandomFoodProperties()),
-                    new Desert(foodFactory.getRandomFoodProperties())
-            );
+	/**
+	 * Aicia vine Honey Bee Colony in actiune. Deocamdata facem random
+	 *
+	 * @return A SortedSet (Tree) filled with random solutions.
+	 */
+	public static SortedSet<Solution> generateRandomSolutions() {
+		int numberOfSolutions = 1000;
+		SortedSet<Solution> solutions = new TreeSet<Solution>();
+		BusinessLogic bl = new BusinessLogic();
+		ArrayList<Breakfast> breakfastList = bl.generateBreakfastMeals(numberOfSolutions);
+		ArrayList<Lunch> lunchList = bl.generateLunchMeals(numberOfSolutions);
+		ArrayList<Dinner> dinnerList = bl.generateDinnerMeals(numberOfSolutions);
+		ArrayList<Snack> snackList = bl.generateSnackMeals(numberOfSolutions * 2);
 
-            Lunch lunch = new Lunch(
-                    new StarterDish(foodFactory.getRandomFoodProperties()),
-                    new MainCourse(foodFactory.getRandomFoodProperties()),
-                    new Desert(foodFactory.getRandomFoodProperties())
-            );
+		for (int i = 0; i < NR_INITIAL_SOLUTIONS; i++) {
+			Random generator = new Random();
+			int randomNumber = generator.nextInt(numberOfSolutions);
+			Breakfast breakfast = breakfastList.get(randomNumber);
 
-            Dinner dinner = new Dinner(
-                    new StarterDish(foodFactory.getRandomFoodProperties()),
-                    new MainCourse(foodFactory.getRandomFoodProperties()),
-                    new Desert(foodFactory.getRandomFoodProperties())
-            );
+			randomNumber = generator.nextInt(numberOfSolutions);
+			Lunch lunch = lunchList.get(randomNumber);
 
-            Snack snack1 = new Snack(
-                    new MainCourse(foodFactory.getRandomFoodProperties())
-            );
+			randomNumber = generator.nextInt(numberOfSolutions);
+			Dinner dinner = dinnerList.get(randomNumber);
 
-            Snack snack2 = new Snack(
-                    new MainCourse(foodFactory.getRandomFoodProperties())
-            );
+			randomNumber = generator.nextInt(numberOfSolutions);
+			Snack snack1 = snackList.get(randomNumber);
 
-            DayMeal dayMeal = new DayMeal(breakfast, lunch, dinner, snack1, snack2);
+			randomNumber = generator.nextInt(numberOfSolutions) + numberOfSolutions;
+			Snack snack2 = snackList.get(randomNumber);
 
-            if(solutions.add(new Solution(dayMeal)) == false){
-                // TODO: scoate odiosenia asta
-                System.err.println("Fatal error: NU CRED - Method \"add\" returned false - adica is doua exact la fel!");
-                System.exit(1);
-            }
-        }
+			DayMeal dayMeal = new DayMeal(breakfast, lunch, dinner, snack1, snack2);
+
+			if (solutions.add(new Solution(dayMeal)) == false) {
+				// TODO: scoate odiosenia asta
+				System.err
+						.println("Fatal error: NU CRED - Method \"add\" returned false - adica is doua exact la fel!");
+				System.exit(1);
+			}
+		}
+
 
         return solutions;
     }
-
+/*
     public static SortedSet<Solution> generateRandomSolutions(){
     	return generateRandomSolutions(NR_INITIAL_SOLUTIONS);
     }
+	*/
 }
+

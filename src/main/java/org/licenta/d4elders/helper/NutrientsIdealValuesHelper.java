@@ -1,5 +1,6 @@
-package org.licenta.d4elders.model;
+package org.licenta.d4elders.helper;
 
+import org.licenta.d4elders.model.SingleNutrientInformation;
 import org.licenta.d4elders.model.user_profile.UserProfileStub;
 
 import java.util.logging.Logger;

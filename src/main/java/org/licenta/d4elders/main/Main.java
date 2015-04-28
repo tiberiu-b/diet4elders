@@ -9,6 +9,7 @@ import org.licenta.d4elders.algorithm.MainAlgorithm.RunInformation;
  */
 public class Main {
 
+/*
     public static void main(String args[]) {
 
         HoneyBeeMatingOptimiziation HBMO = new HoneyBeeMatingOptimiziation();
@@ -22,4 +23,11 @@ public class Main {
 
         System.out.println("Duration of execution(in millis): " + info.duration);
     }
+*/
+	public static void main(String args[]) {
+		Diet4Elders d4e = new Diet4Elders();
+		d4e.run();
+	}
+
+
 }

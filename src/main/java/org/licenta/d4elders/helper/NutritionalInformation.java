@@ -1,9 +1,10 @@
-package org.licenta.d4elders.model;
+package org.licenta.d4elders.helper;
 
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.licenta.d4elders.model.SingleNutrientInformation;
 import org.licenta.d4elders.model.user_profile.GenderType;
 import org.licenta.d4elders.model.user_profile.UserProfileStub;
 

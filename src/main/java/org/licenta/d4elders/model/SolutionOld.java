@@ -1,15 +1,21 @@
-package org.licenta.d4elders.main;
-import org.licenta.d4elders.dal.FoodFactory;
+
+package org.licenta.d4elders.model;
+import org.licenta.d4elders.helper.HbmoNutrientNotFoundException;
+import org.licenta.d4elders.helper.NutrientsIdealValuesHelper;
+
 import org.licenta.d4elders.model.*;
-import org.licenta.d4elders.model.dish.Desert;
-import org.licenta.d4elders.model.dish.MainCourse;
-import org.licenta.d4elders.model.dish.StarterDish;
 import org.licenta.d4elders.model.meal.Breakfast;
 import org.licenta.d4elders.model.meal.DayMeal;
 import org.licenta.d4elders.model.meal.Dinner;
 import org.licenta.d4elders.model.meal.Lunch;
 import org.licenta.d4elders.model.meal.Snack;
+
 import org.licenta.d4elders.model.outdated.FoodProperties;
+
+import org.licenta.d4elders.model.outdated.DesertOld;
+import org.licenta.d4elders.model.outdated.MainCourseOld;
+import org.licenta.d4elders.model.outdated.StarterDishOld;
+
 import org.licenta.d4elders.model.user_profile.UserProfileHelper;
 
 import com.sun.istack.internal.NotNull;
@@ -24,8 +30,8 @@ import java.util.logging.Logger;
 /**
  * The bee.
  */
-public class Solution implements Comparable<Solution> {
-    private static final Logger log = Logger.getLogger( Solution.class.getName() );
+public class SolutionOld implements Comparable<SolutionOld> {
+    private static final Logger log = Logger.getLogger( SolutionOld.class.getName() );
 
     private DayMeal dayMeal;
 
@@ -42,12 +48,12 @@ public class Solution implements Comparable<Solution> {
     }
 
 
-    public Solution()
+    public SolutionOld()
     {
         this(null);
     }
 
-    public Solution(DayMeal dayMeal) {
+    public SolutionOld(DayMeal dayMeal) {
         this.dayMeal = dayMeal;
         computeNutrientsValues();
         computeFitness();
@@ -59,7 +65,7 @@ public class Solution implements Comparable<Solution> {
     }
 
     @Override
-    public int compareTo(@NotNull Solution other) {
+    public int compareTo(@NotNull SolutionOld other) {
         if (this.equals(other)) {
             return 0;
         }
@@ -198,7 +204,7 @@ public class Solution implements Comparable<Solution> {
      * @param drone
      * @return a double in interval [0, 1] representing the probability.
      */
-    public double probabilityToMateDrone(Solution drone) {
+    public double probabilityToMateDrone(SolutionOld drone) {
         double thisFitness = this.getFitness();
         double droneFitness = drone.getFitness();
         double prob = Math.exp(-Math.abs(thisFitness - droneFitness) / this.speed);
@@ -214,7 +220,7 @@ public class Solution implements Comparable<Solution> {
      * @param drone
      * @return A non-negative integer.
      */
-    public int numberOfBroodsWithDrone(Solution drone) {
+    public int numberOfBroodsWithDrone(SolutionOld drone) {
         // return (int) (energy * drone.getFitness() * (new Random().nextInt()))
         // % 10;
 
@@ -245,12 +251,12 @@ public class Solution implements Comparable<Solution> {
      * @param drone
      * @return A sorted set (TreeSet) of solutions.
      */
-    public SortedSet<Solution> createBroods(Solution drone) {
-        SortedSet<Solution> broods = new TreeSet<Solution>();
+    public SortedSet<SolutionOld> createBroods(SolutionOld drone) {
+        SortedSet<SolutionOld> broods = new TreeSet<SolutionOld>();
         int nr_broods = numberOfBroodsWithDrone(drone);
         // System.out.println("Creating " + nr_broods + " broods.");
         for (int i = 0; i < nr_broods; i++) {
-            Solution brood = combineGenotypes(drone);
+            SolutionOld brood = combineGenotypes(drone);
             broods.add(brood);
         }
 
@@ -263,13 +269,13 @@ public class Solution implements Comparable<Solution> {
      * @param drone
      * @return A new solution (brood).
      */
-    public Solution combineGenotypes2(Solution drone) {
+    public SolutionOld combineGenotypes2(SolutionOld drone) {
         Random r = new Random();
         double x = r.nextDouble();
         double y = r.nextDouble();
         //return new Solution(x, y); //TODO
 
-        return new Solution();
+        return new SolutionOld();
     }
 
     public Solution combineSingleGenotype(Solution drone, GeneType type){
@@ -358,12 +364,12 @@ public class Solution implements Comparable<Solution> {
      * @param drone
      * @return A new solution (brood).
      */
-    public Solution combineGenotypes(Solution drone) {
+    public SolutionOld combineGenotypes(SolutionOld drone) {
         Random r = new Random();
 
-        StarterDish starterDish1 = null, starterDish2 = null;
-        MainCourse mainCourse1 = null, mainCourse2 = null;
-        Desert desert1 = null, desert2 = null;
+        StarterDishOld starterDish1 = null, starterDish2 = null;
+        MainCourseOld mainCourse1 = null, mainCourse2 = null;
+        DesertOld desert1 = null, desert2 = null;
 
         // combine breakfast
         mainCourse1 = this.dayMeal.getBreakfast().getMainCourse();
@@ -447,7 +453,7 @@ public class Solution implements Comparable<Solution> {
                 this.dayMeal.getSnack2() :
                 drone.dayMeal.getSnack2());
 */
-        return new Solution(brood);
+        return new SolutionOld(brood);
     }
 
     /**
@@ -522,10 +528,10 @@ public class Solution implements Comparable<Solution> {
         if (this == other)
             return true;
 
-        if (!(other instanceof Solution))
+        if (!(other instanceof SolutionOld))
             return false;
 
-        return this.dayMeal.equals(((Solution) other).getDayMeal());
+        return this.dayMeal.equals(((SolutionOld) other).getDayMeal());
     }
 
     /**
