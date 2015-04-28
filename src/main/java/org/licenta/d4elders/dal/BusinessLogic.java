@@ -30,6 +30,28 @@ public class BusinessLogic {
 	private String sideDish = "Side_Dish";
 	private String desert = "Dessert";
 
+	/*
+	 * The arrays are fetched once and stored in cache.
+	 * Subsequent calls return the cached arrays.
+	 * Since the elements in the ontology are constant during a
+	 * run of the program, there won't be any misses.
+	 */
+	private static ArrayList<Recipe> breakfastMainCourseSingleRecipesCache;
+	private static ArrayList<Recipe> breakfastMainCourseNotSingleRecipesCache;
+	private static ArrayList<Recipe> breakfastSideDishRecipesCache;
+	private static ArrayList<Recipe> breakfastDesertCache;
+	private static ArrayList<Recipe> lunchStarterDishRecipesCache;
+	private static ArrayList<Recipe> lunchMainCourseSingleRecipesCache;
+	private static ArrayList<Recipe> lunchMainCourseNotSingleRecipesCache;
+	private static ArrayList<Recipe> lunchSideDishRecipesCache;
+	private static ArrayList<Recipe> lunchSideDesertRecipesCache;
+	private static ArrayList<Recipe> dinnerStarterDishRecipesCache;
+	private static ArrayList<Recipe> dinnerMainCourseSingleRecipesCache;
+	private static ArrayList<Recipe> dinnerMainCourseNotSingleRecipesCache;
+	private static ArrayList<Recipe> dinnerSideDishRecipesCache;
+	private static ArrayList<Recipe> dinnerDesertRecipesCache;
+	private static ArrayList<Recipe> snackMainCourseSingleRecipes;
+
 	public BusinessLogic() {
 
 		foodProviderOntology = new FoodProviderOntology();
@@ -188,63 +210,138 @@ public class BusinessLogic {
 	}
 
 	public ArrayList<Recipe> getAllBreakfastMainCourseSingleRecipes() {
-		return getAllRecipes(breakfast, mainCourseSingle);
+		if (breakfastMainCourseSingleRecipesCache != null){
+			return breakfastMainCourseSingleRecipesCache;
+		}
+
+		breakfastMainCourseSingleRecipesCache = getAllRecipes(breakfast, mainCourseSingle);
+		return breakfastMainCourseSingleRecipesCache;
 	}
 
 	public ArrayList<Recipe> getAllBreakfastMainCourseNotSingleRecipes() {
-		return getAllRecipes(breakfast, mainCourseNotSingle);
+		if (breakfastMainCourseNotSingleRecipesCache != null){
+			return breakfastMainCourseNotSingleRecipesCache;
+		}
+
+		breakfastMainCourseNotSingleRecipesCache = getAllRecipes(breakfast, mainCourseNotSingle);
+		return breakfastMainCourseNotSingleRecipesCache;
 	}
 
 	public ArrayList<Recipe> getAllBreakfastSideDishRecipes() {
-		return getAllRecipes(breakfast, sideDish);
+		if (breakfastSideDishRecipesCache != null){
+			return breakfastSideDishRecipesCache;
+		}
+
+		breakfastSideDishRecipesCache = getAllRecipes(breakfast, sideDish);
+		return breakfastSideDishRecipesCache;
 	}
 
 	public ArrayList<Recipe> getAllBreakfastDesert() {
-		return getAllRecipes(breakfast, desert);
+		if (breakfastDesertCache != null){
+			return breakfastDesertCache;
+		}
+
+		breakfastDesertCache = getAllRecipes(breakfast, desert);
+		return breakfastDesertCache;
 	}
 
 	public ArrayList<Recipe> getAllLunchStarterDishRecipes() {
-		return getAllRecipes(lunch, starterDish);
+		if (lunchStarterDishRecipesCache != null){
+			return lunchStarterDishRecipesCache;
+		}
+
+		lunchStarterDishRecipesCache = getAllRecipes(lunch, starterDish);
+		return lunchStarterDishRecipesCache;
 	}
 
 	public ArrayList<Recipe> getAllLunchMainCourseSingleRecipes() {
-		return getAllRecipes(lunch, mainCourseSingle);
+		if (lunchMainCourseSingleRecipesCache != null){
+			return lunchMainCourseSingleRecipesCache;
+		}
+
+		lunchMainCourseSingleRecipesCache = getAllRecipes(lunch, mainCourseSingle);
+		return lunchMainCourseSingleRecipesCache;
 	}
 
 	public ArrayList<Recipe> getAllLunchMainCourseNotSingleRecipes() {
-		return getAllRecipes(lunch, mainCourseNotSingle);
+		if (lunchMainCourseNotSingleRecipesCache != null){
+			return lunchMainCourseNotSingleRecipesCache;
+		}
+
+		lunchMainCourseNotSingleRecipesCache = getAllRecipes(lunch, mainCourseNotSingle);
+		return lunchMainCourseNotSingleRecipesCache;
 	}
 
 	public ArrayList<Recipe> getAllLunchSideDishRecipes() {
-		return getAllRecipes(lunch, sideDish);
+		if (lunchSideDishRecipesCache != null){
+			return lunchSideDishRecipesCache;
+		}
+
+		lunchSideDishRecipesCache = getAllRecipes(lunch, sideDish);
+		return lunchSideDishRecipesCache;
 	}
 
 	public ArrayList<Recipe> getAllLunchDesertRecipes() {
-		return getAllRecipes(lunch, desert);
+		if (lunchSideDesertRecipesCache != null){
+			return lunchSideDesertRecipesCache;
+		}
+
+		lunchSideDesertRecipesCache = getAllRecipes(lunch, desert);
+		return lunchSideDesertRecipesCache;
 	}
 
 	public ArrayList<Recipe> getAllDinnerStarterDishRecipes() {
-		return getAllRecipes(dinner, starterDish);
+		if (dinnerStarterDishRecipesCache != null){
+			return dinnerStarterDishRecipesCache;
+		}
+
+		dinnerStarterDishRecipesCache = getAllRecipes(dinner, starterDish);
+		return dinnerStarterDishRecipesCache;
 	}
 
 	public ArrayList<Recipe> getAllDinnerMainCourseSingleRecipes() {
-		return getAllRecipes(dinner, mainCourseSingle);
+		if (dinnerMainCourseSingleRecipesCache != null){
+			return dinnerMainCourseSingleRecipesCache;
+		}
+
+		dinnerMainCourseSingleRecipesCache = getAllRecipes(dinner, mainCourseSingle);
+		return dinnerMainCourseSingleRecipesCache;
 	}
 
 	public ArrayList<Recipe> getAllDinnerMainCourseNotSingleRecipes() {
-		return getAllRecipes(dinner, mainCourseNotSingle);
+		if (dinnerMainCourseNotSingleRecipesCache != null){
+			return dinnerMainCourseNotSingleRecipesCache;
+		}
+
+		dinnerMainCourseNotSingleRecipesCache = getAllRecipes(dinner, mainCourseNotSingle);
+		return dinnerMainCourseNotSingleRecipesCache;
 	}
 
 	public ArrayList<Recipe> getAllDinnerSideDishRecipes() {
-		return getAllRecipes(dinner, sideDish);
+		if (dinnerSideDishRecipesCache != null){
+			return dinnerSideDishRecipesCache;
+		}
+
+		dinnerSideDishRecipesCache = getAllRecipes(dinner, sideDish);
+		return dinnerSideDishRecipesCache;
 	}
 
 	public ArrayList<Recipe> getAllDinnerDesertRecipes() {
-		return getAllRecipes(dinner, desert);
+		if (dinnerDesertRecipesCache != null){
+			return dinnerDesertRecipesCache;
+		}
+
+		dinnerDesertRecipesCache = getAllRecipes(dinner, desert);
+		return dinnerDesertRecipesCache;
 	}
 
 	public ArrayList<Recipe> getAllSnackMainCourseSingleRecipes() {
-		return getAllRecipes(snack, mainCourseSingle);
+		if (snackMainCourseSingleRecipes != null){
+			return snackMainCourseSingleRecipes;
+		}
+
+		snackMainCourseSingleRecipes = getAllRecipes(snack, mainCourseSingle);
+		return snackMainCourseSingleRecipes;
 	}
 
 	private ArrayList<Recipe> getAllRecipes(String mealType, String dishType) {
