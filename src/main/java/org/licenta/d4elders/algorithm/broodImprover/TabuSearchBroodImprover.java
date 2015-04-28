@@ -2,7 +2,7 @@ package org.licenta.d4elders.algorithm.broodImprover;
 
 import java.util.TreeSet;
 
-import org.licenta.d4elders.main.Solution;
+import org.licenta.d4elders.model.Solution;
 
 /**
  * Implementation of algorithm described here: http://en.wikipedia.org/wiki/Tabu_search

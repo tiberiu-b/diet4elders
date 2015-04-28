@@ -7,7 +7,7 @@ import java.util.TreeSet;
 
 import org.junit.Test;
 import org.licenta.d4elders.main.InitialSolutionsGenerator;
-import org.licenta.d4elders.main.Solution;
+import org.licenta.d4elders.model.Solution;
 
 public class PathRelinkingTest {
 

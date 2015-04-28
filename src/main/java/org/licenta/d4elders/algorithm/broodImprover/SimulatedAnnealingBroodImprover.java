@@ -3,7 +3,7 @@ package org.licenta.d4elders.algorithm.broodImprover;
 import java.util.Random;
 
 import org.licenta.d4elders.algorithm.AnnealingScheduler;
-import org.licenta.d4elders.main.Solution;
+import org.licenta.d4elders.model.Solution;
 
 class SimulatedAnnealingBroodImprover implements BroodImproverAlgorithm {
 

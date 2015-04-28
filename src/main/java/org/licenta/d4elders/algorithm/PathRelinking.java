@@ -3,8 +3,8 @@ package org.licenta.d4elders.algorithm;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import org.licenta.d4elders.main.Solution;
-import org.licenta.d4elders.main.Solution.GeneType;
+import org.licenta.d4elders.model.Solution;
+import org.licenta.d4elders.model.Solution.GeneType;
 
 public class PathRelinking {
 

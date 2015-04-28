@@ -21,7 +21,7 @@ import org.junit.runners.Parameterized.Parameters;
 import org.licenta.d4elders.algorithm.AnnealingScheduler;
 import org.licenta.d4elders.dal.FoodFactory;
 import org.licenta.d4elders.main.InitialSolutionsGenerator;
-import org.licenta.d4elders.main.Solution;
+import org.licenta.d4elders.model.Solution;
 import org.licenta.d4elders.model.dish.Desert;
 import org.licenta.d4elders.model.dish.MainCourse;
 import org.licenta.d4elders.model.dish.StarterDish;

@@ -1,6 +1,6 @@
 package org.licenta.d4elders.algorithm;
 
-import org.licenta.d4elders.main.Solution;
+import org.licenta.d4elders.model.Solution;
 
 /**
  * Parent class for main algorithms that we'd like to compare. The idea is to make sure that

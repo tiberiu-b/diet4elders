@@ -5,7 +5,7 @@ import java.util.Random;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import org.licenta.d4elders.main.Solution;
+import org.licenta.d4elders.model.Solution;
 
 public class SimulatedAnnealing {
 
