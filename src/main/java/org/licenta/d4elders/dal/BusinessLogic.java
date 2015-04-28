@@ -52,7 +52,7 @@ public class BusinessLogic {
 	private static ArrayList<Recipe> dinnerDesertRecipesCache;
 	private static ArrayList<Recipe> snackMainCourseSingleRecipes;
 
-	public BusinessLogic() {
+	static {
 
 		foodProviderOntology = new FoodProviderOntology();
 		model = foodProviderOntology.getOntModel();
