@@ -114,7 +114,7 @@ public class Solution implements Comparable<Solution> {
 
 		sum += proteinsErr * NutritionalRecommandationHelper.nutrR.getProteinsWeight() + lipidsErr
 				* NutritionalRecommandationHelper.nutrR.getLipidsWeight() + carbohydratesErr
-				* NutritionalRecommandationHelper.nutrR.getCarbohydratesWeight() + energy
+				* NutritionalRecommandationHelper.nutrR.getCarbohydratesWeight() + energyErr
 				* NutritionalRecommandationHelper.nutrR.getEnergyWeight() + ironErr
 				* NutritionalRecommandationHelper.nutrR.getIronWeight() + calciumErr
 				* NutritionalRecommandationHelper.nutrR.getCalciumWeight() + sodiumErr
@@ -134,6 +134,8 @@ public class Solution implements Comparable<Solution> {
 				+ NutritionalRecommandationHelper.nutrR.getVitBWeight()
 				+ NutritionalRecommandationHelper.nutrR.getVitCWeight()
 				+ NutritionalRecommandationHelper.nutrR.getVitDWeight();
+
+		System.out.println("sum = " + sum + " sum_weights = " + sum_weights);
 		return sum / sum_weights;
 	}
 
@@ -167,7 +169,7 @@ public class Solution implements Comparable<Solution> {
 	/**
 	 * Computes the error margin for fitness level 2. It is based on the lookup table described in
 	 * the documentation.
-	 * 
+	 *
 	 * @param real
 	 *            the
 	 * @param ideal
@@ -191,7 +193,9 @@ public class Solution implements Comparable<Solution> {
 		x = (float) (x * MAX / lower_limit);
 		lower_limit = MAX;
 		// System.out.println("x = " + x + " ideal = " + ideal + "\n");
-		return Math.exp(-(x - lower_limit) * (x - lower_limit));
+		double err = Math.exp(-(x - lower_limit) * (x - lower_limit));
+		System.out.println("err = " + err);
+		return err;
 	}
 
 	private Float errorMarginInterval(Float x, Float lower_limit, Float upper_limit) {
@@ -269,6 +273,93 @@ public class Solution implements Comparable<Solution> {
 		return broods;
 	}
 
+
+	/**
+	 * Performs crossover only on a single element. The result will be the same as drone with <i>type</i> stolen from this queen.
+	 * @param drone
+	 * @param type
+	 * @return
+	 */
+	public Solution combineSingleGenotype(Solution drone, GeneType type){
+    	DayMeal newDayMeal = null;
+    	Breakfast newBreakfast = null;
+    	Lunch newLunch = null;
+    	Dinner newDinner = null;
+
+    	Breakfast thisBreakfast = this.getDayMeal().getBreakfast();
+    	Lunch thisLunch = this.getDayMeal().getLunch();
+    	Dinner thisDinner = this.getDayMeal().getDinner();
+    	Snack thisSnack1 = this.getDayMeal().getSnack1();
+    	Snack thisSnack2 = this.getDayMeal().getSnack2();
+
+    	Breakfast droneBreakfast = drone.getDayMeal().getBreakfast();
+    	Lunch droneLunch = drone.getDayMeal().getLunch();
+    	Dinner droneDinner = drone.getDayMeal().getDinner();
+    	Snack droneSnack1 = drone.getDayMeal().getSnack1();
+    	Snack droneSnack2 = drone.getDayMeal().getSnack2();
+
+    	System.out.println ("type = " + type);
+
+    	switch(type){
+    	case Breakfast:
+    		newDayMeal = new DayMeal(thisBreakfast, droneLunch, droneDinner, droneSnack1, droneSnack2);
+    		break;
+		case Lunch:
+			newDayMeal = new DayMeal(droneBreakfast, thisLunch, droneDinner, droneSnack1, droneSnack2);
+			break;
+		case Dinner:
+			newDayMeal = new DayMeal(droneBreakfast, droneLunch, thisDinner, droneSnack1, droneSnack2);
+			break;
+		case Snack1:
+			newDayMeal = new DayMeal(droneBreakfast, droneLunch, droneDinner, thisSnack1, droneSnack2);
+			break;
+		case Snack2:
+			newDayMeal = new DayMeal(droneBreakfast, droneLunch, droneDinner, droneSnack1, thisSnack2);
+			break;
+		case BreakfastMainCourse:
+			newBreakfast = new Breakfast(thisBreakfast.getMainCourse(), droneBreakfast.getDesert());
+			newDayMeal = new DayMeal(newBreakfast, droneLunch, droneDinner, droneSnack1, droneSnack2);
+			break;
+		case BreakfastDesert:
+			newBreakfast = new Breakfast(droneBreakfast.getMainCourse(), thisBreakfast.getDesert());
+			newDayMeal = new DayMeal(newBreakfast, droneLunch, droneDinner, droneSnack1, droneSnack2);
+			break;
+		case DinnerStarter:
+			newDinner = new Dinner(thisDinner.getStarterDish(), droneDinner.getMainCourse(), droneDinner.getDesert());
+			newDayMeal = new DayMeal(droneBreakfast, droneLunch, newDinner, droneSnack1, droneSnack2);
+			break;
+		case DinnerMainCourse:
+			newDinner = new Dinner(droneDinner.getStarterDish(), thisDinner.getMainCourse(), droneDinner.getDesert());
+			newDayMeal = new DayMeal(droneBreakfast, droneLunch, newDinner, droneSnack1, droneSnack2);
+			break;
+		case DinnerDesert:
+			newDinner = new Dinner(droneDinner.getStarterDish(), droneDinner.getMainCourse(), thisDinner.getDesert());
+			newDayMeal = new DayMeal(droneBreakfast, droneLunch, newDinner, droneSnack1, droneSnack2);
+			break;
+		case LunchStarter:
+			newLunch = new Lunch(thisLunch.getStarterDish(), droneLunch.getMainCourse(), droneLunch.getDesert());
+			newDayMeal = new DayMeal(droneBreakfast, newLunch, droneDinner, droneSnack1, droneSnack2);
+			break;
+		case LunchMainCourse:
+			newLunch = new Lunch(droneLunch.getStarterDish(), thisLunch.getMainCourse(), droneLunch.getDesert());
+			newDayMeal = new DayMeal(droneBreakfast, newLunch, droneDinner, droneSnack1, droneSnack2);
+			break;
+		case LunchDesert:
+			newLunch = new Lunch(droneLunch.getStarterDish(), droneLunch.getMainCourse(), thisLunch.getDesert());
+			newDayMeal = new DayMeal(droneBreakfast, newLunch, droneDinner, droneSnack1, droneSnack2);
+			break;
+		default:
+			break;
+
+	//	default:
+			//break;
+
+    	}
+
+    	return new Solution(newDayMeal);
+    }
+
+
 	/**
 	 * Runs the genotypes combination algorithm for this queen and the drone. Combination of
 	 * genotypes is done by doing a crossover between the queens genomes and the drone's genomes
@@ -334,17 +425,70 @@ public class Solution implements Comparable<Solution> {
 		/*
 		 * brood.setBreakfast(r.nextBoolean() ? // if random is true this.dayMeal.getBreakfast() :
 		 * // take from this queen drone.dayMeal.getBreakfast()); // otherwise, take from drone.
-		 * 
+		 *
 		 * brood.setLunch(r.nextBoolean() ? this.dayMeal.getLunch() : drone.dayMeal.getLunch());
-		 * 
+		 *
 		 * brood.setDinner(r.nextBoolean() ? this.dayMeal.getDinner() : drone.dayMeal.getDinner());
-		 * 
+		 *
 		 * brood.setSnack1(r.nextBoolean() ? this.dayMeal.getSnack1() : drone.dayMeal.getSnack1());
-		 * 
+		 *
 		 * brood.setSnack2(r.nextBoolean() ? this.dayMeal.getSnack2() : drone.dayMeal.getSnack2());
 		 */
 		return new Solution(brood);
 	}
+
+	 /**
+     * Returns a new instance of Solution which has exactly the same components as
+     * this exept one component randomly selected which is replaced with a random
+     * value.
+     * @return a new Solution
+     *//*
+    public Solution randomMutation(){
+    	Random r = new Random();
+    	Breakfast breakfast = dayMeal.getBreakfast();
+    	Lunch lunch = dayMeal.getLunch();
+    	Dinner dinner = dayMeal.getDinner();
+    	Snack snack1 = dayMeal.getSnack1();
+    	Snack snack2 = dayMeal.getSnack2();
+
+    	switch(r.nextInt(5)){
+    	case 0:
+    		// Replace Breakfast
+    		Breakfast b = new Breakfast(
+    				new MainCourse(FoodFactory.getRandomFoodProperties()),
+    				new Desert(FoodFactory.getRandomFoodProperties()));
+
+    		return new Solution(new DayMeal(b, lunch, dinner, snack1, snack2));
+
+    	case 1:
+    		// Replace Lunch
+    		Lunch l = new Lunch(
+    				new StarterDish(FoodFactory.getRandomFoodProperties()),
+    				new MainCourse(FoodFactory.getRandomFoodProperties()),
+    				new Desert(FoodFactory.getRandomFoodProperties()));
+
+    		return new Solution(new DayMeal(breakfast, l, dinner, snack1, snack2));
+
+    	case 2:
+    		// Replace dinner
+    		Dinner d = new Dinner(
+    				new StarterDish(FoodFactory.getRandomFoodProperties()),
+    				new MainCourse(FoodFactory.getRandomFoodProperties()),
+    				new Desert(FoodFactory.getRandomFoodProperties()));
+
+    		return new Solution(new DayMeal(breakfast, lunch, d, snack1, snack2));
+    	case 3:
+    	case 4:
+    		// Replace snacks
+    		Snack s = new Snack(new MainCourse(FoodFactory.getRandomFoodProperties()));
+    		if(r.nextBoolean())
+    			return new Solution(new DayMeal(breakfast, lunch, dinner, s, snack2));
+    		else
+    			return new Solution(new DayMeal(breakfast, lunch, dinner, snack1, s));
+    	default:
+    		return null;
+    	}
+    }*/
 
 	public boolean hasEnergy() {
 		return energy > 0;
@@ -370,5 +514,34 @@ public class Solution implements Comparable<Solution> {
 
 		return this.dayMeal.equals(((Solution) other).getDayMeal());
 	}
+
+    /**
+     * TODO revise: GeneType may be at the following 2 levels: 1) dish - starter, main ... or 2) meal - breakfast, lunch ...
+     */
+    public enum GeneType{
+ /*   	BreakfastMainCourse, BreakfastDesert,
+    	LunchStarter, LunchMainCourse, LunchDesert,
+    	DinnerStarter, DinnerMainCourse, DinnerDesert,
+    	Snack1, Snack2;
+    	*/
+
+    	Breakfast,BreakfastMainCourse, BreakfastDesert,
+    	Lunch,LunchStarter, LunchMainCourse, LunchDesert,
+    	Dinner,DinnerStarter, DinnerMainCourse, DinnerDesert,
+    	Snack1,
+    	Snack2;
+
+
+/*
+    	Breakfast,
+    	Lunch,
+    	Dinner,
+    	Snack1,
+    	Snack2;
+*/
+    	public static GeneType getRandom() {
+            return values()[(int) (Math.random() * values().length)];
+        }
+    }
 
 }
