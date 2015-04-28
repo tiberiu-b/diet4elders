@@ -35,7 +35,7 @@ public class Solution implements Comparable<Solution> {
 
     static double speedReductionFactor = 0.9;
     static double energyReductionAmount = 5;
-    public static double probabilityToMateDroneThreshold = 0.05;
+    static double probabilityToMateDroneThreshold = 0.05;
 
     public DayMeal getDayMeal() {
         return dayMeal;
