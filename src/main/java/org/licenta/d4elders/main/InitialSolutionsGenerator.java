@@ -38,7 +38,7 @@ public class InitialSolutionsGenerator {
 	 *
 	 * @return A SortedSet (Tree) filled with random solutions.
 	 */
-	public static SortedSet<Solution> generateRandomSolutions() {
+	public static SortedSet<Solution> generateRandomSolutions(int size) {
 		int numberOfSolutions = 1000;
 		SortedSet<Solution> solutions = new TreeSet<Solution>();
 		BusinessLogic bl = new BusinessLogic();
@@ -47,7 +47,7 @@ public class InitialSolutionsGenerator {
 		ArrayList<Dinner> dinnerList = bl.generateDinnerMeals(numberOfSolutions);
 		ArrayList<Snack> snackList = bl.generateSnackMeals(numberOfSolutions * 2);
 
-		for (int i = 0; i < NR_INITIAL_SOLUTIONS; i++) {
+		for (int i = 0; i < size; i++) {
 			Random generator = new Random();
 			int randomNumber = generator.nextInt(numberOfSolutions);
 			Breakfast breakfast = breakfastList.get(randomNumber);
@@ -77,10 +77,10 @@ public class InitialSolutionsGenerator {
 
         return solutions;
     }
-/*
+
     public static SortedSet<Solution> generateRandomSolutions(){
     	return generateRandomSolutions(NR_INITIAL_SOLUTIONS);
     }
-	*/
+
 }
 
