@@ -12,6 +12,7 @@ import java.util.TreeSet;
 
 import javax.swing.text.html.HTMLDocument.HTMLReader.ParagraphAction;
 
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
@@ -30,6 +31,8 @@ import org.licenta.d4elders.model.meal.DayMeal;
 import org.licenta.d4elders.model.meal.Dinner;
 import org.licenta.d4elders.model.meal.Lunch;
 import org.licenta.d4elders.model.meal.Snack;
+import org.licenta.d4elders.model.user_profile.NutritionalRecommandationHelper;
+import org.licenta.d4elders.model.user_profile.UserProfileStub;
 /**
  * Tests different aspects of the brood improvement feature.
  * @author cristiprg
@@ -38,6 +41,11 @@ import org.licenta.d4elders.model.meal.Snack;
 public class SimulatedAnnealingBroodImproverTest {
 
 	private final static int NUMBER_OF_RUNS=10;
+
+	@Before
+	public void init(){
+		new NutritionalRecommandationHelper(new UserProfileStub());
+	}
 
 	@Parameterized.Parameters
     public static List<Object[]> data() {
@@ -53,29 +61,7 @@ public class SimulatedAnnealingBroodImproverTest {
 	@Test
 	public void testImprove() {
 
-		Breakfast b = new Breakfast(
-				new MainCourse(FoodFactory.getRandomFoodProperties()),
-				new Desert(FoodFactory.getRandomFoodProperties()));
-
-
-
-		Lunch l = new Lunch(
-				new StarterDish(FoodFactory.getRandomFoodProperties()),
-				new MainCourse(FoodFactory.getRandomFoodProperties()),
-				new Desert(FoodFactory.getRandomFoodProperties()));
-
-
-
-		Dinner d = new Dinner(
-				new StarterDish(FoodFactory.getRandomFoodProperties()),
-				new MainCourse(FoodFactory.getRandomFoodProperties()),
-				new Desert(FoodFactory.getRandomFoodProperties()));
-
-
-		Snack s1 = new Snack(new MainCourse(FoodFactory.getRandomFoodProperties()));
-		Snack s2 = new Snack(new MainCourse(FoodFactory.getRandomFoodProperties()));
-
-		Solution sol = new Solution(new DayMeal(b, l, d, s1, s2));
+		Solution sol = InitialSolutionsGenerator.generateRandomSolutions(1).first();
 		double fintess1 = sol.getFitness();
 
 		sol = new SimulatedAnnealingBroodImprover(new AnnealingScheduler(1, 90, 0.1)).improve(sol);

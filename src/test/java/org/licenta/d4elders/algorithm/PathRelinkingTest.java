@@ -5,11 +5,19 @@ import static org.junit.Assert.*;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.licenta.d4elders.main.InitialSolutionsGenerator;
 import org.licenta.d4elders.model.Solution;
+import org.licenta.d4elders.model.user_profile.NutritionalRecommandationHelper;
+import org.licenta.d4elders.model.user_profile.UserProfileStub;
 
 public class PathRelinkingTest {
+
+	@Before
+	public void init(){
+		new NutritionalRecommandationHelper(new UserProfileStub());
+	}
 
 	@Test
 	public void testPathRelinking() {
