@@ -136,7 +136,6 @@ public class Solution implements Comparable<Solution> {
 				+ NutritionalRecommandationHelper.nutrR.getVitCWeight()
 				+ NutritionalRecommandationHelper.nutrR.getVitDWeight();
 
-		System.out.println("sum = " + sum + " sum_weights = " + sum_weights);
 		return sum / sum_weights;
 	}
 
@@ -193,10 +192,8 @@ public class Solution implements Comparable<Solution> {
 		lower_limit = (float) ((lower_limit != 0) ? lower_limit : 0.000001); // don't divide by 0
 		x = (float) (x * MAX / lower_limit);
 		lower_limit = MAX;
-		// System.out.println("x = " + x + " ideal = " + ideal + "\n");
-		double err = Math.exp(-(x - lower_limit) * (x - lower_limit));
-		System.out.println("err = " + err);
-		return err;
+
+		return Math.exp(-(x - lower_limit) * (x - lower_limit));
 	}
 
 	private Float errorMarginInterval(Float x, Float lower_limit, Float upper_limit) {
