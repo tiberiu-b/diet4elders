@@ -60,6 +60,10 @@ public class BusinessLogic {
 		model.add(data);
 	}
 
+	public Breakfast generateSingleBreakfastMeal(){
+		return generateBreakfastMeals(1).get(0);
+	}
+
 	public ArrayList<Breakfast> generateBreakfastMeals(int numberOfSolutions) {
 
 		ArrayList<Breakfast> breakfastList = new ArrayList<Breakfast>();
@@ -100,6 +104,10 @@ public class BusinessLogic {
 		}
 
 		return breakfastList;
+	}
+
+	public Lunch generateSingleLunchMeal(){
+		return generateLunchMeals(1).get(0);
 	}
 
 	public ArrayList<Lunch> generateLunchMeals(int numberOfSolutions) {
@@ -147,6 +155,10 @@ public class BusinessLogic {
 		return lunchList;
 	}
 
+	public Dinner generateSingleDinnerMeal(){
+		return generateDinnerMeals(1).get(0);
+	}
+
 	public ArrayList<Dinner> generateDinnerMeals(int numberOfSolutions) {
 		ArrayList<Dinner> dinnerList = new ArrayList<Dinner>();
 
@@ -190,6 +202,10 @@ public class BusinessLogic {
 		}
 
 		return dinnerList;
+	}
+
+	public Snack generateSingleSnackMeal(){
+		return generateSnackMeals(1).get(0);
 	}
 
 	public ArrayList<Snack> generateSnackMeals(int numberOfSolutions) {
