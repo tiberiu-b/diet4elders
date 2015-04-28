@@ -5,43 +5,43 @@ public class NutritionalRecommendation {
 	protected Float proteinsLowerLimit;
 	protected Float proteinsUpperLimit;
 	protected Float proteinsFixed;
-	protected Integer proteinsWeight;
+	protected Integer proteinsWeight = 1;
 
 	protected Float lipidsLowerLimit;
 	protected Float lipidsUpperLimit;
-	protected Integer lipidsWeight;
+	protected Integer lipidsWeight = 1;
 
 	protected Float carbohydratesLowerLimit;
 	protected Float carbohydratesUpperLimit;
 	protected Float carbohydratesFixed;
-	protected Integer carbohydratesWeight;
-	
+	protected Integer carbohydratesWeight = 1;
+
 	protected Float energyFixed;
-	protected Integer energyWeight;
+	protected Integer energyWeight = 1;
 
 	protected Float calciumFixed;
 	protected Float calciumTolerableUpperIntake;
-	protected Integer calciumWeight;
+	protected Integer calciumWeight = 1;
 
 	protected Float ironFixed;
 	protected Float ironTolerableUpperIntake;
-	protected Integer ironWeight;
+	protected Integer ironWeight = 1;
 
 	protected Float sodiumFixed;
-	protected Integer sodiumWeight;
+	protected Integer sodiumWeight = 1;
 
 	protected Float vitAFixed;
 	protected Float vitATolerableUpperIntake;
-	protected Integer vitAWeight;
+	protected Integer vitAWeight = 1;
 	protected Float vitBFixed;
 	protected Float vitBTolerableUpperIntake;
-	protected Integer vitBWeight;
+	protected Integer vitBWeight = 1;
 	protected Float vitCFixed;
 	protected Float vitCTolerableUpperIntake;
-	protected Integer vitCWeight;
+	protected Integer vitCWeight = 1;
 	protected Float vitDFixed;
 	protected Float vitDTolerableUpperIntake;
-	protected Integer vitDWeight;
+	protected Integer vitDWeight = 1;
 
 	public Float getProteinsLowerLimit() {
 		return proteinsLowerLimit;
