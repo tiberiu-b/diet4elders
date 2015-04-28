@@ -1,5 +1,6 @@
 package org.licenta.d4elders.model;
 
+import org.licenta.d4elders.dal.BusinessLogic;
 import org.licenta.d4elders.helper.HbmoNutrientNotFoundException;
 import org.licenta.d4elders.helper.NutrientsIdealValuesHelper;
 import org.licenta.d4elders.model.dish.Desert;
@@ -442,8 +443,9 @@ public class Solution implements Comparable<Solution> {
      * this exept one component randomly selected which is replaced with a random
      * value.
      * @return a new Solution
-     *//*
+     */
     public Solution randomMutation(){
+    	BusinessLogic bl = new BusinessLogic();
     	Random r = new Random();
     	Breakfast breakfast = dayMeal.getBreakfast();
     	Lunch lunch = dayMeal.getLunch();
@@ -454,33 +456,22 @@ public class Solution implements Comparable<Solution> {
     	switch(r.nextInt(5)){
     	case 0:
     		// Replace Breakfast
-    		Breakfast b = new Breakfast(
-    				new MainCourse(FoodFactory.getRandomFoodProperties()),
-    				new Desert(FoodFactory.getRandomFoodProperties()));
-
+    		Breakfast b = bl.generateSingleBreakfastMeal();
     		return new Solution(new DayMeal(b, lunch, dinner, snack1, snack2));
 
     	case 1:
     		// Replace Lunch
-    		Lunch l = new Lunch(
-    				new StarterDish(FoodFactory.getRandomFoodProperties()),
-    				new MainCourse(FoodFactory.getRandomFoodProperties()),
-    				new Desert(FoodFactory.getRandomFoodProperties()));
-
+    		Lunch l = bl.generateSingleLunchMeal();
     		return new Solution(new DayMeal(breakfast, l, dinner, snack1, snack2));
 
     	case 2:
     		// Replace dinner
-    		Dinner d = new Dinner(
-    				new StarterDish(FoodFactory.getRandomFoodProperties()),
-    				new MainCourse(FoodFactory.getRandomFoodProperties()),
-    				new Desert(FoodFactory.getRandomFoodProperties()));
-
+    		Dinner d = bl.generateSingleDinnerMeal();
     		return new Solution(new DayMeal(breakfast, lunch, d, snack1, snack2));
     	case 3:
     	case 4:
     		// Replace snacks
-    		Snack s = new Snack(new MainCourse(FoodFactory.getRandomFoodProperties()));
+    		Snack s = bl.generateSingleSnackMeal();
     		if(r.nextBoolean())
     			return new Solution(new DayMeal(breakfast, lunch, dinner, s, snack2));
     		else
@@ -488,7 +479,7 @@ public class Solution implements Comparable<Solution> {
     	default:
     		return null;
     	}
-    }*/
+    }
 
 	public boolean hasEnergy() {
 		return energy > 0;
