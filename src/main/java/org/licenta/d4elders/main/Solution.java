@@ -272,6 +272,85 @@ public class Solution implements Comparable<Solution> {
         return new Solution();
     }
 
+    public Solution combineSingleGenotype(Solution drone, GeneType type){
+    	DayMeal newDayMeal = null;
+    	Breakfast newBreakfast = null;
+    	Lunch newLunch = null;
+    	Dinner newDinner = null;
+
+    	Breakfast thisBreakfast = this.getDayMeal().getBreakfast();
+    	Lunch thisLunch = this.getDayMeal().getLunch();
+    	Dinner thisDinner = this.getDayMeal().getDinner();
+    	Snack thisSnack1 = this.getDayMeal().getSnack1();
+    	Snack thisSnack2 = this.getDayMeal().getSnack2();
+
+    	Breakfast droneBreakfast = drone.getDayMeal().getBreakfast();
+    	Lunch droneLunch = drone.getDayMeal().getLunch();
+    	Dinner droneDinner = drone.getDayMeal().getDinner();
+    	Snack droneSnack1 = drone.getDayMeal().getSnack1();
+    	Snack droneSnack2 = drone.getDayMeal().getSnack2();
+
+    	System.out.println ("type = " + type);
+
+    	switch(type){
+    	case Breakfast:
+    		newDayMeal = new DayMeal(thisBreakfast, droneLunch, droneDinner, droneSnack1, droneSnack2);
+    		break;
+		case Lunch:
+			newDayMeal = new DayMeal(droneBreakfast, thisLunch, droneDinner, droneSnack1, droneSnack2);
+			break;
+		case Dinner:
+			newDayMeal = new DayMeal(droneBreakfast, droneLunch, thisDinner, droneSnack1, droneSnack2);
+			break;
+		case Snack1:
+			newDayMeal = new DayMeal(droneBreakfast, droneLunch, droneDinner, thisSnack1, droneSnack2);
+			break;
+		case Snack2:
+			newDayMeal = new DayMeal(droneBreakfast, droneLunch, droneDinner, droneSnack1, thisSnack2);
+			break;
+		case BreakfastMainCourse:
+			newBreakfast = new Breakfast(thisBreakfast.getMainCourse(), droneBreakfast.getDesert());
+			newDayMeal = new DayMeal(newBreakfast, droneLunch, droneDinner, droneSnack1, droneSnack2);
+			break;
+		case BreakfastDesert:
+			newBreakfast = new Breakfast(droneBreakfast.getMainCourse(), thisBreakfast.getDesert());
+			newDayMeal = new DayMeal(newBreakfast, droneLunch, droneDinner, droneSnack1, droneSnack2);
+			break;
+		case DinnerStarter:
+			newDinner = new Dinner(thisDinner.getStarterDish(), droneDinner.getMainCourse(), droneDinner.getDesert());
+			newDayMeal = new DayMeal(droneBreakfast, droneLunch, newDinner, droneSnack1, droneSnack2);
+			break;
+		case DinnerMainCourse:
+			newDinner = new Dinner(droneDinner.getStarterDish(), thisDinner.getMainCourse(), droneDinner.getDesert());
+			newDayMeal = new DayMeal(droneBreakfast, droneLunch, newDinner, droneSnack1, droneSnack2);
+			break;
+		case DinnerDesert:
+			newDinner = new Dinner(droneDinner.getStarterDish(), droneDinner.getMainCourse(), thisDinner.getDesert());
+			newDayMeal = new DayMeal(droneBreakfast, droneLunch, newDinner, droneSnack1, droneSnack2);
+			break;
+		case LunchStarter:
+			newLunch = new Lunch(thisLunch.getStarterDish(), droneLunch.getMainCourse(), droneLunch.getDesert());
+			newDayMeal = new DayMeal(droneBreakfast, newLunch, droneDinner, droneSnack1, droneSnack2);
+			break;
+		case LunchMainCourse:
+			newLunch = new Lunch(droneLunch.getStarterDish(), thisLunch.getMainCourse(), droneLunch.getDesert());
+			newDayMeal = new DayMeal(droneBreakfast, newLunch, droneDinner, droneSnack1, droneSnack2);
+			break;
+		case LunchDesert:
+			newLunch = new Lunch(droneLunch.getStarterDish(), droneLunch.getMainCourse(), thisLunch.getDesert());
+			newDayMeal = new DayMeal(droneBreakfast, newLunch, droneDinner, droneSnack1, droneSnack2);
+			break;
+		default:
+			break;
+
+	//	default:
+			//break;
+
+    	}
+
+    	return new Solution(newDayMeal);
+    }
+
     /**
      * Runs the genotypes combination algorithm for this queen and the drone. Combination of
      * genotypes is done by doing a crossover between the queens genomes and the drone's genomes
@@ -447,6 +526,35 @@ public class Solution implements Comparable<Solution> {
             return false;
 
         return this.dayMeal.equals(((Solution) other).getDayMeal());
+    }
+
+    /**
+     * TODO revise: GeneType may be at the following 2 levels: 1) dish - starter, main ... or 2) meal - breakfast, lunch ...
+     */
+    public enum GeneType{
+ /*   	BreakfastMainCourse, BreakfastDesert,
+    	LunchStarter, LunchMainCourse, LunchDesert,
+    	DinnerStarter, DinnerMainCourse, DinnerDesert,
+    	Snack1, Snack2;
+    	*/
+
+    	Breakfast,BreakfastMainCourse, BreakfastDesert,
+    	Lunch,LunchStarter, LunchMainCourse, LunchDesert,
+    	Dinner,DinnerStarter, DinnerMainCourse, DinnerDesert,
+    	Snack1,
+    	Snack2;
+
+
+/*
+    	Breakfast,
+    	Lunch,
+    	Dinner,
+    	Snack1,
+    	Snack2;
+*/
+    	public static GeneType getRandom() {
+            return values()[(int) (Math.random() * values().length)];
+        }
     }
 
 }

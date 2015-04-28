@@ -1,0 +1,21 @@
+package org.licenta.d4elders.algorithm;
+
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+import org.licenta.d4elders.main.Solution;
+import org.licenta.d4elders.main.Solution.GeneType;
+
+public class PathRelinking {
+
+	public static SortedSet<Solution> pathRelinking(Solution drone, Solution queen){
+		SortedSet<Solution> set = new TreeSet<Solution>();
+
+		while(drone.getFitness() < queen.getFitness()){
+			drone = queen.combineSingleGenotype(drone, GeneType.getRandom());
+			set.add(drone);
+		}
+
+		return set;
+	}
+}
