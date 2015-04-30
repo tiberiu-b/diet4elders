@@ -3,6 +3,7 @@ package org.licenta.d4elders.main;
 import org.licenta.d4elders.algorithm.HoneyBeeMatingOptimizationPathRelinking;
 import org.licenta.d4elders.algorithm.HoneyBeeMatingOptimiziation;
 import org.licenta.d4elders.algorithm.MainAlgorithm.RunInformation;
+import org.licenta.d4elders.dal.BusinessLogic;
 import org.licenta.d4elders.model.Solution;
 import org.licenta.d4elders.model.user_profile.NutritionalRecommandationHelper;
 import org.licenta.d4elders.model.user_profile.UserProfileStub;
@@ -13,7 +14,7 @@ public class Diet4Elders {
 	public Diet4Elders() {
 		userProfile = new UserProfileStub();
 		new NutritionalRecommandationHelper(userProfile);
-		InitialSolutionsGenerator.generateRandomSolutions(1);
+		new BusinessLogic().loadOntologyDataIntoMemory();
 	}
 
 	public void run() {
@@ -27,7 +28,7 @@ public class Diet4Elders {
 
         // Print results
         System.out.println("___\nFinal Result:");
-        System.out.println(queen + " Fitness: " + queen.getFitness());
+        System.out.println(queen + "\nFitness: " + queen.getFitness());
         System.out.println("Number of iterations: " + info.nrOfItertions);
 
         System.out.println("Duration of execution(in millis): " + info.duration);
@@ -39,11 +40,10 @@ public class Diet4Elders {
 
         // Print results
         System.out.println("___\nFinal Result:");
-        System.out.println(queen + " Fitness: " + queen.getFitness());
+        System.out.println(queen + "\nFitness: " + queen.getFitness());
         System.out.println("Number of iterations: " + info.nrOfItertions);
 
         System.out.println("Duration of execution(in millis): " + info.duration);
 
 	}
-
 }

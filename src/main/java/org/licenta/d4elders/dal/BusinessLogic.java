@@ -60,6 +60,19 @@ public class BusinessLogic {
 		model.add(data);
 	}
 
+
+	/**
+	 * Prefetches the data from ontolgy into main memory.
+	 * Any subsequent call will return data from the faster main memory instead
+	 * of the slower ontology.
+	 */
+	public void loadOntologyDataIntoMemory(){
+		generateBreakfastMeals(0);
+		generateLunchMeals(0);
+		generateDinnerMeals(0);
+		generateSnackMeals(0);
+	}
+
 	public Breakfast generateSingleBreakfastMeal(){
 		return generateBreakfastMeals(1).get(0);
 	}
