@@ -296,8 +296,6 @@ public class Solution implements Comparable<Solution> {
     	Snack droneSnack1 = drone.getDayMeal().getSnack1();
     	Snack droneSnack2 = drone.getDayMeal().getSnack2();
 
-    	System.out.println ("type = " + type);
-
     	switch(type){
     	case Breakfast:
     		newDayMeal = new DayMeal(thisBreakfast, droneLunch, droneDinner, droneSnack1, droneSnack2);

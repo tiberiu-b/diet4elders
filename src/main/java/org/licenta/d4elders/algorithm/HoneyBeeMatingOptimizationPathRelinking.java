@@ -7,7 +7,7 @@ import org.licenta.d4elders.algorithm.broodImprover.BroodImproverHelper;
 import org.licenta.d4elders.main.InitialSolutionsGenerator;
 import org.licenta.d4elders.model.Solution;
 
-public class HoneyBeeMatingOptimiziation extends MainAlgorithm {
+public class HoneyBeeMatingOptimizationPathRelinking extends MainAlgorithm {
 
 	@Override
 	public Solution performAlgorithm() {
@@ -45,7 +45,7 @@ public class HoneyBeeMatingOptimiziation extends MainAlgorithm {
 				double probToMateDrone = queen.probabilityToMateDrone(drone);
 				if (probToMateDrone > Solution.probabilityToMateDroneThreshold) {
 					nrOfDronesTheQueenMatedWith++;
-					broods.addAll((queen.createBroods(drone)));
+					broods.addAll(PathRelinking.pathRelinking(drone, queen));
 				}
 			}
 
@@ -79,7 +79,7 @@ public class HoneyBeeMatingOptimiziation extends MainAlgorithm {
 			// if bestBrood has a greater fitness function then
 			if (bestBrood.compareTo(queen) > 0) {
 				queen = bestBrood;
-/*				System.out
+				/*System.out
 						.println("Found better! Queen is replaced with brood");*/
 			}
 
@@ -95,4 +95,5 @@ public class HoneyBeeMatingOptimiziation extends MainAlgorithm {
 		duration = System.currentTimeMillis() - startTime;
 		return queen;
 	}
+
 }
