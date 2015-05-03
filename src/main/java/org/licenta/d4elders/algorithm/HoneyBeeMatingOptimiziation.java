@@ -1,23 +1,65 @@
 package org.licenta.d4elders.algorithm;
 
+import java.util.Collection;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.licenta.d4elders.algorithm.broodImprover.BroodImproverHelper;
+import org.licenta.d4elders.helper.AlgorithmConfiguration;
+import org.licenta.d4elders.helper.AvailableProgramConfigurationOptions;
+import org.licenta.d4elders.helper.NutritionalInformation;
 import org.licenta.d4elders.main.InitialSolutionsGenerator;
 import org.licenta.d4elders.model.Solution;
 
+/**
+ * TODO: adaguam vreo 10 FoodProviders care au 25% din retete (da, overlapping), delivery cost, time
+ * @author cristiprg
+ *
+ */
 public class HoneyBeeMatingOptimiziation extends MainAlgorithm {
+	private static final Logger log = Logger.getLogger( HoneyBeeMatingOptimiziation.class.getName() );
+
+	private AlgorithmConfiguration algorithmConfiguration = null;
+
+	public AlgorithmConfiguration getAlgorithmConfiguration() {
+		return algorithmConfiguration;
+	}
+
+	/**
+	 * Applies the configuration in Solution class too.
+	 * @param algorithmConfiguration
+	 */
+	public void setAlgorithmConfiguration(
+			AlgorithmConfiguration algorithmConfiguration) {
+		this.algorithmConfiguration = algorithmConfiguration;
+		Solution.applyConfiguration(algorithmConfiguration);
+
+	}
+
+	public HoneyBeeMatingOptimiziation() {
+		this(null);
+	}
+
+	public HoneyBeeMatingOptimiziation(AlgorithmConfiguration algorithmConfiguration) {
+		setAlgorithmConfiguration(algorithmConfiguration);
+	}
 
 	@Override
 	public Solution performAlgorithm() {
+		if(algorithmConfiguration == null){
+			log.log(Level.SEVERE, "Cannot perform algorithm, no algorithmConfiguration given!");
+			return null;
+		}
+
 		long startTime = System.currentTimeMillis();
 
 		BroodImproverHelper broodImprover = new BroodImproverHelper();
 
 		// an initial set of solutions (bees) is generated
 		SortedSet<Solution> solutions = InitialSolutionsGenerator
-				.generateRandomSolutions();
+				.generateRandomSolutions(algorithmConfiguration.getPopSize());
 
 		// the bee with the highest fitness function is selected, the others
 		// become drones
@@ -26,6 +68,7 @@ public class HoneyBeeMatingOptimiziation extends MainAlgorithm {
 		nrOfIterations = 0;
 
 		// Do .. while the queen still has energy
+		// TODO: de fiecare data cand intram in iteratie, populatia are sizeul fix, popSize
 		while (queen.hasEnergy() && queen.hasSpeed()) {
 			nrOfIterations++;
 			int nrOfDronesTheQueenMatedWith = 0;
@@ -45,7 +88,8 @@ public class HoneyBeeMatingOptimiziation extends MainAlgorithm {
 				double probToMateDrone = queen.probabilityToMateDrone(drone);
 				if (probToMateDrone > Solution.probabilityToMateDroneThreshold) {
 					nrOfDronesTheQueenMatedWith++;
-					broods.addAll((queen.createBroods(drone)));
+					//broods.addAll((queen.createBroods(drone)));
+					broods.addAll(workerModificationStrategy(drone, queen));
 				}
 			}
 
@@ -55,17 +99,18 @@ public class HoneyBeeMatingOptimiziation extends MainAlgorithm {
 			// if needed or not
 			if (broods.isEmpty()) {
 				System.out.println("Generating new set of solutions..");
-				solutions = InitialSolutionsGenerator.generateRandomSolutions();
+				solutions = InitialSolutionsGenerator.generateRandomSolutions(algorithmConfiguration.getPopSize());
 				queen.nextIteration();
 				continue;
 			}
 
 			broods = broodImprover.improve(broods);
 
+			// TODO: add broods to population and then select the best 40, do not throw away the current solutions
 			// The old drones die, thus the new drones will be top 40 broods
 			// that have the best fitness (take the last 40 broods)
 			solutions = new TreeSet<Solution>();
-			int nrOfBadBroods = broods.size() - 40;
+			int nrOfBadBroods = broods.size() - algorithmConfiguration.getPopSize();
 			for (Solution br : broods) {
 				if (nrOfBadBroods > 0)
 					nrOfBadBroods--;
@@ -94,5 +139,19 @@ public class HoneyBeeMatingOptimiziation extends MainAlgorithm {
 
 		duration = System.currentTimeMillis() - startTime;
 		return queen;
+	}
+
+	private Collection<? extends Solution> workerModificationStrategy(
+			Solution drone, Solution queen) {
+
+		switch (algorithmConfiguration.getBroodModificationStrategy()){
+			case AvailableProgramConfigurationOptions.PATH_RELINKING:
+				return PathRelinking.pathRelinking(drone, queen);
+			case AvailableProgramConfigurationOptions.SIMPLE_CROSSOVER:
+				return queen.createBroods(drone);
+		}
+
+		log.log(Level.SEVERE, "Returning null due to invalid worker modification strategy!");
+		return null;
 	}
 }

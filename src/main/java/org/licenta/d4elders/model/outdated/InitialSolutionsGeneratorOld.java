@@ -28,7 +28,7 @@ public class InitialSolutionsGeneratorOld {
      *
      * @return A SortedSet (Tree) filled with random solutions.
      */
-    public static SortedSet<SolutionOld> generateRandomSolutions() {
+  /*  public static SortedSet<SolutionOld> generateRandomSolutions() {
         SortedSet<SolutionOld> solutions = new TreeSet<SolutionOld>();
         FoodFactory foodFactory = new FoodFactory();
 
@@ -69,5 +69,5 @@ public class InitialSolutionsGeneratorOld {
         }
 
         return solutions;
-    }
+    }*/
 }

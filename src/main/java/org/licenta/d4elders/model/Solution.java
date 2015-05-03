@@ -1,6 +1,7 @@
 package org.licenta.d4elders.model;
 
 import org.licenta.d4elders.dal.BusinessLogic;
+import org.licenta.d4elders.helper.AlgorithmConfiguration;
 import org.licenta.d4elders.helper.HbmoNutrientNotFoundException;
 import org.licenta.d4elders.helper.NutrientsIdealValuesHelper;
 import org.licenta.d4elders.model.dish.Desert;
@@ -31,13 +32,23 @@ public class Solution implements Comparable<Solution> {
 
 	private DayMeal dayMeal;
 
-	private int speed = 100;
-	private int energy = 100;
+	private int speed = initialSpeed;
+	private int energy = initialEnergy;
 	private double fitness = 0;
 
-	public static double speedReductionFactor = 0.9;
-	public static double energyReductionAmount = 5;
-	public static double probabilityToMateDroneThreshold = 0.05;
+	private static int initialSpeed = 0;
+	private static int initialEnergy = 0;
+	public static double speedReductionFactor = 0;
+	public static double energyReductionAmount = 0;
+	public static double probabilityToMateDroneThreshold = 0;
+
+	public static void applyConfiguration(AlgorithmConfiguration algorithmConfiguration){
+		initialSpeed = algorithmConfiguration.getInitialSpeed();
+		initialEnergy = algorithmConfiguration.getInitialEnergy();
+		speedReductionFactor = algorithmConfiguration.getSpeedReductionFactor();
+		energyReductionAmount = algorithmConfiguration.getEnergyReductionAmount();
+		probabilityToMateDroneThreshold = algorithmConfiguration.getProbabilityToMateDroneThreshold();
+	}
 
 	public DayMeal getDayMeal() {
 		return dayMeal;
