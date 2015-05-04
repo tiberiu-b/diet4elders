@@ -2,35 +2,17 @@ package org.licenta.d4elders.algorithm.broodImprover;
 
 import static org.junit.Assert.*;
 
-import java.lang.annotation.Repeatable;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.Random;
 import java.util.SortedSet;
-import java.util.TreeSet;
-
-import javax.swing.text.html.HTMLDocument.HTMLReader.ParagraphAction;
-
 import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
 import org.licenta.d4elders.algorithm.AnnealingScheduler;
-import org.licenta.d4elders.dal.FoodFactory;
 import org.licenta.d4elders.main.InitialSolutionsGenerator;
 import org.licenta.d4elders.model.Solution;
-import org.licenta.d4elders.model.dish.Desert;
-import org.licenta.d4elders.model.dish.MainCourse;
-import org.licenta.d4elders.model.dish.StarterDish;
-import org.licenta.d4elders.model.meal.Breakfast;
-import org.licenta.d4elders.model.meal.DayMeal;
-import org.licenta.d4elders.model.meal.Dinner;
-import org.licenta.d4elders.model.meal.Lunch;
-import org.licenta.d4elders.model.meal.Snack;
 import org.licenta.d4elders.model.user_profile.NutritionalRecommandationHelper;
 import org.licenta.d4elders.model.user_profile.UserProfileStub;
 /**
@@ -38,7 +20,7 @@ import org.licenta.d4elders.model.user_profile.UserProfileStub;
  * @author cristiprg
  */
 @RunWith(Parameterized.class)
-public class SimulatedAnnealingBroodImproverTest {
+public class BroodImproverTest {
 
 	private final static int NUMBER_OF_RUNS=10;
 

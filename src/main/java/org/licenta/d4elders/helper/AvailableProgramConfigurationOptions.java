@@ -1,7 +1,6 @@
 package org.licenta.d4elders.helper;
 
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
 /**
  * Configurion parameters pools from which to choose.

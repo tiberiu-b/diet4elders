@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 import org.licenta.d4elders.algorithm.broodImprover.BroodImproverHelper;
 import org.licenta.d4elders.helper.AlgorithmConfiguration;
 import org.licenta.d4elders.helper.AvailableProgramConfigurationOptions;
-import org.licenta.d4elders.helper.NutritionalInformation;
 import org.licenta.d4elders.main.InitialSolutionsGenerator;
 import org.licenta.d4elders.model.Solution;
 

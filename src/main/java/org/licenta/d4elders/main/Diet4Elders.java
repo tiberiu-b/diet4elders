@@ -1,27 +1,16 @@
 package org.licenta.d4elders.main;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.prefs.Preferences;
-
-import org.ini4j.Ini;
-import org.ini4j.InvalidFileFormatException;
-import org.licenta.d4elders.algorithm.HoneyBeeMatingOptimizationPathRelinking;
 import org.licenta.d4elders.algorithm.HoneyBeeMatingOptimiziation;
 import org.licenta.d4elders.algorithm.MainAlgorithm.RunInformation;
 import org.licenta.d4elders.dal.BusinessLogic;
 import org.licenta.d4elders.helper.AlgorithmConfiguration;
-import org.licenta.d4elders.helper.AvailableProgramConfigurationOptions;
-import org.licenta.d4elders.helper.NutritionalInformation;
 import org.licenta.d4elders.model.Solution;
 import org.licenta.d4elders.model.user_profile.NutritionalRecommandationHelper;
 import org.licenta.d4elders.model.user_profile.UserProfileStub;
 
 public class Diet4Elders {
-	private static final Logger log = Logger.getLogger( NutritionalInformation.class.getName() );
+	private static final Logger log = Logger.getLogger( Diet4Elders.class.getName() );
 
 	public static UserProfileStub userProfile;
 
