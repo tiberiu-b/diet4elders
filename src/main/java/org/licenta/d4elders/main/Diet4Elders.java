@@ -33,11 +33,10 @@ public class Diet4Elders {
 
 	}
 
-	public void run() {
+	public void run(AlgorithmConfiguration configuration) {
 
 		Solution queen = null;
 		RunInformation info = null;
-		AlgorithmConfiguration configuration = new AlgorithmConfiguration();
 
 		//log.log(Level.INFO, "Running Honey Bee Mating Optimization with the following configuration\n" + configuration);
 		System.out.println("Running Honey Bee Mating Optimization with the following configuration\n" + configuration);
@@ -51,22 +50,5 @@ public class Diet4Elders {
         System.out.println("Number of iterations: " + info.nrOfItertions);
 
         System.out.println("Duration of execution(in millis): " + info.duration);
-
-
-        configuration.setBroodModificationStrategy(AvailableProgramConfigurationOptions.PATH_RELINKING);
-        //log.log(Level.INFO, "Running Honey Bee Mating Optimization with the following configuration\n" + configuration);
-        System.out.println("Running Honey Bee Mating Optimization with the following configuration\n" + configuration);
-		HBMO.setAlgorithmConfiguration(configuration);
-        queen = HBMO.performAlgorithm();
-        info = HBMO.getLastRunInformation();
-
-        // Print results
-        System.out.println("___\nFinal Result:");
-        System.out.println(queen + "\nFitness: " + queen.getFitness());
-        System.out.println("Number of iterations: " + info.nrOfItertions);
-
-        System.out.println("Duration of execution(in millis): " + info.duration);
-        System.out.println("\n\n\n");
-
 	}
 }

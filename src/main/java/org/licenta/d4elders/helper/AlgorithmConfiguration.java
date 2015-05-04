@@ -61,6 +61,10 @@ public class AlgorithmConfiguration {
 		workerModificationStrategies.add(strategy);
 	}
 
+	public void clearWorkerModificationStrategies(){
+		workerModificationStrategies = new ArrayList<String>();
+	}
+
 	public void setBroodModificationStrategy(String strategy) {
 		if(!AvailableProgramConfigurationOptions.getAvailableBroodModificationStrategies().contains(strategy)){
 			log.log(Level.SEVERE, "Invalid brood modification strategy " + strategy);
