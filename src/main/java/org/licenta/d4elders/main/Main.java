@@ -2,6 +2,7 @@ package org.licenta.d4elders.main;
 
 import org.licenta.d4elders.algorithm.HoneyBeeMatingOptimiziation;
 import org.licenta.d4elders.algorithm.MainAlgorithm.RunInformation;
+import org.licenta.d4elders.helper.model.GenerateSQLScripts;
 
 
 /**
@@ -26,7 +27,9 @@ public class Main {
 */
 	public static void main(String args[]) {
 		Diet4Elders d4e = new Diet4Elders();
-		d4e.run();
+		//d4e.run();
+		GenerateSQLScripts gen = new GenerateSQLScripts();
+		
 	}
 
 
