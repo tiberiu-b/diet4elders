@@ -4,4 +4,5 @@ public class MealVariant {
 	public int mealVariantId;
 	public int mealTypeId;
 	public String diet;
+	public int dishTypeId;
 }

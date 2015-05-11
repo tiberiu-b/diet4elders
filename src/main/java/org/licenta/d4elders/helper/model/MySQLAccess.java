@@ -18,7 +18,9 @@ public class MySQLAccess {
 	// private String query1 =
 	private String query1 = "select * from meal_recipe_relation as mrr join recipe as rec on mrr.recipeId=rec.recipeId join meal_type as mt on mt.mealId=mrr.mealId ORDER BY `rec`.`recipeId` ASC";
 	private String query2 = "select * from dish";
-	private String query3 = "select * from meal_variant";
+	private String query3 = "select * from meal_variant as mv join mealvariant_dish_relation as mrr on mv.mealVariantId = mrr.mealVariantId join dish d on d.dishId = mrr.dishId group by mv.mealVariantId";
+	private String query4 = "select * from menu";
+	private String query5 = "select * from food_service_provider";
 	String url = "jdbc:mysql://localhost:3306/toateretetele";
 	String user = "root";
 	String password = "";
@@ -36,6 +38,56 @@ public class MySQLAccess {
 			resultSet = statement.executeQuery(query);
 			return resultSet;
 
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return null;
+	}
+
+	public ArrayList<Integer> getAllMenuIds() {
+		try {
+			ArrayList<Integer> menuList = new ArrayList<Integer>();
+			// This will load the MySQL driver, each DB has its own driver
+			Class.forName("com.mysql.jdbc.Driver");
+			// Setup the connection with the DB
+			connect = DriverManager.getConnection(url, user, password);
+
+			// Statements allow to issue SQL queries to the database
+			statement = connect.createStatement();
+			// Result set get the result of the SQL query
+			resultSet = statement.executeQuery(query4);
+			while (resultSet.next()) {
+				int id = resultSet.getInt("menuId");
+				menuList.add(id);
+			}
+			return menuList;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return null;
+	}
+
+	public ArrayList<Integer> getAllFoodProviderIds() {
+		try {
+			ArrayList<Integer> menuList = new ArrayList<Integer>();
+			// This will load the MySQL driver, each DB has its own driver
+			Class.forName("com.mysql.jdbc.Driver");
+			// Setup the connection with the DB
+			connect = DriverManager.getConnection(url, user, password);
+
+			// Statements allow to issue SQL queries to the database
+			statement = connect.createStatement();
+			// Result set get the result of the SQL query
+			resultSet = statement.executeQuery(query5);
+			while (resultSet.next()) {
+				int id = resultSet.getInt("foodProviderId");
+				menuList.add(id);
+			}
+			return menuList;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -124,7 +176,9 @@ public class MySQLAccess {
 				nrIt++;
 				MealVariant mealVar = new MealVariant();
 				mealVar.mealVariantId = resultSet.getInt("mealVariantId");
-				mealVar.mealTypeId = resultSet.getInt("mealVariantId");
+				mealVar.mealTypeId = resultSet.getInt("mealTypeId");
+				int dishTypeVar = resultSet.getInt("dishTypeId");
+				mealVar.dishTypeId = dishTypeVar;
 				mealVarList.add(mealVar);
 			}
 			System.out.println(nrIt);
