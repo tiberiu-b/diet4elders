@@ -90,11 +90,15 @@ public class FoodProviderOntology {
 	}
 
 	public ResultSet queryModelForResult(String q, Model model, Model data) {
+		// Version 1 - with reasoning
 		// Add d2r data
-		model.add(data);
+		// model.add(data);
+		// Query query = QueryFactory.create(q);
+		// QueryExecution qexec = QueryExecutionFactory.create(query, model);
 
+		// Version 2 - withour reasoning - much faster
 		Query query = QueryFactory.create(q);
-		QueryExecution qexec = QueryExecutionFactory.create(query, model);
+		QueryExecution qexec = QueryExecutionFactory.create(query, data);
 		ResultSet rs = qexec.execSelect();
 		// while (rs.hasNext()) {
 		// QuerySolution row = rs.nextSolution();
