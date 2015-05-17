@@ -21,7 +21,7 @@ public class Main {
 	 * 
 	 * System.out.println("Duration of execution(in millis): " + info.duration); }
 	 */
-	public static void main(String args[]) {
+	public static void main1(String args[]) {
 		 Diet4Elders d4e = new Diet4Elders();
 		 d4e.run();
 		// Helper1 h = new Helper1();
