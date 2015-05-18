@@ -1,6 +1,6 @@
 package org.licenta.d4elders.algorithm;
 
-import org.licenta.d4elders.model.Solution;
+import org.licenta.d4elders.model.SolutionOld;
 
 /**
  * Parent class for main algorithms that we'd like to compare. The idea is to make sure that
@@ -14,7 +14,7 @@ public abstract class MainAlgorithm {
 
 
 	// Abstract methods
-	public abstract Solution performAlgorithm();
+	public abstract SolutionOld performAlgorithm();
 
 
 	// Non abstract methods

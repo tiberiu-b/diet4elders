@@ -6,6 +6,9 @@ import java.util.Random;
 import org.licenta.d4elders.model.*;
 import org.licenta.d4elders.model.dish.*;
 import org.licenta.d4elders.model.meal.*;
+import org.licenta.d4elders.obsolete.Desert;
+import org.licenta.d4elders.obsolete.MainCourse;
+import org.licenta.d4elders.obsolete.StarterDish;
 import org.licenta.d4elders.ontology.FoodProviderOntology;
 
 import com.hp.hpl.jena.query.Query;

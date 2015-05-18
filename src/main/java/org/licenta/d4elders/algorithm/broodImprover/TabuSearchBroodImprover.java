@@ -2,7 +2,7 @@ package org.licenta.d4elders.algorithm.broodImprover;
 
 import java.util.TreeSet;
 
-import org.licenta.d4elders.model.Solution;
+import org.licenta.d4elders.model.SolutionOld;
 
 /**
  * Implementation of algorithm described here: http://en.wikipedia.org/wiki/Tabu_search
@@ -12,18 +12,18 @@ import org.licenta.d4elders.model.Solution;
 public class TabuSearchBroodImprover implements BroodImproverAlgorithm {
 
 	@Override
-	public Solution improve(Solution brood) {
+	public SolutionOld improve(SolutionOld brood) {
 		final int limit = 100;
 		final int maxTabuSize = 100;
 		final int neighbourhoodSize = 10;
 
 		int timeStep = 0;
 
-		TreeSet<Solution> tabuList = new TreeSet<Solution>();
-		TreeSet<Solution> candidateList = new TreeSet<Solution>();
-		Solution bestCandidate = null;
-		Solution globalBest = brood;
-		Solution current = brood;
+		TreeSet<SolutionOld> tabuList = new TreeSet<SolutionOld>();
+		TreeSet<SolutionOld> candidateList = new TreeSet<SolutionOld>();
+		SolutionOld bestCandidate = null;
+		SolutionOld globalBest = brood;
+		SolutionOld current = brood;
 
 		while(timeStep < limit){
 
@@ -64,10 +64,10 @@ public class TabuSearchBroodImprover implements BroodImproverAlgorithm {
 	 * @param neighbourhoodSize
 	 * @return
 	 */
-	private TreeSet<Solution> getNeighbourhood(Solution brood, TreeSet<Solution> tabuList,
+	private TreeSet<SolutionOld> getNeighbourhood(SolutionOld brood, TreeSet<SolutionOld> tabuList,
 			int neighbourhoodSize) {
-		TreeSet<Solution> set = new TreeSet<Solution>();
-		Solution candidate = null;
+		TreeSet<SolutionOld> set = new TreeSet<SolutionOld>();
+		SolutionOld candidate = null;
 		for(int i = neighbourhoodSize; i > 0; i--){
 			candidate = brood.randomMutation();
 			if (!tabuListContains(tabuList, candidate)){
@@ -78,10 +78,10 @@ public class TabuSearchBroodImprover implements BroodImproverAlgorithm {
 		return set;
 	}
 
-	private boolean tabuListContains(TreeSet<Solution> tabuList,
-			Solution candidate) {
+	private boolean tabuListContains(TreeSet<SolutionOld> tabuList,
+			SolutionOld candidate) {
 
-		for(Solution s : tabuList){
+		for(SolutionOld s : tabuList){
 			if(s.equals(candidate)){
 				return true;
 			}

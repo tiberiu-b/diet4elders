@@ -7,7 +7,7 @@ import java.util.SortedSet;
 
 import org.junit.Test;
 import org.licenta.d4elders.main.InitialSolutionsGenerator;
-import org.licenta.d4elders.model.Solution;
+import org.licenta.d4elders.model.SolutionOld;
 import org.licenta.d4elders.model.meal.Breakfast;
 import org.licenta.d4elders.model.meal.Dinner;
 import org.licenta.d4elders.model.meal.Lunch;

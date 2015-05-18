@@ -21,8 +21,8 @@
 map:database a d2rq:Database;
     d2rq:jdbcDSN "jdbc:mysql://localhost/toateretetele";
     d2rq:jdbcDriver "com.mysql.jdbc.Driver";
-    d2rq:username "cristiprg";
-    d2rq:password "12345";
+    d2rq:username "root";
+    d2rq:password "";
     jdbc:autoReconnect "true";
 	jdbc:zeroDateTimeBehavior "convertToNull";
 	.
@@ -61,13 +61,13 @@ map:meal_type_mealName a d2rq:PropertyBridge;
 map:dish_type a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriSqlExpression "CONCAT('http://www.semanticweb.org/linabarakat/ontologies/2014/8/foodprovider#',REPLACE(dish_type.dishName,' ','_'))";
-	d2rq:class foodprovider:Dish;
+	d2rq:class foodprovider:DishType;
 	.
 
 # Data Property hasDishTypeId
 map:dish_type_dishId a d2rq:PropertyBridge;
     d2rq:belongsToClassMap map:dish_type;
-    d2rq:property foodprovider:dishHasId;
+    d2rq:property foodprovider:dishTypeHasId;
     d2rq:column "dish_type.dishId";
     d2rq:datatype xsd:integer;
 	.
@@ -322,3 +322,240 @@ map:recipe_food_relation a d2rq:PropertyBridge;
 	d2rq:join "recipe.recipeId <= recipe_food_relation.recipeId";
 	d2rq:join "recipe_food_relation.ndb_no =>food_descr.ndb_no";
 	.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+##############################################################
+###########################DISH###############################
+##############################################################
+
+# Table dish
+map:dish a d2rq:ClassMap;
+    d2rq:dataStorage map:database;
+    d2rq:uriPattern "http://www.semanticweb.org/dorin/ontologies/nutritionassesment#Dish@@dish.dishId@@";
+    d2rq:class nutritionassesment:Dish;
+    .
+
+# Data Property dishHasId
+map:dish_dishId a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:dish;
+    d2rq:property foodprovider:dishHasId;
+    d2rq:column "dish.dishId";
+    d2rq:datatype xsd:integer;
+    .   
+
+# Object Property dishHasDishType
+map:dish_dishType a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:dish;
+    d2rq:property foodprovider:dishHasDishType;
+    d2rq:refersToClassMap map:dish_type;
+    d2rq:join "dish.dishTypeId => dish_type.dishId";
+    .
+
+# Object Property dishHasRecipe
+map:dish_recipe a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:dish;
+    d2rq:property foodprovider:dishHasRecipe;
+    d2rq:refersToClassMap map:recipe;
+    d2rq:join "dish.recipeId => recipe.recipeId";
+    .
+
+
+
+
+
+
+
+##############################################################
+###########################MEAL_VARIANT#######################
+##############################################################
+
+# Table meal_variant
+map:meal_variant a d2rq:ClassMap;
+    d2rq:dataStorage map:database;
+    d2rq:uriPattern "http://www.semanticweb.org/dorin/ontologies/nutritionassesment#MealVariant@@meal_variant.mealVariantId@@";
+    d2rq:class nutritionassesment:MealVariant;
+    .
+
+# Data Property mealVariantHasId
+map:meal_variant_mealVariantId a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:meal_variant;
+    d2rq:property foodprovider:mealVariantHasId;
+    d2rq:column "meal_variant.mealVariantId";
+    d2rq:datatype xsd:integer;
+    .   
+
+# Object Property mealVariantHasMealType
+map:meal_variant_mealTypeId a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:meal_variant;
+    d2rq:property foodprovider:mealVariantHasMealType;
+    d2rq:refersToClassMap map:meal_type;
+    d2rq:join "meal_variant.mealTypeId => meal_type.mealId";
+    .
+
+##############################################################
+##############MEAL_VARIANT_DISH_RELATION######################
+##############################################################
+
+# table meal_recipe_relation
+map:mealvariant_dish_relation a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:meal_variant;
+    d2rq:property foodprovider:mealVariantHasDish;
+    d2rq:refersToClassMap map:dish;
+    d2rq:join "meal_variant.mealVariantId <= mealvariant_dish_relation.mealVariantId";
+    d2rq:join "mealvariant_dish_relation.dishId =>dish.dishId";
+    .
+
+
+
+
+
+
+
+
+
+##############################################################
+###########################MENU###############################
+##############################################################
+
+# Table menu
+map:menu a d2rq:ClassMap;
+    d2rq:dataStorage map:database;
+    d2rq:uriPattern "http://www.semanticweb.org/dorin/ontologies/nutritionassesment#Menu@@menu.menuId@@";
+    d2rq:class nutritionassesment:Menu;
+    .
+
+# Data Property menuHasId
+map:menu_menuId a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:menu;
+    d2rq:property foodprovider:menuHasId;
+    d2rq:column "menu.menuId";
+    d2rq:datatype xsd:integer;
+    .   
+
+# Object Property menuHasMealType
+map:menu_mealTypeId a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:menu;
+    d2rq:property foodprovider:menuHasMealType;
+    d2rq:refersToClassMap map:meal_type;
+    d2rq:join "menu.mealTypeId => meal_type.mealId";
+    .
+
+##############################################################
+##############MENU_MEALVARIANT_RELATION#######################
+##############################################################
+
+# table menu_mealvariant_relation
+map:menu_mealvariant_relation a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:menu;
+    d2rq:property foodprovider:menuHasMealVariant;
+    d2rq:refersToClassMap map:meal_variant;
+    d2rq:join "menu.menuId <= menu_mealvariant_relation.menuId";
+    d2rq:join "menu_mealvariant_relation.mealVariantId =>meal_variant.mealVariantId";
+    .
+
+
+##############################################################
+####################GEOGRAPHICAL_AREA#########################
+##############################################################
+
+# Table geographical_area
+map:geographical_area a d2rq:ClassMap;
+    d2rq:dataStorage map:database;
+    d2rq:uriPattern "http://www.semanticweb.org/dorin/ontologies/nutritionassesment#GeographicalArea@@geographical_area.geographicalAreaId@@";
+    d2rq:class nutritionassesment:GeographicalArea;
+    .
+
+# Data Property geographicalAreaHasId
+map:geographical_area_geographicalAreaId a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:geographical_area;
+    d2rq:property foodprovider:geographicalAreaHasId;
+    d2rq:column "geographical_area.geographicalAreaId";
+    d2rq:datatype xsd:integer;
+    .  
+
+# Data Property geographicalAreaHasCountry
+map:geographical_area_country a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:geographical_area;
+    d2rq:property foodprovider:geographicalAreaHasCountry;
+    d2rq:column "geographical_area.country";
+    d2rq:datatype xsd:string;
+    .  
+
+# Data Property geographicalAreaHasCity
+map:geographical_area_city a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:geographical_area;
+    d2rq:property foodprovider:geographicalAreaHasCity;
+    d2rq:column "geographical_area.city";
+    d2rq:datatype xsd:string;
+    .  
+
+# Data Property geographicalAreaHasRegion
+map:geographical_area_region a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:geographical_area;
+    d2rq:property foodprovider:geographicalAreaHasRegion;
+    d2rq:column "geographical_area.region";
+    d2rq:datatype xsd:string;
+    .   
+
+
+
+##############################################################
+##################FOOD_SERVICE_PROVIDER#######################
+##############################################################
+
+# Table food_service_provider
+map:food_service_provider a d2rq:ClassMap;
+    d2rq:dataStorage map:database;
+    d2rq:uriPattern "http://www.semanticweb.org/dorin/ontologies/nutritionassesment#FoodServiceProvider@@food_service_provider.foodProviderId@@";
+    d2rq:class nutritionassesment:FoodServiceProvider;
+    .
+
+# Data Property foodProviderHasID
+map:food_service_provider_foodProviderId a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:food_service_provider;
+    d2rq:property foodprovider:foodProviderHasID;
+    d2rq:column "food_service_provider.foodProviderId";
+    d2rq:datatype xsd:integer;
+    .  
+
+# Data Property foodProviderHasName
+map:food_service_provider_name a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:food_service_provider;
+    d2rq:property foodprovider:foodProviderHasName;
+    d2rq:column "food_service_provider.name";
+    d2rq:datatype xsd:string;
+    .  
+
+# Object Property foodProviderHasGeographicalArea
+map:food_service_provider_geographicalAreaId a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:food_service_provider;
+    d2rq:property foodprovider:foodProviderHasGeographicalArea;
+    d2rq:refersToClassMap map:geographical_area;
+    d2rq:join "food_service_provider.geographicalAreaId => geographical_area.geographicalAreaId";
+    .
+
+##############################################################
+#############MENU_FOODPROVIDER_RELATION#######################
+##############################################################
+
+# table menu_foodprovider_relation
+map:menu_foodprovider_relation a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:food_service_provider;
+    d2rq:property foodprovider:foodProviderHasMenu;
+    d2rq:refersToClassMap map:menu;
+    d2rq:join "food_service_provider.foodProviderId <= menu_foodprovider_relation.foodProviderId";
+    d2rq:join "menu_foodprovider_relation.menuId =>menu.menuId";
+    .

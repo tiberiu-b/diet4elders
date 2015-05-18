@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.licenta.d4elders.algorithm.AnnealingScheduler;
 import org.licenta.d4elders.main.InitialSolutionsGenerator;
-import org.licenta.d4elders.model.Solution;
+import org.licenta.d4elders.model.SolutionOld;
 import org.licenta.d4elders.model.user_profile.NutritionalRecommandationHelper;
 import org.licenta.d4elders.model.user_profile.UserProfileStub;
 /**
@@ -43,7 +43,7 @@ public class BroodImproverTest {
 	@Test
 	public void testImprove() {
 
-		Solution sol = InitialSolutionsGenerator.generateRandomSolutions(1).first();
+		SolutionOld sol = InitialSolutionsGenerator.generateRandomSolutions(1).first();
 		double fintess1 = sol.getFitness();
 
 		sol = new SimulatedAnnealingBroodImprover(new AnnealingScheduler(1, 90, 0.1)).improve(sol);
@@ -62,7 +62,7 @@ public class BroodImproverTest {
 	public void testImproveCollection(){
 		final int size = 1000;
 
-		SortedSet<Solution> solutions = InitialSolutionsGenerator.generateRandomSolutions(size);
+		SortedSet<SolutionOld> solutions = InitialSolutionsGenerator.generateRandomSolutions(size);
 		double fitnessAvg = fitnessAverage(solutions);
 
 		long startTime1 = System.currentTimeMillis();
@@ -81,9 +81,9 @@ public class BroodImproverTest {
 		assertTrue(finishTime2 - startTime2 < finishTime1 - startTime1);
 	}
 
-	private double fitnessAverage(Collection<Solution> col){
+	private double fitnessAverage(Collection<SolutionOld> col){
 		double avg = 0.0;
-		for(Solution item : col){
+		for(SolutionOld item : col){
 			//System.out.println(item.getFitness() + " " + item.toString());
 			avg += item.getFitness();
 		}

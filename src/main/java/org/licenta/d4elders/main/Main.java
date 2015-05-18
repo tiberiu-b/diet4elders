@@ -13,9 +13,13 @@ import java.awt.TextArea;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+
+import javax.swing.text.DefaultCaret;
 
 import org.licenta.d4elders.helper.AlgorithmConfiguration;
 import org.licenta.d4elders.helper.AvailableProgramConfigurationOptions;
@@ -23,10 +27,12 @@ import org.licenta.d4elders.helper.AvailableProgramConfigurationOptions;
 /**
  * Created by cristiprg on 1/18/2015.
  */
-public class Main extends Applet {
+public class Main extends Applet implements MouseListener {
 
 	// This will take long
 	Diet4Elders d4e = new Diet4Elders();
+
+	boolean mousePress = false;
 
 	Panel leftPanel;
 
@@ -52,15 +58,13 @@ public class Main extends Applet {
 	TextField energyReductionAmountField;
 	TextField probabilityToMateDroneThresholdField;
 
-
-
 	public static void main(String args[]) {
-		//run with the default configuration
-		//new Main().d4e.run(new AlgorithmConfiguration());
+		// run with the default configuration
+		// new Main().d4e.run(new AlgorithmConfiguration());
 	}
 
 	@Override
-	public void init(){
+	public void init() {
 		setLayout(new GridBagLayout());
 		leftPanel = new Panel();
 		add(leftPanel);
@@ -76,33 +80,33 @@ public class Main extends Applet {
 		energyReductionAmountLabel = new Label("Energy reduction amount: ");
 		probabilityToMateDroneThresholdLabel = new Label("Probability to mate dron threshold: ");
 
-
 		// Initialize input elements
 		AlgorithmConfiguration defaultConfiguration = new AlgorithmConfiguration();
 
 		CheckboxGroup grp = new CheckboxGroup();
 		broodModificationStrategiesCheckboxList = new ArrayList<Checkbox>();
-		for(String strategy : AvailableProgramConfigurationOptions.getAvailableBroodModificationStrategies()){
+		for (String strategy : AvailableProgramConfigurationOptions.getAvailableBroodModificationStrategies()) {
 			Checkbox checkbox = new Checkbox(strategy, grp, false);
 			broodModificationStrategiesCheckboxList.add(checkbox);
 
-			if(strategy.equals(AvailableProgramConfigurationOptions.SIMPLE_CROSSOVER))
+			if (strategy.equals(AvailableProgramConfigurationOptions.SIMPLE_CROSSOVER))
 				checkbox.setState(true);
 		}
 
 		workerModificationStrategiesCheckboxList = new ArrayList<Checkbox>();
-		for(String strategy : AvailableProgramConfigurationOptions.getAvailableWorkerModificationStrategies()){
+		for (String strategy : AvailableProgramConfigurationOptions.getAvailableWorkerModificationStrategies()) {
 			Checkbox checkbox = new Checkbox(strategy, null, true);
 			workerModificationStrategiesCheckboxList.add(checkbox);
 		}
 
-		maxNrMatingsField = new TextField(String.valueOf(defaultConfiguration.getMaxNrMatings()),  10);
+		maxNrMatingsField = new TextField(String.valueOf(defaultConfiguration.getMaxNrMatings()), 10);
 		popSizeField = new TextField(String.valueOf(defaultConfiguration.getPopSize()), 10);
 		initialEnergyField = new TextField(String.valueOf(defaultConfiguration.getInitialEnergy()), 10);
 		initialSpeedField = new TextField(String.valueOf(defaultConfiguration.getInitialSpeed()), 10);
 		speedReductionFactorField = new TextField(String.valueOf(defaultConfiguration.getSpeedReductionFactor()), 10);
 		energyReductionAmountField = new TextField(String.valueOf(defaultConfiguration.getEnergyReductionAmount()), 10);
-		probabilityToMateDroneThresholdField = new TextField(String.valueOf(defaultConfiguration.getProbabilityToMateDroneThreshold()), 10);
+		probabilityToMateDroneThresholdField = new TextField(String.valueOf(defaultConfiguration
+				.getProbabilityToMateDroneThreshold()), 10);
 
 		// The text area on the right
 		outputTextArea = new TextArea(15, 100);
@@ -116,7 +120,7 @@ public class Main extends Applet {
 		// brood modification strategies
 		leftPanel.add(broodModificationStrategyLabel);
 		Panel broodsPanel = new Panel();
-		for(Checkbox c : broodModificationStrategiesCheckboxList){
+		for (Checkbox c : broodModificationStrategiesCheckboxList) {
 			broodsPanel.add(c);
 		}
 		leftPanel.add(broodsPanel);
@@ -124,11 +128,10 @@ public class Main extends Applet {
 		// worker modification strategies
 		leftPanel.add(workerModificationStrategiesLabel);
 		Panel workersPanel = new Panel();
-		for(Checkbox c : workerModificationStrategiesCheckboxList){
+		for (Checkbox c : workerModificationStrategiesCheckboxList) {
 			workersPanel.add(c);
 		}
 		leftPanel.add(workersPanel);
-
 
 		// max nr matings
 		leftPanel.add(maxNrMatingsLabel);
@@ -158,32 +161,31 @@ public class Main extends Applet {
 		leftPanel.add(probabilityToMateDroneThresholdLabel);
 		leftPanel.add(probabilityToMateDroneThresholdField);
 
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridx = 0;
+		gbc.gridy = GridBagConstraints.RELATIVE;
+		add(outputTextArea, gbc);
 
-		 GridBagConstraints gbc = new GridBagConstraints();
-		 gbc.gridx = 0;
-		 gbc.gridy = GridBagConstraints.RELATIVE;
-		 add(outputTextArea, gbc);
-
-		 add(runButton);
+		add(runButton);
 
 		runButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new Thread(){
+				new Thread() {
 					@Override
-					public void run(){
+					public void run() {
 
 						AlgorithmConfiguration configuration = new AlgorithmConfiguration();
-						for(Checkbox c : broodModificationStrategiesCheckboxList){
-							if(c.getState() == true){
+						for (Checkbox c : broodModificationStrategiesCheckboxList) {
+							if (c.getState() == true) {
 								configuration.setBroodModificationStrategy(c.getLabel());
 								break;
 							}
 						}
 
 						configuration.clearWorkerModificationStrategies();
-						for(Checkbox c : workerModificationStrategiesCheckboxList){
-							if(c.getState() == true){
+						for (Checkbox c : workerModificationStrategiesCheckboxList) {
+							if (c.getState() == true) {
 								configuration.addWorkerModificationStrategy(c.getLabel());
 							}
 						}
@@ -194,7 +196,8 @@ public class Main extends Applet {
 						configuration.setInitialEnergy(Integer.valueOf(initialEnergyField.getText()));
 						configuration.setSpeedReductionFactor(Double.valueOf(speedReductionFactorField.getText()));
 						configuration.setEnergyReductionAmount(Double.valueOf(energyReductionAmountField.getText()));
-						configuration.setProbabilityToMateDroneThreshold(Double.valueOf(probabilityToMateDroneThresholdField.getText()));
+						configuration.setProbabilityToMateDroneThreshold(Double
+								.valueOf(probabilityToMateDroneThresholdField.getText()));
 
 						Diet4Elders d4e = new Diet4Elders();
 						d4e.run(configuration);
@@ -209,14 +212,16 @@ public class Main extends Applet {
 		System.setOut(new PrintStream(baos));
 
 		// 2) refresh every X seconds: copy the content of the stream in the text area
-		new Thread(){
+		new Thread() {
 			@Override
-			public void run(){
-				while(!isInterrupted()){
+			public void run() {
+				while (!isInterrupted()) {
 					outputTextArea.setText(baos.toString());
-					//outputTextArea.setCaretPosition(outputTextArea.getText().length());
+					if (mousePress == false)
+						outputTextArea.setCaretPosition(baos.toString().length());
+					// outputTextArea.setCaretPosition(outputTextArea.getText().length());
 					try {
-						Thread.sleep(200);
+						Thread.sleep(400);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -227,5 +232,33 @@ public class Main extends Applet {
 
 	}
 
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		mousePress = true;
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		mousePress = false;
+
+	}
 
 }

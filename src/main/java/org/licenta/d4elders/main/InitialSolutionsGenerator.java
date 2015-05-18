@@ -19,7 +19,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.licenta.d4elders.dal.*;
-import org.licenta.d4elders.model.Solution;
+import org.licenta.d4elders.model.SolutionOld;
 import org.licenta.d4elders.model.meal.*;
 import org.licenta.d4elders.model.user_profile.NutritionalRecommendation;
 
@@ -38,9 +38,9 @@ public class InitialSolutionsGenerator {
 	 *
 	 * @return A SortedSet (Tree) filled with random solutions.
 	 */
-	public static SortedSet<Solution> generateRandomSolutions(int size) {
+	public static SortedSet<SolutionOld> generateRandomSolutions(int size) {
 		int numberOfSolutions = 1000;
-		SortedSet<Solution> solutions = new TreeSet<Solution>();
+		SortedSet<SolutionOld> solutions = new TreeSet<SolutionOld>();
 		BusinessLogic bl = new BusinessLogic();
 		ArrayList<Breakfast> breakfastList = bl.generateBreakfastMeals(numberOfSolutions);
 		ArrayList<Lunch> lunchList = bl.generateLunchMeals(numberOfSolutions);
@@ -66,7 +66,7 @@ public class InitialSolutionsGenerator {
 
 			DayMeal dayMeal = new DayMeal(breakfast, lunch, dinner, snack1, snack2);
 
-			if (solutions.add(new Solution(dayMeal)) == false) {
+			if (solutions.add(new SolutionOld(dayMeal)) == false) {
 				// TODO: scoate odiosenia asta
 				System.err
 						.println("Fatal error: NU CRED - Method \"add\" returned false - adica is doua exact la fel!");
@@ -78,7 +78,7 @@ public class InitialSolutionsGenerator {
         return solutions;
     }
 
-    public static SortedSet<Solution> generateRandomSolutions(){
+    public static SortedSet<SolutionOld> generateRandomSolutions(){
     	return generateRandomSolutions(NR_INITIAL_SOLUTIONS);
     }
 

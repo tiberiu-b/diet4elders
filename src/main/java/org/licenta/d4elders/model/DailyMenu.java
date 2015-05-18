@@ -1,23 +1,21 @@
-package org.licenta.d4elders.model.meal;
-
-import org.licenta.d4elders.model.FoodNutrients;
+package org.licenta.d4elders.model;
 
 /**
  * 
  */
-public class DayMeal extends FoodNutrients {
-	protected Breakfast breakfast;
-	protected Dinner dinner;
-	protected Lunch lunch;
-	protected Snack snack1, snack2;
+public class DailyMenu extends FoodNutrients {
+	protected Menu breakfast;
+	protected Menu dinner;
+	protected Menu lunch;
+	protected Menu snack1, snack2;
 
 	/**
      * 
      */
-	public DayMeal() {
+	public DailyMenu() {
 	}
 
-	public DayMeal(Breakfast breakfast, Lunch lunch, Dinner dinner, Snack snack1, Snack snack2) {
+	public DailyMenu(Menu breakfast, Menu lunch, Menu dinner, Menu snack1, Menu snack2) {
 		this.breakfast = breakfast;
 		this.dinner = dinner;
 		this.lunch = lunch;
@@ -31,10 +29,10 @@ public class DayMeal extends FoodNutrients {
 		if (this == other)
 			return true;
 
-		if (!(other instanceof DayMeal))
+		if (!(other instanceof DailyMenu))
 			return false;
 
-		DayMeal _other = (DayMeal) other;
+		DailyMenu _other = (DailyMenu) other;
 		return breakfast.equals(_other.breakfast) && dinner.equals(_other.dinner) && lunch.equals(_other.lunch)
 				&& snack1.equals(_other.snack1) && snack2.equals(_other.snack2);
 	}
@@ -45,49 +43,50 @@ public class DayMeal extends FoodNutrients {
 				+ snack1.toString() + "\n	S2:" + snack2.toString();
 	}
 
-	public Breakfast getBreakfast() {
+	public Menu getBreakfast() {
 		return breakfast;
 	}
 
-	public void setBreakfast(Breakfast breakfast) {
+	public void setBreakfast(Menu breakfast) {
 		this.breakfast = breakfast;
 	}
 
-	public Dinner getDinner() {
+	public Menu getDinner() {
 		return dinner;
 	}
 
-	public void setDinner(Dinner dinner) {
+	public void setDinner(Menu dinner) {
 		this.dinner = dinner;
 	}
 
-	public Lunch getLunch() {
+	public Menu getLunch() {
 		return lunch;
 	}
 
-	public void setLunch(Lunch lunch) {
+	public void setLunch(Menu lunch) {
 		this.lunch = lunch;
 	}
 
-	public Snack getSnack1() {
+	public Menu getSnack1() {
 		return snack1;
 	}
 
-	public void setSnack1(Snack snack1) {
+	public void setSnack1(Menu snack1) {
 		this.snack1 = snack1;
 	}
 
-	public Snack getSnack2() {
+	public Menu getSnack2() {
 		return snack2;
 	}
 
-	public void setSnack2(Snack snack2) {
+	public void setSnack2(Menu snack2) {
 		this.snack2 = snack2;
 	}
 
 	public Float getProteins_custom() {
 		return breakfast.getProteins() + lunch.getProteins() + dinner.getProteins() + snack1.getProteins()
 				+ snack2.getProteins();
+
 	}
 
 	public Float getLipids_custom() {
