@@ -4,20 +4,21 @@ import org.licenta.d4elders.model.Recipe;
 
 public abstract class Dish {
 
-	protected Recipe recipeMain;
+	private Recipe recipe;
+	private int dishId;
 
 	public Dish() {
 
 	}
 
 	public Dish(Recipe recipe) {
-		recipeMain = recipe;
+		this.recipe = recipe;
 	}
 
 	@Override
 	public String toString() {
 		// return foodProperties.getCode() + " - " + foodProperties.getName();
-		return recipeMain.getRecipeId() + " - " + recipeMain.getName();
+		return this.recipe.getRecipeId() + " - " + this.recipe.getName();
 	}
 
 	@Override
@@ -28,55 +29,63 @@ public abstract class Dish {
 		if (!(other instanceof Dish))
 			return false;
 
-		return recipeMain.equals(((Dish) other).recipeMain);
+		return this.recipe.equals(((Dish) other).getRecipe());
 	}
 
-	public Recipe getRecipeMain() {
-		return recipeMain;
+	public Recipe getRecipe() {
+		return this.recipe;
 	}
 
 	public float getProteins() {
-		return recipeMain.getProteins();
+		return this.recipe.getProteins();
 	}
 
 	public float getLipids() {
-		return recipeMain.getLipids();
+		return this.recipe.getLipids();
 	}
 
 	public float getCarbohydrates() {
-		return recipeMain.getCarbohydrates();
+		return this.recipe.getCarbohydrates();
 	}
 
 	public float getEnergy() {
-		return recipeMain.getEnergy();
+		return this.recipe.getEnergy();
 	}
 
 	public float getCalcium() {
-		return recipeMain.getCalcium();
+		return this.recipe.getCalcium();
 	}
 
 	public float getIron() {
-		return recipeMain.getIron();
+		return this.recipe.getIron();
 	}
 
 	public float getSodium() {
-		return recipeMain.getSodium();
+		return this.recipe.getSodium();
 	}
 
 	public float getVitA() {
-		return recipeMain.getVitA();
+		return this.recipe.getVitA();
 	}
 
 	public float getVitB() {
-		return recipeMain.getVitB();
+		return this.recipe.getVitB();
 	}
 
 	public float getVitC() {
-		return recipeMain.getVitC();
+		return this.recipe.getVitC();
 	}
 
 	public float getVitD() {
-		return recipeMain.getVitD();
+		return this.recipe.getVitD();
+	}
+
+	public int getDishId() {
+		return dishId;
+	}
+
+	public void setDishId(int dishId) {
+		this.dishId = dishId;
 	}
 
 }

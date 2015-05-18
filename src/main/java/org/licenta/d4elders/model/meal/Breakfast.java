@@ -1,7 +1,7 @@
 package org.licenta.d4elders.model.meal;
 
-import org.licenta.d4elders.model.dish.Desert;
-import org.licenta.d4elders.model.dish.MainCourse;
+import org.licenta.d4elders.obsolete.Desert;
+import org.licenta.d4elders.obsolete.MainCourse;
 
 /**
  * 

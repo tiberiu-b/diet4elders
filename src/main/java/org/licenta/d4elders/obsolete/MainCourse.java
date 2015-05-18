@@ -1,6 +1,7 @@
-package org.licenta.d4elders.model.dish;
+package org.licenta.d4elders.obsolete;
 
 import org.licenta.d4elders.model.Recipe;
+import org.licenta.d4elders.model.dish.Dish;
 
 public class MainCourse extends Dish {
 
@@ -25,67 +26,67 @@ public class MainCourse extends Dish {
 
 	public float getProteins() {
 		if (recipeSide == null)
-			return recipeMain.getProteins();
-		return recipeSide.getProteins() + recipeMain.getProteins();
+			return recipe.getProteins();
+		return recipeSide.getProteins() + recipe.getProteins();
 	}
 
 	public float getLipids() {
 		if (recipeSide == null)
-			return recipeMain.getLipids();
-		return recipeSide.getLipids() + recipeMain.getLipids();
+			return recipe.getLipids();
+		return recipeSide.getLipids() + recipe.getLipids();
 	}
 
 	public float getCarbohydrates() {
 		if (recipeSide == null)
-			return recipeMain.getCarbohydrates();
-		return recipeSide.getCarbohydrates() + recipeMain.getCarbohydrates();
+			return recipe.getCarbohydrates();
+		return recipeSide.getCarbohydrates() + recipe.getCarbohydrates();
 	}
 
 	public float getEnergy() {
 		if (recipeSide == null)
-			return recipeMain.getEnergy();
-		return recipeSide.getEnergy() + recipeMain.getEnergy();
+			return recipe.getEnergy();
+		return recipeSide.getEnergy() + recipe.getEnergy();
 	}
 
 	public float getCalcium() {
 		if (recipeSide == null)
-			return recipeMain.getCalcium();
-		return recipeSide.getCalcium() + recipeMain.getCalcium();
+			return recipe.getCalcium();
+		return recipeSide.getCalcium() + recipe.getCalcium();
 	}
 
 	public float getIron() {
 		if (recipeSide == null)
-			return recipeMain.getIron();
-		return recipeSide.getIron() + recipeMain.getIron();
+			return recipe.getIron();
+		return recipeSide.getIron() + recipe.getIron();
 	}
 
 	public float getSodium() {
 		if (recipeSide == null)
-			return recipeMain.getSodium();
-		return recipeSide.getSodium() + recipeMain.getSodium();
+			return recipe.getSodium();
+		return recipeSide.getSodium() + recipe.getSodium();
 	}
 
 	public float getVitA() {
 		if (recipeSide == null)
-			return recipeMain.getVitA();
-		return recipeSide.getVitA() + recipeMain.getVitA();
+			return recipe.getVitA();
+		return recipeSide.getVitA() + recipe.getVitA();
 	}
 
 	public float getVitB() {
 		if (recipeSide == null)
-			return recipeMain.getVitB();
-		return recipeSide.getVitB() + recipeMain.getVitB();
+			return recipe.getVitB();
+		return recipeSide.getVitB() + recipe.getVitB();
 	}
 
 	public float getVitC() {
 		if (recipeSide == null)
-			return recipeMain.getVitC();
-		return recipeSide.getVitC() + recipeMain.getVitC();
+			return recipe.getVitC();
+		return recipeSide.getVitC() + recipe.getVitC();
 	}
 
 	public float getVitD() {
 		if (recipeSide == null)
-			return recipeMain.getVitD();
-		return recipeSide.getVitD() + recipeMain.getVitD();
+			return recipe.getVitD();
+		return recipeSide.getVitD() + recipe.getVitD();
 	}
 }

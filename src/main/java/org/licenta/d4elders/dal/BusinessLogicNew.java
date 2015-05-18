@@ -19,7 +19,7 @@ import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.sparql.resultset.ResultsFormat;
 
-public class BusinessLogic {
+public class BusinessLogicNew {
 	private static FoodProviderOntology foodProviderOntology;
 	private static Model model;
 	private static Model data;
@@ -34,10 +34,9 @@ public class BusinessLogic {
 	private String desert = "Dessert";
 
 	/*
-	 * The arrays are fetched once and stored in cache.
-	 * Subsequent calls return the cached arrays.
-	 * Since the elements in the ontology are constant during a
-	 * run of the program, there won't be any misses.
+	 * The arrays are fetched once and stored in cache. Subsequent calls return the cached arrays.
+	 * Since the elements in the ontology are constant during a run of the program, there won't be
+	 * any misses.
 	 */
 	private static ArrayList<Recipe> breakfastMainCourseSingleRecipesCache;
 	private static ArrayList<Recipe> breakfastMainCourseNotSingleRecipesCache;
@@ -63,20 +62,18 @@ public class BusinessLogic {
 		model.add(data);
 	}
 
-
 	/**
-	 * Prefetches the data from ontolgy into main memory.
-	 * Any subsequent call will return data from the faster main memory instead
-	 * of the slower ontology.
+	 * Prefetches the data from ontolgy into main memory. Any subsequent call will return data from
+	 * the faster main memory instead of the slower ontology.
 	 */
-	public void loadOntologyDataIntoMemory(){
+	public void loadOntologyDataIntoMemory() {
 		generateBreakfastMeals(0);
 		generateLunchMeals(0);
 		generateDinnerMeals(0);
 		generateSnackMeals(0);
 	}
 
-	public Breakfast generateSingleBreakfastMeal(){
+	public Breakfast generateSingleBreakfastMeal() {
 		return generateBreakfastMeals(1).get(0);
 	}
 
@@ -86,43 +83,10 @@ public class BusinessLogic {
 
 		Random rand = new Random();
 
-		ArrayList<Recipe> mainCourseSingleList = this.getAllBreakfastMainCourseSingleRecipes();
-		ArrayList<Recipe> mainCourseNotSingleList = this.getAllBreakfastMainCourseNotSingleRecipes();
-		ArrayList<Recipe> sideDishList = new ArrayList<Recipe>();
-		if (mainCourseNotSingleList.size() != 0)
-			sideDishList = this.getAllBreakfastSideDishRecipes();
-		ArrayList<Recipe> desertList = this.getAllBreakfastDesert();
-
-		int mainCourseSingleListSize = mainCourseSingleList.size();
-		int mainCourseNotSingleListSize = mainCourseNotSingleList.size();
-		int sideDishListSize = sideDishList.size();
-		int desertListSize = desertList.size();
-
-		float MainCourseSingleRation = (float) mainCourseSingleListSize
-				/ (mainCourseSingleListSize + mainCourseNotSingleListSize);
-		int numberOfMealWithMainCourseSingle = (int) (MainCourseSingleRation * numberOfSolutions);
-
-		if (sideDishListSize == 0)
-			numberOfMealWithMainCourseSingle = numberOfSolutions;
-
-		for (int i = 0; i < numberOfSolutions; i++) {
-			Breakfast br = new Breakfast();
-			br.setDesert(new Desert(desertList.get(rand.nextInt(desertListSize))));
-			if (i < numberOfMealWithMainCourseSingle) {
-				// breakfast meal with main course single
-				br.setMainCourse(new MainCourse(mainCourseSingleList.get(rand.nextInt(mainCourseSingleListSize))));
-			} else {
-				// breakfast meal with main course recipeMain + sideDish
-				br.setMainCourse(new MainCourse(mainCourseSingleList.get(rand.nextInt(mainCourseNotSingleListSize)),
-						sideDishList.get(rand.nextInt(sideDishListSize))));
-			}
-			breakfastList.add(br);
-		}
-
 		return breakfastList;
 	}
 
-	public Lunch generateSingleLunchMeal(){
+	public Lunch generateSingleLunchMeal() {
 		return generateLunchMeals(1).get(0);
 	}
 
@@ -132,46 +96,10 @@ public class BusinessLogic {
 
 		Random rand = new Random();
 
-		ArrayList<Recipe> starterDishList = this.getAllLunchStarterDishRecipes();
-		ArrayList<Recipe> mainCourseSingleList = this.getAllLunchMainCourseSingleRecipes();
-		ArrayList<Recipe> mainCourseNotSingleList = this.getAllLunchMainCourseNotSingleRecipes();
-		ArrayList<Recipe> sideDishList = new ArrayList<Recipe>();
-		if (mainCourseNotSingleList.size() != 0)
-			sideDishList = this.getAllLunchSideDishRecipes();
-		ArrayList<Recipe> desertList = this.getAllLunchDesertRecipes();
-
-		int starterDishListSize = starterDishList.size();
-		int mainCourseSingleListSize = mainCourseSingleList.size();
-		int mainCourseNotSingleListSize = mainCourseNotSingleList.size();
-		int sideDishListSize = sideDishList.size();
-		int desertListSize = desertList.size();
-
-		float MainCourseSingleRation = (float) mainCourseSingleListSize
-				/ (mainCourseSingleListSize + mainCourseNotSingleListSize);
-		int numberOfMealWithMainCourseSingle = (int) (MainCourseSingleRation * numberOfSolutions);
-
-		if (sideDishListSize == 0)
-			numberOfMealWithMainCourseSingle = numberOfSolutions;
-
-		for (int i = 0; i < numberOfSolutions; i++) {
-			Lunch lunch = new Lunch();
-			lunch.setStarterDish(new StarterDish(starterDishList.get(rand.nextInt(starterDishListSize))));
-			if (i < numberOfMealWithMainCourseSingle) {
-				// lunch meal with main course single
-				lunch.setMainCourse(new MainCourse(mainCourseSingleList.get(rand.nextInt(mainCourseSingleListSize))));
-			} else {
-				// lunch meal with main course recipeMain + sideDish
-				lunch.setMainCourse(new MainCourse(mainCourseSingleList.get(rand.nextInt(mainCourseNotSingleListSize)),
-						sideDishList.get(rand.nextInt(sideDishListSize))));
-			}
-			lunch.setDesert(new Desert(desertList.get(rand.nextInt(desertListSize))));
-			lunchList.add(lunch);
-		}
-
 		return lunchList;
 	}
 
-	public Dinner generateSingleDinnerMeal(){
+	public Dinner generateSingleDinnerMeal() {
 		return generateDinnerMeals(1).get(0);
 	}
 
@@ -180,47 +108,10 @@ public class BusinessLogic {
 
 		Random rand = new Random();
 
-		ArrayList<Recipe> starterDishList = this.getAllDinnerStarterDishRecipes();
-		ArrayList<Recipe> mainCourseSingleList = this.getAllDinnerMainCourseSingleRecipes();
-		ArrayList<Recipe> mainCourseNotSingleList = this.getAllDinnerMainCourseNotSingleRecipes();
-		ArrayList<Recipe> sideDishList = new ArrayList<Recipe>();
-		if (mainCourseNotSingleList.size() != 0)
-			sideDishList = this.getAllDinnerSideDishRecipes();
-		ArrayList<Recipe> desertList = this.getAllDinnerDesertRecipes();
-
-		int starterDishListSize = starterDishList.size();
-		int mainCourseSingleListSize = mainCourseSingleList.size();
-		int mainCourseNotSingleListSize = mainCourseNotSingleList.size();
-		int sideDishListSize = sideDishList.size();
-		int desertListSize = desertList.size();
-
-		float MainCourseSingleRation = (float) mainCourseSingleListSize
-				/ (mainCourseSingleListSize + mainCourseNotSingleListSize);
-		int numberOfMealWithMainCourseSingle = (int) (MainCourseSingleRation * numberOfSolutions);
-
-		if (sideDishListSize == 0)
-			numberOfMealWithMainCourseSingle = numberOfSolutions;
-
-		for (int i = 0; i < numberOfSolutions; i++) {
-			Dinner dinner = new Dinner();
-			dinner.setStarterDish(new StarterDish(starterDishList.get(rand.nextInt(starterDishListSize))));
-			if (i < numberOfMealWithMainCourseSingle) {
-				// dinner meal with main course single
-				dinner.setMainCourse(new MainCourse(mainCourseSingleList.get(rand.nextInt(mainCourseSingleListSize))));
-			} else {
-				// dinner meal with main course recipeMain + sideDish
-				dinner.setMainCourse(new MainCourse(
-						mainCourseSingleList.get(rand.nextInt(mainCourseNotSingleListSize)), sideDishList.get(rand
-								.nextInt(sideDishListSize))));
-			}
-			dinner.setDesert(new Desert(desertList.get(rand.nextInt(desertListSize))));
-			dinnerList.add(dinner);
-		}
-
 		return dinnerList;
 	}
 
-	public Snack generateSingleSnackMeal(){
+	public Snack generateSingleSnackMeal() {
 		return generateSnackMeals(1).get(0);
 	}
 
@@ -242,7 +133,7 @@ public class BusinessLogic {
 	}
 
 	public ArrayList<Recipe> getAllBreakfastMainCourseSingleRecipes() {
-		if (breakfastMainCourseSingleRecipesCache != null){
+		if (breakfastMainCourseSingleRecipesCache != null) {
 			return breakfastMainCourseSingleRecipesCache;
 		}
 
@@ -251,7 +142,7 @@ public class BusinessLogic {
 	}
 
 	public ArrayList<Recipe> getAllBreakfastMainCourseNotSingleRecipes() {
-		if (breakfastMainCourseNotSingleRecipesCache != null){
+		if (breakfastMainCourseNotSingleRecipesCache != null) {
 			return breakfastMainCourseNotSingleRecipesCache;
 		}
 
@@ -260,7 +151,7 @@ public class BusinessLogic {
 	}
 
 	public ArrayList<Recipe> getAllBreakfastSideDishRecipes() {
-		if (breakfastSideDishRecipesCache != null){
+		if (breakfastSideDishRecipesCache != null) {
 			return breakfastSideDishRecipesCache;
 		}
 
@@ -269,7 +160,7 @@ public class BusinessLogic {
 	}
 
 	public ArrayList<Recipe> getAllBreakfastDesert() {
-		if (breakfastDesertCache != null){
+		if (breakfastDesertCache != null) {
 			return breakfastDesertCache;
 		}
 
@@ -278,7 +169,7 @@ public class BusinessLogic {
 	}
 
 	public ArrayList<Recipe> getAllLunchStarterDishRecipes() {
-		if (lunchStarterDishRecipesCache != null){
+		if (lunchStarterDishRecipesCache != null) {
 			return lunchStarterDishRecipesCache;
 		}
 
@@ -287,7 +178,7 @@ public class BusinessLogic {
 	}
 
 	public ArrayList<Recipe> getAllLunchMainCourseSingleRecipes() {
-		if (lunchMainCourseSingleRecipesCache != null){
+		if (lunchMainCourseSingleRecipesCache != null) {
 			return lunchMainCourseSingleRecipesCache;
 		}
 
@@ -296,7 +187,7 @@ public class BusinessLogic {
 	}
 
 	public ArrayList<Recipe> getAllLunchMainCourseNotSingleRecipes() {
-		if (lunchMainCourseNotSingleRecipesCache != null){
+		if (lunchMainCourseNotSingleRecipesCache != null) {
 			return lunchMainCourseNotSingleRecipesCache;
 		}
 
@@ -305,7 +196,7 @@ public class BusinessLogic {
 	}
 
 	public ArrayList<Recipe> getAllLunchSideDishRecipes() {
-		if (lunchSideDishRecipesCache != null){
+		if (lunchSideDishRecipesCache != null) {
 			return lunchSideDishRecipesCache;
 		}
 
@@ -314,7 +205,7 @@ public class BusinessLogic {
 	}
 
 	public ArrayList<Recipe> getAllLunchDesertRecipes() {
-		if (lunchSideDesertRecipesCache != null){
+		if (lunchSideDesertRecipesCache != null) {
 			return lunchSideDesertRecipesCache;
 		}
 
@@ -323,7 +214,7 @@ public class BusinessLogic {
 	}
 
 	public ArrayList<Recipe> getAllDinnerStarterDishRecipes() {
-		if (dinnerStarterDishRecipesCache != null){
+		if (dinnerStarterDishRecipesCache != null) {
 			return dinnerStarterDishRecipesCache;
 		}
 
@@ -332,7 +223,7 @@ public class BusinessLogic {
 	}
 
 	public ArrayList<Recipe> getAllDinnerMainCourseSingleRecipes() {
-		if (dinnerMainCourseSingleRecipesCache != null){
+		if (dinnerMainCourseSingleRecipesCache != null) {
 			return dinnerMainCourseSingleRecipesCache;
 		}
 
@@ -341,7 +232,7 @@ public class BusinessLogic {
 	}
 
 	public ArrayList<Recipe> getAllDinnerMainCourseNotSingleRecipes() {
-		if (dinnerMainCourseNotSingleRecipesCache != null){
+		if (dinnerMainCourseNotSingleRecipesCache != null) {
 			return dinnerMainCourseNotSingleRecipesCache;
 		}
 
@@ -350,7 +241,7 @@ public class BusinessLogic {
 	}
 
 	public ArrayList<Recipe> getAllDinnerSideDishRecipes() {
-		if (dinnerSideDishRecipesCache != null){
+		if (dinnerSideDishRecipesCache != null) {
 			return dinnerSideDishRecipesCache;
 		}
 
@@ -359,7 +250,7 @@ public class BusinessLogic {
 	}
 
 	public ArrayList<Recipe> getAllDinnerDesertRecipes() {
-		if (dinnerDesertRecipesCache != null){
+		if (dinnerDesertRecipesCache != null) {
 			return dinnerDesertRecipesCache;
 		}
 
@@ -368,7 +259,7 @@ public class BusinessLogic {
 	}
 
 	public ArrayList<Recipe> getAllSnackMainCourseSingleRecipes() {
-		if (snackMainCourseSingleRecipes != null){
+		if (snackMainCourseSingleRecipes != null) {
 			return snackMainCourseSingleRecipes;
 		}
 
@@ -423,23 +314,79 @@ public class BusinessLogic {
 		return list;
 	}
 
-	public void query7() {
-		String queryString = FoodProviderOntology.PREFIX
-				+ "SELECT DISTINCT ?recipe ?name ?mealType ?p ?f ?c ?e ?i ?s ?ca ?va ?vb ?vc ?vd "
-				+ "WHERE {?recipe rdf:type nutritionassesment:Recipe." + "?recipe foodprovider:recipeHasName ?name."
-				+ "?recipe foodprovider:recipeHasMealType ?mealType." + "?recipe foodprovider:recipeHasProteins_g ?p."
-				+ "?recipe foodprovider:recipeHasFats_g ?f." + "?recipe foodprovider:recipeHasCarbs_g ?c."
-				+ "?recipe foodprovider:recipeHasEnergy_kcal ?e." + "?recipe foodprovider:recipeHasIron_mg ?i."
-				+ "?recipe foodprovider:recipeHasSodium_mg ?s." + "?recipe foodprovider:recipeHasCalcium_mg ?ca."
-				+ "?recipe foodprovider:recipeHasVitaminA_ug ?va." + "?recipe foodprovider:recipeHasVitaminB6_mg ?vb."
-				+ "?recipe foodprovider:recipeHasVitaminC_mg ?vc." + "?recipe foodprovider:recipeHasVitaminD_ug ?vd}";
+	public ArrayList<Menu> getAllMenus(MealType mealType, DishType dishType) {
+		ArrayList<Menu> menuList = new ArrayList<>();
 
-		queryString = FoodProviderOntology.PREFIX + "SELECT * WHERE { "
-				+ "?recipe rdf:type nutritionassesment:Recipe. " + "?recipe foodprovider:recipeHasName ?name. "
-				// + "?recipe foodprovider:recipeHasMealType ?mealType. "
-				+ " ?recipe foodprovider:recipeHasMealType foodprovider:Breakfast}";
-		foodProviderOntology.queryModel(queryString, foodProviderOntology.getOntModel(),
+		String queryString = FoodProviderOntology.PREFIX
+				+ "SELECT DISTINCT ?menu ?menuId ?mealV ?mealVId ?mealVMealType ?dish ?dishId "
+				+ "?foodProv ?foodProvId ?foodProvName ?geoArea ?geoAreaId ?geoCountry ?geoCity ?geoRegion "
+				+ "?recipe ?recId ?recName ?recDescr ?recDishType "
+				+ "?recPro ?recLip ?recCar ?recEne ?recCal ?recIro ?recSod ?recVa ?recVb ?recVc ?recVd "
+				// Menu info
+				+ "WHERE {?menu rdf:type nutritionassesment:Menu." // menu
+				+ "?menu foodprovider:menuHasId ?menuId." // menu id
+				+ "?menu foodprovider:menuHasMealType foodprovider:"
+				+ mealType
+				+ ". "
+				+ "?menu foodprovider:menuHasMealVariant ?mealV." // mealVariant
+				// Food provider & Geographical Area of food provider
+				+ "?menu foodprovider:menuHasFoodProvider ?foodProv."
+				+ "?foodProv foodprovider:foodProviderHasGeographicalArea ?geoArea."
+				+ "?foodProv foodprovider:foodProviderHasID ?foodProvId."
+				+ "?foodProv foodprovider:foodProviderHasName ?foodProvName."
+				+ "?geoArea foodprovider:geographicalAreaHasId ?geoAreaId."
+				+ "?geoArea foodprovider:geographicalAreaHasCity ?geoCity."
+				+ "?geoArea foodprovider:geographicalAreaHasCountry ?geoCountry."
+				+ "?geoArea foodprovider:geographicalAreaHasRegion ?geoRegion."
+				// Menu meal variant, dish, recipe
+				+ "?mealV foodprovider:mealVariantHasId ?mealVId." // mealVId
+				+ "?mealV foodprovider:mealVariantHasDish ?dish."
+				+ "?mealV foodprovider:mealVariantHasMealType ?mealVMealType."
+				+ "?dish foodprovider:dishHasId ?dishId." // dishId
+				+ "?dish foodprovider:dishHasDishType foodprovider:" + dishType + ". "// dishType
+				+ "?dish foodprovider:dishHasRecipe ?recipe."
+				// Recipe data + nutrients
+				+ "?recipe foodprovider:recipeHasId ?recId." // Id
+				+ "?recipe foodprovider:recipeHasName ?recName." // Name
+				+ "?recipe foodprovider:recipeHasDescription ?recDescr." // Descr
+				+ "?recipe foodprovider:recipeHasDishType ?recDishType." // DishType
+				+ "?recipe foodprovider:recipeHasProteins_g ?recPro." // Proteins
+				+ "?recipe foodprovider:recipeHasFats_g ?recLip." // Fats
+				+ "?recipe foodprovider:recipeHasCarbs_g ?recCar." // Carbs
+				+ "?recipe foodprovider:recipeHasEnergy_kcal ?recEne." // Energy
+				+ "?recipe foodprovider:recipeHasCalcium_mg ?recCal." // Calcium
+				+ "?recipe foodprovider:recipeHasIron_mg ?recIro." // Iron
+				+ "?recipe foodprovider:recipeHasSodium_mg ?recSod." // Sodium
+				+ "?recipe foodprovider:recipeHasVitaminA_ug ?recVa." // Vitamin A
+				+ "?recipe foodprovider:recipeHasVitaminB6_mg ?recVb." // Vitamin B
+				+ "?recipe foodprovider:recipeHasVitaminC_mg ?recVc." // Vitamin C
+				+ "?recipe foodprovider:recipeHasVitaminD_ug ?recVd}"; // Vitamin D
+
+		// String queryString1 = FoodProviderOntology.PREFIX + "SELECT DISTINCT ?dish ?dishId "
+		// + "WHERE {?dish rdf:type nutritionassesment:Dish." // aaa
+		// + "?dish foodprovider:dishHasId ?dishId." // bbb
+		// + "?dish foodprovider:dishHasDishType foodprovider:Dessert}"; // bbb
+		// + "{?dish foodprovider:dishHasDishType foodprovider:Dessert.} UNION" // bbb
+		// + "{?dish foodprovider:dishHasDishType foodprovider:Side_Dish}}"; // bbb
+
+		ResultSet rs = foodProviderOntology.queryModelForResult(queryString, foodProviderOntology.getOntModel(),
 				foodProviderOntology.getD2rData());
 
+		int counter = 0;
+		while (rs.hasNext()) {
+			QuerySolution row = rs.nextSolution();
+
+			System.out.println(row.getLiteral("mealVMealType").toString() + ", " + row.getLiteral("mealVId").getLong());
+			if (row.getResource("menu") != null) {
+				counter++;
+				Menu menu = new Menu();
+
+				// recipe.setName(row.getLiteral("name").getString());
+				// recipe.setDescription(row.getLiteral("descr").getString());
+				menuList.add(menu);
+			}
+		}
+		System.out.println(mealType + " " + dishType + " ->nr of rows returned:" + counter);
+		return menuList;
 	}
 }

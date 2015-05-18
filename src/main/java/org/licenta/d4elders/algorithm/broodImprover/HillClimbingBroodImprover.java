@@ -1,11 +1,11 @@
 package org.licenta.d4elders.algorithm.broodImprover;
 
-import org.licenta.d4elders.model.Solution;
+import org.licenta.d4elders.model.SolutionOld;
 
 public class HillClimbingBroodImprover implements BroodImproverAlgorithm {
 
 	@Override
-	public Solution improve(Solution brood) {
+	public SolutionOld improve(SolutionOld brood) {
 		final int limit = 100;
 		int timeStep = 0;
 		int neighbourhoodSize = 10;
@@ -16,7 +16,7 @@ public class HillClimbingBroodImprover implements BroodImproverAlgorithm {
 			++timeStep;
 			localMaximum = true;
 			for(int i = neighbourhoodSize; i > 0; i--){
-				Solution newBrood = brood.randomMutation();
+				SolutionOld newBrood = brood.randomMutation();
 				if(newBrood.getFitness() > brood.getFitness()){
 					brood = newBrood;
 					localMaximum = false;

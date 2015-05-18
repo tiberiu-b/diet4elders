@@ -1,10 +1,12 @@
 package org.licenta.d4elders.model;
 
+import org.licenta.d4elders.model.dish.DishType;
 
 public class Recipe extends FoodNutrients {
 	private int recipeId;
 	private String name;
 	private String description;
+	private DishType dishType;
 
 	// private int dishType;
 
@@ -37,5 +39,13 @@ public class Recipe extends FoodNutrients {
 			return false;
 
 		return true;
+	}
+
+	public DishType getDishType() {
+		return dishType;
+	}
+
+	public void setDishType(DishType dishType) {
+		this.dishType = dishType;
 	}
 }
