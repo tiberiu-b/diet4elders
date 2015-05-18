@@ -10,5 +10,4 @@ public class BusinessLogicTester {
 		BusinessLogicNew bl = new BusinessLogicNew();
 		bl.getAllMenus(MealType.Breakfast, DishType.Side_Dish);
 	}
-
 }
