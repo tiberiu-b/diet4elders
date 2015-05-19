@@ -6,6 +6,18 @@ public class GeographicalArea {
 	private String country;
 	private String region;
 
+	public GeographicalArea() {
+
+	}
+
+	public GeographicalArea(int geoAreaId, String country, String region, String city) {
+		this.geoAreaId = geoAreaId;
+		this.city = city;
+		this.country = country;
+		this.region = region;
+
+	}
+
 	public int getGeoAreaId() {
 		return geoAreaId;
 	}

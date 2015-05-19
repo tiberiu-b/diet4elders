@@ -5,7 +5,7 @@ import org.licenta.d4elders.algorithm.HoneyBeeMatingOptimiziation;
 import org.licenta.d4elders.algorithm.MainAlgorithm.RunInformation;
 import org.licenta.d4elders.dal.BusinessLogic;
 import org.licenta.d4elders.helper.AlgorithmConfiguration;
-import org.licenta.d4elders.model.SolutionOld;
+import org.licenta.d4elders.model.Solution;
 import org.licenta.d4elders.model.user_profile.NutritionalRecommandationHelper;
 import org.licenta.d4elders.model.user_profile.UserProfileStub;
 
@@ -24,7 +24,7 @@ public class Diet4Elders {
 
 	public void run(AlgorithmConfiguration configuration) {
 
-		SolutionOld queen = null;
+		Solution queen = null;
 		RunInformation info = null;
 
 		// log.log(Level.INFO,

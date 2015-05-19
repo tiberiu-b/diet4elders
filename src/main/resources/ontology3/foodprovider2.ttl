@@ -438,7 +438,7 @@ map:menu_menuId a d2rq:PropertyBridge;
     d2rq:property foodprovider:menuHasId;
     d2rq:column "menu.menuId";
     d2rq:datatype xsd:integer;
-    .   
+    .  
 
 # Object Property menuHasMealType
 map:menu_mealTypeId a d2rq:PropertyBridge;
@@ -554,3 +554,5 @@ map:menu_foodprovider_relation a d2rq:PropertyBridge;
     d2rq:join "menu.menuId <= menu_foodprovider_relation.menuId";
     d2rq:join "menu_foodprovider_relation.foodProviderId =>food_service_provider.foodProviderId";
     .
+
+

@@ -9,7 +9,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.licenta.d4elders.algorithm.AnnealingScheduler;
-import org.licenta.d4elders.model.SolutionOld;
+import org.licenta.d4elders.model.Solution;
 
 public class BroodImproverHelper{
 
@@ -36,16 +36,16 @@ public class BroodImproverHelper{
 	 * @param numberOfThreads the number of threads used to improve the broods
 	 * @return the set of improved broods
 	 */
-	public SortedSet<SolutionOld> improve(Collection<SolutionOld> broods, int numberOfThreads){
+	public SortedSet<Solution> improve(Collection<Solution> broods, int numberOfThreads){
 		// array of threads
 		ArrayList<Thread> threadsList = new ArrayList<Thread>();
 
 		// The broods collection is going to be partitioned into numberOfThreads buckets and must be transformed into an array first.
-		ArrayList<SolutionOld> broodsList = new ArrayList<SolutionOld>();
+		ArrayList<Solution> broodsList = new ArrayList<Solution>();
 
 		// TODO: decide whether to improve the entire or only a subset.
 		// For now, we take the first 100 only.
-		Iterator<SolutionOld> it = broods.iterator();
+		Iterator<Solution> it = broods.iterator();
 		for(int i = 0; i < 100 && it.hasNext(); ++i){
 			broodsList.add(it.next());
 		}
@@ -56,9 +56,9 @@ public class BroodImproverHelper{
 			bucketSize++;
 		}
 
-		List<List<SolutionOld>> partition = MyPartition.partition(broodsList, bucketSize);
+		List<List<Solution>> partition = MyPartition.partition(broodsList, bucketSize);
 
-		for(final List<SolutionOld> bucket : partition){
+		for(final List<Solution> bucket : partition){
 			Thread thread = new Thread(new AlgorithmJob(bucket));
 			threadsList.add(thread);
 			thread.start();
@@ -73,7 +73,7 @@ public class BroodImproverHelper{
 			}
 		}
 
-		return new TreeSet<SolutionOld>(broodsList);
+		return new TreeSet<Solution>(broodsList);
 	}
 
 	/**
@@ -81,7 +81,7 @@ public class BroodImproverHelper{
 	 * @param broods the initial set of broods
 	 * @return the set of improved broods
 	 */
-	public SortedSet<SolutionOld> improve(Collection<SolutionOld> broods){
+	public SortedSet<Solution> improve(Collection<Solution> broods){
 		return improve(broods, defaultNumberOfThreads);
 	}
 
@@ -90,7 +90,7 @@ public class BroodImproverHelper{
 	 * @param brood
 	 * @return a new, improved brood
 	 */
-	public SolutionOld improve(SolutionOld brood){
+	public Solution improve(Solution brood){
 		return improve(brood, SEARCH_ALGOS.get(new Random().nextInt(SEARCH_ALGOS.size())));
 	}
 
@@ -100,15 +100,15 @@ public class BroodImproverHelper{
 	 * @param brood
 	 * @param algorithm
 	 */
-	private SolutionOld improve(SolutionOld brood, BroodImproverAlgorithm algorithm){
+	private Solution improve(Solution brood, BroodImproverAlgorithm algorithm){
 		return algorithm.improve(brood);
 	}
 
 	private class AlgorithmJob implements Runnable{
 
-		List<SolutionOld> bucket;
+		List<Solution> bucket;
 
-		public AlgorithmJob(List<SolutionOld> bucket) {
+		public AlgorithmJob(List<Solution> bucket) {
 			this.bucket = bucket;
 		}
 

@@ -5,6 +5,7 @@ public class Menu extends FoodNutrients {
 	private MealVariant starter;
 	private MealVariant mainCourse;
 	private MealVariant desert;
+	private MealType mealType;
 	private FoodServiceProvider foodProvider;
 	private Float cost;
 	private int deliveryTime;
@@ -232,6 +233,14 @@ public class Menu extends FoodNutrients {
 		if (vitD == null)
 			computeNutrientValues();
 		return vitD;
+	}
+
+	public MealType getMealType() {
+		return mealType;
+	}
+
+	public void setMealType(MealType mealType) {
+		this.mealType = mealType;
 	}
 
 }

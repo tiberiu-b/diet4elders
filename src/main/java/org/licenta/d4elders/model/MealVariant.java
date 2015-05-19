@@ -10,7 +10,7 @@ public class MealVariant extends FoodNutrients {
 	private DishTypeGeneral dishType;
 	private Dish mainDish;
 	private Dish sideDish;
-
+	
 	public int getMealVariantId() {
 		return mealVariantId;
 	}

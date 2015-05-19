@@ -5,6 +5,16 @@ public class FoodServiceProvider {
 	private String name;
 	private GeographicalArea geoArea;
 
+	public FoodServiceProvider() {
+
+	}
+
+	public FoodServiceProvider(int foodProviderId, String name, GeographicalArea geoArea) {
+		this.foodProviderId = foodProviderId;
+		this.name = name;
+		this.geoArea = geoArea;
+	}
+
 	public int getFoodProviderId() {
 		return foodProviderId;
 	}

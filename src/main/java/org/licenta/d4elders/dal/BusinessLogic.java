@@ -3,6 +3,7 @@ package org.licenta.d4elders.dal;
 import java.util.ArrayList;
 import java.util.Random;
 
+import org.licenta.d4elders.main.Menu;
 import org.licenta.d4elders.model.*;
 import org.licenta.d4elders.model.dish.*;
 import org.licenta.d4elders.model.meal.*;
@@ -34,10 +35,9 @@ public class BusinessLogic {
 	private String desert = "Dessert";
 
 	/*
-	 * The arrays are fetched once and stored in cache.
-	 * Subsequent calls return the cached arrays.
-	 * Since the elements in the ontology are constant during a
-	 * run of the program, there won't be any misses.
+	 * The arrays are fetched once and stored in cache. Subsequent calls return the cached arrays.
+	 * Since the elements in the ontology are constant during a run of the program, there won't be
+	 * any misses.
 	 */
 	private static ArrayList<Recipe> breakfastMainCourseSingleRecipesCache;
 	private static ArrayList<Recipe> breakfastMainCourseNotSingleRecipesCache;
@@ -63,20 +63,18 @@ public class BusinessLogic {
 		model.add(data);
 	}
 
-
 	/**
-	 * Prefetches the data from ontolgy into main memory.
-	 * Any subsequent call will return data from the faster main memory instead
-	 * of the slower ontology.
+	 * Prefetches the data from ontolgy into main memory. Any subsequent call will return data from
+	 * the faster main memory instead of the slower ontology.
 	 */
-	public void loadOntologyDataIntoMemory(){
+	public void loadOntologyDataIntoMemory() {
 		generateBreakfastMeals(0);
 		generateLunchMeals(0);
 		generateDinnerMeals(0);
 		generateSnackMeals(0);
 	}
 
-	public Breakfast generateSingleBreakfastMeal(){
+	public Breakfast generateSingleBreakfastMeal() {
 		return generateBreakfastMeals(1).get(0);
 	}
 
@@ -122,7 +120,7 @@ public class BusinessLogic {
 		return breakfastList;
 	}
 
-	public Lunch generateSingleLunchMeal(){
+	public Lunch generateSingleLunchMeal() {
 		return generateLunchMeals(1).get(0);
 	}
 
@@ -171,7 +169,7 @@ public class BusinessLogic {
 		return lunchList;
 	}
 
-	public Dinner generateSingleDinnerMeal(){
+	public Dinner generateSingleDinnerMeal() {
 		return generateDinnerMeals(1).get(0);
 	}
 
@@ -220,7 +218,7 @@ public class BusinessLogic {
 		return dinnerList;
 	}
 
-	public Snack generateSingleSnackMeal(){
+	public Snack generateSingleSnackMeal() {
 		return generateSnackMeals(1).get(0);
 	}
 
@@ -242,7 +240,7 @@ public class BusinessLogic {
 	}
 
 	public ArrayList<Recipe> getAllBreakfastMainCourseSingleRecipes() {
-		if (breakfastMainCourseSingleRecipesCache != null){
+		if (breakfastMainCourseSingleRecipesCache != null) {
 			return breakfastMainCourseSingleRecipesCache;
 		}
 
@@ -251,7 +249,7 @@ public class BusinessLogic {
 	}
 
 	public ArrayList<Recipe> getAllBreakfastMainCourseNotSingleRecipes() {
-		if (breakfastMainCourseNotSingleRecipesCache != null){
+		if (breakfastMainCourseNotSingleRecipesCache != null) {
 			return breakfastMainCourseNotSingleRecipesCache;
 		}
 
@@ -260,7 +258,7 @@ public class BusinessLogic {
 	}
 
 	public ArrayList<Recipe> getAllBreakfastSideDishRecipes() {
-		if (breakfastSideDishRecipesCache != null){
+		if (breakfastSideDishRecipesCache != null) {
 			return breakfastSideDishRecipesCache;
 		}
 
@@ -269,7 +267,7 @@ public class BusinessLogic {
 	}
 
 	public ArrayList<Recipe> getAllBreakfastDesert() {
-		if (breakfastDesertCache != null){
+		if (breakfastDesertCache != null) {
 			return breakfastDesertCache;
 		}
 
@@ -278,7 +276,7 @@ public class BusinessLogic {
 	}
 
 	public ArrayList<Recipe> getAllLunchStarterDishRecipes() {
-		if (lunchStarterDishRecipesCache != null){
+		if (lunchStarterDishRecipesCache != null) {
 			return lunchStarterDishRecipesCache;
 		}
 
@@ -287,7 +285,7 @@ public class BusinessLogic {
 	}
 
 	public ArrayList<Recipe> getAllLunchMainCourseSingleRecipes() {
-		if (lunchMainCourseSingleRecipesCache != null){
+		if (lunchMainCourseSingleRecipesCache != null) {
 			return lunchMainCourseSingleRecipesCache;
 		}
 
@@ -296,7 +294,7 @@ public class BusinessLogic {
 	}
 
 	public ArrayList<Recipe> getAllLunchMainCourseNotSingleRecipes() {
-		if (lunchMainCourseNotSingleRecipesCache != null){
+		if (lunchMainCourseNotSingleRecipesCache != null) {
 			return lunchMainCourseNotSingleRecipesCache;
 		}
 
@@ -305,7 +303,7 @@ public class BusinessLogic {
 	}
 
 	public ArrayList<Recipe> getAllLunchSideDishRecipes() {
-		if (lunchSideDishRecipesCache != null){
+		if (lunchSideDishRecipesCache != null) {
 			return lunchSideDishRecipesCache;
 		}
 
@@ -314,7 +312,7 @@ public class BusinessLogic {
 	}
 
 	public ArrayList<Recipe> getAllLunchDesertRecipes() {
-		if (lunchSideDesertRecipesCache != null){
+		if (lunchSideDesertRecipesCache != null) {
 			return lunchSideDesertRecipesCache;
 		}
 
@@ -323,7 +321,7 @@ public class BusinessLogic {
 	}
 
 	public ArrayList<Recipe> getAllDinnerStarterDishRecipes() {
-		if (dinnerStarterDishRecipesCache != null){
+		if (dinnerStarterDishRecipesCache != null) {
 			return dinnerStarterDishRecipesCache;
 		}
 
@@ -332,7 +330,7 @@ public class BusinessLogic {
 	}
 
 	public ArrayList<Recipe> getAllDinnerMainCourseSingleRecipes() {
-		if (dinnerMainCourseSingleRecipesCache != null){
+		if (dinnerMainCourseSingleRecipesCache != null) {
 			return dinnerMainCourseSingleRecipesCache;
 		}
 
@@ -341,7 +339,7 @@ public class BusinessLogic {
 	}
 
 	public ArrayList<Recipe> getAllDinnerMainCourseNotSingleRecipes() {
-		if (dinnerMainCourseNotSingleRecipesCache != null){
+		if (dinnerMainCourseNotSingleRecipesCache != null) {
 			return dinnerMainCourseNotSingleRecipesCache;
 		}
 
@@ -350,7 +348,7 @@ public class BusinessLogic {
 	}
 
 	public ArrayList<Recipe> getAllDinnerSideDishRecipes() {
-		if (dinnerSideDishRecipesCache != null){
+		if (dinnerSideDishRecipesCache != null) {
 			return dinnerSideDishRecipesCache;
 		}
 
@@ -359,7 +357,7 @@ public class BusinessLogic {
 	}
 
 	public ArrayList<Recipe> getAllDinnerDesertRecipes() {
-		if (dinnerDesertRecipesCache != null){
+		if (dinnerDesertRecipesCache != null) {
 			return dinnerDesertRecipesCache;
 		}
 
@@ -368,7 +366,7 @@ public class BusinessLogic {
 	}
 
 	public ArrayList<Recipe> getAllSnackMainCourseSingleRecipes() {
-		if (snackMainCourseSingleRecipes != null){
+		if (snackMainCourseSingleRecipes != null) {
 			return snackMainCourseSingleRecipes;
 		}
 
@@ -442,4 +440,5 @@ public class BusinessLogic {
 				foodProviderOntology.getD2rData());
 
 	}
+
 }

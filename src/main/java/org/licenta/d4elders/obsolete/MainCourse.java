@@ -26,67 +26,67 @@ public class MainCourse extends Dish {
 
 	public float getProteins() {
 		if (recipeSide == null)
-			return recipe.getProteins();
-		return recipeSide.getProteins() + recipe.getProteins();
+			return getRecipe().getProteins();
+		return recipeSide.getProteins() + getRecipe().getProteins();
 	}
 
 	public float getLipids() {
 		if (recipeSide == null)
-			return recipe.getLipids();
-		return recipeSide.getLipids() + recipe.getLipids();
+			return getRecipe().getLipids();
+		return recipeSide.getLipids() + getRecipe().getLipids();
 	}
 
 	public float getCarbohydrates() {
 		if (recipeSide == null)
-			return recipe.getCarbohydrates();
-		return recipeSide.getCarbohydrates() + recipe.getCarbohydrates();
+			return getRecipe().getCarbohydrates();
+		return recipeSide.getCarbohydrates() + getRecipe().getCarbohydrates();
 	}
 
 	public float getEnergy() {
 		if (recipeSide == null)
-			return recipe.getEnergy();
-		return recipeSide.getEnergy() + recipe.getEnergy();
+			return getRecipe().getEnergy();
+		return recipeSide.getEnergy() + getRecipe().getEnergy();
 	}
 
 	public float getCalcium() {
 		if (recipeSide == null)
-			return recipe.getCalcium();
-		return recipeSide.getCalcium() + recipe.getCalcium();
+			return getRecipe().getCalcium();
+		return recipeSide.getCalcium() + getRecipe().getCalcium();
 	}
 
 	public float getIron() {
 		if (recipeSide == null)
-			return recipe.getIron();
-		return recipeSide.getIron() + recipe.getIron();
+			return getRecipe().getIron();
+		return recipeSide.getIron() + getRecipe().getIron();
 	}
 
 	public float getSodium() {
 		if (recipeSide == null)
-			return recipe.getSodium();
-		return recipeSide.getSodium() + recipe.getSodium();
+			return getRecipe().getSodium();
+		return recipeSide.getSodium() + getRecipe().getSodium();
 	}
 
 	public float getVitA() {
 		if (recipeSide == null)
-			return recipe.getVitA();
-		return recipeSide.getVitA() + recipe.getVitA();
+			return getRecipe().getVitA();
+		return recipeSide.getVitA() + getRecipe().getVitA();
 	}
 
 	public float getVitB() {
 		if (recipeSide == null)
-			return recipe.getVitB();
-		return recipeSide.getVitB() + recipe.getVitB();
+			return getRecipe().getVitB();
+		return recipeSide.getVitB() + getRecipe().getVitB();
 	}
 
 	public float getVitC() {
 		if (recipeSide == null)
-			return recipe.getVitC();
-		return recipeSide.getVitC() + recipe.getVitC();
+			return getRecipe().getVitC();
+		return recipeSide.getVitC() + getRecipe().getVitC();
 	}
 
 	public float getVitD() {
 		if (recipeSide == null)
-			return recipe.getVitD();
-		return recipeSide.getVitD() + recipe.getVitD();
+			return getRecipe().getVitD();
+		return recipeSide.getVitD() + getRecipe().getVitD();
 	}
 }

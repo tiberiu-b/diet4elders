@@ -3,13 +3,13 @@ package org.licenta.d4elders.algorithm;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import org.licenta.d4elders.model.SolutionOld;
-import org.licenta.d4elders.model.SolutionOld.GeneType;
+import org.licenta.d4elders.model.Solution;
+import org.licenta.d4elders.model.Solution.GeneType;
 
 public class PathRelinking {
 
-	public static SortedSet<SolutionOld> pathRelinking(SolutionOld drone, SolutionOld queen){
-		SortedSet<SolutionOld> set = new TreeSet<SolutionOld>();
+	public static SortedSet<Solution> pathRelinking(Solution drone, Solution queen){
+		SortedSet<Solution> set = new TreeSet<Solution>();
 
 		while(drone.getFitness() < queen.getFitness()){
 			drone = queen.combineSingleGenotype(drone, GeneType.getRandom());

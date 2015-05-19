@@ -2,16 +2,8 @@ package org.licenta.d4elders.model;
 
 import org.licenta.d4elders.dal.BusinessLogic;
 import org.licenta.d4elders.helper.AlgorithmConfiguration;
-import org.licenta.d4elders.model.meal.Breakfast;
 import org.licenta.d4elders.model.meal.DayMeal;
-import org.licenta.d4elders.model.meal.Dinner;
-import org.licenta.d4elders.model.meal.Lunch;
-import org.licenta.d4elders.model.meal.Snack;
 import org.licenta.d4elders.model.user_profile.NutritionalRecommandationHelper;
-import org.licenta.d4elders.model.user_profile.UserProfileHelper;
-import org.licenta.d4elders.obsolete.Desert;
-import org.licenta.d4elders.obsolete.MainCourse;
-import org.licenta.d4elders.obsolete.StarterDish;
 
 import com.sun.istack.internal.NotNull;
 
@@ -19,12 +11,12 @@ import java.lang.Comparable;
 import java.lang.Math;
 import java.lang.Override;
 import java.util.*;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  * The bee.
  */
+@SuppressWarnings("restriction")
 public class Solution implements Comparable<Solution> {
 	private static final Logger log = Logger.getLogger(Solution.class.getName());
 
@@ -100,7 +92,6 @@ public class Solution implements Comparable<Solution> {
 	private float getFitnessLevel1() {
 		float sum = 0;
 		int sum_weights = 0;
-		Double[] interval;
 		// weigth
 		double proteinsErr, carbohydratesErr, energyErr, lipidsErr, calciumErr, ironErr, sodiumErr, vitAErr, vitBErr, vitCErr, vitDErr;
 		proteinsErr = errorMarginInterval(dailyMenu.getProteins(),
@@ -290,80 +281,34 @@ public class Solution implements Comparable<Solution> {
 	 * @return
 	 */
 	public Solution combineSingleGenotype(Solution drone, GeneType type) {
-		DayMeal newDayMeal = null;
-		Breakfast newBreakfast = null;
-		Lunch newLunch = null;
-		Dinner newDinner = null;
-
-		Breakfast thisBreakfast = this.getDayMeal().getBreakfast();
-		Lunch thisLunch = this.getDayMeal().getLunch();
-		Dinner thisDinner = this.getDayMeal().getDinner();
-		Snack thisSnack1 = this.getDayMeal().getSnack1();
-		Snack thisSnack2 = this.getDayMeal().getSnack2();
-
-		Breakfast droneBreakfast = drone.getDayMeal().getBreakfast();
-		Lunch droneLunch = drone.getDayMeal().getLunch();
-		Dinner droneDinner = drone.getDayMeal().getDinner();
-		Snack droneSnack1 = drone.getDayMeal().getSnack1();
-		Snack droneSnack2 = drone.getDayMeal().getSnack2();
+		DailyMenu dailyMenu = null;
+		Menu droneBreakfast = drone.getDailyMenu().getBreakfast();
+		Menu droneLunch = drone.getDailyMenu().getLunch();
+		Menu droneDinner = drone.getDailyMenu().getDinner();
+		Menu droneSnack1 = drone.getDailyMenu().getSnack1();
+		Menu droneSnack2 = drone.getDailyMenu().getSnack2();
 
 		switch (type) {
 		case Breakfast:
-			newDayMeal = new DayMeal(thisBreakfast, droneLunch, droneDinner, droneSnack1, droneSnack2);
+			dailyMenu = new DailyMenu(this.dailyMenu.breakfast, droneLunch, droneDinner, droneSnack1, droneSnack2);
 			break;
 		case Lunch:
-			newDayMeal = new DayMeal(droneBreakfast, thisLunch, droneDinner, droneSnack1, droneSnack2);
+			dailyMenu = new DailyMenu(droneBreakfast, this.dailyMenu.lunch, droneDinner, droneSnack1, droneSnack2);
 			break;
 		case Dinner:
-			newDayMeal = new DayMeal(droneBreakfast, droneLunch, thisDinner, droneSnack1, droneSnack2);
+			dailyMenu = new DailyMenu(droneBreakfast, droneLunch, this.dailyMenu.dinner, droneSnack1, droneSnack2);
 			break;
 		case Snack1:
-			newDayMeal = new DayMeal(droneBreakfast, droneLunch, droneDinner, thisSnack1, droneSnack2);
+			dailyMenu = new DailyMenu(droneBreakfast, droneLunch, droneDinner, this.dailyMenu.snack1, droneSnack2);
 			break;
 		case Snack2:
-			newDayMeal = new DayMeal(droneBreakfast, droneLunch, droneDinner, droneSnack1, thisSnack2);
-			break;
-		case BreakfastMainCourse:
-			newBreakfast = new Breakfast(thisBreakfast.getMainCourse(), droneBreakfast.getDesert());
-			newDayMeal = new DayMeal(newBreakfast, droneLunch, droneDinner, droneSnack1, droneSnack2);
-			break;
-		case BreakfastDesert:
-			newBreakfast = new Breakfast(droneBreakfast.getMainCourse(), thisBreakfast.getDesert());
-			newDayMeal = new DayMeal(newBreakfast, droneLunch, droneDinner, droneSnack1, droneSnack2);
-			break;
-		case DinnerStarter:
-			newDinner = new Dinner(thisDinner.getStarterDish(), droneDinner.getMainCourse(), droneDinner.getDesert());
-			newDayMeal = new DayMeal(droneBreakfast, droneLunch, newDinner, droneSnack1, droneSnack2);
-			break;
-		case DinnerMainCourse:
-			newDinner = new Dinner(droneDinner.getStarterDish(), thisDinner.getMainCourse(), droneDinner.getDesert());
-			newDayMeal = new DayMeal(droneBreakfast, droneLunch, newDinner, droneSnack1, droneSnack2);
-			break;
-		case DinnerDesert:
-			newDinner = new Dinner(droneDinner.getStarterDish(), droneDinner.getMainCourse(), thisDinner.getDesert());
-			newDayMeal = new DayMeal(droneBreakfast, droneLunch, newDinner, droneSnack1, droneSnack2);
-			break;
-		case LunchStarter:
-			newLunch = new Lunch(thisLunch.getStarterDish(), droneLunch.getMainCourse(), droneLunch.getDesert());
-			newDayMeal = new DayMeal(droneBreakfast, newLunch, droneDinner, droneSnack1, droneSnack2);
-			break;
-		case LunchMainCourse:
-			newLunch = new Lunch(droneLunch.getStarterDish(), thisLunch.getMainCourse(), droneLunch.getDesert());
-			newDayMeal = new DayMeal(droneBreakfast, newLunch, droneDinner, droneSnack1, droneSnack2);
-			break;
-		case LunchDesert:
-			newLunch = new Lunch(droneLunch.getStarterDish(), droneLunch.getMainCourse(), thisLunch.getDesert());
-			newDayMeal = new DayMeal(droneBreakfast, newLunch, droneDinner, droneSnack1, droneSnack2);
+			dailyMenu = new DailyMenu(droneBreakfast, droneLunch, droneDinner, droneSnack1, this.dailyMenu.snack2);
 			break;
 		default:
 			break;
-
-		// default:
-		// break;
-
 		}
 
-		return new Solution(newDayMeal);
+		return new Solution(dailyMenu);
 	}
 
 	/**
@@ -376,71 +321,15 @@ public class Solution implements Comparable<Solution> {
 	public Solution combineGenotypes(Solution drone) {
 		Random r = new Random();
 
-		StarterDish starterDish1 = null, starterDish2 = null;
-		MainCourse mainCourse1 = null, mainCourse2 = null;
-		Desert desert1 = null, desert2 = null;
+		Menu breakfast = r.nextBoolean() ? drone.getDailyMenu().getBreakfast() : this.dailyMenu.getBreakfast();
+		Menu lunch = r.nextBoolean() ? drone.getDailyMenu().getLunch() : this.dailyMenu.getLunch();
+		Menu dinner = r.nextBoolean() ? drone.getDailyMenu().getDinner() : this.dailyMenu.getDinner();
+		Menu snack1 = r.nextBoolean() ? drone.getDailyMenu().getSnack1() : this.dailyMenu.getSnack1();
+		Menu snack2 = r.nextBoolean() ? drone.getDailyMenu().getSnack2() : this.dailyMenu.getSnack2();
 
-		// combine breakfast
-		mainCourse1 = this.dayMeal.getBreakfast().getMainCourse();
-		mainCourse2 = drone.dayMeal.getBreakfast().getMainCourse();
+		DailyMenu newdailyMenu = new DailyMenu(breakfast, lunch, dinner, snack1, snack2);
 
-		desert1 = this.dayMeal.getBreakfast().getDesert();
-		desert2 = drone.dayMeal.getBreakfast().getDesert();
-
-		Breakfast breakfast = new Breakfast(r.nextBoolean() ? mainCourse1 : mainCourse2, r.nextBoolean() ? desert1
-				: desert2);
-
-		// combine lunch
-		starterDish1 = this.dayMeal.getLunch().getStarterDish();
-		starterDish2 = drone.dayMeal.getLunch().getStarterDish();
-
-		mainCourse1 = this.dayMeal.getLunch().getMainCourse();
-		mainCourse2 = drone.dayMeal.getLunch().getMainCourse();
-
-		desert1 = this.dayMeal.getLunch().getDesert();
-		desert2 = drone.dayMeal.getLunch().getDesert();
-
-		Lunch lunch = new Lunch(r.nextBoolean() ? starterDish1 : starterDish2, r.nextBoolean() ? mainCourse1
-				: mainCourse2, r.nextBoolean() ? desert1 : desert2);
-
-		// combine dinner
-		starterDish1 = this.dayMeal.getDinner().getStarterDish();
-		starterDish2 = drone.dayMeal.getDinner().getStarterDish();
-
-		mainCourse1 = this.dayMeal.getDinner().getMainCourse();
-		mainCourse2 = drone.dayMeal.getDinner().getMainCourse();
-
-		desert1 = this.dayMeal.getDinner().getDesert();
-		desert2 = drone.dayMeal.getDinner().getDesert();
-
-		Dinner dinner = new Dinner(r.nextBoolean() ? starterDish1 : starterDish2, r.nextBoolean() ? mainCourse1
-				: mainCourse2, r.nextBoolean() ? desert1 : desert2);
-
-		// combine snack1
-		mainCourse1 = this.dayMeal.getSnack1().getMainCourse();
-		mainCourse2 = drone.dayMeal.getSnack1().getMainCourse();
-		Snack snack1 = new Snack(r.nextBoolean() ? mainCourse1 : mainCourse2);
-
-		// combine snack2
-		mainCourse1 = this.dayMeal.getSnack1().getMainCourse();
-		mainCourse2 = drone.dayMeal.getSnack1().getMainCourse();
-		Snack snack2 = new Snack(r.nextBoolean() ? mainCourse1 : mainCourse2);
-
-		DayMeal brood = new DayMeal(breakfast, lunch, dinner, snack1, snack2);
-
-		/*
-		 * brood.setBreakfast(r.nextBoolean() ? // if random is true this.dayMeal.getBreakfast() :
-		 * // take from this queen drone.dayMeal.getBreakfast()); // otherwise, take from drone.
-		 * 
-		 * brood.setLunch(r.nextBoolean() ? this.dayMeal.getLunch() : drone.dayMeal.getLunch());
-		 * 
-		 * brood.setDinner(r.nextBoolean() ? this.dayMeal.getDinner() : drone.dayMeal.getDinner());
-		 * 
-		 * brood.setSnack1(r.nextBoolean() ? this.dayMeal.getSnack1() : drone.dayMeal.getSnack1());
-		 * 
-		 * brood.setSnack2(r.nextBoolean() ? this.dayMeal.getSnack2() : drone.dayMeal.getSnack2());
-		 */
-		return new Solution(brood);
+		return new Solution(newdailyMenu);
 	}
 
 	/**
@@ -452,35 +341,41 @@ public class Solution implements Comparable<Solution> {
 	public Solution randomMutation() {
 		BusinessLogic bl = new BusinessLogic();
 		Random r = new Random();
-		Breakfast breakfast = dayMeal.getBreakfast();
-		Lunch lunch = dayMeal.getLunch();
-		Dinner dinner = dayMeal.getDinner();
-		Snack snack1 = dayMeal.getSnack1();
-		Snack snack2 = dayMeal.getSnack2();
 
-		switch (r.nextInt(5)) {
+		Menu breakfast = dailyMenu.getBreakfast();
+		Menu lunch = dailyMenu.getLunch();
+		Menu dinner = dailyMenu.getDinner();
+		Menu snack1 = dailyMenu.getSnack1();
+		Menu snack2 = dailyMenu.getSnack2();
+
+		// Breakfast breakfast = dayMeal.getBreakfast();
+		// Lunch lunch = dayMeal.getLunch();
+		// Dinner dinner = dayMeal.getDinner();
+		// Snack snack1 = dayMeal.getSnack1();
+		// Snack snack2 = dayMeal.getSnack2();
+
+		switch (r.nextInt(4)) {
 		case 0:
 			// Replace Breakfast
-			Breakfast b = bl.generateSingleBreakfastMeal();
-			return new Solution(new DayMeal(b, lunch, dinner, snack1, snack2));
+			Menu b = bl.generateSingleBreakfastMenu();
+			return new Solution(new DailyMenu(b, lunch, dinner, snack1, snack2));
 
 		case 1:
 			// Replace Lunch
-			Lunch l = bl.generateSingleLunchMeal();
-			return new Solution(new DayMeal(breakfast, l, dinner, snack1, snack2));
+			Menu l = bl.generateSingleLunchMenu();
+			return new Solution(new DailyMenu(breakfast, l, dinner, snack1, snack2));
 
 		case 2:
 			// Replace dinner
-			Dinner d = bl.generateSingleDinnerMeal();
-			return new Solution(new DayMeal(breakfast, lunch, d, snack1, snack2));
+			Menu d = bl.generateSingleDinnerMenu();
+			return new Solution(new DailyMenu(breakfast, lunch, d, snack1, snack2));
 		case 3:
-		case 4:
 			// Replace snacks
-			Snack s = bl.generateSingleSnackMeal();
+			Menu s = bl.generateSingleSnackMenu();
 			if (r.nextBoolean())
-				return new Solution(new DayMeal(breakfast, lunch, dinner, s, snack2));
+				return new Solution(new DailyMenu(breakfast, lunch, dinner, s, snack2));
 			else
-				return new Solution(new DayMeal(breakfast, lunch, dinner, snack1, s));
+				return new Solution(new DailyMenu(breakfast, lunch, dinner, snack1, s));
 		default:
 			return null;
 		}
@@ -519,6 +414,10 @@ public class Solution implements Comparable<Solution> {
 		this.dailyMenu = dailyMenu;
 	}
 
+	public static Logger getLog() {
+		return log;
+	}
+
 	/**
 	 * TODO revise: GeneType may be at the following 2 levels: 1) dish - starter, main ... or 2)
 	 * meal - breakfast, lunch ...
@@ -529,7 +428,7 @@ public class Solution implements Comparable<Solution> {
 		 * DinnerStarter, DinnerMainCourse, DinnerDesert, Snack1, Snack2;
 		 */
 
-		Breakfast, BreakfastMainCourse, BreakfastDesert, Lunch, LunchStarter, LunchMainCourse, LunchDesert, Dinner, DinnerStarter, DinnerMainCourse, DinnerDesert, Snack1, Snack2;
+		Breakfast, Lunch, Dinner, Snack1, Snack2;
 
 		/*
 		 * Breakfast, Lunch, Dinner, Snack1, Snack2;

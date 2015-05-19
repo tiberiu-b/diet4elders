@@ -2,7 +2,7 @@ package org.licenta.d4elders.model.dish;
 
 import org.licenta.d4elders.model.Recipe;
 
-public abstract class Dish {
+public class Dish {
 
 	private Recipe recipe;
 	private int dishId;
@@ -12,13 +12,13 @@ public abstract class Dish {
 	}
 
 	public Dish(Recipe recipe) {
-		this.recipe = recipe;
+		this.setRecipe(recipe);
 	}
 
 	@Override
 	public String toString() {
 		// return foodProperties.getCode() + " - " + foodProperties.getName();
-		return this.recipe.getRecipeId() + " - " + this.recipe.getName();
+		return this.getRecipe().getRecipeId() + " - " + this.getRecipe().getName();
 	}
 
 	@Override
@@ -29,7 +29,7 @@ public abstract class Dish {
 		if (!(other instanceof Dish))
 			return false;
 
-		return this.recipe.equals(((Dish) other).getRecipe());
+		return this.getRecipe().equals(((Dish) other).getRecipe());
 	}
 
 	public Recipe getRecipe() {
@@ -37,47 +37,47 @@ public abstract class Dish {
 	}
 
 	public float getProteins() {
-		return this.recipe.getProteins();
+		return this.getRecipe().getProteins();
 	}
 
 	public float getLipids() {
-		return this.recipe.getLipids();
+		return this.getRecipe().getLipids();
 	}
 
 	public float getCarbohydrates() {
-		return this.recipe.getCarbohydrates();
+		return this.getRecipe().getCarbohydrates();
 	}
 
 	public float getEnergy() {
-		return this.recipe.getEnergy();
+		return this.getRecipe().getEnergy();
 	}
 
 	public float getCalcium() {
-		return this.recipe.getCalcium();
+		return this.getRecipe().getCalcium();
 	}
 
 	public float getIron() {
-		return this.recipe.getIron();
+		return this.getRecipe().getIron();
 	}
 
 	public float getSodium() {
-		return this.recipe.getSodium();
+		return this.getRecipe().getSodium();
 	}
 
 	public float getVitA() {
-		return this.recipe.getVitA();
+		return this.getRecipe().getVitA();
 	}
 
 	public float getVitB() {
-		return this.recipe.getVitB();
+		return this.getRecipe().getVitB();
 	}
 
 	public float getVitC() {
-		return this.recipe.getVitC();
+		return this.getRecipe().getVitC();
 	}
 
 	public float getVitD() {
-		return this.recipe.getVitD();
+		return this.getRecipe().getVitD();
 	}
 
 	public int getDishId() {
@@ -86,6 +86,10 @@ public abstract class Dish {
 
 	public void setDishId(int dishId) {
 		this.dishId = dishId;
+	}
+
+	public void setRecipe(Recipe recipe) {
+		this.recipe = recipe;
 	}
 
 }

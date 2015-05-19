@@ -10,7 +10,7 @@ import org.licenta.d4elders.algorithm.broodImprover.BroodImproverHelper;
 import org.licenta.d4elders.helper.AlgorithmConfiguration;
 import org.licenta.d4elders.helper.AvailableProgramConfigurationOptions;
 import org.licenta.d4elders.main.InitialSolutionsGenerator;
-import org.licenta.d4elders.model.SolutionOld;
+import org.licenta.d4elders.model.Solution;
 
 /**
  * TODO: adaguam vreo 10 FoodProviders care au 25% din retete (da, overlapping), delivery cost, time
@@ -33,7 +33,7 @@ public class HoneyBeeMatingOptimiziation extends MainAlgorithm {
 	public void setAlgorithmConfiguration(
 			AlgorithmConfiguration algorithmConfiguration) {
 		this.algorithmConfiguration = algorithmConfiguration;
-		SolutionOld.applyConfiguration(algorithmConfiguration);
+		Solution.applyConfiguration(algorithmConfiguration);
 
 	}
 
@@ -46,7 +46,7 @@ public class HoneyBeeMatingOptimiziation extends MainAlgorithm {
 	}
 
 	@Override
-	public SolutionOld performAlgorithm() {
+	public Solution performAlgorithm() {
 		if(algorithmConfiguration == null){
 			log.log(Level.SEVERE, "Cannot perform algorithm, no algorithmConfiguration given!");
 			return null;
@@ -57,12 +57,12 @@ public class HoneyBeeMatingOptimiziation extends MainAlgorithm {
 		BroodImproverHelper broodImprover = new BroodImproverHelper();
 
 		// an initial set of solutions (bees) is generated
-		SortedSet<SolutionOld> solutions = InitialSolutionsGenerator
+		SortedSet<Solution> solutions = InitialSolutionsGenerator
 				.generateRandomSolutions(algorithmConfiguration.getPopSize());
 
 		// the bee with the highest fitness function is selected, the others
 		// become drones
-		SolutionOld queen = solutions.last();
+		Solution queen = solutions.last();
 
 		nrOfIterations = 0;
 
@@ -74,8 +74,8 @@ public class HoneyBeeMatingOptimiziation extends MainAlgorithm {
 
 			/*System.out.println("------\nQueen:" + queen + " Fitness: "
 					+ queen.getFitness());*/
-			SortedSet<SolutionOld> broods = new TreeSet<SolutionOld>();
-			for (SolutionOld drone : solutions) {
+			SortedSet<Solution> broods = new TreeSet<Solution>();
+			for (Solution drone : solutions) {
 
 				if (queen.equals(drone)) {
 					// This is the queen actually.
@@ -85,7 +85,7 @@ public class HoneyBeeMatingOptimiziation extends MainAlgorithm {
 				// with drone
 				// TODO: adjust the threshold
 				double probToMateDrone = queen.probabilityToMateDrone(drone);
-				if (probToMateDrone > SolutionOld.probabilityToMateDroneThreshold) {
+				if (probToMateDrone > Solution.probabilityToMateDroneThreshold) {
 					nrOfDronesTheQueenMatedWith++;
 					//broods.addAll((queen.createBroods(drone)));
 					broods.addAll(workerModificationStrategy(drone, queen));
@@ -108,9 +108,9 @@ public class HoneyBeeMatingOptimiziation extends MainAlgorithm {
 			// TODO: add broods to population and then select the best 40, do not throw away the current solutions
 			// The old drones die, thus the new drones will be top 40 broods
 			// that have the best fitness (take the last 40 broods)
-			solutions = new TreeSet<SolutionOld>();
+			solutions = new TreeSet<Solution>();
 			int nrOfBadBroods = broods.size() - algorithmConfiguration.getPopSize();
-			for (SolutionOld br : broods) {
+			for (Solution br : broods) {
 				if (nrOfBadBroods > 0)
 					nrOfBadBroods--;
 				else
@@ -119,7 +119,7 @@ public class HoneyBeeMatingOptimiziation extends MainAlgorithm {
 			// printNewSetOfSolutions(solutions);
 
 			// the best brood is selected as the queen
-			SolutionOld bestBrood = broods.last();
+			Solution bestBrood = broods.last();
 			// if bestBrood has a greater fitness function then
 			if (bestBrood.compareTo(queen) > 0) {
 				queen = bestBrood;
@@ -140,8 +140,8 @@ public class HoneyBeeMatingOptimiziation extends MainAlgorithm {
 		return queen;
 	}
 
-	private Collection<? extends SolutionOld> workerModificationStrategy(
-			SolutionOld drone, SolutionOld queen) {
+	private Collection<? extends Solution> workerModificationStrategy(
+			Solution drone, Solution queen) {
 
 		switch (algorithmConfiguration.getBroodModificationStrategy()){
 			case AvailableProgramConfigurationOptions.PATH_RELINKING:

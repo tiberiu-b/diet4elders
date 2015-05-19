@@ -1,7 +1,7 @@
 package org.licenta.d4elders.algorithm.broodImprover;
 
-import org.licenta.d4elders.model.SolutionOld;
+import org.licenta.d4elders.model.Solution;
 
 interface BroodImproverAlgorithm {
-	public SolutionOld improve(SolutionOld brood);
+	public Solution improve(Solution brood);
 }

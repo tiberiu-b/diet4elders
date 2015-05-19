@@ -3,7 +3,7 @@ package org.licenta.d4elders.algorithm.broodImprover;
 import java.util.Random;
 
 import org.licenta.d4elders.algorithm.AnnealingScheduler;
-import org.licenta.d4elders.model.SolutionOld;
+import org.licenta.d4elders.model.Solution;
 
 class SimulatedAnnealingBroodImprover implements BroodImproverAlgorithm {
 
@@ -18,7 +18,7 @@ class SimulatedAnnealingBroodImprover implements BroodImproverAlgorithm {
 	}
 
 	@Override
-	public SolutionOld improve(SolutionOld brood) {
+	public Solution improve(Solution brood) {
 		// The initial guess is the already given brood.
 
 		int timeStep = 0;
@@ -35,7 +35,7 @@ class SimulatedAnnealingBroodImprover implements BroodImproverAlgorithm {
 			//int neighbourhoodSize = 1;
 
 			for(int i = neighbourhoodSize; i > 0; --i){
-				SolutionOld newBrood = brood.randomMutation();
+				Solution newBrood = brood.randomMutation();
 				double deltaE = newBrood.getFitness() - brood.getFitness();
 
 				if(shouldAccept(temperature, deltaE)){
