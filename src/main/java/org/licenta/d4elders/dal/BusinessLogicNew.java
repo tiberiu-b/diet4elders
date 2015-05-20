@@ -336,6 +336,7 @@ public class BusinessLogicNew {
 		ResultSet rs = foodProviderOntology.queryModelForResult(queryString, foodProviderOntology.getOntModel(),
 				foodProviderOntology.getD2rData());
 
+		
 		while (rs.hasNext()) {
 			QuerySolution row = rs.nextSolution();
 
