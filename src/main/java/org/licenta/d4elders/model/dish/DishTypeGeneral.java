@@ -2,6 +2,6 @@ package org.licenta.d4elders.model.dish;
 
 public enum DishTypeGeneral {
 	Starter,
-	MainCourse,
+	Main_Course,
 	Desert
 }

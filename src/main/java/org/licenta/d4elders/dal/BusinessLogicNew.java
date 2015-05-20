@@ -282,7 +282,7 @@ public class BusinessLogicNew {
 					break;
 				case Main_Course_Not_Single:
 					if (mainCourseMealV == null) {
-						mealV.setDishType(DishTypeGeneral.MainCourse);
+						mealV.setDishType(DishTypeGeneral.Main_Course);
 						mealV.setMainDish(d);
 						menu.setMainCourse(mealV);
 					} else {
@@ -291,7 +291,7 @@ public class BusinessLogicNew {
 					break;
 				case Side_Dish:
 					if (mainCourseMealV == null) {
-						mealV.setDishType(DishTypeGeneral.MainCourse);
+						mealV.setDishType(DishTypeGeneral.Main_Course);
 						mealV.setSideDish(d);
 						menu.setMainCourse(mealV);
 					} else {
