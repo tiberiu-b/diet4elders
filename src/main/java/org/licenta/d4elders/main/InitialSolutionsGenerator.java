@@ -20,6 +20,7 @@ import java.util.TreeSet;
 
 import org.licenta.d4elders.dal.*;
 import org.licenta.d4elders.model.DailyMenu;
+import org.licenta.d4elders.model.FoodProviderPackage;
 import org.licenta.d4elders.model.Menu;
 import org.licenta.d4elders.model.Solution;
 import org.licenta.d4elders.model.meal.*;
@@ -44,27 +45,13 @@ public class InitialSolutionsGenerator {
 		int numberOfSolutions = 1000;
 		SortedSet<Solution> solutions = new TreeSet<Solution>();
 		BusinessLogic bl = new BusinessLogic();
-		ArrayList<Menu> breakfastList = bl.generateBreakfastMenus(numberOfSolutions);
-		ArrayList<Menu> lunchList = bl.generateLunchMenus(numberOfSolutions);
-		ArrayList<Menu> dinnerList = bl.generateDinnerMenus(numberOfSolutions);
-		ArrayList<Menu> snackList = bl.generateSnackMenus(numberOfSolutions * 2);
 
 		for (int i = 0; i < size; i++) {
-			Random generator = new Random();
-			int randomNumber = generator.nextInt(numberOfSolutions);
-			Menu breakfast = breakfastList.get(randomNumber);
-
-			randomNumber = generator.nextInt(numberOfSolutions);
-			Menu lunch = lunchList.get(randomNumber);
-
-			randomNumber = generator.nextInt(numberOfSolutions);
-			Menu dinner = dinnerList.get(randomNumber);
-
-			randomNumber = generator.nextInt(numberOfSolutions);
-			Menu snack1 = snackList.get(randomNumber);
-
-			randomNumber = generator.nextInt(numberOfSolutions) + numberOfSolutions;
-			Menu snack2 = snackList.get(randomNumber);
+			FoodProviderPackage breakfast = bl.generateSingleBreakfastPackages();
+			FoodProviderPackage lunch = bl.generateSingleLunchPackages();
+			FoodProviderPackage dinner = bl.generateSingleDinnerPackages();
+			FoodProviderPackage snack1 = bl.generateSingleSnackPackages();
+			FoodProviderPackage snack2 = bl.generateSingleSnackPackages();
 
 			DailyMenu dailyMenu = new DailyMenu(breakfast, lunch, dinner, snack1, snack2);
 

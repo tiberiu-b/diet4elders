@@ -1,16 +1,22 @@
 package org.licenta.d4elders.model;
 
+import java.io.Serializable;
+
 import org.licenta.d4elders.model.dish.Dish;
 import org.licenta.d4elders.model.dish.DishTypeGeneral;
 
-public class MealVariant extends FoodNutrients {
+public class MealVariant extends FoodNutrients implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int mealVariantId;
 	private String diet;
 	private MealType mealType;
 	private DishTypeGeneral dishType;
 	private Dish mainDish;
 	private Dish sideDish;
-	
+
 	public int getMealVariantId() {
 		return mealVariantId;
 	}
@@ -217,4 +223,10 @@ public class MealVariant extends FoodNutrients {
 		return vitD;
 	}
 
+	public String toString() {
+		if (sideDish != null)
+			return mainDish.toString() + " with " + sideDish.toString();
+		else
+			return mainDish.toString() + " ";
+	}
 }

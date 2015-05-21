@@ -1,7 +1,13 @@
 package org.licenta.d4elders.model;
 
-public class FoodNutrients {
+import java.io.Serializable;
 
+public class FoodNutrients implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected Float proteins;
 	protected Float lipids;
 	protected Float carbohydrates;

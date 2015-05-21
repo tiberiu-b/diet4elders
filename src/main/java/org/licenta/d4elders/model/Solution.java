@@ -1,5 +1,6 @@
 package org.licenta.d4elders.model;
 
+import org.licenta.d4elders.dal.BusinessLogicOld;
 import org.licenta.d4elders.dal.BusinessLogic;
 import org.licenta.d4elders.helper.AlgorithmConfiguration;
 import org.licenta.d4elders.model.meal.DayMeal;
@@ -20,7 +21,6 @@ import java.util.logging.Logger;
 public class Solution implements Comparable<Solution> {
 	private static final Logger log = Logger.getLogger(Solution.class.getName());
 
-	private DayMeal dayMeal;
 	private DailyMenu dailyMenu;
 
 	private int speed = initialSpeed;
@@ -39,10 +39,6 @@ public class Solution implements Comparable<Solution> {
 		speedReductionFactor = algorithmConfiguration.getSpeedReductionFactor();
 		energyReductionAmount = algorithmConfiguration.getEnergyReductionAmount();
 		probabilityToMateDroneThreshold = algorithmConfiguration.getProbabilityToMateDroneThreshold();
-	}
-
-	public DayMeal getDayMeal() {
-		return dayMeal;
 	}
 
 	public Solution() {
@@ -282,11 +278,11 @@ public class Solution implements Comparable<Solution> {
 	 */
 	public Solution combineSingleGenotype(Solution drone, GeneType type) {
 		DailyMenu dailyMenu = null;
-		Menu droneBreakfast = drone.getDailyMenu().getBreakfast();
-		Menu droneLunch = drone.getDailyMenu().getLunch();
-		Menu droneDinner = drone.getDailyMenu().getDinner();
-		Menu droneSnack1 = drone.getDailyMenu().getSnack1();
-		Menu droneSnack2 = drone.getDailyMenu().getSnack2();
+		FoodProviderPackage droneBreakfast = drone.getDailyMenu().getBreakfast();
+		FoodProviderPackage droneLunch = drone.getDailyMenu().getLunch();
+		FoodProviderPackage droneDinner = drone.getDailyMenu().getDinner();
+		FoodProviderPackage droneSnack1 = drone.getDailyMenu().getSnack1();
+		FoodProviderPackage droneSnack2 = drone.getDailyMenu().getSnack2();
 
 		switch (type) {
 		case Breakfast:
@@ -321,11 +317,12 @@ public class Solution implements Comparable<Solution> {
 	public Solution combineGenotypes(Solution drone) {
 		Random r = new Random();
 
-		Menu breakfast = r.nextBoolean() ? drone.getDailyMenu().getBreakfast() : this.dailyMenu.getBreakfast();
-		Menu lunch = r.nextBoolean() ? drone.getDailyMenu().getLunch() : this.dailyMenu.getLunch();
-		Menu dinner = r.nextBoolean() ? drone.getDailyMenu().getDinner() : this.dailyMenu.getDinner();
-		Menu snack1 = r.nextBoolean() ? drone.getDailyMenu().getSnack1() : this.dailyMenu.getSnack1();
-		Menu snack2 = r.nextBoolean() ? drone.getDailyMenu().getSnack2() : this.dailyMenu.getSnack2();
+		FoodProviderPackage breakfast = r.nextBoolean() ? drone.getDailyMenu().getBreakfast() : this.dailyMenu
+				.getBreakfast();
+		FoodProviderPackage lunch = r.nextBoolean() ? drone.getDailyMenu().getLunch() : this.dailyMenu.getLunch();
+		FoodProviderPackage dinner = r.nextBoolean() ? drone.getDailyMenu().getDinner() : this.dailyMenu.getDinner();
+		FoodProviderPackage snack1 = r.nextBoolean() ? drone.getDailyMenu().getSnack1() : this.dailyMenu.getSnack1();
+		FoodProviderPackage snack2 = r.nextBoolean() ? drone.getDailyMenu().getSnack2() : this.dailyMenu.getSnack2();
 
 		DailyMenu newdailyMenu = new DailyMenu(breakfast, lunch, dinner, snack1, snack2);
 
@@ -342,11 +339,11 @@ public class Solution implements Comparable<Solution> {
 		BusinessLogic bl = new BusinessLogic();
 		Random r = new Random();
 
-		Menu breakfast = dailyMenu.getBreakfast();
-		Menu lunch = dailyMenu.getLunch();
-		Menu dinner = dailyMenu.getDinner();
-		Menu snack1 = dailyMenu.getSnack1();
-		Menu snack2 = dailyMenu.getSnack2();
+		FoodProviderPackage breakfast = dailyMenu.getBreakfast();
+		FoodProviderPackage lunch = dailyMenu.getLunch();
+		FoodProviderPackage dinner = dailyMenu.getDinner();
+		FoodProviderPackage snack1 = dailyMenu.getSnack1();
+		FoodProviderPackage snack2 = dailyMenu.getSnack2();
 
 		// Breakfast breakfast = dayMeal.getBreakfast();
 		// Lunch lunch = dayMeal.getLunch();
@@ -357,21 +354,21 @@ public class Solution implements Comparable<Solution> {
 		switch (r.nextInt(4)) {
 		case 0:
 			// Replace Breakfast
-			Menu b = bl.generateSingleBreakfastMenu();
+			FoodProviderPackage b = bl.generateSingleBreakfastPackages();
 			return new Solution(new DailyMenu(b, lunch, dinner, snack1, snack2));
 
 		case 1:
 			// Replace Lunch
-			Menu l = bl.generateSingleLunchMenu();
+			FoodProviderPackage l = bl.generateSingleLunchPackages();
 			return new Solution(new DailyMenu(breakfast, l, dinner, snack1, snack2));
 
 		case 2:
 			// Replace dinner
-			Menu d = bl.generateSingleDinnerMenu();
+			FoodProviderPackage d = bl.generateSingleDinnerPackages();
 			return new Solution(new DailyMenu(breakfast, lunch, d, snack1, snack2));
 		case 3:
 			// Replace snacks
-			Menu s = bl.generateSingleSnackMenu();
+			FoodProviderPackage s = bl.generateSingleSnackPackages();
 			if (r.nextBoolean())
 				return new Solution(new DailyMenu(breakfast, lunch, dinner, s, snack2));
 			else

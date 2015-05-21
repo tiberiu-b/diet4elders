@@ -1,8 +1,14 @@
 package org.licenta.d4elders.model;
 
+import java.io.Serializable;
+
 import org.licenta.d4elders.model.dish.DishType;
 
-public class Recipe extends FoodNutrients {
+public class Recipe extends FoodNutrients  implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int recipeId;
 	private String name;
 	private String description;

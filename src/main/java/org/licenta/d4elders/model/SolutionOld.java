@@ -1,6 +1,6 @@
 package org.licenta.d4elders.model;
 
-import org.licenta.d4elders.dal.BusinessLogic;
+import org.licenta.d4elders.dal.BusinessLogicOld;
 import org.licenta.d4elders.helper.AlgorithmConfiguration;
 import org.licenta.d4elders.model.meal.Breakfast;
 import org.licenta.d4elders.model.meal.DayMeal;
@@ -450,7 +450,7 @@ public class SolutionOld implements Comparable<SolutionOld> {
 	 * @return a new Solution
 	 */
 	public SolutionOld randomMutation() {
-		BusinessLogic bl = new BusinessLogic();
+		BusinessLogicOld bl = new BusinessLogicOld();
 		Random r = new Random();
 		Breakfast breakfast = dayMeal.getBreakfast();
 		Lunch lunch = dayMeal.getLunch();

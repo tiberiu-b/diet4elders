@@ -1,7 +1,7 @@
 package org.licenta.d4elders.model.dish;
 
-public enum DishTypeGeneral {
-	Starter,
-	Main_Course,
-	Desert
+import java.io.Serializable;
+
+public enum DishTypeGeneral implements Serializable {
+	Starter, Main_Course, Desert
 }

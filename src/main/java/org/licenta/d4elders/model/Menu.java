@@ -1,14 +1,17 @@
 package org.licenta.d4elders.model;
 
-public class Menu extends FoodNutrients {
+import java.io.Serializable;
+
+public class Menu extends FoodNutrients implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int menuId;
 	private MealVariant starter;
 	private MealVariant mainCourse;
 	private MealVariant desert;
 	private MealType mealType;
-	private FoodServiceProvider foodProvider;
-	private Float cost;
-	private int deliveryTime;
 
 	public int getMenuId() {
 		return menuId;
@@ -16,30 +19,6 @@ public class Menu extends FoodNutrients {
 
 	public void setMenuId(int menuId) {
 		this.menuId = menuId;
-	}
-
-	public FoodServiceProvider getFoodProvider() {
-		return foodProvider;
-	}
-
-	public void setFoodProvider(FoodServiceProvider foodProvider) {
-		this.foodProvider = foodProvider;
-	}
-
-	public Float getCost() {
-		return cost;
-	}
-
-	public void setCost(Float cost) {
-		this.cost = cost;
-	}
-
-	public int getDeliveryTime() {
-		return deliveryTime;
-	}
-
-	public void setDeliveryTime(int deliveryTime) {
-		this.deliveryTime = deliveryTime;
 	}
 
 	public MealVariant getMainCourse() {
@@ -67,7 +46,9 @@ public class Menu extends FoodNutrients {
 	}
 
 	public Float getProteins_custom() {
-		if (starter == null) {
+		if (starter == null && desert == null) {
+			return mainCourse.getProteins();
+		} else if (starter == null) {
 			return mainCourse.getProteins() + desert.getProteins();
 		} else {
 			return starter.getProteins() + mainCourse.getProteins() + desert.getProteins();
@@ -75,7 +56,9 @@ public class Menu extends FoodNutrients {
 	}
 
 	public Float getLipids_custom() {
-		if (starter == null) {
+		if (starter == null && desert == null) {
+			return mainCourse.getLipids();
+		} else if (starter == null) {
 			return mainCourse.getLipids() + desert.getLipids();
 		} else {
 			return starter.getLipids() + mainCourse.getLipids() + desert.getLipids();
@@ -83,7 +66,9 @@ public class Menu extends FoodNutrients {
 	}
 
 	public Float getCarbohydrates_custom() {
-		if (starter == null) {
+		if (starter == null && desert == null) {
+			return mainCourse.getCarbohydrates();
+		} else if (starter == null) {
 			return mainCourse.getCarbohydrates() + desert.getCarbohydrates();
 		} else {
 			return starter.getCarbohydrates() + mainCourse.getCarbohydrates() + desert.getCarbohydrates();
@@ -91,7 +76,9 @@ public class Menu extends FoodNutrients {
 	}
 
 	public Float getEnergy_custom() {
-		if (starter == null) {
+		if (starter == null && desert == null) {
+			return mainCourse.getEnergy();
+		} else if (starter == null) {
 			return mainCourse.getEnergy() + desert.getEnergy();
 		} else {
 			return starter.getEnergy() + mainCourse.getEnergy() + desert.getEnergy();
@@ -99,7 +86,9 @@ public class Menu extends FoodNutrients {
 	}
 
 	public Float getCalcium_custom() {
-		if (starter == null) {
+		if (starter == null && desert == null) {
+			return mainCourse.getCalcium();
+		} else if (starter == null) {
 			return mainCourse.getCalcium() + desert.getCalcium();
 		} else {
 			return starter.getCalcium() + mainCourse.getCalcium() + desert.getCalcium();
@@ -107,7 +96,9 @@ public class Menu extends FoodNutrients {
 	}
 
 	public Float getIron_custom() {
-		if (starter == null) {
+		if (starter == null && desert == null) {
+			return mainCourse.getIron();
+		} else if (starter == null) {
 			return mainCourse.getIron() + desert.getIron();
 		} else {
 			return starter.getIron() + mainCourse.getIron() + desert.getIron();
@@ -115,7 +106,9 @@ public class Menu extends FoodNutrients {
 	}
 
 	public Float getSodium_custom() {
-		if (starter == null) {
+		if (starter == null && desert == null) {
+			return mainCourse.getSodium();
+		} else if (starter == null) {
 			return mainCourse.getSodium() + desert.getSodium();
 		} else {
 			return starter.getSodium() + mainCourse.getSodium() + desert.getSodium();
@@ -123,7 +116,9 @@ public class Menu extends FoodNutrients {
 	}
 
 	public Float getVitA_custom() {
-		if (starter == null) {
+		if (starter == null && desert == null) {
+			return mainCourse.getVitA();
+		} else if (starter == null) {
 			return mainCourse.getVitA() + desert.getVitA();
 		} else {
 			return starter.getVitA() + mainCourse.getVitA() + desert.getVitA();
@@ -131,7 +126,9 @@ public class Menu extends FoodNutrients {
 	}
 
 	public Float getVitB_custom() {
-		if (starter == null) {
+		if (starter == null && desert == null) {
+			return mainCourse.getVitB();
+		} else if (starter == null) {
 			return mainCourse.getVitB() + desert.getVitB();
 		} else {
 			return starter.getVitB() + mainCourse.getVitB() + desert.getVitB();
@@ -139,7 +136,9 @@ public class Menu extends FoodNutrients {
 	}
 
 	public Float getVitC_custom() {
-		if (starter == null) {
+		if (starter == null && desert == null) {
+			return mainCourse.getVitC();
+		} else if (starter == null) {
 			return mainCourse.getVitC() + desert.getVitC();
 		} else {
 			return starter.getVitC() + mainCourse.getVitC() + desert.getVitC();
@@ -147,7 +146,9 @@ public class Menu extends FoodNutrients {
 	}
 
 	public Float getVitD_custom() {
-		if (starter == null) {
+		if (starter == null && desert == null) {
+			return mainCourse.getVitD();
+		} else if (starter == null) {
 			return mainCourse.getVitD() + desert.getVitD();
 		} else {
 			return starter.getVitD() + mainCourse.getVitD() + desert.getVitD();
@@ -243,4 +244,16 @@ public class Menu extends FoodNutrients {
 		this.mealType = mealType;
 	}
 
+	public String toString() {
+		if (starter == null && desert == null)
+			return "MenuId: " + menuId + " Starter: -no starter" + " MainCourse: " + mainCourse.toString()
+					+ " Desert: - no desert ";
+		else if (starter == null)
+			return "MenuId: " + menuId + " Starter: -no starter" + " MainCourse: " + mainCourse.toString()
+					+ " Desert: " + desert.toString();
+		else
+			return "MenuId: " + menuId + " Starter: " + starter.toString() + " MainCourse: " + mainCourse.toString()
+					+ " Desert: " + desert.toString();
+
+	}
 }

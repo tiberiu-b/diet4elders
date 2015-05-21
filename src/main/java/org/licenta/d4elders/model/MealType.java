@@ -1,5 +1,7 @@
 package org.licenta.d4elders.model;
 
-public enum MealType {
+import java.io.Serializable;
+
+public enum MealType  implements Serializable{
 	Breakfast, Lunch, Dinner, Snack
 }

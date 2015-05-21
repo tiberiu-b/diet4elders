@@ -1,6 +1,12 @@
 package org.licenta.d4elders.model;
 
-public class FoodServiceProvider {
+import java.io.Serializable;
+
+public class FoodServiceProvider implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int foodProviderId;
 	private String name;
 	private GeographicalArea geoArea;

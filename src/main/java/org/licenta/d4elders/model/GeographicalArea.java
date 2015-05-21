@@ -1,6 +1,12 @@
 package org.licenta.d4elders.model;
 
-public class GeographicalArea {
+import java.io.Serializable;
+
+public class GeographicalArea  implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int geoAreaId;
 	private String city;
 	private String country;

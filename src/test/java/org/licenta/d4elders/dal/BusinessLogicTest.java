@@ -24,9 +24,9 @@ public class BusinessLogicTest {
 		long timeStamp1, timeStamp2, timeStamp3;
 
 		timeStamp1 = System.currentTimeMillis();
-		queryOntology(new BusinessLogic());
+		queryOntology(new BusinessLogicOld());
 		timeStamp2 = System.currentTimeMillis();
-		queryOntology(new BusinessLogic());
+		queryOntology(new BusinessLogicOld());
 		timeStamp3 = System.currentTimeMillis();
 
 		long duration1 = timeStamp2 - timeStamp1;
@@ -38,7 +38,7 @@ public class BusinessLogicTest {
 		assertTrue(duration1 > 10 * duration2);
 	}
 
-	private void queryOntology(BusinessLogic bl){
+	private void queryOntology(BusinessLogicOld bl){
 		final int numberOfSolutions = 10;
 		bl.generateBreakfastMeals(numberOfSolutions);
 		bl.generateLunchMeals(numberOfSolutions);

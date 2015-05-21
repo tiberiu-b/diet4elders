@@ -1,9 +1,15 @@
 package org.licenta.d4elders.model.dish;
 
+import java.io.Serializable;
+
 import org.licenta.d4elders.model.Recipe;
 
-public class Dish {
+public class Dish implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Recipe recipe;
 	private int dishId;
 

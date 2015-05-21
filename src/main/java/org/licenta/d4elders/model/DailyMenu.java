@@ -1,13 +1,19 @@
 package org.licenta.d4elders.model;
 
+import java.io.Serializable;
+
 /**
  * 
  */
-public class DailyMenu extends FoodNutrients {
-	protected Menu breakfast;
-	protected Menu dinner;
-	protected Menu lunch;
-	protected Menu snack1, snack2;
+public class DailyMenu extends FoodNutrients implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	protected FoodProviderPackage breakfast;
+	protected FoodProviderPackage dinner;
+	protected FoodProviderPackage lunch;
+	protected FoodProviderPackage snack1, snack2;
 
 	/**
      * 
@@ -15,7 +21,8 @@ public class DailyMenu extends FoodNutrients {
 	public DailyMenu() {
 	}
 
-	public DailyMenu(Menu breakfast, Menu lunch, Menu dinner, Menu snack1, Menu snack2) {
+	public DailyMenu(FoodProviderPackage breakfast, FoodProviderPackage lunch, FoodProviderPackage dinner,
+			FoodProviderPackage snack1, FoodProviderPackage snack2) {
 		this.breakfast = breakfast;
 		this.dinner = dinner;
 		this.lunch = lunch;
@@ -43,92 +50,101 @@ public class DailyMenu extends FoodNutrients {
 				+ snack1.toString() + "\n	S2:" + snack2.toString();
 	}
 
-	public Menu getBreakfast() {
+	public FoodProviderPackage getBreakfast() {
 		return breakfast;
 	}
 
-	public void setBreakfast(Menu breakfast) {
+	public void setBreakfast(FoodProviderPackage breakfast) {
 		this.breakfast = breakfast;
 	}
 
-	public Menu getDinner() {
+	public FoodProviderPackage getDinner() {
 		return dinner;
 	}
 
-	public void setDinner(Menu dinner) {
+	public void setDinner(FoodProviderPackage dinner) {
 		this.dinner = dinner;
 	}
 
-	public Menu getLunch() {
+	public FoodProviderPackage getLunch() {
 		return lunch;
 	}
 
-	public void setLunch(Menu lunch) {
+	public void setLunch(FoodProviderPackage lunch) {
 		this.lunch = lunch;
 	}
 
-	public Menu getSnack1() {
+	public FoodProviderPackage getSnack1() {
 		return snack1;
 	}
 
-	public void setSnack1(Menu snack1) {
+	public void setSnack1(FoodProviderPackage snack1) {
 		this.snack1 = snack1;
 	}
 
-	public Menu getSnack2() {
+	public FoodProviderPackage getSnack2() {
 		return snack2;
 	}
 
-	public void setSnack2(Menu snack2) {
+	public void setSnack2(FoodProviderPackage snack2) {
 		this.snack2 = snack2;
 	}
 
 	public Float getProteins_custom() {
-		return breakfast.getProteins() + lunch.getProteins() + dinner.getProteins() + snack1.getProteins()
-				+ snack2.getProteins();
+		return breakfast.getMenu().getProteins() + lunch.getMenu().getProteins() + dinner.getMenu().getProteins()
+				+ snack1.getMenu().getProteins() + snack2.getMenu().getProteins();
 
 	}
 
 	public Float getLipids_custom() {
-		return breakfast.getLipids() + lunch.getLipids() + dinner.getLipids() + snack1.getLipids() + snack2.getLipids();
+		return breakfast.getMenu().getLipids() + lunch.getMenu().getLipids() + dinner.getMenu().getLipids()
+				+ snack1.getMenu().getLipids() + snack2.getMenu().getLipids();
 	}
 
 	public Float getCarbohydrates_custom() {
-		return breakfast.getCarbohydrates() + lunch.getCarbohydrates() + dinner.getCarbohydrates()
-				+ snack1.getCarbohydrates() + snack2.getCarbohydrates();
+		return breakfast.getMenu().getCarbohydrates() + lunch.getMenu().getCarbohydrates()
+				+ dinner.getMenu().getCarbohydrates() + snack1.getMenu().getCarbohydrates()
+				+ snack2.getMenu().getCarbohydrates();
 	}
 
 	public Float getEnergy_custom() {
-		return breakfast.getEnergy() + lunch.getEnergy() + dinner.getEnergy() + snack1.getEnergy() + snack2.getEnergy();
+		return breakfast.getMenu().getEnergy() + lunch.getMenu().getEnergy() + dinner.getMenu().getEnergy()
+				+ snack1.getMenu().getEnergy() + snack2.getMenu().getEnergy();
 	}
 
 	public Float getCalcium_custom() {
-		return breakfast.getCalcium() + lunch.getCalcium() + dinner.getCalcium() + snack1.getCalcium()
-				+ snack2.getCalcium();
+		return breakfast.getMenu().getCalcium() + lunch.getMenu().getCalcium() + dinner.getMenu().getCalcium()
+				+ snack1.getMenu().getCalcium() + snack2.getMenu().getCalcium();
 	}
 
 	public Float getIron_custom() {
-		return breakfast.getIron() + lunch.getIron() + dinner.getIron() + snack1.getIron() + snack2.getIron();
+		return breakfast.getMenu().getIron() + lunch.getMenu().getIron() + dinner.getMenu().getIron()
+				+ snack1.getMenu().getIron() + snack2.getMenu().getIron();
 	}
 
 	public Float getSodium_custom() {
-		return breakfast.getSodium() + lunch.getSodium() + dinner.getSodium() + snack1.getSodium() + snack2.getSodium();
+		return breakfast.getMenu().getSodium() + lunch.getMenu().getSodium() + dinner.getMenu().getSodium()
+				+ snack1.getMenu().getSodium() + snack2.getMenu().getSodium();
 	}
 
 	public Float getVitA_custom() {
-		return breakfast.getVitA() + lunch.getVitA() + dinner.getVitA() + snack1.getVitA() + snack2.getVitA();
+		return breakfast.getMenu().getVitA() + lunch.getMenu().getVitA() + dinner.getMenu().getVitA()
+				+ snack1.getMenu().getVitA() + snack2.getMenu().getVitA();
 	}
 
 	public Float getVitB_custom() {
-		return breakfast.getVitB() + lunch.getVitB() + dinner.getVitB() + snack1.getVitB() + snack2.getVitB();
+		return breakfast.getMenu().getVitB() + lunch.getMenu().getVitB() + dinner.getMenu().getVitB()
+				+ snack1.getMenu().getVitB() + snack2.getMenu().getVitB();
 	}
 
 	public Float getVitC_custom() {
-		return breakfast.getVitC() + lunch.getVitC() + dinner.getVitC() + snack1.getVitC() + snack2.getVitC();
+		return breakfast.getMenu().getVitC() + lunch.getMenu().getVitC() + dinner.getMenu().getVitC()
+				+ snack1.getMenu().getVitC() + snack2.getMenu().getVitC();
 	}
 
 	public Float getVitD_custom() {
-		return breakfast.getVitD() + lunch.getVitD() + dinner.getVitD() + snack1.getVitD() + snack2.getVitD();
+		return breakfast.getMenu().getVitD() + lunch.getMenu().getVitD() + dinner.getMenu().getVitD()
+				+ snack1.getMenu().getVitD() + snack2.getMenu().getVitD();
 	}
 
 	public void computeNutrientValues() {
