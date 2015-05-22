@@ -44,7 +44,8 @@ public class InitialSolutionsGenerator {
 	public static SortedSet<Solution> generateRandomSolutions(int size) {
 		int numberOfSolutions = 1000;
 		SortedSet<Solution> solutions = new TreeSet<Solution>();
-		BusinessLogic bl = new BusinessLogic();
+		// BusinessLogic bl = new BusinessLogic();
+		BusinessLogicCache bl = BusinessLogicCache.getInstance();
 
 		for (int i = 0; i < size; i++) {
 			FoodProviderPackage breakfast = bl.generateSingleBreakfastPackages();

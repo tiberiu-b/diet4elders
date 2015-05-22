@@ -1,7 +1,7 @@
 package org.licenta.d4elders.model;
 
-import org.licenta.d4elders.dal.BusinessLogicOld;
 import org.licenta.d4elders.dal.BusinessLogic;
+import org.licenta.d4elders.dal.BusinessLogicCache;
 import org.licenta.d4elders.helper.AlgorithmConfiguration;
 import org.licenta.d4elders.model.meal.DayMeal;
 import org.licenta.d4elders.model.user_profile.NutritionalRecommandationHelper;
@@ -336,7 +336,8 @@ public class Solution implements Comparable<Solution> {
 	 * @return a new Solution
 	 */
 	public Solution randomMutation() {
-		BusinessLogic bl = new BusinessLogic();
+		// BusinessLogic bl = new BusinessLogic();
+		BusinessLogicCache bl = BusinessLogicCache.getInstance();
 		Random r = new Random();
 
 		FoodProviderPackage breakfast = dailyMenu.getBreakfast();

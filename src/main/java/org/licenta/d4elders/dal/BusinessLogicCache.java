@@ -13,10 +13,11 @@ import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.Model;
 
-public class BusinessLogic {
-	private static FoodProviderOntology foodProviderOntology;
-	private static Model model;
-	private static Model data;
+public class BusinessLogicCache {
+	private static BusinessLogicCache bl;
+	private FoodProviderOntology foodProviderOntology;
+	private Model model;
+	private Model data;
 
 	/*
 	 * The arrays are fetched once and stored in cache. Subsequent calls return the cached arrays.
@@ -24,23 +25,31 @@ public class BusinessLogic {
 	 * any misses.
 	 */
 
-	private static ArrayList<FoodProviderPackage> breakfastPackageListCache;
-	private static ArrayList<FoodProviderPackage> lunchPackageListCache;
-	private static ArrayList<FoodProviderPackage> dinnerPackageListCache;
-	private static ArrayList<FoodProviderPackage> snackPackageListCache;
+	private ArrayList<FoodProviderPackage> breakfastPackageListCache;
+	private ArrayList<FoodProviderPackage> lunchPackageListCache;
+	private ArrayList<FoodProviderPackage> dinnerPackageListCache;
+	private ArrayList<FoodProviderPackage> snackPackageListCache;
 
-	private static ArrayList<GeographicalArea> geoAreaListCache;
-	private static ArrayList<FoodServiceProvider> foodProviderListCache;
-	private static ArrayList<Recipe> recipeListCache;
-	private static ArrayList<Dish> dishListCache;
-	private static ArrayList<MealVariant> mealVariantListCache;
-	private static ArrayList<Menu> menuListCache;
-	private static ArrayList<FoodProviderPackage> packageListCache;
-	static {
-		foodProviderOntology = new FoodProviderOntology();
-		model = foodProviderOntology.getOntModel();
-		data = foodProviderOntology.getD2rData();
-		model.add(data);
+	private ArrayList<GeographicalArea> geoAreaListCache;
+	private ArrayList<FoodServiceProvider> foodProviderListCache;
+	private ArrayList<Recipe> recipeListCache;
+	private ArrayList<Dish> dishListCache;
+	private ArrayList<MealVariant> mealVariantListCache;
+	private ArrayList<Menu> menuListCache;
+	private ArrayList<FoodProviderPackage> packageListCache;
+
+	private BusinessLogicCache() {
+		// foodProviderOntology = new FoodProviderOntology();
+		// model = foodProviderOntology.getOntModel();
+		// data = foodProviderOntology.getD2rData();
+		// model.add(data);
+		loadOntologyDataIntoMemory();
+	}
+
+	public static BusinessLogicCache getInstance() {
+		if (bl == null)
+			bl = new BusinessLogicCache();
+		return bl;
 	}
 
 	/**

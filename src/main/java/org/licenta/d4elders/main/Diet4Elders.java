@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import org.licenta.d4elders.algorithm.HoneyBeeMatingOptimiziation;
 import org.licenta.d4elders.algorithm.MainAlgorithm.RunInformation;
 import org.licenta.d4elders.dal.BusinessLogic;
+import org.licenta.d4elders.dal.BusinessLogicCache;
 import org.licenta.d4elders.helper.AlgorithmConfiguration;
 import org.licenta.d4elders.model.Solution;
 import org.licenta.d4elders.model.user_profile.NutritionalRecommandationHelper;
@@ -19,7 +20,8 @@ public class Diet4Elders {
 
 		userProfile = new UserProfileStub();
 		new NutritionalRecommandationHelper(userProfile);
-		new BusinessLogic().loadOntologyDataIntoMemory();
+		// new BusinessLogic().loadOntologyDataIntoMemory();
+		BusinessLogicCache bLogicCache = BusinessLogicCache.getInstance();
 
 	}
 
