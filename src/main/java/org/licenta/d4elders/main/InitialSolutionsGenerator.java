@@ -41,9 +41,9 @@ public class InitialSolutionsGenerator {
 	 *
 	 * @return A SortedSet (Tree) filled with random solutions.
 	 */
-	public static SortedSet<Solution> generateRandomSolutions(int size) {
+	public static TreeSet<Solution> generateRandomSolutions(int size) {
 		int numberOfSolutions = 1000;
-		SortedSet<Solution> solutions = new TreeSet<Solution>();
+		TreeSet<Solution> solutions = new TreeSet<Solution>();
 		// BusinessLogic bl = new BusinessLogic();
 		BusinessLogicCache bl = BusinessLogicCache.getInstance();
 

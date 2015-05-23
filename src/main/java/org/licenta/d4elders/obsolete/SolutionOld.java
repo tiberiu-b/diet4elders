@@ -1,7 +1,7 @@
-package org.licenta.d4elders.model;
+package org.licenta.d4elders.obsolete;
 
-import org.licenta.d4elders.dal.BusinessLogicOld;
 import org.licenta.d4elders.helper.AlgorithmConfiguration;
+import org.licenta.d4elders.model.DailyMenu;
 import org.licenta.d4elders.model.meal.Breakfast;
 import org.licenta.d4elders.model.meal.DayMeal;
 import org.licenta.d4elders.model.meal.Dinner;
@@ -9,9 +9,6 @@ import org.licenta.d4elders.model.meal.Lunch;
 import org.licenta.d4elders.model.meal.Snack;
 import org.licenta.d4elders.model.user_profile.NutritionalRecommandationHelper;
 import org.licenta.d4elders.model.user_profile.UserProfileHelper;
-import org.licenta.d4elders.obsolete.Desert;
-import org.licenta.d4elders.obsolete.MainCourse;
-import org.licenta.d4elders.obsolete.StarterDish;
 
 import com.sun.istack.internal.NotNull;
 

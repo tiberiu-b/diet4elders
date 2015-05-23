@@ -6,7 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class AlgorithmConfiguration {
-	private static final Logger log = Logger.getLogger( AlgorithmConfiguration.class.getName() );
+	private static final Logger log = Logger.getLogger(AlgorithmConfiguration.class.getName());
 
 	private String broodModificationStrategy;
 	private ArrayList<String> workerModificationStrategies = new ArrayList<String>();
@@ -17,6 +17,7 @@ public class AlgorithmConfiguration {
 	private double speedReductionFactor;
 	private double energyReductionAmount;
 	private double probabilityToMateDroneThreshold;
+	private double similarityCoefficientThreshold = 0.8;
 
 	/**
 	 * Initialize an instance with the default values.
@@ -37,36 +38,33 @@ public class AlgorithmConfiguration {
 
 	@Override
 	public String toString() {
-		return "broodModificationStrategy="	+ broodModificationStrategy + "\n" +
-				"workerModificationStrategies="	+ workerModificationStrategies + "\n" +
-				"maxNrMatings="	+ maxNrMatings + "\npopSize=" + popSize + "\ninitialSpeed="
-				+ initialSpeed + "\ninitialEnergy=" + initialEnergy
-				+ "\nspeedReductionFactor=" + speedReductionFactor
-				+ "\nenergyReductionAmount=" + energyReductionAmount
-				+ "\nprobabilityToMateDroneThreshold="
-				+ probabilityToMateDroneThreshold;
+		return "broodModificationStrategy=" + broodModificationStrategy + "\n" + "workerModificationStrategies="
+				+ workerModificationStrategies + "\n" + "maxNrMatings=" + maxNrMatings + "\npopSize=" + popSize
+				+ "\ninitialSpeed=" + initialSpeed + "\ninitialEnergy=" + initialEnergy + "\nspeedReductionFactor="
+				+ speedReductionFactor + "\nenergyReductionAmount=" + energyReductionAmount
+				+ "\nprobabilityToMateDroneThreshold=" + probabilityToMateDroneThreshold;
 	}
 
-	public void addWorkerModificationStrategy(Collection<String> strategies){
-		for(String strategy : strategies){
+	public void addWorkerModificationStrategy(Collection<String> strategies) {
+		for (String strategy : strategies) {
 			addWorkerModificationStrategy(strategy);
 		}
 	}
 
-	public void addWorkerModificationStrategy(String strategy){
-		if(!AvailableProgramConfigurationOptions.getAvailableWorkerModificationStrategies().contains(strategy)){
+	public void addWorkerModificationStrategy(String strategy) {
+		if (!AvailableProgramConfigurationOptions.getAvailableWorkerModificationStrategies().contains(strategy)) {
 			log.log(Level.SEVERE, "Invalid worker modification strategy " + strategy);
 		}
 
 		workerModificationStrategies.add(strategy);
 	}
 
-	public void clearWorkerModificationStrategies(){
+	public void clearWorkerModificationStrategies() {
 		workerModificationStrategies = new ArrayList<String>();
 	}
 
 	public void setBroodModificationStrategy(String strategy) {
-		if(!AvailableProgramConfigurationOptions.getAvailableBroodModificationStrategies().contains(strategy)){
+		if (!AvailableProgramConfigurationOptions.getAvailableBroodModificationStrategies().contains(strategy)) {
 			log.log(Level.SEVERE, "Invalid brood modification strategy " + strategy);
 		}
 		broodModificationStrategy = strategy;
@@ -100,8 +98,7 @@ public class AlgorithmConfiguration {
 		return probabilityToMateDroneThreshold;
 	}
 
-	public void setProbabilityToMateDroneThreshold(
-			double probabilityToMateDroneThreshold) {
+	public void setProbabilityToMateDroneThreshold(double probabilityToMateDroneThreshold) {
 		this.probabilityToMateDroneThreshold = probabilityToMateDroneThreshold;
 	}
 
@@ -135,6 +132,14 @@ public class AlgorithmConfiguration {
 
 	public void setInitialEnergy(int energy) {
 		this.initialEnergy = energy;
+	}
+
+	public double getSimilarityCoefficientThreshold() {
+		return similarityCoefficientThreshold;
+	}
+
+	public void setSimilarityCoefficientThreshold(double similarityCoefficientThreshold) {
+		this.similarityCoefficientThreshold = similarityCoefficientThreshold;
 	}
 
 }

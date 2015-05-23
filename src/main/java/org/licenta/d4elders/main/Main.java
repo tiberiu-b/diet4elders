@@ -47,6 +47,7 @@ public class Main extends Applet implements MouseListener {
 	Label speedReductionFactorLabel;
 	Label energyReductionAmountLabel;
 	Label probabilityToMateDroneThresholdLabel;
+	Label similarityCoefficientThresholdLabel;
 
 	ArrayList<Checkbox> broodModificationStrategiesCheckboxList;
 	ArrayList<Checkbox> workerModificationStrategiesCheckboxList;
@@ -57,6 +58,7 @@ public class Main extends Applet implements MouseListener {
 	TextField speedReductionFactorField;
 	TextField energyReductionAmountField;
 	TextField probabilityToMateDroneThresholdField;
+	TextField similarityCoefficientThresholdField;
 
 	public static void main(String args[]) {
 		// run with the default configuration
@@ -79,6 +81,7 @@ public class Main extends Applet implements MouseListener {
 		speedReductionFactorLabel = new Label("Speed reduction factor: ");
 		energyReductionAmountLabel = new Label("Energy reduction amount: ");
 		probabilityToMateDroneThresholdLabel = new Label("Probability to mate dron threshold: ");
+		similarityCoefficientThresholdLabel = new Label("Solutions similarity threshold: ");
 
 		// Initialize input elements
 		AlgorithmConfiguration defaultConfiguration = new AlgorithmConfiguration();
@@ -107,7 +110,8 @@ public class Main extends Applet implements MouseListener {
 		energyReductionAmountField = new TextField(String.valueOf(defaultConfiguration.getEnergyReductionAmount()), 10);
 		probabilityToMateDroneThresholdField = new TextField(String.valueOf(defaultConfiguration
 				.getProbabilityToMateDroneThreshold()), 10);
-
+		similarityCoefficientThresholdField = new TextField(String.valueOf(defaultConfiguration
+				.getSimilarityCoefficientThreshold()), 10);
 		// The text area on the right
 		outputTextArea = new TextArea(15, 100);
 
@@ -160,6 +164,10 @@ public class Main extends Applet implements MouseListener {
 		// prob to mate drone
 		leftPanel.add(probabilityToMateDroneThresholdLabel);
 		leftPanel.add(probabilityToMateDroneThresholdField);
+
+		// prob to mate drone
+		leftPanel.add(similarityCoefficientThresholdLabel);
+		leftPanel.add(similarityCoefficientThresholdField);
 
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = 0;

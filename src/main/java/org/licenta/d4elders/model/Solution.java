@@ -436,4 +436,21 @@ public class Solution implements Comparable<Solution> {
 		}
 	}
 
+	public float getSolutionSimilarityCoefficient(Solution drone) {
+		int sumComp = 0;
+		int sumOfWeights = 5;
+		// 5 meals / day with weight of 1
+		if (this.dailyMenu.getBreakfast().getMenu().getMenuId() == drone.dailyMenu.getBreakfast().getMenu().getMenuId())
+			sumComp++;
+		if (this.dailyMenu.getLunch().getMenu().getMenuId() == drone.dailyMenu.getLunch().getMenu().getMenuId())
+			sumComp++;
+		if (this.dailyMenu.getDinner().getMenu().getMenuId() == drone.dailyMenu.getDinner().getMenu().getMenuId())
+			sumComp++;
+		if (this.dailyMenu.getSnack1().getMenu().getMenuId() == drone.dailyMenu.getSnack1().getMenu().getMenuId())
+			sumComp++;
+		if (this.dailyMenu.getSnack2().getMenu().getMenuId() == drone.dailyMenu.getSnack2().getMenu().getMenuId())
+			sumComp++;
+		return sumComp / sumOfWeights;
+	}
+
 }

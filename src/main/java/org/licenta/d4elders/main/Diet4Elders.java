@@ -2,7 +2,7 @@ package org.licenta.d4elders.main;
 
 import java.util.logging.Logger;
 
-import org.licenta.d4elders.algorithm.HoneyBeeMatingOptimiziation;
+import org.licenta.d4elders.algorithm.HoneyBeeMatingOptimization;
 import org.licenta.d4elders.algorithm.MainAlgorithm.RunInformation;
 import org.licenta.d4elders.dal.BusinessLogic;
 import org.licenta.d4elders.dal.BusinessLogicCache;
@@ -35,7 +35,7 @@ public class Diet4Elders {
 		// configuration);
 		// System.out.println("Running Honey Bee Mating Optimization with the following configuration\n"
 		// + configuration);
-		HoneyBeeMatingOptimiziation HBMO = new HoneyBeeMatingOptimiziation(configuration);
+		HoneyBeeMatingOptimization HBMO = new HoneyBeeMatingOptimization(configuration);
 		queen = HBMO.performAlgorithm();
 		info = HBMO.getLastRunInformation();
 

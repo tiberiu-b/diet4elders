@@ -12,6 +12,7 @@ import org.licenta.d4elders.model.meal.Breakfast;
 import org.licenta.d4elders.model.meal.Dinner;
 import org.licenta.d4elders.model.meal.Lunch;
 import org.licenta.d4elders.model.meal.Snack;
+import org.licenta.d4elders.obsolete.BusinessLogicOld;
 
 public class BusinessLogicTest {
 
