@@ -824,6 +824,7 @@ public class BusinessLogicCache {
 				break;
 			}
 		}
+		System.out.println("Hello");
 	}
 
 	public void getAllMenu2() {

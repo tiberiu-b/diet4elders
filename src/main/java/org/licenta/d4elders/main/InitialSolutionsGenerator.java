@@ -23,7 +23,6 @@ import org.licenta.d4elders.model.DailyMenu;
 import org.licenta.d4elders.model.FoodProviderPackage;
 import org.licenta.d4elders.model.Menu;
 import org.licenta.d4elders.model.Solution;
-import org.licenta.d4elders.model.meal.*;
 import org.licenta.d4elders.model.user_profile.NutritionalRecommendation;
 
 public class InitialSolutionsGenerator {

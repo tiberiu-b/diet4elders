@@ -49,7 +49,7 @@ public class BusinessLogic {
 	 */
 	public void loadOntologyDataIntoMemory() {
 		if (packageListCache == null)
-			loadCache2();
+			loadCache();
 	}
 
 	public ArrayList<Menu> getAllMenus(MealType mealType, DishType dishType) {
@@ -399,6 +399,46 @@ public class BusinessLogic {
 		return menuList;
 	}
 
+	public ArrayList<FoodProviderPackage> getAllFoodPackagesAux() {
+		ArrayList<FoodProviderPackage> packageList = new ArrayList<>();
+		String queryString3 = FoodProviderOntology.PREFIX // Menu
+				+ "SELECT DISTINCT ?recipe ?recipeId " + "WHERE {?recipe rdf:type nutritionassesment:Recipe." // menu
+				+ "?recipe foodprovider:recipeHasId ?recipeId}";// dishId
+		String queryString2 = FoodProviderOntology.PREFIX // Menu
+				+ "SELECT DISTINCT ?package ?packageId "
+				+ "WHERE {?package rdf:type nutritionassesment:FoodProviderPackage." // menu
+				+ "?package foodprovider:foodProviderPackageHasId ?packageId}";// dishId
+
+		String queryString = FoodProviderOntology.PREFIX // Menu
+				+ "SELECT DISTINCT ?package ?foodProvider ?foodProviderId ?menu ?menuId "
+				+ "?cost ?deliveryTime " // Dish
+				+ "WHERE {?package rdf:type nutritionassesment:FoodProviderPackage." // menu
+				+ "?package foodprovider:foodProviderPackageHasMenu ?menu." // dishId
+				+ "?menu foodprovider:menuHasId ?menuId." // dishId
+				+ "?package foodprovider:foodProviderPackageHasFoodProvider ?foodProvider."
+				+ "?foodProvider foodprovider:foodProviderHasID ?foodProviderId."
+				+ "?package foodprovider:foodProviderPackageHasCost ?cost."
+				+ "?package foodprovider:foodProviderPackageHasDeliveryTime ?deliveryTime}";// dishId
+
+		ResultSet rs = foodProviderOntology.queryModelForResult(queryString, foodProviderOntology.getOntModel(),
+				foodProviderOntology.getD2rData());
+
+		while (rs.hasNext()) {
+			QuerySolution row = rs.nextSolution();
+			System.out.println(row);
+			if (row.getResource("package") != null) {
+				// System.out.println(row.getLiteral("MenuId:" +
+				// row.getLiteral("menuId").getInt()));
+				// System.out.println(row.getLiteral("foodProviderId:" +
+				// row.getLiteral("foodProviderId").getInt()));
+				// System.out.println("Delivery time  is: " +
+				// row.getLiteral("deliveryTime").getInt());
+				// System.out.println("Cost is: " + row.getLiteral("cost").getDouble());
+			}
+		}
+		return packageList;
+	}
+
 	public ArrayList<FoodProviderPackage> getAllFoodPackages() {
 		ArrayList<FoodProviderPackage> packageList = new ArrayList<>();
 		breakfastPackageListCache = new ArrayList<>();
@@ -406,11 +446,16 @@ public class BusinessLogic {
 		dinnerPackageListCache = new ArrayList<>();
 		snackPackageListCache = new ArrayList<>();
 		String queryString = FoodProviderOntology.PREFIX // prefix
-				+ "SELECT DISTINCT ?menu ?menuId ?foodProv ?foodProvId " // Menu
+				+ "SELECT DISTINCT ?package ?packageId ?cost ?deliveryTime " // package
+				+ "?menu ?menuId ?foodProv ?foodProvId " // Menu
 				// FoodProvider info
-				+ "WHERE {?menu rdf:type nutritionassesment:Menu." // menu
+				+ "WHERE {?package rdf:type nutritionassesment:FoodProviderPackage." // menu
+				+ "?package foodprovider:foodProviderPackageHasId ?packageId." // id
+				+ "?package foodprovider:foodProviderPackageHasMenu ?menu." // id
+				+ "?package foodprovider:foodProviderPackageHasFoodProvider ?foodProv." // id
+				+ "?package foodprovider:foodProviderPackageHasCost ?cost." // id
+				+ "?package foodprovider:foodProviderPackageHasDeliveryTime ?deliveryTime." // id
 				+ "?menu foodprovider:menuHasId ?menuId." // id
-				+ "?menu foodprovider:menuHasFoodProvider ?foodProv." // meal type
 				+ "?foodProv foodprovider:foodProviderHasID ?foodProvId}"; // meal type
 
 		ResultSet rs = foodProviderOntology.queryModelForResult(queryString, foodProviderOntology.getOntModel(),
@@ -423,6 +468,10 @@ public class BusinessLogic {
 				FoodProviderPackage foodPackage = new FoodProviderPackage();
 				int menuId = row.getLiteral("menuId").getInt();
 				int foodProvId = row.getLiteral("foodProvId").getInt();
+				int deliveryTime = row.getLiteral("deliveryTime").getInt();
+				double cost = row.getLiteral("cost").getDouble();
+				foodPackage.setCost(cost);
+				foodPackage.setDeliveryTime(deliveryTime);
 				for (Menu m : menuListCache) {
 					if (m.getMenuId() == menuId) {
 						foodPackage.setMenu(m);
@@ -657,13 +706,15 @@ public class BusinessLogic {
 		ArrayList<Recipe> recipeList = new ArrayList<>();
 
 		String queryString = FoodProviderOntology.PREFIX
-				+ "SELECT DISTINCT ?recipe ?recId ?recName ?recDescr ?recDishType " // Recipe
+				+ "SELECT DISTINCT ?recipe ?recId ?recIngredient ?ingredientName ?recName ?recDescr ?recDishType " // Recipe
 				+ "?recPro ?recLip ?recCar ?recEne ?recCal ?recIro ?recSod " // Recipe Nutr
 				+ "?recVa ?recVb ?recVc ?recVd "// Recipe Nutr
 				// Menu info
 				+ "WHERE {?recipe rdf:type nutritionassesment:Recipe." // menu
 				// Recipe data + nutrients
 				+ "?recipe foodprovider:recipeHasId ?recId." // Id
+				+ "?recipe foodprovider:recipeHasIngredient ?recIngredient." // Id
+				+ "?recIngredient foodprovider:ingredientHasName ?ingredientName." // Id
 				+ "?recipe foodprovider:recipeHasName ?recName." // Name
 				+ "?recipe foodprovider:recipeHasDescription ?recDescr." // Descr
 				+ "?recipe foodprovider:recipeHasDishType ?recDishType." // DishType
@@ -691,9 +742,17 @@ public class BusinessLogic {
 				// ?recVa ?recVb ?recVc ?recVd // Recipe Nutr
 				DishType dishType = DishType.valueOf(row.getResource("recDishType").getLocalName());
 				Recipe rec = new Recipe();
+				ArrayList<String> ingredientList = new ArrayList<>();
+				for (Recipe r : recipeList) {
+					if (r.getRecipeId() == row.getLiteral("recId").getInt()) {
+						rec = r;
+						ingredientList = r.getIngredientList();
+						break;
+					}
+				}
+				ingredientList.add(row.getLiteral("ingredientName").getString());
+				rec.setIngredientList(ingredientList);
 				rec.setRecipeId(row.getLiteral("recId").getInt());
-				if (rec.getRecipeId() == 6000)
-					System.out.println("aa no way");
 				rec.setDishType(dishType);
 				rec.setName(row.getLiteral("recName").getString());
 				rec.setDescription(row.getLiteral("recDescr").getString());

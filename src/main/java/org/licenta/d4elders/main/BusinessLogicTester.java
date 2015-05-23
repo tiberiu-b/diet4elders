@@ -1,8 +1,10 @@
 package org.licenta.d4elders.main;
 
+import java.util.ArrayList;
+
 import org.licenta.d4elders.dal.BusinessLogic;
-import org.licenta.d4elders.model.MealType;
-import org.licenta.d4elders.model.dish.DishType;
+import org.licenta.d4elders.model.*;
+import org.licenta.d4elders.model.dish.*;
 
 public class BusinessLogicTester {
 
@@ -13,8 +15,9 @@ public class BusinessLogicTester {
 		long elapsedTime = stopTime - startTime;
 		System.out.println("Time for ontology load: " + elapsedTime);
 		startTime = System.currentTimeMillis();
-//		bl.getAllRecipes();
+		// ArrayList<Recipe> recipeList = bl.getAllRecipes();
 		 bl.loadOntologyDataIntoMemory();
+		//ArrayList<FoodProviderPackage> packageList = bl.getAllFoodPackages();
 		// bl.getAllMenusHelper();
 		// bl.getAllMealVariants();
 		// bl.getAllMenus();

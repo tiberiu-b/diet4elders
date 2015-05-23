@@ -1,10 +1,11 @@
 package org.licenta.d4elders.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import org.licenta.d4elders.model.dish.DishType;
 
-public class Recipe extends FoodNutrients  implements Serializable{
+public class Recipe extends FoodNutrients implements Serializable {
 	/**
 	 * 
 	 */
@@ -13,8 +14,11 @@ public class Recipe extends FoodNutrients  implements Serializable{
 	private String name;
 	private String description;
 	private DishType dishType;
+	private ArrayList<String> ingredientList;
 
-	// private int dishType;
+	public Recipe() {
+		ingredientList = new ArrayList<>();
+	}
 
 	public String getName() {
 		return name;
@@ -53,5 +57,13 @@ public class Recipe extends FoodNutrients  implements Serializable{
 
 	public void setDishType(DishType dishType) {
 		this.dishType = dishType;
+	}
+
+	public ArrayList<String> getIngredientList() {
+		return ingredientList;
+	}
+
+	public void setIngredientList(ArrayList<String> ingredientList) {
+		this.ingredientList = ingredientList;
 	}
 }

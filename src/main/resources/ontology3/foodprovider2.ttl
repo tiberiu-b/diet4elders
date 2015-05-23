@@ -542,17 +542,56 @@ map:food_service_provider_geographicalAreaId a d2rq:PropertyBridge;
     d2rq:join "food_service_provider.geographicalAreaId => geographical_area.geographicalAreaId";
     .
 
+
+
 ##############################################################
-#############MENU_FOODPROVIDER_RELATION#######################
+##################FOOD_PROVIDER_PACKAGE#######################
 ##############################################################
 
-# table menu_foodprovider_relation
-map:menu_foodprovider_relation a d2rq:PropertyBridge;
-    d2rq:belongsToClassMap map:menu;
-    d2rq:property foodprovider:menuHasFoodProvider;
-    d2rq:refersToClassMap map:food_service_provider;
-    d2rq:join "menu.menuId <= menu_foodprovider_relation.menuId";
-    d2rq:join "menu_foodprovider_relation.foodProviderId =>food_service_provider.foodProviderId";
+# Table menu_foodprovider_relation
+map:menu_foodprovider_relation a d2rq:ClassMap;
+    d2rq:dataStorage map:database;
+    d2rq:uriPattern "http://www.semanticweb.org/dorin/ontologies/nutritionassesment#FoodProviderPackage@@menu_foodprovider_relation.packageId@@";
+    d2rq:class nutritionassesment:FoodProviderPackage;
     .
 
+# Data Property packageHasId
+map:menu_foodprovider_relation_packageId a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:menu_foodprovider_relation;
+    d2rq:property foodprovider:foodProviderPackageHasId;
+    d2rq:column "menu_foodprovider_relation.packageId";
+    d2rq:datatype xsd:integer;
+    .
+
+# Object Property menu_foodprovider_relationHasFoodProvider
+map:menu_foodprovider_relation_foodProvider a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:menu_foodprovider_relation;
+    d2rq:property foodprovider:foodProviderPackageHasFoodProvider;
+    d2rq:refersToClassMap map:food_service_provider;
+    d2rq:join "menu_foodprovider_relation.foodProviderId => food_service_provider.foodProviderId";
+    .
+
+# Object Property menu_foodprovider_relationHasMenu
+map:menu_foodprovider_relation_menu a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:menu_foodprovider_relation;
+    d2rq:property foodprovider:foodProviderPackageHasMenu;
+    d2rq:refersToClassMap map:menu;
+    d2rq:join "menu_foodprovider_relation.menuId => menu.menuId";
+    .
+
+# Data Property menu_foodprovider_relationHasCost
+map:menu_foodprovider_relation_cost a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:menu_foodprovider_relation;
+    d2rq:property foodprovider:foodProviderPackageHasCost;
+    d2rq:column "menu_foodprovider_relation.cost";
+    d2rq:datatype xsd:decimal;
+    .   
+    
+# Data Property menu_foodprovider_relationHasDeliveryTime
+map:menu_foodprovider_relation_deliveryTime_minutes a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:menu_foodprovider_relation;
+    d2rq:property foodprovider:foodProviderPackageHasDeliveryTime;
+    d2rq:column "menu_foodprovider_relation.deliveryTime_minutes";
+    d2rq:datatype xsd:integer; 
+    .
 
