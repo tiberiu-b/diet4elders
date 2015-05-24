@@ -1,5 +1,7 @@
 package org.licenta.d4elders.algorithm;
 
+import java.util.ArrayList;
+
 import org.licenta.d4elders.model.Solution;
 
 /**
@@ -15,6 +17,7 @@ public abstract class MainAlgorithm {
 
 	// Abstract methods
 	public abstract Solution performAlgorithm();
+	public abstract ArrayList<String> getHeadersForExportedData();
 
 
 	// Non abstract methods

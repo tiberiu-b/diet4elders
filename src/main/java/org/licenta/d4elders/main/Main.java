@@ -179,9 +179,9 @@ public class Main extends Applet implements MouseListener {
 		runButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new Thread() {
-					@Override
-					public void run() {
+				//new Thread() {
+				//	@Override
+				//	public void run() {
 
 						AlgorithmConfiguration configuration = new AlgorithmConfiguration();
 						for (Checkbox c : broodModificationStrategiesCheckboxList) {
@@ -210,8 +210,8 @@ public class Main extends Applet implements MouseListener {
 						Diet4Elders d4e = new Diet4Elders();
 						d4e.run(configuration);
 					}
-				}.start();
-			}
+				//}.start();
+			//}
 		});
 
 		// hack to redirect stdout to the text area:
