@@ -1,6 +1,11 @@
-package org.licenta.d4elders.model;
+package org.licenta.d4elders.model.food_package;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+
+import org.licenta.d4elders.model.FoodNutrients;
+import org.licenta.d4elders.model.meal.MealType;
+import org.licenta.d4elders.model.meal.MealVariant;
 
 public class Menu extends FoodNutrients implements Serializable {
 	/**
@@ -255,5 +260,20 @@ public class Menu extends FoodNutrients implements Serializable {
 			return "MenuId: " + menuId + " Starter: " + starter.toString() + " MainCourse: " + mainCourse.toString()
 					+ " Desert: " + desert.toString();
 
+	}
+
+	public ArrayList<String> getIngredientList() {
+		ArrayList<String> ingredientList = new ArrayList<String>();
+		if (starter != null)
+			ingredientList.addAll(starter.getMainDish().getRecipe().getIngredientList());
+		if (desert != null)
+			ingredientList.addAll(desert.getMainDish().getRecipe().getIngredientList());
+		if (mainCourse != null) {
+			ingredientList.addAll(mainCourse.getMainDish().getRecipe().getIngredientList());
+			if (mainCourse.getSideDish() != null) {
+				ingredientList.addAll(mainCourse.getSideDish().getRecipe().getIngredientList());
+			}
+		}
+		return ingredientList;
 	}
 }

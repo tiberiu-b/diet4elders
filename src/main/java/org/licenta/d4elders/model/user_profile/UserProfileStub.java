@@ -15,12 +15,12 @@ public class UserProfileStub {
 	private boolean weight_loss = false;
 	private GenderType gender;
 
-	private Set<String> likeSet = new TreeSet<String>();
-	private Set<String> dislikeSet = new TreeSet<String>();
+	private ArrayList<String> likeSet = new ArrayList<String>();
+	private ArrayList<String> dislikeSet = new ArrayList<String>();
+	private ArrayList<String> allergySet = new ArrayList<String>();
 
 	public UserProfileStub() {
 		generateMockupValues();
-
 	}
 
 	private void generateMockupValues() {
@@ -31,11 +31,15 @@ public class UserProfileStub {
 		setGender(GenderType.Male);
 		setPAF(1.7);
 
-		likeSet.add("Chocolate biscuits, full coated");
-		likeSet.add("Chocolate biscuits, cream filled, full coated");
+		getLikeSet().add("Chocolate biscuits, full coated");
+		getLikeSet().add("Chocolate biscuits, cream filled, full coated");
 
-		dislikeSet.add("Gingernut biscuits");
-		dislikeSet.add("Oat based biscuits");
+		getDislikeSet().add("Gingernut biscuits");
+		getDislikeSet().add("Oat based biscuits");
+
+		getAllergySet().add("butter");
+		getAllergySet().add("milk");
+		getAllergySet().add("apricot");
 
 	}
 
@@ -47,11 +51,11 @@ public class UserProfileStub {
 		setGender(GenderType.Male);
 		setPAF(1.2);
 
-		likeSet.add("Chocolate biscuits, full coated");
-		likeSet.add("Chocolate biscuits, cream filled, full coated");
+		getLikeSet().add("Chocolate biscuits, full coated");
+		getLikeSet().add("Chocolate biscuits, cream filled, full coated");
 
-		dislikeSet.add("Gingernut biscuits");
-		dislikeSet.add("Oat based biscuits");
+		getDislikeSet().add("Gingernut biscuits");
+		getDislikeSet().add("Oat based biscuits");
 
 	}
 
@@ -111,25 +115,34 @@ public class UserProfileStub {
 		this.gender = gender;
 	}
 
-	public Set<String> getDislikeSet() {
-		return dislikeSet;
-	}
-
-	public void setDislikeSet(Set<String> dislikeSet) {
-		this.dislikeSet = dislikeSet;
-	}
-
-	public Set<String> getLikeSet() {
-		return likeSet;
-	}
-
-	public void setLikeSet(Set<String> likeSet) {
-		this.likeSet = likeSet;
-	}
-
 	@Override
 	public String toString() {
 		return "UserProfileStub{" + "weight=" + weight + ", height=" + height + ", age=" + age + ", PAF=" + PAF
 				+ ", weight_gain=" + weight_gain + ", weight_loss=" + weight_loss + ", gender=" + gender + '}';
 	}
+
+	public ArrayList<String> getLikeSet() {
+		return likeSet;
+	}
+
+	public void setLikeSet(ArrayList<String> likeSet) {
+		this.likeSet = likeSet;
+	}
+
+	public ArrayList<String> getDislikeSet() {
+		return dislikeSet;
+	}
+
+	public void setDislikeSet(ArrayList<String> dislikeSet) {
+		this.dislikeSet = dislikeSet;
+	}
+
+	public ArrayList<String> getAllergySet() {
+		return allergySet;
+	}
+
+	public void setAllergySet(ArrayList<String> allergySet) {
+		this.allergySet = allergySet;
+	}
+
 }

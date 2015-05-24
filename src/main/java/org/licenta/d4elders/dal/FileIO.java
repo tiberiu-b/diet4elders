@@ -15,13 +15,9 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.licenta.d4elders.model.FoodProviderPackage;
-import org.licenta.d4elders.model.FoodServiceProvider;
-import org.licenta.d4elders.model.GeographicalArea;
-import org.licenta.d4elders.model.MealVariant;
-import org.licenta.d4elders.model.Menu;
-import org.licenta.d4elders.model.Recipe;
-import org.licenta.d4elders.model.dish.Dish;
+import org.licenta.d4elders.model.dish.*;
+import org.licenta.d4elders.model.food_package.*;
+import org.licenta.d4elders.model.meal.*;
 
 public class FileIO {
 	private String recipeCacheFile = "recipe.ser";

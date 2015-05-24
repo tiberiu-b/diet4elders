@@ -20,9 +20,8 @@ public class Diet4Elders {
 
 		userProfile = new UserProfileStub();
 		new NutritionalRecommandationHelper(userProfile);
-		// new BusinessLogic().loadOntologyDataIntoMemory();
-		BusinessLogicCache bLogicCache = BusinessLogicCache.getInstance();
-
+		BusinessLogic bLogic = BusinessLogic.getInstance();
+		// BusinessLogicCache bLogicCache = BusinessLogicCache.getInstance();
 	}
 
 	public void run(AlgorithmConfiguration configuration) {

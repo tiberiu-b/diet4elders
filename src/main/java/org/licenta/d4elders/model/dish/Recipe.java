@@ -1,9 +1,9 @@
-package org.licenta.d4elders.model;
+package org.licenta.d4elders.model.dish;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import org.licenta.d4elders.model.dish.DishType;
+import org.licenta.d4elders.model.FoodNutrients;
 
 public class Recipe extends FoodNutrients implements Serializable {
 	/**

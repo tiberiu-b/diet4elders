@@ -1,7 +1,8 @@
-package org.licenta.d4elders.model;
+package org.licenta.d4elders.model.meal;
 
 import java.io.Serializable;
 
+import org.licenta.d4elders.model.FoodNutrients;
 import org.licenta.d4elders.model.dish.Dish;
 import org.licenta.d4elders.model.dish.DishTypeGeneral;
 

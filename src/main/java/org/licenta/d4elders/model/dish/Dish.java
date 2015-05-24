@@ -2,8 +2,6 @@ package org.licenta.d4elders.model.dish;
 
 import java.io.Serializable;
 
-import org.licenta.d4elders.model.Recipe;
-
 public class Dish implements Serializable{
 
 	/**

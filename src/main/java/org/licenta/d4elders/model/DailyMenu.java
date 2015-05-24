@@ -1,6 +1,9 @@
 package org.licenta.d4elders.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+
+import org.licenta.d4elders.model.food_package.FoodProviderPackage;
 
 /**
  * 
@@ -90,59 +93,59 @@ public class DailyMenu extends FoodNutrients implements Serializable {
 		this.snack2 = snack2;
 	}
 
-	public Float getProteins_custom() {
+	private Float getProteins_custom() {
 		return breakfast.getMenu().getProteins() + lunch.getMenu().getProteins() + dinner.getMenu().getProteins()
 				+ snack1.getMenu().getProteins() + snack2.getMenu().getProteins();
 
 	}
 
-	public Float getLipids_custom() {
+	private Float getLipids_custom() {
 		return breakfast.getMenu().getLipids() + lunch.getMenu().getLipids() + dinner.getMenu().getLipids()
 				+ snack1.getMenu().getLipids() + snack2.getMenu().getLipids();
 	}
 
-	public Float getCarbohydrates_custom() {
+	private Float getCarbohydrates_custom() {
 		return breakfast.getMenu().getCarbohydrates() + lunch.getMenu().getCarbohydrates()
 				+ dinner.getMenu().getCarbohydrates() + snack1.getMenu().getCarbohydrates()
 				+ snack2.getMenu().getCarbohydrates();
 	}
 
-	public Float getEnergy_custom() {
+	private Float getEnergy_custom() {
 		return breakfast.getMenu().getEnergy() + lunch.getMenu().getEnergy() + dinner.getMenu().getEnergy()
 				+ snack1.getMenu().getEnergy() + snack2.getMenu().getEnergy();
 	}
 
-	public Float getCalcium_custom() {
+	private Float getCalcium_custom() {
 		return breakfast.getMenu().getCalcium() + lunch.getMenu().getCalcium() + dinner.getMenu().getCalcium()
 				+ snack1.getMenu().getCalcium() + snack2.getMenu().getCalcium();
 	}
 
-	public Float getIron_custom() {
+	private Float getIron_custom() {
 		return breakfast.getMenu().getIron() + lunch.getMenu().getIron() + dinner.getMenu().getIron()
 				+ snack1.getMenu().getIron() + snack2.getMenu().getIron();
 	}
 
-	public Float getSodium_custom() {
+	private Float getSodium_custom() {
 		return breakfast.getMenu().getSodium() + lunch.getMenu().getSodium() + dinner.getMenu().getSodium()
 				+ snack1.getMenu().getSodium() + snack2.getMenu().getSodium();
 	}
 
-	public Float getVitA_custom() {
+	private Float getVitA_custom() {
 		return breakfast.getMenu().getVitA() + lunch.getMenu().getVitA() + dinner.getMenu().getVitA()
 				+ snack1.getMenu().getVitA() + snack2.getMenu().getVitA();
 	}
 
-	public Float getVitB_custom() {
+	private Float getVitB_custom() {
 		return breakfast.getMenu().getVitB() + lunch.getMenu().getVitB() + dinner.getMenu().getVitB()
 				+ snack1.getMenu().getVitB() + snack2.getMenu().getVitB();
 	}
 
-	public Float getVitC_custom() {
+	private Float getVitC_custom() {
 		return breakfast.getMenu().getVitC() + lunch.getMenu().getVitC() + dinner.getMenu().getVitC()
 				+ snack1.getMenu().getVitC() + snack2.getMenu().getVitC();
 	}
 
-	public Float getVitD_custom() {
+	private Float getVitD_custom() {
 		return breakfast.getMenu().getVitD() + lunch.getMenu().getVitD() + dinner.getMenu().getVitD()
 				+ snack1.getMenu().getVitD() + snack2.getMenu().getVitD();
 	}
@@ -225,6 +228,32 @@ public class DailyMenu extends FoodNutrients implements Serializable {
 		if (vitD == null)
 			computeNutrientValues();
 		return vitD;
+	}
+
+	public ArrayList<String> getIngredientList() {
+		ArrayList<String> ingredientList = new ArrayList<>();
+
+		ingredientList.addAll(breakfast.getMenu().getDesert().getMainDish().getRecipe().getIngredientList());
+		ingredientList.addAll(breakfast.getMenu().getMainCourse().getMainDish().getRecipe().getIngredientList());
+		if (breakfast.getMenu().getMainCourse().getSideDish() != null)
+			ingredientList.addAll(breakfast.getMenu().getMainCourse().getSideDish().getRecipe().getIngredientList());
+
+		ingredientList.addAll(lunch.getMenu().getStarter().getMainDish().getRecipe().getIngredientList());
+		ingredientList.addAll(lunch.getMenu().getDesert().getMainDish().getRecipe().getIngredientList());
+		ingredientList.addAll(lunch.getMenu().getMainCourse().getMainDish().getRecipe().getIngredientList());
+		if (lunch.getMenu().getMainCourse().getSideDish() != null)
+			ingredientList.addAll(lunch.getMenu().getMainCourse().getSideDish().getRecipe().getIngredientList());
+
+		ingredientList.addAll(dinner.getMenu().getStarter().getMainDish().getRecipe().getIngredientList());
+		ingredientList.addAll(dinner.getMenu().getDesert().getMainDish().getRecipe().getIngredientList());
+		ingredientList.addAll(dinner.getMenu().getMainCourse().getMainDish().getRecipe().getIngredientList());
+		if (dinner.getMenu().getMainCourse().getSideDish() != null)
+			ingredientList.addAll(dinner.getMenu().getMainCourse().getSideDish().getRecipe().getIngredientList());
+
+		ingredientList.addAll(snack1.getMenu().getMainCourse().getMainDish().getRecipe().getIngredientList());
+		ingredientList.addAll(snack2.getMenu().getMainCourse().getMainDish().getRecipe().getIngredientList());
+
+		return ingredientList;
 	}
 
 }

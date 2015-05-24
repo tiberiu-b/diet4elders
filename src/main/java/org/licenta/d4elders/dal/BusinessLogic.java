@@ -7,40 +7,54 @@ import javax.lang.model.type.ErrorType;
 
 import org.licenta.d4elders.model.*;
 import org.licenta.d4elders.model.dish.*;
+import org.licenta.d4elders.model.food_package.FoodProviderPackage;
+import org.licenta.d4elders.model.food_package.FoodServiceProvider;
+import org.licenta.d4elders.model.food_package.GeographicalArea;
+import org.licenta.d4elders.model.food_package.Menu;
+import org.licenta.d4elders.model.meal.MealType;
+import org.licenta.d4elders.model.meal.MealVariant;
 import org.licenta.d4elders.ontology.FoodProviderOntology;
 
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.Model;
 
-public class BusinessLogic {
-	private static FoodProviderOntology foodProviderOntology;
-	private static Model model;
-	private static Model data;
+public class BusinessLogic implements IBusinessLogic {
+	private static BusinessLogic bl;
+	private FoodProviderOntology foodProviderOntology;
+	private Model model;
+	private Model data;
 
 	/*
 	 * The arrays are fetched once and stored in cache. Subsequent calls return the cached arrays.
 	 * Since the elements in the ontology are constant during a run of the program, there won't be
 	 * any misses.
 	 */
+	private ArrayList<FoodProviderPackage> breakfastPackageListCache;
+	private ArrayList<FoodProviderPackage> lunchPackageListCache;
+	private ArrayList<FoodProviderPackage> dinnerPackageListCache;
+	private ArrayList<FoodProviderPackage> snackPackageListCache;
 
-	private static ArrayList<FoodProviderPackage> breakfastPackageListCache;
-	private static ArrayList<FoodProviderPackage> lunchPackageListCache;
-	private static ArrayList<FoodProviderPackage> dinnerPackageListCache;
-	private static ArrayList<FoodProviderPackage> snackPackageListCache;
+	private ArrayList<GeographicalArea> geoAreaListCache;
+	private ArrayList<FoodServiceProvider> foodProviderListCache;
+	private ArrayList<Recipe> recipeListCache;
+	private ArrayList<Dish> dishListCache;
+	private ArrayList<MealVariant> mealVariantListCache;
+	private ArrayList<Menu> menuListCache;
+	private ArrayList<FoodProviderPackage> packageListCache;
 
-	private static ArrayList<GeographicalArea> geoAreaListCache;
-	private static ArrayList<FoodServiceProvider> foodProviderListCache;
-	private static ArrayList<Recipe> recipeListCache;
-	private static ArrayList<Dish> dishListCache;
-	private static ArrayList<MealVariant> mealVariantListCache;
-	private static ArrayList<Menu> menuListCache;
-	private static ArrayList<FoodProviderPackage> packageListCache;
-	static {
+	private BusinessLogic() {
 		foodProviderOntology = new FoodProviderOntology();
 		model = foodProviderOntology.getOntModel();
 		data = foodProviderOntology.getD2rData();
 		model.add(data);
+		loadOntologyDataIntoMemory();
+	}
+
+	public static BusinessLogic getInstance() {
+		if (bl == null)
+			bl = new BusinessLogic();
+		return bl;
 	}
 
 	/**
@@ -50,260 +64,6 @@ public class BusinessLogic {
 	public void loadOntologyDataIntoMemory() {
 		if (packageListCache == null)
 			loadCache();
-	}
-
-	public ArrayList<Menu> getAllMenus(MealType mealType, DishType dishType) {
-		ArrayList<Menu> menuList = new ArrayList<>();
-
-		String queryString = FoodProviderOntology.PREFIX
-				+ "SELECT DISTINCT ?menu ?menuId ?mealV ?mealVId ?mealVMealType ?dish ?dishId "
-				+ "?foodProv ?foodProvId ?foodProvName ?geoArea ?geoAreaId ?geoCountry ?geoCity ?geoRegion "
-				+ "?recipe ?recId ?recName ?recDescr ?recDishType "
-				+ "?recPro ?recLip ?recCar ?recEne ?recCal ?recIro ?recSod ?recVa ?recVb ?recVc ?recVd "
-				// Menu info
-				+ "WHERE {?menu rdf:type nutritionassesment:Menu." // menu
-				+ "?menu foodprovider:menuHasId ?menuId." // menu id
-				+ "?menu foodprovider:menuHasMealType foodprovider:"
-				+ mealType
-				+ ". "
-				+ "?menu foodprovider:menuHasMealVariant ?mealV." // mealVariant
-				// Food provider & Geographical Area of food provider
-				+ "?menu foodprovider:menuHasFoodProvider ?foodProv."
-				+ "?foodProv foodprovider:foodProviderHasGeographicalArea ?geoArea."
-				+ "?foodProv foodprovider:foodProviderHasID ?foodProvId."
-				+ "?foodProv foodprovider:foodProviderHasName ?foodProvName."
-				+ "?geoArea foodprovider:geographicalAreaHasId ?geoAreaId."
-				+ "?geoArea foodprovider:geographicalAreaHasCity ?geoCity."
-				+ "?geoArea foodprovider:geographicalAreaHasCountry ?geoCountry."
-				+ "?geoArea foodprovider:geographicalAreaHasRegion ?geoRegion."
-				// Menu meal variant, dish, recipe
-				+ "?mealV foodprovider:mealVariantHasId ?mealVId." // mealVId
-				+ "?mealV foodprovider:mealVariantHasDish ?dish."
-				+ "?mealV foodprovider:mealVariantHasMealType ?mealVMealType."
-				+ "?dish foodprovider:dishHasId ?dishId." // dishId
-				// + "?dish foodprovider:dishHasDishType foodprovider:" + dishType + ". "// dishType
-				+ "?dish foodprovider:dishHasRecipe ?recipe."
-				// Recipe data + nutrients
-				+ "?recipe foodprovider:recipeHasId ?recId." // Id
-				+ "?recipe foodprovider:recipeHasName ?recName." // Name
-				+ "?recipe foodprovider:recipeHasDescription ?recDescr." // Descr
-				+ "?recipe foodprovider:recipeHasDishType ?recDishType." // DishType
-				+ "?recipe foodprovider:recipeHasProteins_g ?recPro." // Proteins
-				+ "?recipe foodprovider:recipeHasFats_g ?recLip." // Fats
-				+ "?recipe foodprovider:recipeHasCarbs_g ?recCar." // Carbs
-				+ "?recipe foodprovider:recipeHasEnergy_kcal ?recEne." // Energy
-				+ "?recipe foodprovider:recipeHasCalcium_mg ?recCal." // Calcium
-				+ "?recipe foodprovider:recipeHasIron_mg ?recIro." // Iron
-				+ "?recipe foodprovider:recipeHasSodium_mg ?recSod." // Sodium
-				+ "?recipe foodprovider:recipeHasVitaminA_ug ?recVa." // Vitamin A
-				+ "?recipe foodprovider:recipeHasVitaminB6_mg ?recVb." // Vitamin B
-				+ "?recipe foodprovider:recipeHasVitaminC_mg ?recVc." // Vitamin C
-				+ "?recipe foodprovider:recipeHasVitaminD_ug ?recVd}"; // Vitamin D
-
-		// String queryString1 = FoodProviderOntology.PREFIX + "SELECT DISTINCT ?dish ?dishId "
-		// + "WHERE {?dish rdf:type nutritionassesment:Dish." // aaa
-		// + "?dish foodprovider:dishHasId ?dishId." // bbb
-		// + "?dish foodprovider:dishHasDishType foodprovider:Dessert}"; // bbb
-		// + "{?dish foodprovider:dishHasDishType foodprovider:Dessert.} UNION" // bbb
-		// + "{?dish foodprovider:dishHasDishType foodprovider:Side_Dish}}"; // bbb
-
-		ResultSet rs = foodProviderOntology.queryModelForResult(queryString, foodProviderOntology.getOntModel(),
-				foodProviderOntology.getD2rData());
-
-		int counter = 0;
-		while (rs.hasNext()) {
-			QuerySolution row = rs.nextSolution();
-
-			// System.out.println(row.getResource("mealVMealType").toString() + ", "
-			// + row.getResource("recDishType").toString() + ", " +
-			// row.getLiteral("mealVId").getLong());
-			if (row.getResource("menu") != null) {
-				counter++;
-				Menu menu = new Menu();
-
-				// recipe.setName(row.getLiteral("name").getString());
-				// recipe.setDescription(row.getLiteral("descr").getString());
-				menuList.add(menu);
-			}
-		}
-		System.out.println(mealType + " " + dishType + " ->nr of rows returned:" + counter);
-		return menuList;
-	}
-
-	public ArrayList<Menu> getAllMenus2() {
-		ArrayList<Menu> menuList = new ArrayList<>();
-
-		String queryString = FoodProviderOntology.PREFIX
-				+ "SELECT DISTINCT ?menu ?menuId " // Menu
-				+ "?mealV ?mealVId ?mealVMealType " // Meal variant
-				+ "?dish ?dishType ?dishId ?dishTypeId ?dishTypeName " // Dish
-				+ "?foodProv ?foodProvId ?foodProvName " // Food provider
-				+ " ?geoArea ?geoAreaId ?geoCountry ?geoCity ?geoRegion " // Geographical Area
-				+ "?recipe ?recId ?recName ?recDescr ?recDishType " // Recipe
-				+ "?recPro ?recLip ?recCar ?recEne ?recCal ?recIro ?recSod " // Recipe Nutr
-				+ "?recVa ?recVb ?recVc ?recVd "// Recipe Nutr
-				// Menu info
-				+ "WHERE {?menu rdf:type nutritionassesment:Menu." // menu
-				+ "?menu foodprovider:menuHasId ?menuId." // menu id
-				+ "?menu foodprovider:menuHasMealVariant ?mealV." // mealVariant
-				// Food provider & Geographical Area of food provider
-				+ "?menu foodprovider:menuHasFoodProvider ?foodProv."
-				+ "?foodProv foodprovider:foodProviderHasGeographicalArea ?geoArea."
-				+ "?foodProv foodprovider:foodProviderHasID ?foodProvId."
-				+ "?foodProv foodprovider:foodProviderHasName ?foodProvName."
-				+ "?geoArea foodprovider:geographicalAreaHasId ?geoAreaId."
-				+ "?geoArea foodprovider:geographicalAreaHasCity ?geoCity."
-				+ "?geoArea foodprovider:geographicalAreaHasCountry ?geoCountry."
-				+ "?geoArea foodprovider:geographicalAreaHasRegion ?geoRegion."
-				// Menu meal variant, dish, recipe
-				+ "?mealV foodprovider:mealVariantHasId ?mealVId." // mealVId
-				+ "?mealV foodprovider:mealVariantHasDish ?dish."
-				+ "?mealV foodprovider:mealVariantHasMealType ?mealVMealType."
-				+ "?dish foodprovider:dishHasId ?dishId." // dishId
-				// + "?dish foodprovider:dishHasDishType foodprovider:" + dishType + ". "// dishType
-				+ "?dish foodprovider:dishHasDishType ?dishType. "// dishType
-				+ "?dish foodprovider:dishHasRecipe ?recipe."
-				// Recipe data + nutrients
-				+ "?recipe foodprovider:recipeHasId ?recId." // Id
-				+ "?recipe foodprovider:recipeHasName ?recName." // Name
-				+ "?recipe foodprovider:recipeHasDescription ?recDescr." // Descr
-				+ "?recipe foodprovider:recipeHasDishType ?recDishType." // DishType
-				+ "?recipe foodprovider:recipeHasProteins_g ?recPro." // Proteins
-				+ "?recipe foodprovider:recipeHasFats_g ?recLip." // Fats
-				+ "?recipe foodprovider:recipeHasCarbs_g ?recCar." // Carbs
-				+ "?recipe foodprovider:recipeHasEnergy_kcal ?recEne." // Energy
-				+ "?recipe foodprovider:recipeHasCalcium_mg ?recCal." // Calcium
-				+ "?recipe foodprovider:recipeHasIron_mg ?recIro." // Iron
-				+ "?recipe foodprovider:recipeHasSodium_mg ?recSod." // Sodium
-				+ "?recipe foodprovider:recipeHasVitaminA_ug ?recVa." // Vitamin A
-				+ "?recipe foodprovider:recipeHasVitaminB6_mg ?recVb." // Vitamin B
-				+ "?recipe foodprovider:recipeHasVitaminC_mg ?recVc." // Vitamin C
-				+ "?recipe foodprovider:recipeHasVitaminD_ug ?recVd}"; // Vitamin D
-
-		ResultSet rs = foodProviderOntology.queryModelForResult(queryString, foodProviderOntology.getOntModel(),
-				foodProviderOntology.getD2rData());
-
-		int counter = 0;
-		while (rs.hasNext()) {
-			QuerySolution row = rs.nextSolution();
-
-			// System.out.println(row.getResource("mealVMealType").toString() + ", "
-			// + row.getResource("recDishType").toString() + ", " +
-			// row.getLiteral("mealVId").getLong());
-			if (row.getResource("menu") != null) {
-				// ?menu ?menuId // Menu
-				// ?mealV ?mealVId ?mealVMealType // Meal variant
-				// ?dish ?dishType ?dishId ?dishTypeId ?dishTypeName // Dish
-				// ?foodProv ?foodProvId ?foodProvName // Food provider
-				// ?geoArea ?geoAreaId ?geoCountry ?geoCity ?geoRegion // Geographical Area
-				// ?recipe ?recId ?recName ?recDescr ?recDishType // Recipe
-				// ?recPro ?recLip ?recCar ?recEne ?recCal ?recIro ?recSod // Recipe Nutr
-				// ?recVa ?recVb ?recVc ?recVd // Recipe Nutr
-				counter++;
-				Menu menu = new Menu();
-				int currentMenuId = row.getLiteral("menuId").getInt();
-				// if menu already exists do not create a new one, but add the meal variants to the
-				// existing one
-				for (Menu m : menuList) {
-					if (m.getMenuId() == currentMenuId) {
-						menu = m;
-						break;
-					}
-				}
-				// Menu id
-				menu.setMenuId(currentMenuId);
-				// Menu food provider
-				GeographicalArea geoArea = new GeographicalArea(row.getLiteral("geoAreaId").getInt(), row.getLiteral(
-						"geoCountry").getString(), row.getLiteral("geoRegion").getString(), row.getLiteral("geoCity")
-						.getString());
-				FoodServiceProvider foodProv = new FoodServiceProvider(row.getLiteral("foodProvId").getInt(), row
-						.getLiteral("foodProvName").getString(), geoArea);
-				// menu.setFoodProvider(foodProv);
-
-				// Current MealVariant
-				int currentMealVariantId = row.getLiteral("mealVId").getInt();
-				String dishTypeLocalName = row.getResource("dishType").getLocalName();
-				DishType dishType = DishType.valueOf(dishTypeLocalName);
-				String mealTypeLocalName = row.getResource("mealVMealType").getLocalName();
-				MealType mealType = MealType.valueOf(mealTypeLocalName);
-				MealVariant mealV = new MealVariant();
-				mealV.setMealVariantId(currentMealVariantId);
-
-				Recipe rec = new Recipe();
-				rec.setCalcium(row.getLiteral("recCal").getFloat());
-				rec.setCarbohydrates(row.getLiteral("recCar").getFloat());
-				rec.setDescription(row.getLiteral("recDescr").getString());
-				rec.setDishType(dishType);
-				rec.setEnergy(row.getLiteral("recEne").getFloat());
-				rec.setIron(row.getLiteral("recIro").getFloat());
-				rec.setLipids(row.getLiteral("recLip").getFloat());
-				rec.setName(row.getLiteral("recName").getString());
-				rec.setProteins(row.getLiteral("recPro").getFloat());
-				rec.setRecipeId(row.getLiteral("recId").getInt());
-				rec.setSodium(row.getLiteral("recSod").getFloat());
-				rec.setVitA(row.getLiteral("recVa").getFloat());
-				rec.setVitB(row.getLiteral("recVb").getFloat());
-				rec.setVitC(row.getLiteral("recVc").getFloat());
-				rec.setVitD(row.getLiteral("recVd").getFloat());
-				Dish d = new Dish(rec);
-				d.setDishId(row.getLiteral("dishId").getInt());
-
-				MealVariant mainCourseMealV = menu.getMainCourse();
-				switch (dishType) {
-				case Starter_Dish:
-					mealV.setDishType(DishTypeGeneral.Starter);
-					mealV.setMainDish(d);
-					menu.setStarter(mealV);
-					break;
-				case Dessert:
-					mealV.setDishType(DishTypeGeneral.Desert);
-					mealV.setMainDish(d);
-					menu.setDesert(mealV);
-					break;
-				case Main_Course_Single:
-					mealV.setDishType(DishTypeGeneral.Desert);
-					mealV.setMainDish(d);
-					menu.setDesert(mealV);
-					break;
-				case Main_Course_Not_Single:
-					if (mainCourseMealV == null) {
-						mealV.setDishType(DishTypeGeneral.Main_Course);
-						mealV.setMainDish(d);
-						menu.setMainCourse(mealV);
-					} else {
-						mainCourseMealV.setMainDish(d);
-					}
-					break;
-				case Side_Dish:
-					if (mainCourseMealV == null) {
-						mealV.setDishType(DishTypeGeneral.Main_Course);
-						mealV.setSideDish(d);
-						menu.setMainCourse(mealV);
-					} else {
-						mainCourseMealV.setSideDish(d);
-					}
-					break;
-				}
-				// if (menu.getMainCourse() != null) {
-				// // System.out.println(menu.getMainCourse());
-				// if (menu.getMainCourse().getSideDish() != null &&
-				// menu.getMainCourse().getMainDish() != null) {
-				// System.out.print(menu.getMainCourse().getSideDish() + " \n"
-				// + menu.getMainCourse().getMainDish());
-				// System.out.println();
-				// }
-				// // else if (menu.getMainCourse().getSideDish() != null) {
-				// // System.out.print(menu.getMainCourse().getSideDish());
-				// // System.out.println();
-				// // } else if (menu.getMainCourse().getMainDish() != null) {
-				// // System.out.print(menu.getMainCourse().getMainDish());
-				// // System.out.println();
-				// // }
-				// }
-				menuList.add(menu);
-			}
-		}
-		return menuList;
 	}
 
 	public ArrayList<Menu> getAllMenus() {
@@ -399,46 +159,6 @@ public class BusinessLogic {
 		return menuList;
 	}
 
-	public ArrayList<FoodProviderPackage> getAllFoodPackagesAux() {
-		ArrayList<FoodProviderPackage> packageList = new ArrayList<>();
-		String queryString3 = FoodProviderOntology.PREFIX // Menu
-				+ "SELECT DISTINCT ?recipe ?recipeId " + "WHERE {?recipe rdf:type nutritionassesment:Recipe." // menu
-				+ "?recipe foodprovider:recipeHasId ?recipeId}";// dishId
-		String queryString2 = FoodProviderOntology.PREFIX // Menu
-				+ "SELECT DISTINCT ?package ?packageId "
-				+ "WHERE {?package rdf:type nutritionassesment:FoodProviderPackage." // menu
-				+ "?package foodprovider:foodProviderPackageHasId ?packageId}";// dishId
-
-		String queryString = FoodProviderOntology.PREFIX // Menu
-				+ "SELECT DISTINCT ?package ?foodProvider ?foodProviderId ?menu ?menuId "
-				+ "?cost ?deliveryTime " // Dish
-				+ "WHERE {?package rdf:type nutritionassesment:FoodProviderPackage." // menu
-				+ "?package foodprovider:foodProviderPackageHasMenu ?menu." // dishId
-				+ "?menu foodprovider:menuHasId ?menuId." // dishId
-				+ "?package foodprovider:foodProviderPackageHasFoodProvider ?foodProvider."
-				+ "?foodProvider foodprovider:foodProviderHasID ?foodProviderId."
-				+ "?package foodprovider:foodProviderPackageHasCost ?cost."
-				+ "?package foodprovider:foodProviderPackageHasDeliveryTime ?deliveryTime}";// dishId
-
-		ResultSet rs = foodProviderOntology.queryModelForResult(queryString, foodProviderOntology.getOntModel(),
-				foodProviderOntology.getD2rData());
-
-		while (rs.hasNext()) {
-			QuerySolution row = rs.nextSolution();
-			System.out.println(row);
-			if (row.getResource("package") != null) {
-				// System.out.println(row.getLiteral("MenuId:" +
-				// row.getLiteral("menuId").getInt()));
-				// System.out.println(row.getLiteral("foodProviderId:" +
-				// row.getLiteral("foodProviderId").getInt()));
-				// System.out.println("Delivery time  is: " +
-				// row.getLiteral("deliveryTime").getInt());
-				// System.out.println("Cost is: " + row.getLiteral("cost").getDouble());
-			}
-		}
-		return packageList;
-	}
-
 	public ArrayList<FoodProviderPackage> getAllFoodPackages() {
 		ArrayList<FoodProviderPackage> packageList = new ArrayList<>();
 		breakfastPackageListCache = new ArrayList<>();
@@ -464,7 +184,7 @@ public class BusinessLogic {
 		while (rs.hasNext()) {
 			QuerySolution row = rs.nextSolution();
 
-			if (row.getResource("menu") != null) {
+			if (row.getResource("package") != null) {
 				FoodProviderPackage foodPackage = new FoodProviderPackage();
 				int menuId = row.getLiteral("menuId").getInt();
 				int foodProvId = row.getLiteral("foodProvId").getInt();
@@ -491,6 +211,7 @@ public class BusinessLogic {
 					continue;
 				}
 				foodPackage.setFoodProv(fProv);
+				foodPackage.setPackageId(row.getLiteral("packageId").getInt());
 				switch (foodPackage.getMenu().getMealType()) {
 				case Breakfast:
 					breakfastPackageListCache.add(foodPackage);
@@ -743,13 +464,19 @@ public class BusinessLogic {
 				DishType dishType = DishType.valueOf(row.getResource("recDishType").getLocalName());
 				Recipe rec = new Recipe();
 				ArrayList<String> ingredientList = new ArrayList<>();
+				boolean recipeExists = false;
 				for (Recipe r : recipeList) {
 					if (r.getRecipeId() == row.getLiteral("recId").getInt()) {
 						rec = r;
 						ingredientList = r.getIngredientList();
+						ingredientList.add(row.getLiteral("ingredientName").getString());
+						r.setIngredientList(ingredientList);
+						recipeExists = true;
 						break;
 					}
 				}
+				if (recipeExists)
+					continue;
 				ingredientList.add(row.getLiteral("ingredientName").getString());
 				rec.setIngredientList(ingredientList);
 				rec.setRecipeId(row.getLiteral("recId").getInt());
@@ -819,114 +546,6 @@ public class BusinessLogic {
 		ser.serializeFoodServiceProvider(foodProviderListCache);
 		ser.serializeMenu(menuListCache);
 		ser.serializeFoodProviderPackage(packageListCache);
-	}
-
-	public void loadCache2() {
-		FileIO des = new FileIO();
-		long startTime = System.currentTimeMillis();
-		recipeListCache = des.deserializeRecipe();
-		long stopTime = System.currentTimeMillis();
-		System.out.println("Time for recipeCache " + (stopTime - startTime));
-		startTime = System.currentTimeMillis();
-		dishListCache = des.deserializeDish();
-		stopTime = System.currentTimeMillis();
-		System.out.println("Time for dishCache " + (stopTime - startTime));
-		startTime = System.currentTimeMillis();
-		mealVariantListCache = des.deserializeMealVariant();
-		stopTime = System.currentTimeMillis();
-		System.out.println("Time for mealVariantCache " + (stopTime - startTime));
-		startTime = System.currentTimeMillis();
-		geoAreaListCache = des.deserializeGeographicalArea();
-		stopTime = System.currentTimeMillis();
-		System.out.println("Time for geoAreaCache" + (stopTime - startTime));
-		startTime = System.currentTimeMillis();
-		foodProviderListCache = des.deserializeFoodServiceProvider();
-		stopTime = System.currentTimeMillis();
-		System.out.println("Time for foodProviderCache " + (stopTime - startTime));
-		startTime = System.currentTimeMillis();
-		menuListCache = des.deserializeMenu();
-		stopTime = System.currentTimeMillis();
-		System.out.println("Time for menuCache" + (stopTime - startTime));
-		startTime = System.currentTimeMillis();
-		packageListCache = des.deserializeFoodProviderPackage();
-		stopTime = System.currentTimeMillis();
-		System.out.println("Time for foodPackageCache " + (stopTime - startTime));
-		startTime = System.currentTimeMillis();
-
-		// load mealPackages for speed
-		breakfastPackageListCache = new ArrayList<FoodProviderPackage>();
-		lunchPackageListCache = new ArrayList<FoodProviderPackage>();
-		dinnerPackageListCache = new ArrayList<FoodProviderPackage>();
-		snackPackageListCache = new ArrayList<FoodProviderPackage>();
-		for (FoodProviderPackage fp : packageListCache) {
-			switch (fp.getMenu().getMealType()) {
-			case Breakfast:
-				breakfastPackageListCache.add(fp);
-				break;
-			case Lunch:
-				lunchPackageListCache.add(fp);
-				break;
-			case Dinner:
-				dinnerPackageListCache.add(fp);
-				break;
-			case Snack:
-				snackPackageListCache.add(fp);
-				break;
-			}
-		}
-	}
-
-	public void getAllMenu2() {
-		ArrayList<Menu> menuList = new ArrayList<>();
-
-		String queryString = FoodProviderOntology.PREFIX + "SELECT DISTINCT ?menu ?menuId ?mealV ?mealVId ?dish"
-		// Menu info
-				+ "WHERE {?menu rdf:type nutritionassesment:Menu." // menu
-				+ "?menu foodprovider:menuHasId ?menuId." // menu id
-				+ "?menu foodprovider:menuHasMealVariant ?mealV." // menu id
-				+ "?mealV foodprovider:mealVariantHasId ?mealVId." // menu id
-				+ "?mealV foodprovider:mealVariantHasDish ?dish}"; // menu id
-		ResultSet rs = foodProviderOntology.queryModelForResult(queryString, foodProviderOntology.getOntModel(),
-				foodProviderOntology.getD2rData());
-
-		int counter = 0;
-		while (rs.hasNext()) {
-			QuerySolution row = rs.nextSolution();
-
-			if (row.getResource("menu") != null) {
-				counter++;
-				Menu m = new Menu();
-				m.setMenuId(row.getLiteral("menuId").getInt());
-				menuList.add(m);
-			}
-		}
-		System.out.println(menuList.size());
-	}
-
-	public ArrayList<Menu> getAllMenusHelper() {
-		ArrayList<Menu> menuList = new ArrayList<>();
-
-		String queryString = FoodProviderOntology.PREFIX // Menu
-				+ "SELECT DISTINCT ?menu ?menuId ?cost ?deliveryTime " // Dish
-				+ "WHERE {?menu rdf:type nutritionassesment:Menu." // menu
-				+ "?menu foodprovider:menuHasId ?menuId}"; // dishId
-		// + "?menu foodprovider:menuHasCost ?cost}";// dishType
-		// + "?menu foodprovider:menuHasDeliveryTime ?deliveryTime}";// recipe
-
-		ResultSet rs = foodProviderOntology.queryModelForResult(queryString, foodProviderOntology.getOntModel(),
-				foodProviderOntology.getD2rData());
-
-		while (rs.hasNext()) {
-			QuerySolution row = rs.nextSolution();
-
-			if (row.getResource("menu") != null) {
-				Menu menu = new Menu();
-				System.out.println(row.getResource("menu"));
-				menuList.add(menu);
-			}
-		}
-		System.out.println(menuList.size() + " size");
-		return menuList;
 	}
 
 	public FoodProviderPackage generateSingleBreakfastPackages() {

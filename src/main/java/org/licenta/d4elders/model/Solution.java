@@ -3,6 +3,7 @@ package org.licenta.d4elders.model;
 import org.licenta.d4elders.dal.BusinessLogic;
 import org.licenta.d4elders.dal.BusinessLogicCache;
 import org.licenta.d4elders.helper.AlgorithmConfiguration;
+import org.licenta.d4elders.model.food_package.FoodProviderPackage;
 import org.licenta.d4elders.model.user_profile.NutritionalRecommandationHelper;
 
 import com.sun.istack.internal.NotNull;

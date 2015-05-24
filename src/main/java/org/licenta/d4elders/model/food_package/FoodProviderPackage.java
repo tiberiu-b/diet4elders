@@ -1,4 +1,4 @@
-package org.licenta.d4elders.model;
+package org.licenta.d4elders.model.food_package;
 
 import java.io.Serializable;
 
@@ -7,6 +7,7 @@ public class FoodProviderPackage  implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private int packageId;
 	private Menu menu;
 	private FoodServiceProvider foodProv;
 	private double cost;
@@ -46,5 +47,13 @@ public class FoodProviderPackage  implements Serializable{
 	
 	public String toString() {
 		return menu.toString()+ " Cost: "+cost+" DeliveryTime(min): "+deliveryTime;
+	}
+
+	public int getPackageId() {
+		return packageId;
+	}
+
+	public void setPackageId(int packageId) {
+		this.packageId = packageId;
 	}
 }

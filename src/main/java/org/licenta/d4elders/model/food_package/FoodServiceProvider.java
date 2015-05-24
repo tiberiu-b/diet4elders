@@ -1,4 +1,4 @@
-package org.licenta.d4elders.model;
+package org.licenta.d4elders.model.food_package;
 
 import java.io.Serializable;
 

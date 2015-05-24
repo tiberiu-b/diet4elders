@@ -20,9 +20,9 @@ import java.util.TreeSet;
 
 import org.licenta.d4elders.dal.*;
 import org.licenta.d4elders.model.DailyMenu;
-import org.licenta.d4elders.model.FoodProviderPackage;
-import org.licenta.d4elders.model.Menu;
 import org.licenta.d4elders.model.Solution;
+import org.licenta.d4elders.model.food_package.FoodProviderPackage;
+import org.licenta.d4elders.model.food_package.Menu;
 import org.licenta.d4elders.model.user_profile.NutritionalRecommendation;
 
 public class InitialSolutionsGenerator {
