@@ -1,12 +1,16 @@
 package org.licenta.d4elders.main;
 
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import org.licenta.d4elders.algorithm.HoneyBeeMatingOptimization;
 import org.licenta.d4elders.algorithm.MainAlgorithm.RunInformation;
-import org.licenta.d4elders.dal.BusinessLogic;
 import org.licenta.d4elders.dal.BusinessLogicCache;
 import org.licenta.d4elders.helper.AlgorithmConfiguration;
+import org.licenta.d4elders.helper.AlgorithmRunner;
+import org.licenta.d4elders.helper.DataExporter;
+import org.licenta.d4elders.helper.DataExporterException;
 import org.licenta.d4elders.model.Solution;
 import org.licenta.d4elders.model.user_profile.NutritionalRecommandationHelper;
 import org.licenta.d4elders.model.user_profile.UserProfileStub;
@@ -25,24 +29,10 @@ public class Diet4Elders {
 	}
 
 	public void run(AlgorithmConfiguration configuration) {
+		AlgorithmRunner.run(configuration);
+	}
 
-		Solution queen = null;
-		RunInformation info = null;
-
-		// log.log(Level.INFO,
-		// "Running Honey Bee Mating Optimization with the following configuration\n" +
-		// configuration);
-		// System.out.println("Running Honey Bee Mating Optimization with the following configuration\n"
-		// + configuration);
-		HoneyBeeMatingOptimization HBMO = new HoneyBeeMatingOptimization(configuration);
-		queen = HBMO.performAlgorithm();
-		info = HBMO.getLastRunInformation();
-
-		// Print results
-		System.out.println("___\nFinal Result:");
-		System.out.println(queen + "\nFitness: " + queen.getFitness());
-		System.out.println("Number of iterations: " + info.nrOfItertions);
-
-		System.out.println("Duration of execution(in millis): " + info.duration);
+	public void run(ArrayList<AlgorithmConfiguration> configurations) {
+		AlgorithmRunner.run(configurations);
 	}
 }

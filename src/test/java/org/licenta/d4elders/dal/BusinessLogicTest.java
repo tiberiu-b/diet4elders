@@ -8,11 +8,6 @@ import java.util.SortedSet;
 import org.junit.Test;
 import org.licenta.d4elders.main.InitialSolutionsGenerator;
 import org.licenta.d4elders.model.Solution;
-import org.licenta.d4elders.model.meal.Breakfast;
-import org.licenta.d4elders.model.meal.Dinner;
-import org.licenta.d4elders.model.meal.Lunch;
-import org.licenta.d4elders.model.meal.Snack;
-import org.licenta.d4elders.obsolete.BusinessLogicOld;
 
 public class BusinessLogicTest {
 
@@ -25,9 +20,9 @@ public class BusinessLogicTest {
 		long timeStamp1, timeStamp2, timeStamp3;
 
 		timeStamp1 = System.currentTimeMillis();
-		queryOntology(new BusinessLogicOld());
+		queryOntology(new BusinessLogic());
 		timeStamp2 = System.currentTimeMillis();
-		queryOntology(new BusinessLogicOld());
+		queryOntology(new BusinessLogic());
 		timeStamp3 = System.currentTimeMillis();
 
 		long duration1 = timeStamp2 - timeStamp1;
@@ -39,12 +34,12 @@ public class BusinessLogicTest {
 		assertTrue(duration1 > 10 * duration2);
 	}
 
-	private void queryOntology(BusinessLogicOld bl){
+	private void queryOntology(BusinessLogic bl){
 		final int numberOfSolutions = 10;
-		bl.generateBreakfastMeals(numberOfSolutions);
-		bl.generateLunchMeals(numberOfSolutions);
-		bl.generateDinnerMeals(numberOfSolutions);
-		bl.generateSnackMeals(numberOfSolutions * 2);
+		bl.generateBreakfastPackages(numberOfSolutions);
+		bl.generateLunchPackages(numberOfSolutions);
+		bl.generateDinnerPackages(numberOfSolutions);
+		bl.generateSnackPackages(numberOfSolutions * 2);
 	}
 
 }

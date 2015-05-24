@@ -19,6 +19,27 @@ public class AlgorithmConfiguration {
 	private double probabilityToMateDroneThreshold;
 	private double similarityCoefficientThreshold = 0.8;
 
+
+
+	public AlgorithmConfiguration(String broodModificationStrategy,
+			ArrayList<String> workerModificationStrategies, int maxNrMatings,
+			int popSize, int initialSpeed, int initialEnergy,
+			double speedReductionFactor, double energyReductionAmount,
+			double probabilityToMateDroneThreshold,
+			double similarityCoefficientThreshold) {
+		super();
+		this.broodModificationStrategy = broodModificationStrategy;
+		this.workerModificationStrategies = workerModificationStrategies;
+		this.maxNrMatings = maxNrMatings;
+		this.popSize = popSize;
+		this.initialSpeed = initialSpeed;
+		this.initialEnergy = initialEnergy;
+		this.speedReductionFactor = speedReductionFactor;
+		this.energyReductionAmount = energyReductionAmount;
+		this.probabilityToMateDroneThreshold = probabilityToMateDroneThreshold;
+		this.similarityCoefficientThreshold = similarityCoefficientThreshold;
+	}
+
 	/**
 	 * Initialize an instance with the default values.
 	 */
@@ -43,6 +64,36 @@ public class AlgorithmConfiguration {
 				+ "\ninitialSpeed=" + initialSpeed + "\ninitialEnergy=" + initialEnergy + "\nspeedReductionFactor="
 				+ speedReductionFactor + "\nenergyReductionAmount=" + energyReductionAmount
 				+ "\nprobabilityToMateDroneThreshold=" + probabilityToMateDroneThreshold;
+	}
+
+	/**
+	 * Returns the stored information in a nice format: Map[param]=value NOT Anymore - just a list
+	 * @return a Map from param to its value
+	 */
+	public ArrayList<String> getAllDataAsString(){
+		/*
+		Map<String, String> data = new HashMap<String, String>();
+		data.put("broodModificationStrategy", AvailableProgramConfigurationOptions.SIMPLE_CROSSOVER.toString());
+		data.put("workerModificationStrategies", workerModificationStrategies.toString());
+		data.put("maxNrMatings", String.valueOf(maxNrMatings));
+		data.put("popSize", String.valueOf(popSize));
+		data.put("initialSpeed", String.valueOf(initialSpeed));
+		data.put("initialEnergy", String.valueOf(initialEnergy));
+		data.put("speedReductionFactor", String.valueOf(speedReductionFactor));
+		data.put("energyReductionAmount", String.valueOf(energyReductionAmount));
+		data.put("probabilityToMateDroneThreshold", String.valueOf(probabilityToMateDroneThreshold));
+		*/
+		ArrayList<String> data = new ArrayList<String>();
+		data.add(broodModificationStrategy.toString());
+		data.add(workerModificationStrategies.toString());
+		data.add(String.valueOf(maxNrMatings));
+		data.add(String.valueOf(popSize));
+		data.add(String.valueOf(initialSpeed));
+		data.add(String.valueOf(initialEnergy));
+		data.add(String.valueOf(speedReductionFactor));
+		data.add(String.valueOf(energyReductionAmount));
+		data.add(String.valueOf(probabilityToMateDroneThreshold));
+		return data;
 	}
 
 	public void addWorkerModificationStrategy(Collection<String> strategies) {

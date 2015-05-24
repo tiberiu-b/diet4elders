@@ -23,6 +23,7 @@ import javax.swing.text.DefaultCaret;
 
 import org.licenta.d4elders.helper.AlgorithmConfiguration;
 import org.licenta.d4elders.helper.AvailableProgramConfigurationOptions;
+import org.licenta.d4elders.helper.ConfigurationsGenerator;
 
 /**
  * Created by cristiprg on 1/18/2015.
@@ -37,6 +38,7 @@ public class Main extends Applet implements MouseListener {
 	Panel leftPanel;
 
 	Button runButton;
+	Button runPopSizeVariationConfigurationButton;
 	TextArea outputTextArea;
 	Label broodModificationStrategyLabel;
 	Label workerModificationStrategiesLabel;
@@ -63,6 +65,8 @@ public class Main extends Applet implements MouseListener {
 	public static void main(String args[]) {
 		// run with the default configuration
 		// new Main().d4e.run(new AlgorithmConfiguration());
+
+		new Main().d4e.run(ConfigurationsGenerator.varPopSize(2));
 	}
 
 	@Override
@@ -117,6 +121,7 @@ public class Main extends Applet implements MouseListener {
 
 		// The run button
 		runButton = new Button("Run");
+		runPopSizeVariationConfigurationButton = new Button("Run PopSize Config");
 
 		// add the gui elements
 		leftPanel.setLayout(new GridLayout(0, 2));
@@ -179,9 +184,9 @@ public class Main extends Applet implements MouseListener {
 		runButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new Thread() {
-					@Override
-					public void run() {
+				//new Thread() {
+				//	@Override
+				//	public void run() {
 
 						AlgorithmConfiguration configuration = new AlgorithmConfiguration();
 						for (Checkbox c : broodModificationStrategiesCheckboxList) {
@@ -210,7 +215,16 @@ public class Main extends Applet implements MouseListener {
 						Diet4Elders d4e = new Diet4Elders();
 						d4e.run(configuration);
 					}
-				}.start();
+				//}.start();
+			//}
+		});
+
+		add(runPopSizeVariationConfigurationButton);
+		runPopSizeVariationConfigurationButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new Diet4Elders().run(ConfigurationsGenerator.getConfigFromIniFile("d:\\Poli\\cercetare\\HBMO_Eclipse\\diet4elders\\configs.ini"));
 			}
 		});
 

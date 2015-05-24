@@ -1,6 +1,8 @@
 package org.licenta.d4elders.algorithm;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.logging.Level;
@@ -144,6 +146,40 @@ public class HoneyBeeMatingOptimization extends MainAlgorithm {
 		duration = System.currentTimeMillis() - startTime;
 		return queen;
 	}
+
+
+	@Override
+	public ArrayList<String> getHeadersForExportedData() {
+		ArrayList<String> headers = new ArrayList<String>();
+		headers.add("Brood Modification Strategy");
+		headers.add("Worker Modification Strategy");
+		headers.add("MarNrMatings");
+		headers.add("PopSize");
+		headers.add("Queen's initial energy");
+		headers.add("Queen's initial speed");
+		headers.add("Speed reduction factor");
+		headers.add("Energy reduction amount");
+		headers.add("Probability to mate drone threshold");
+		headers.add("Fitness values");
+		headers.add("Number of iterations");
+		headers.add("Duration");
+		headers.add("kCal");
+		headers.add("Carbohydrates");
+		headers.add("Proteins");
+		headers.add("Fats");
+		headers.add("VitA");
+		headers.add("VitB");
+		headers.add("VitC");
+		headers.add("VitD");
+		headers.add("Calcium");
+		headers.add("Iron");
+		headers.add("Sodium");
+
+
+		return headers;
+	}
+
+	// private methods
 
 	private Collection<? extends Solution> workerModificationStrategy(Solution drone, Solution queen) {
 

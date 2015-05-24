@@ -393,6 +393,22 @@ public class Solution implements Comparable<Solution> {
 		return dailyMenu.toString();
 	}
 
+	public ArrayList<String> exportDataAsString(){
+		ArrayList<String> nutrientsData = new ArrayList<String>();
+		nutrientsData.add(String.valueOf(dailyMenu.getEnergy()));
+		nutrientsData.add(String.valueOf(dailyMenu.getCarbohydrates()));
+		nutrientsData.add(String.valueOf(dailyMenu.getProteins()));
+		nutrientsData.add(String.valueOf(dailyMenu.getLipids()));
+		nutrientsData.add(String.valueOf(dailyMenu.getVitA()));
+		nutrientsData.add(String.valueOf(dailyMenu.getVitB()));
+		nutrientsData.add(String.valueOf(dailyMenu.getVitC()));
+		nutrientsData.add(String.valueOf(dailyMenu.getVitD()));
+		nutrientsData.add(String.valueOf(dailyMenu.getCalcium()));
+		nutrientsData.add(String.valueOf(dailyMenu.getIron()));
+		nutrientsData.add(String.valueOf(dailyMenu.getSodium()));
+		return nutrientsData;
+	}
+
 	@Override
 	public boolean equals(Object other) {
 		if (this == other)
