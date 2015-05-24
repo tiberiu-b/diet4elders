@@ -7,12 +7,19 @@ import org.licenta.d4elders.model.food_package.FoodProviderPackage;
 
 public class BusinessLogicCacheFiltered implements IBusinessLogic {
 	private BusinessLogicCache bl;
+	private static BusinessLogicCacheFiltered blFiltered;
 	private int maxRuns;
-	protected ArrayList<String> allergyList;
+	private ArrayList<String> allergyList;
 
-	public BusinessLogicCacheFiltered(ArrayList<String> allergyList) {
+	private BusinessLogicCacheFiltered() {
 		bl = BusinessLogicCache.getInstance();
-		this.allergyList = allergyList;
+		allergyList = new ArrayList<>();
+	}
+	
+	public static BusinessLogicCacheFiltered getInstance() {
+		if(blFiltered==null) 
+			blFiltered=new BusinessLogicCacheFiltered();
+		return blFiltered;
 	}
 
 	@Override
@@ -24,7 +31,7 @@ public class BusinessLogicCacheFiltered implements IBusinessLogic {
 			boolean packageValid = true;
 			FoodProviderPackage p = bl.generateSingleBreakfastPackages();
 			for (String ingr : p.getMenu().getIngredientList()) {
-				for (String allergy : allergyList)
+				for (String allergy : getAllergyList())
 					if (ingr.contains(allergy))
 						packageValid = false;
 			}
@@ -42,7 +49,7 @@ public class BusinessLogicCacheFiltered implements IBusinessLogic {
 			boolean packageValid = true;
 			FoodProviderPackage p = bl.generateSingleLunchPackages();
 			for (String ingr : p.getMenu().getIngredientList()) {
-				for (String allergy : allergyList)
+				for (String allergy : getAllergyList())
 					if (ingr.contains(allergy))
 						packageValid = false;
 			}
@@ -60,7 +67,7 @@ public class BusinessLogicCacheFiltered implements IBusinessLogic {
 			boolean packageValid = true;
 			FoodProviderPackage p = bl.generateSingleDinnerPackages();
 			for (String ingr : p.getMenu().getIngredientList()) {
-				for (String allergy : allergyList)
+				for (String allergy : getAllergyList())
 					if (ingr.contains(allergy))
 						packageValid = false;
 			}
@@ -78,7 +85,7 @@ public class BusinessLogicCacheFiltered implements IBusinessLogic {
 			boolean packageValid = true;
 			FoodProviderPackage p = bl.generateSingleSnackPackages();
 			for (String ingr : p.getMenu().getIngredientList()) {
-				for (String allergy : allergyList)
+				for (String allergy : getAllergyList())
 					if (ingr.contains(allergy))
 						packageValid = false;
 			}
@@ -207,7 +214,7 @@ public class BusinessLogicCacheFiltered implements IBusinessLogic {
 		for (FoodProviderPackage p : breakfastList) {
 			boolean packageValid = true;
 			for (String ingr : p.getMenu().getIngredientList()) {
-				for (String allergy : allergyList)
+				for (String allergy : getAllergyList())
 					if (ingr.contains(allergy))
 						packageValid = false;
 			}
@@ -225,7 +232,7 @@ public class BusinessLogicCacheFiltered implements IBusinessLogic {
 		for (FoodProviderPackage p : lunchList) {
 			boolean packageValid = true;
 			for (String ingr : p.getMenu().getIngredientList()) {
-				for (String allergy : allergyList)
+				for (String allergy : getAllergyList())
 					if (ingr.contains(allergy))
 						packageValid = false;
 			}
@@ -243,7 +250,7 @@ public class BusinessLogicCacheFiltered implements IBusinessLogic {
 		for (FoodProviderPackage p : dinnerList) {
 			boolean packageValid = true;
 			for (String ingr : p.getMenu().getIngredientList()) {
-				for (String allergy : allergyList)
+				for (String allergy : getAllergyList())
 					if (ingr.contains(allergy))
 						packageValid = false;
 			}
@@ -261,7 +268,7 @@ public class BusinessLogicCacheFiltered implements IBusinessLogic {
 		for (FoodProviderPackage p : snackList) {
 			boolean packageValid = true;
 			for (String ingr : p.getMenu().getIngredientList()) {
-				for (String allergy : allergyList)
+				for (String allergy : getAllergyList())
 					if (ingr.contains(allergy))
 						packageValid = false;
 			}
@@ -270,6 +277,14 @@ public class BusinessLogicCacheFiltered implements IBusinessLogic {
 
 		}
 		return snackListFiltered;
+	}
+
+	public ArrayList<String> getAllergyList() {
+		return allergyList;
+	}
+
+	public void setAllergyList(ArrayList<String> allergyList) {
+		this.allergyList = allergyList;
 	}
 
 }

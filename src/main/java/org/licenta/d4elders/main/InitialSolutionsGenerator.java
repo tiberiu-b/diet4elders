@@ -44,7 +44,8 @@ public class InitialSolutionsGenerator {
 		int numberOfSolutions = 1000;
 		TreeSet<Solution> solutions = new TreeSet<Solution>();
 		// BusinessLogic bl = new BusinessLogic();
-		BusinessLogicCache bl = BusinessLogicCache.getInstance();
+		// BusinessLogicCache bl = BusinessLogicCache.getInstance();
+		BusinessLogicCacheFiltered bl = BusinessLogicCacheFiltered.getInstance();
 
 		for (int i = 0; i < size; i++) {
 			FoodProviderPackage breakfast = bl.generateSingleBreakfastPackages();
