@@ -1,7 +1,9 @@
 package org.licenta.d4elders.model;
 
+import org.licenta.d4elders.algorithm.broodImprover.BusinessLogicCacheFilteredOpt;
 import org.licenta.d4elders.dal.BusinessLogic;
 import org.licenta.d4elders.dal.BusinessLogicCache;
+import org.licenta.d4elders.dal.BusinessLogicCacheFiltered;
 import org.licenta.d4elders.helper.AlgorithmConfiguration;
 import org.licenta.d4elders.model.food_package.FoodProviderPackage;
 import org.licenta.d4elders.model.user_profile.NutritionalRecommandationHelper;
@@ -295,10 +297,16 @@ public class Solution implements Comparable<Solution> {
 			dailyMenu = new DailyMenu(droneBreakfast, droneLunch, this.dailyMenu.dinner, droneSnack1, droneSnack2);
 			break;
 		case Snack1:
-			dailyMenu = new DailyMenu(droneBreakfast, droneLunch, droneDinner, this.dailyMenu.snack1, droneSnack2);
+			if (this.dailyMenu.snack1.getMenu().getMenuId() == droneSnack2.getMenu().getMenuId())
+				dailyMenu = new DailyMenu(droneBreakfast, droneLunch, droneDinner, droneSnack1, droneSnack2);
+			else
+				dailyMenu = new DailyMenu(droneBreakfast, droneLunch, droneDinner, this.dailyMenu.snack1, droneSnack2);
 			break;
 		case Snack2:
-			dailyMenu = new DailyMenu(droneBreakfast, droneLunch, droneDinner, droneSnack1, this.dailyMenu.snack2);
+			if (this.dailyMenu.snack2.getMenu().getMenuId() == droneSnack1.getMenu().getMenuId())
+				dailyMenu = new DailyMenu(droneBreakfast, droneLunch, droneDinner, droneSnack1, droneSnack2);
+			else
+				dailyMenu = new DailyMenu(droneBreakfast, droneLunch, droneDinner, droneSnack1, this.dailyMenu.snack2);
 			break;
 		default:
 			break;
@@ -323,8 +331,12 @@ public class Solution implements Comparable<Solution> {
 		FoodProviderPackage dinner = r.nextBoolean() ? drone.getDailyMenu().getDinner() : this.dailyMenu.getDinner();
 		FoodProviderPackage snack1 = r.nextBoolean() ? drone.getDailyMenu().getSnack1() : this.dailyMenu.getSnack1();
 		FoodProviderPackage snack2 = r.nextBoolean() ? drone.getDailyMenu().getSnack2() : this.dailyMenu.getSnack2();
-
-		DailyMenu newdailyMenu = new DailyMenu(breakfast, lunch, dinner, snack1, snack2);
+		DailyMenu newdailyMenu = null;
+		if (snack1.getMenu().getMenuId() == snack2.getMenu().getMenuId())
+			newdailyMenu = new DailyMenu(breakfast, lunch, dinner, drone.getDailyMenu().getSnack1(), drone
+					.getDailyMenu().getSnack2());
+		else
+			newdailyMenu = new DailyMenu(breakfast, lunch, dinner, snack1, snack2);
 
 		return new Solution(newdailyMenu);
 	}
@@ -337,7 +349,8 @@ public class Solution implements Comparable<Solution> {
 	 */
 	public Solution randomMutation() {
 		// BusinessLogic bl = new BusinessLogic();
-		BusinessLogicCache bl = BusinessLogicCache.getInstance();
+		// BusinessLogicCache bl = BusinessLogicCache.getInstance();
+		BusinessLogicCacheFilteredOpt bl = BusinessLogicCacheFilteredOpt.getInstance();
 		Random r = new Random();
 
 		FoodProviderPackage breakfast = dailyMenu.getBreakfast();
@@ -345,12 +358,6 @@ public class Solution implements Comparable<Solution> {
 		FoodProviderPackage dinner = dailyMenu.getDinner();
 		FoodProviderPackage snack1 = dailyMenu.getSnack1();
 		FoodProviderPackage snack2 = dailyMenu.getSnack2();
-
-		// Breakfast breakfast = dayMeal.getBreakfast();
-		// Lunch lunch = dayMeal.getLunch();
-		// Dinner dinner = dayMeal.getDinner();
-		// Snack snack1 = dayMeal.getSnack1();
-		// Snack snack2 = dayMeal.getSnack2();
 
 		switch (r.nextInt(4)) {
 		case 0:
@@ -370,10 +377,17 @@ public class Solution implements Comparable<Solution> {
 		case 3:
 			// Replace snacks
 			FoodProviderPackage s = bl.generateSingleSnackPackages();
-			if (r.nextBoolean())
-				return new Solution(new DailyMenu(breakfast, lunch, dinner, s, snack2));
-			else
-				return new Solution(new DailyMenu(breakfast, lunch, dinner, snack1, s));
+			if (r.nextBoolean()) {
+				if (s.getMenu().getMenuId() != snack2.getMenu().getMenuId())
+					return new Solution(new DailyMenu(breakfast, lunch, dinner, s, snack2));
+				else
+					return new Solution(new DailyMenu(breakfast, lunch, dinner, snack1, snack2));
+			} else {
+				if (snack1.getMenu().getMenuId() != s.getMenu().getMenuId())
+					return new Solution(new DailyMenu(breakfast, lunch, dinner, snack1, s));
+				else
+					return new Solution(new DailyMenu(breakfast, lunch, dinner, snack1, snack2));
+			}
 		default:
 			return null;
 		}
@@ -393,7 +407,7 @@ public class Solution implements Comparable<Solution> {
 		return dailyMenu.toString();
 	}
 
-	public ArrayList<String> exportDataAsString(){
+	public ArrayList<String> exportDataAsString() {
 		ArrayList<String> nutrientsData = new ArrayList<String>();
 		nutrientsData.add(String.valueOf(dailyMenu.getEnergy()));
 		nutrientsData.add(String.valueOf(dailyMenu.getCarbohydrates()));

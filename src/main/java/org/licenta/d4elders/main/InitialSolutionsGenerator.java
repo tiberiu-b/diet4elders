@@ -18,6 +18,7 @@ import java.util.Random;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.licenta.d4elders.algorithm.broodImprover.BusinessLogicCacheFilteredOpt;
 import org.licenta.d4elders.dal.*;
 import org.licenta.d4elders.model.DailyMenu;
 import org.licenta.d4elders.model.Solution;
@@ -45,14 +46,24 @@ public class InitialSolutionsGenerator {
 		TreeSet<Solution> solutions = new TreeSet<Solution>();
 		// BusinessLogic bl = new BusinessLogic();
 		// BusinessLogicCache bl = BusinessLogicCache.getInstance();
-		BusinessLogicCacheFiltered bl = BusinessLogicCacheFiltered.getInstance();
+		BusinessLogicCacheFilteredOpt bl = BusinessLogicCacheFilteredOpt.getInstance();
 
 		for (int i = 0; i < size; i++) {
 			FoodProviderPackage breakfast = bl.generateSingleBreakfastPackages();
 			FoodProviderPackage lunch = bl.generateSingleLunchPackages();
 			FoodProviderPackage dinner = bl.generateSingleDinnerPackages();
 			FoodProviderPackage snack1 = bl.generateSingleSnackPackages();
-			FoodProviderPackage snack2 = bl.generateSingleSnackPackages();
+			FoodProviderPackage snack2 = null;
+			int maxCount = 100;
+			while (maxCount > 0) {
+				maxCount--;
+				snack2 = bl.generateSingleSnackPackages();
+				if (snack1.getMenu().getMainCourse().getMainDish().getDishId() != snack2.getMenu().getMainCourse()
+						.getMainDish().getDishId())
+					break;
+			}
+			if (snack2 == null)
+				snack2 = snack1;
 
 			DailyMenu dailyMenu = new DailyMenu(breakfast, lunch, dinner, snack1, snack2);
 

@@ -1,29 +1,26 @@
-package org.licenta.d4elders.dal;
+package org.licenta.d4elders.algorithm.broodImprover;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import javax.lang.model.type.ErrorType;
+import org.licenta.d4elders.dal.FileIO;
+import org.licenta.d4elders.dal.IBusinessLogic;
+import org.licenta.d4elders.model.dish.Dish;
+import org.licenta.d4elders.model.dish.Recipe;
+import org.licenta.d4elders.model.food_package.FoodProviderPackage;
+import org.licenta.d4elders.model.food_package.FoodServiceProvider;
+import org.licenta.d4elders.model.food_package.GeographicalArea;
+import org.licenta.d4elders.model.food_package.Menu;
+import org.licenta.d4elders.model.meal.MealVariant;
 
-import org.licenta.d4elders.model.*;
-import org.licenta.d4elders.model.dish.*;
-import org.licenta.d4elders.model.food_package.*;
-import org.licenta.d4elders.model.meal.*;
-import org.licenta.d4elders.ontology.FoodProviderOntology;
-
-import com.hp.hpl.jena.query.QuerySolution;
-import com.hp.hpl.jena.query.ResultSet;
-import com.hp.hpl.jena.rdf.model.Model;
-
-public class BusinessLogicCache implements IBusinessLogic {
-	protected static BusinessLogicCache bl;
+public class BusinessLogicCacheFilteredOpt implements IBusinessLogic {
+	protected static BusinessLogicCacheFilteredOpt bl;
 
 	/*
 	 * The arrays are fetched once and stored in cache. Subsequent calls return the cached arrays.
 	 * Since the elements in the ontology are constant during a run of the program, there won't be
 	 * any misses.
 	 */
-
 	protected ArrayList<FoodProviderPackage> breakfastPackageListCache;
 	protected ArrayList<FoodProviderPackage> lunchPackageListCache;
 	protected ArrayList<FoodProviderPackage> dinnerPackageListCache;
@@ -36,18 +33,15 @@ public class BusinessLogicCache implements IBusinessLogic {
 	protected ArrayList<MealVariant> mealVariantListCache;
 	protected ArrayList<Menu> menuListCache;
 	protected ArrayList<FoodProviderPackage> packageListCache;
+	private ArrayList<String> allergyList;
 
-	private BusinessLogicCache() {
-		// foodProviderOntology = new FoodProviderOntology();
-		// model = foodProviderOntology.getOntModel();
-		// data = foodProviderOntology.getD2rData();
-		// model.add(data);
-		loadOntologyDataIntoMemory();
+	private BusinessLogicCacheFilteredOpt() {
+		allergyList = new ArrayList<String>();
 	}
 
-	public static BusinessLogicCache getInstance() {
+	public static BusinessLogicCacheFilteredOpt getInstance() {
 		if (bl == null)
-			bl = new BusinessLogicCache();
+			bl = new BusinessLogicCacheFilteredOpt();
 		return bl;
 	}
 
@@ -55,7 +49,8 @@ public class BusinessLogicCache implements IBusinessLogic {
 	 * Prefetches the data from ontolgy into main memory. Any subsequent call will return data from
 	 * the faster main memory instead of the slower ontology.
 	 */
-	public void loadOntologyDataIntoMemory() {
+	public void loadOntologyDataIntoMemory(ArrayList<String> allergyList) {
+		this.allergyList=allergyList;
 		if (packageListCache == null)
 			loadCache2();
 	}
@@ -87,7 +82,7 @@ public class BusinessLogicCache implements IBusinessLogic {
 		stopTime = System.currentTimeMillis();
 		System.out.println("Time for menuCache" + (stopTime - startTime));
 		startTime = System.currentTimeMillis();
-		packageListCache = des.deserializeFoodProviderPackage();
+		filterFoodPackagesList(des.deserializeFoodProviderPackage());
 		stopTime = System.currentTimeMillis();
 		System.out.println("Time for foodPackageCache " + (stopTime - startTime));
 		startTime = System.currentTimeMillis();
@@ -113,6 +108,7 @@ public class BusinessLogicCache implements IBusinessLogic {
 				break;
 			}
 		}
+		System.out.println("Hello");
 	}
 
 	public FoodProviderPackage generateSingleBreakfastPackages() {
@@ -197,6 +193,33 @@ public class BusinessLogicCache implements IBusinessLogic {
 			loadCache2();
 		}
 		return snackPackageListCache;
+	}
+
+	public ArrayList<String> getAllergyList() {
+		return allergyList;
+	}
+
+	public void setAllergyList(ArrayList<String> allergyList) {
+		this.allergyList = allergyList;
+	}
+
+	private void filterFoodPackagesList(ArrayList<FoodProviderPackage> list) {
+		packageListCache = new ArrayList<FoodProviderPackage>();
+
+		for (FoodProviderPackage pkg : list) {
+			boolean packageValid = true;
+			for (String allergy : allergyList) {
+				for (String ingredient : pkg.getMenu().getIngredientList()) {
+					if (ingredient.contains(allergy)) {
+						packageValid = false;
+						break;
+					}
+
+				}
+			}
+			if (packageValid)
+				packageListCache.add(pkg);
+		}
 	}
 
 }

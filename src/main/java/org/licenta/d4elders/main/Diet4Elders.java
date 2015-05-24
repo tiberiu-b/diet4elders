@@ -6,7 +6,10 @@ import java.util.logging.Logger;
 
 import org.licenta.d4elders.algorithm.HoneyBeeMatingOptimization;
 import org.licenta.d4elders.algorithm.MainAlgorithm.RunInformation;
+import org.licenta.d4elders.algorithm.broodImprover.BusinessLogicCacheFilteredOpt;
+import org.licenta.d4elders.dal.BusinessLogic;
 import org.licenta.d4elders.dal.BusinessLogicCache;
+import org.licenta.d4elders.dal.BusinessLogicCacheFiltered;
 import org.licenta.d4elders.helper.AlgorithmConfiguration;
 import org.licenta.d4elders.helper.AlgorithmRunner;
 import org.licenta.d4elders.helper.DataExporter;
@@ -24,8 +27,11 @@ public class Diet4Elders {
 
 		userProfile = new UserProfileStub();
 		new NutritionalRecommandationHelper(userProfile);
-		BusinessLogic bLogic = BusinessLogic.getInstance();
+		// BusinessLogic bLogic = BusinessLogic.getInstance();
 		// BusinessLogicCache bLogicCache = BusinessLogicCache.getInstance();
+		BusinessLogicCacheFilteredOpt blCacheFiltered = BusinessLogicCacheFilteredOpt.getInstance();
+		blCacheFiltered.loadOntologyDataIntoMemory(userProfile.getAllergyList());
+
 	}
 
 	public void run(AlgorithmConfiguration configuration) {

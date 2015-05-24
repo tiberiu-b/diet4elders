@@ -15,9 +15,9 @@ public class UserProfileStub {
 	private boolean weight_loss = false;
 	private GenderType gender;
 
-	private ArrayList<String> likeSet = new ArrayList<String>();
-	private ArrayList<String> dislikeSet = new ArrayList<String>();
-	private ArrayList<String> allergySet = new ArrayList<String>();
+	private ArrayList<String> likeList = new ArrayList<String>();
+	private ArrayList<String> dislikeList = new ArrayList<String>();
+	private ArrayList<String> allergyList = new ArrayList<String>();
 
 	public UserProfileStub() {
 		generateMockupValues();
@@ -31,15 +31,15 @@ public class UserProfileStub {
 		setGender(GenderType.Male);
 		setPAF(1.7);
 
-		getLikeSet().add("Chocolate biscuits, full coated");
-		getLikeSet().add("Chocolate biscuits, cream filled, full coated");
+		getLikeList().add("Chocolate biscuits, full coated");
+		getLikeList().add("Chocolate biscuits, cream filled, full coated");
 
-		getDislikeSet().add("Gingernut biscuits");
-		getDislikeSet().add("Oat based biscuits");
+		getDislikeList().add("Gingernut biscuits");
+		getDislikeList().add("Oat based biscuits");
 
-		getAllergySet().add("butter");
-		getAllergySet().add("milk");
-		getAllergySet().add("apricot");
+		 getAllergyList().add("butter");
+		 getAllergyList().add("milk");
+		 getAllergyList().add("apricot");
 
 	}
 
@@ -51,11 +51,11 @@ public class UserProfileStub {
 		setGender(GenderType.Male);
 		setPAF(1.2);
 
-		getLikeSet().add("Chocolate biscuits, full coated");
-		getLikeSet().add("Chocolate biscuits, cream filled, full coated");
+		getLikeList().add("Chocolate biscuits, full coated");
+		getLikeList().add("Chocolate biscuits, cream filled, full coated");
 
-		getDislikeSet().add("Gingernut biscuits");
-		getDislikeSet().add("Oat based biscuits");
+		getDislikeList().add("Gingernut biscuits");
+		getDislikeList().add("Oat based biscuits");
 
 	}
 
@@ -121,28 +121,28 @@ public class UserProfileStub {
 				+ ", weight_gain=" + weight_gain + ", weight_loss=" + weight_loss + ", gender=" + gender + '}';
 	}
 
-	public ArrayList<String> getLikeSet() {
-		return likeSet;
+	public ArrayList<String> getLikeList() {
+		return likeList;
 	}
 
-	public void setLikeSet(ArrayList<String> likeSet) {
-		this.likeSet = likeSet;
+	public void setLikeList(ArrayList<String> likeList) {
+		this.likeList = likeList;
 	}
 
-	public ArrayList<String> getDislikeSet() {
-		return dislikeSet;
+	public ArrayList<String> getDislikeList() {
+		return dislikeList;
 	}
 
-	public void setDislikeSet(ArrayList<String> dislikeSet) {
-		this.dislikeSet = dislikeSet;
+	public void setDislikeList(ArrayList<String> dislikeList) {
+		this.dislikeList = dislikeList;
 	}
 
-	public ArrayList<String> getAllergySet() {
-		return allergySet;
+	public ArrayList<String> getAllergyList() {
+		return allergyList;
 	}
 
-	public void setAllergySet(ArrayList<String> allergySet) {
-		this.allergySet = allergySet;
+	public void setAllergyList(ArrayList<String> allergyList) {
+		this.allergyList = allergyList;
 	}
 
 }

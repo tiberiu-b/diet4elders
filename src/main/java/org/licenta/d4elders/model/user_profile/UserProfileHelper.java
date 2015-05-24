@@ -1,37 +1,46 @@
 package org.licenta.d4elders.model.user_profile;
+
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * Created by cristiprg on 22.04.2015.
- * Business logic for User profile
+ * Created by cristiprg on 22.04.2015. Business logic for User profile
  */
 public class UserProfileHelper {
-    private static UserProfileStub userProfileStub = new UserProfileStub();
+	private static UserProfileStub userProfileStub = new UserProfileStub();
 
+	public static ArrayList<String> getLikeList() {
+		return userProfileStub.getLikeList();
+	}
 
-    public static Set<String> getLikeList(){
-        return userProfileStub.getLikeSet();
-    }
+	public static ArrayList<String> getDisLikeList() {
+		return userProfileStub.getDislikeList();
+	}
 
-    public static Set<String> getDisLikeList(){
-        return userProfileStub.getDislikeSet();
-    }
+	public static ArrayList<String> getPreferenceSet() {
+		return unionList(userProfileStub.getLikeList(), userProfileStub.getDislikeList());
+	}
 
-    public static Set<String> getPreferenceSet(){
-        return unionSet(userProfileStub.getLikeSet(), userProfileStub.getDislikeSet());
-    }
-    private static Set<String> unionSet(Set<String> A, Set<String> B){
-        Set<String> newSet = new TreeSet<String>();
-        for (String s : A){
-            newSet.add(s);
-        }
+	private static ArrayList<String> unionList(ArrayList<String> A, ArrayList<String> B) {
+		ArrayList<String> result = A;
+		for (String b : B) {
+			if (!result.contains(b))
+				result.add(b);
+		}
+		return result;
+	}
 
-        for (String s : B){
-            newSet.add(s);
-        }
-        return newSet;
-    }
+	private static Set<String> unionSet(Set<String> A, Set<String> B) {
+		Set<String> newSet = new TreeSet<String>();
+		for (String s : A) {
+			newSet.add(s);
+		}
 
+		for (String s : B) {
+			newSet.add(s);
+		}
+		return newSet;
+	}
 
 }

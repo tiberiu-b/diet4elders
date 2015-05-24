@@ -94,8 +94,6 @@ public class BusinessLogicCacheFiltered implements IBusinessLogic {
 		}
 		return null;
 	}
-
-	@Override
 	public ArrayList<FoodProviderPackage> generateBreakfastPackages(int numberOfSolutions) {
 		ArrayList<FoodProviderPackage> breakfastPackageList = new ArrayList<>();
 		for (int i = 0; i < numberOfSolutions; i++) {
