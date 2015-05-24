@@ -19,6 +19,27 @@ public class AlgorithmConfiguration {
 	private double probabilityToMateDroneThreshold;
 	private double similarityCoefficientThreshold = 0.8;
 
+
+
+	public AlgorithmConfiguration(String broodModificationStrategy,
+			ArrayList<String> workerModificationStrategies, int maxNrMatings,
+			int popSize, int initialSpeed, int initialEnergy,
+			double speedReductionFactor, double energyReductionAmount,
+			double probabilityToMateDroneThreshold,
+			double similarityCoefficientThreshold) {
+		super();
+		this.broodModificationStrategy = broodModificationStrategy;
+		this.workerModificationStrategies = workerModificationStrategies;
+		this.maxNrMatings = maxNrMatings;
+		this.popSize = popSize;
+		this.initialSpeed = initialSpeed;
+		this.initialEnergy = initialEnergy;
+		this.speedReductionFactor = speedReductionFactor;
+		this.energyReductionAmount = energyReductionAmount;
+		this.probabilityToMateDroneThreshold = probabilityToMateDroneThreshold;
+		this.similarityCoefficientThreshold = similarityCoefficientThreshold;
+	}
+
 	/**
 	 * Initialize an instance with the default values.
 	 */
