@@ -82,7 +82,7 @@ public class InitialSolutionsGenerator {
 	 *
 	 * @return A SortedSet (Tree) filled with random solutions.
 	 */
-	public static TreeSet<Solution> generateRandomSolutionsWithSimilarityCoeff(int size, double d) {
+	public static TreeSet<Solution> generateRandomSolutionsWithSimilarityCoeff(int size, double similarityCoefficientThreshold) {
 		TreeSet<Solution> solutions = new TreeSet<Solution>();
 		// BusinessLogic bl = new BusinessLogic();
 		// BusinessLogicCache bl = BusinessLogicCache.getInstance();
@@ -109,7 +109,7 @@ public class InitialSolutionsGenerator {
 			Solution curSol = new Solution(dailyMenu);
 			boolean solutionValid = true;
 			for (Solution s : solutions) {
-				if (s.getSolutionSimilarityCoefficient(curSol) > d) {
+				if (s.getSolutionSimilarityCoefficient(curSol) > similarityCoefficientThreshold) {
 					solutionValid = false;
 					break;
 				}

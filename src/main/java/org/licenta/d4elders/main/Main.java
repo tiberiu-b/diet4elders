@@ -38,7 +38,7 @@ public class Main extends Applet implements MouseListener {
 	Panel leftPanel;
 
 	Button runButton;
-	Button runPopSizeVariationConfigurationButton;
+	Button runConfiguration1Button;
 	TextArea outputTextArea;
 	Label broodModificationStrategyLabel;
 	Label workerModificationStrategiesLabel;
@@ -71,58 +71,75 @@ public class Main extends Applet implements MouseListener {
 
 	@Override
 	public void init() {
-		this.setSize(1100, 600);
+		this.setSize(1100, 800);
 		setLayout(new GridBagLayout());
 		leftPanel = new Panel();
 		add(leftPanel);
 
 		// Initialize the labels
-		broodModificationStrategyLabel = new Label("Brood Modification Strategy: ");
-		workerModificationStrategiesLabel = new Label("Worker Modification Strategies: ");
+		broodModificationStrategyLabel = new Label(
+				"Brood Modification Strategy: ");
+		workerModificationStrategiesLabel = new Label(
+				"Worker Modification Strategies: ");
 		maxNrMatingsLabel = new Label("Max number of matings: ");
 		popSizeLabel = new Label("Population size: ");
 		initialEnergyLabel = new Label("Initial queen energy: ");
 		initialSpeedLabel = new Label("Initial queen speed :");
 		speedReductionFactorLabel = new Label("Speed reduction factor: ");
 		energyReductionAmountLabel = new Label("Energy reduction amount: ");
-		probabilityToMateDroneThresholdLabel = new Label("Probability to mate dron threshold: ");
-		similarityCoefficientThresholdLabel = new Label("Solutions similarity threshold: ");
+		probabilityToMateDroneThresholdLabel = new Label(
+				"Probability to mate dron threshold: ");
+		similarityCoefficientThresholdLabel = new Label(
+				"Solutions similarity threshold: ");
 
 		// Initialize input elements
 		AlgorithmConfiguration defaultConfiguration = new AlgorithmConfiguration();
 
 		CheckboxGroup grp = new CheckboxGroup();
 		broodModificationStrategiesCheckboxList = new ArrayList<Checkbox>();
-		for (String strategy : AvailableProgramConfigurationOptions.getAvailableBroodModificationStrategies()) {
+		for (String strategy : AvailableProgramConfigurationOptions
+				.getAvailableBroodModificationStrategies()) {
 			Checkbox checkbox = new Checkbox(strategy, grp, false);
 			broodModificationStrategiesCheckboxList.add(checkbox);
 
-			if (strategy.equals(AvailableProgramConfigurationOptions.SIMPLE_CROSSOVER))
+			if (strategy
+					.equals(AvailableProgramConfigurationOptions.SIMPLE_CROSSOVER))
 				checkbox.setState(true);
 		}
 
 		workerModificationStrategiesCheckboxList = new ArrayList<Checkbox>();
-		for (String strategy : AvailableProgramConfigurationOptions.getAvailableWorkerModificationStrategies()) {
+		for (String strategy : AvailableProgramConfigurationOptions
+				.getAvailableWorkerModificationStrategies()) {
 			Checkbox checkbox = new Checkbox(strategy, null, true);
 			workerModificationStrategiesCheckboxList.add(checkbox);
 		}
 
-		maxNrMatingsField = new TextField(String.valueOf(defaultConfiguration.getMaxNrMatings()), 10);
-		popSizeField = new TextField(String.valueOf(defaultConfiguration.getPopSize()), 10);
-		initialEnergyField = new TextField(String.valueOf(defaultConfiguration.getInitialEnergy()), 10);
-		initialSpeedField = new TextField(String.valueOf(defaultConfiguration.getInitialSpeed()), 10);
-		speedReductionFactorField = new TextField(String.valueOf(defaultConfiguration.getSpeedReductionFactor()), 10);
-		energyReductionAmountField = new TextField(String.valueOf(defaultConfiguration.getEnergyReductionAmount()), 10);
-		probabilityToMateDroneThresholdField = new TextField(String.valueOf(defaultConfiguration
-				.getProbabilityToMateDroneThreshold()), 10);
-		similarityCoefficientThresholdField = new TextField(String.valueOf(defaultConfiguration
-				.getSimilarityCoefficientThreshold()), 10);
+		maxNrMatingsField = new TextField(String.valueOf(defaultConfiguration
+				.getMaxNrMatings()), 10);
+		popSizeField = new TextField(String.valueOf(defaultConfiguration
+				.getPopSize()), 10);
+		initialEnergyField = new TextField(String.valueOf(defaultConfiguration
+				.getInitialEnergy()), 10);
+		initialSpeedField = new TextField(String.valueOf(defaultConfiguration
+				.getInitialSpeed()), 10);
+		speedReductionFactorField = new TextField(
+				String.valueOf(defaultConfiguration.getSpeedReductionFactor()),
+				10);
+		energyReductionAmountField = new TextField(
+				String.valueOf(defaultConfiguration.getEnergyReductionAmount()),
+				10);
+		probabilityToMateDroneThresholdField = new TextField(
+				String.valueOf(defaultConfiguration
+						.getProbabilityToMateDroneThreshold()), 10);
+		similarityCoefficientThresholdField = new TextField(
+				String.valueOf(defaultConfiguration
+						.getSimilarityCoefficientThreshold()), 10);
 		// The text area on the right
-		outputTextArea = new TextArea(15, 100);
+		outputTextArea = new TextArea(30, 150);
 
 		// The run button
 		runButton = new Button("Run");
-		runPopSizeVariationConfigurationButton = new Button("Run PopSize Config");
+		runConfiguration1Button = new Button("Run PopSize Config");
 
 		// add the gui elements
 		leftPanel.setLayout(new GridLayout(0, 2));
@@ -174,6 +191,8 @@ public class Main extends Applet implements MouseListener {
 		// prob to mate drone
 		leftPanel.add(similarityCoefficientThresholdLabel);
 		leftPanel.add(similarityCoefficientThresholdField);
+		leftPanel.add(runButton);
+		leftPanel.add(runConfiguration1Button);
 
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = 0;
@@ -181,7 +200,6 @@ public class Main extends Applet implements MouseListener {
 		add(outputTextArea, gbc);
 		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		System.setOut(new PrintStream(baos));
-		add(runButton);
 
 		runButton.addActionListener(new ActionListener() {
 			@Override
@@ -201,18 +219,24 @@ public class Main extends Applet implements MouseListener {
 				configuration.clearWorkerModificationStrategies();
 				for (Checkbox c : workerModificationStrategiesCheckboxList) {
 					if (c.getState() == true) {
-						configuration.addWorkerModificationStrategy(c.getLabel());
+						configuration.addWorkerModificationStrategy(c
+								.getLabel());
 					}
 				}
 
-				configuration.setMaxNrMatings(Integer.valueOf(maxNrMatingsField.getText()));
-				configuration.setPopSize(Integer.valueOf(popSizeField.getText()));
-				configuration.setInitialSpeed(Integer.valueOf(initialSpeedField.getText()));
-				configuration.setInitialEnergy(Integer.valueOf(initialEnergyField.getText()));
-				configuration.setSpeedReductionFactor(Double.valueOf(speedReductionFactorField.getText()));
-				configuration.setEnergyReductionAmount(Double.valueOf(energyReductionAmountField.getText()));
-				configuration.setProbabilityToMateDroneThreshold(Double.valueOf(probabilityToMateDroneThresholdField
+				configuration.setMaxNrMatings(Integer.valueOf(maxNrMatingsField
 						.getText()));
+				configuration.setPopSize(Integer.valueOf(popSizeField.getText()));
+				configuration.setInitialSpeed(Integer.valueOf(initialSpeedField
+						.getText()));
+				configuration.setInitialEnergy(Integer
+						.valueOf(initialEnergyField.getText()));
+				configuration.setSpeedReductionFactor(Double
+						.valueOf(speedReductionFactorField.getText()));
+				configuration.setEnergyReductionAmount(Double
+						.valueOf(energyReductionAmountField.getText()));
+				configuration.setProbabilityToMateDroneThreshold(Double
+						.valueOf(probabilityToMateDroneThresholdField.getText()));
 				runButton.setEnabled(false);
 				Diet4Elders d4e = new Diet4Elders();
 				d4e.run(configuration);
@@ -224,19 +248,20 @@ public class Main extends Applet implements MouseListener {
 			// }
 		});
 
-		add(runPopSizeVariationConfigurationButton);
-		runPopSizeVariationConfigurationButton.addActionListener(new ActionListener() {
+		runConfiguration1Button.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new Diet4Elders().run(ConfigurationsGenerator.getConfigFromIniFile("configs.ini"));
+				new Diet4Elders().run(ConfigurationsGenerator
+						.getConfigFromIniFile("configs.ini"));
 			}
 		});
 
 		// hack to redirect stdout to the text area:
 		// 1) first redirect to a stream
 
-		// 2) refresh every X seconds: copy the content of the stream in the text area
+		// 2) refresh every X seconds: copy the content of the stream in the
+		// text area
 		new Thread() {
 			@Override
 			public void run() {
