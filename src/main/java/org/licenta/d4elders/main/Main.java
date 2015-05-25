@@ -213,9 +213,10 @@ public class Main extends Applet implements MouseListener {
 				configuration.setEnergyReductionAmount(Double.valueOf(energyReductionAmountField.getText()));
 				configuration.setProbabilityToMateDroneThreshold(Double.valueOf(probabilityToMateDroneThresholdField
 						.getText()));
-
+				runButton.setEnabled(false);
 				Diet4Elders d4e = new Diet4Elders();
 				d4e.run(configuration);
+				runButton.setEnabled(true);
 				outputTextArea.setText(baos.toString());
 				outputTextArea.setCaretPosition(baos.toString().length());
 			}
