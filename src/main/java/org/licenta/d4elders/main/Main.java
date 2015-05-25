@@ -71,7 +71,7 @@ public class Main extends Applet implements MouseListener {
 
 	@Override
 	public void init() {
-		this.setSize(1100, 700);
+		this.setSize(1100, 600);
 		setLayout(new GridBagLayout());
 		leftPanel = new Panel();
 		add(leftPanel);
@@ -135,7 +135,7 @@ public class Main extends Applet implements MouseListener {
 				String.valueOf(defaultConfiguration
 						.getSimilarityCoefficientThreshold()), 10);
 		// The text area on the right
-		outputTextArea = new TextArea(30, 150);
+		outputTextArea = new TextArea(17, 150);
 
 		// The run button
 		runButton = new Button("Run");
