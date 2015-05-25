@@ -48,7 +48,7 @@ public class AlgorithmConfiguration {
 		workerModificationStrategies.add(AvailableProgramConfigurationOptions.HILL_CLIMBING);
 		workerModificationStrategies.add(AvailableProgramConfigurationOptions.SIMULATED_ANNEALING);
 		workerModificationStrategies.add(AvailableProgramConfigurationOptions.SIMPLE_TABU_SEARCH);
-		maxNrMatings = 100;
+		maxNrMatings = 15;
 		popSize = 20;
 		initialSpeed = 100;
 		initialEnergy = 100;
