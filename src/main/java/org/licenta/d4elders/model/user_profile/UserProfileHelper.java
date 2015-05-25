@@ -18,7 +18,7 @@ public class UserProfileHelper {
 		return userProfileStub.getDislikeList();
 	}
 
-	public static ArrayList<String> getPreferenceSet() {
+	public static ArrayList<String> getPreferenceList() {
 		return unionList(userProfileStub.getLikeList(), userProfileStub.getDislikeList());
 	}
 

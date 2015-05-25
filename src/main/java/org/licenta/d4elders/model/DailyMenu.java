@@ -164,66 +164,77 @@ public class DailyMenu extends FoodNutrients implements Serializable {
 		setVitD(getVitD_custom());
 	}
 
+	@Override
 	public Float getProteins() {
 		if (proteins == null)
 			computeNutrientValues();
 		return proteins;
 	}
 
+	@Override
 	public Float getLipids() {
 		if (lipids == null)
 			computeNutrientValues();
 		return lipids;
 	}
 
+	@Override
 	public Float getCarbohydrates() {
 		if (carbohydrates == null)
 			computeNutrientValues();
 		return carbohydrates;
 	}
 
+	@Override
 	public Float getEnergy() {
 		if (energy == null)
 			computeNutrientValues();
 		return energy;
 	}
 
+	@Override
 	public Float getCalcium() {
 		if (calcium == null)
 			computeNutrientValues();
 		return calcium;
 	}
 
+	@Override
 	public Float getIron() {
 		if (iron == null)
 			computeNutrientValues();
 		return iron;
 	}
 
+	@Override
 	public Float getSodium() {
 		if (sodium == null)
 			computeNutrientValues();
 		return sodium;
 	}
 
+	@Override
 	public Float getVitA() {
 		if (vitA == null)
 			computeNutrientValues();
 		return vitA;
 	}
 
+	@Override
 	public Float getVitB() {
 		if (vitB == null)
 			computeNutrientValues();
 		return vitB;
 	}
 
+	@Override
 	public Float getVitC() {
 		if (vitC == null)
 			computeNutrientValues();
 		return vitC;
 	}
 
+	@Override
 	public Float getVitD() {
 		if (vitD == null)
 			computeNutrientValues();
@@ -254,6 +265,23 @@ public class DailyMenu extends FoodNutrients implements Serializable {
 		ingredientList.addAll(snack2.getMenu().getMainCourse().getMainDish().getRecipe().getIngredientList());
 
 		return ingredientList;
+	}
+
+	public double getCost(){
+		return 	breakfast.getCost()	+
+				lunch.getCost() 	+
+				dinner.getCost()	+
+				snack1.getCost() 	+
+				snack2.getCost();
+
+	}
+
+	public double getAvgDeliveryTime(){
+		return (breakfast.getDeliveryTime()	+
+				lunch.getDeliveryTime()		+
+				dinner.getDeliveryTime()	+
+				snack1.getDeliveryTime()	+
+				snack2.getDeliveryTime())/5.0;
 	}
 
 }

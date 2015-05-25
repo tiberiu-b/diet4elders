@@ -17,10 +17,41 @@ public abstract class MainAlgorithm {
 
 	// Abstract methods
 	public abstract Solution performAlgorithm();
-	public abstract ArrayList<String> getHeadersForExportedData();
+	public abstract ArrayList<String> getCustomHeadersForExportedData();
 
 
 	// Non abstract methods
+
+	/**
+	 * Adds the headers that are irrespective of the algorithm.
+	 * @param headers
+	 */
+	protected void addDefaultHeadersForExportedData(ArrayList<String> headers){
+		// level 1: nutrients
+		headers.add("kCal");
+		headers.add("Carbohydrates");
+		headers.add("Proteins");
+		headers.add("Fats");
+		headers.add("VitA");
+		headers.add("VitB");
+		headers.add("VitC");
+		headers.add("VitD");
+		headers.add("Calcium");
+		headers.add("Iron");
+		headers.add("Sodium");
+
+		// level 2: food items
+		headers.add("Breakfast");
+		headers.add("Lunch");
+		headers.add("Dinner");
+		headers.add("Snack1");
+		headers.add("Snack2");
+
+		// level 3: cost and delivery time
+		headers.add("Cost");
+		headers.add("Delivery time");
+	}
+
 	MainAlgorithm(){
 		nrOfIterations = 0;
 		duration = 0;

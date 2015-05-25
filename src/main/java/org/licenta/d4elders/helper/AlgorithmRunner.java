@@ -36,7 +36,7 @@ public class AlgorithmRunner {
 		data.add(String.valueOf(info.duration));
 		data.addAll(queen.exportDataAsString());
 		try {
-			DataExporter.exportData(Paths.get("data\\HBMO_data.csv"), HBMO.getHeadersForExportedData(), data);
+			DataExporter.exportData(Paths.get("data\\HBMO_data.csv"), HBMO.getCustomHeadersForExportedData(), data);
 		} catch (DataExporterException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

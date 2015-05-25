@@ -7,6 +7,7 @@ import org.licenta.d4elders.dal.BusinessLogicCacheFiltered;
 import org.licenta.d4elders.helper.AlgorithmConfiguration;
 import org.licenta.d4elders.model.food_package.FoodProviderPackage;
 import org.licenta.d4elders.model.user_profile.NutritionalRecommandationHelper;
+import org.licenta.d4elders.model.user_profile.UserProfileHelper;
 
 import com.sun.istack.internal.NotNull;
 
@@ -408,19 +409,33 @@ public class Solution implements Comparable<Solution> {
 	}
 
 	public ArrayList<String> exportDataAsString() {
-		ArrayList<String> nutrientsData = new ArrayList<String>();
-		nutrientsData.add(String.valueOf(dailyMenu.getEnergy()));
-		nutrientsData.add(String.valueOf(dailyMenu.getCarbohydrates()));
-		nutrientsData.add(String.valueOf(dailyMenu.getProteins()));
-		nutrientsData.add(String.valueOf(dailyMenu.getLipids()));
-		nutrientsData.add(String.valueOf(dailyMenu.getVitA()));
-		nutrientsData.add(String.valueOf(dailyMenu.getVitB()));
-		nutrientsData.add(String.valueOf(dailyMenu.getVitC()));
-		nutrientsData.add(String.valueOf(dailyMenu.getVitD()));
-		nutrientsData.add(String.valueOf(dailyMenu.getCalcium()));
-		nutrientsData.add(String.valueOf(dailyMenu.getIron()));
-		nutrientsData.add(String.valueOf(dailyMenu.getSodium()));
-		return nutrientsData;
+		ArrayList<String> data = new ArrayList<String>();
+
+		// nutrients
+		data.add(String.valueOf(dailyMenu.getEnergy()));
+		data.add(String.valueOf(dailyMenu.getCarbohydrates()));
+		data.add(String.valueOf(dailyMenu.getProteins()));
+		data.add(String.valueOf(dailyMenu.getLipids()));
+		data.add(String.valueOf(dailyMenu.getVitA()));
+		data.add(String.valueOf(dailyMenu.getVitB()));
+		data.add(String.valueOf(dailyMenu.getVitC()));
+		data.add(String.valueOf(dailyMenu.getVitD()));
+		data.add(String.valueOf(dailyMenu.getCalcium()));
+		data.add(String.valueOf(dailyMenu.getIron()));
+		data.add(String.valueOf(dailyMenu.getSodium()));
+
+		// food items
+		data.add(dailyMenu.getBreakfast().toString());
+		data.add(dailyMenu.getLunch().toString());
+		data.add(dailyMenu.getDinner().toString());
+		data.add(dailyMenu.getSnack1().toString());
+		data.add(dailyMenu.getSnack2().toString());
+
+		// cost and delivery time
+		data.add(String.valueOf(dailyMenu.getCost()));
+		data.add(String.valueOf(dailyMenu.getAvgDeliveryTime()));
+
+		return data;
 	}
 
 	@Override

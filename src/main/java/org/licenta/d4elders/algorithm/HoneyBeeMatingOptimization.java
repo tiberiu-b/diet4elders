@@ -149,7 +149,7 @@ public class HoneyBeeMatingOptimization extends MainAlgorithm {
 
 
 	@Override
-	public ArrayList<String> getHeadersForExportedData() {
+	public ArrayList<String> getCustomHeadersForExportedData() {
 		ArrayList<String> headers = new ArrayList<String>();
 		headers.add("Brood Modification Strategy");
 		headers.add("Worker Modification Strategy");
@@ -163,18 +163,8 @@ public class HoneyBeeMatingOptimization extends MainAlgorithm {
 		headers.add("Fitness values");
 		headers.add("Number of iterations");
 		headers.add("Duration");
-		headers.add("kCal");
-		headers.add("Carbohydrates");
-		headers.add("Proteins");
-		headers.add("Fats");
-		headers.add("VitA");
-		headers.add("VitB");
-		headers.add("VitC");
-		headers.add("VitD");
-		headers.add("Calcium");
-		headers.add("Iron");
-		headers.add("Sodium");
 
+		super.addDefaultHeadersForExportedData(headers);
 
 		return headers;
 	}
