@@ -71,7 +71,7 @@ public class Main extends Applet implements MouseListener {
 
 	@Override
 	public void init() {
-		this.setSize(1100, 800);
+		this.setSize(1100, 700);
 		setLayout(new GridBagLayout());
 		leftPanel = new Panel();
 		add(leftPanel);
