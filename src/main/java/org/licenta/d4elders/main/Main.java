@@ -71,6 +71,7 @@ public class Main extends Applet implements MouseListener {
 
 	@Override
 	public void init() {
+		this.setSize(1100, 600);
 		setLayout(new GridBagLayout());
 		leftPanel = new Panel();
 		add(leftPanel);
@@ -178,45 +179,48 @@ public class Main extends Applet implements MouseListener {
 		gbc.gridx = 0;
 		gbc.gridy = GridBagConstraints.RELATIVE;
 		add(outputTextArea, gbc);
-
+		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		System.setOut(new PrintStream(baos));
 		add(runButton);
 
 		runButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//new Thread() {
-				//	@Override
-				//	public void run() {
+				// new Thread() {
+				// @Override
+				// public void run() {
 
-						AlgorithmConfiguration configuration = new AlgorithmConfiguration();
-						for (Checkbox c : broodModificationStrategiesCheckboxList) {
-							if (c.getState() == true) {
-								configuration.setBroodModificationStrategy(c.getLabel());
-								break;
-							}
-						}
-
-						configuration.clearWorkerModificationStrategies();
-						for (Checkbox c : workerModificationStrategiesCheckboxList) {
-							if (c.getState() == true) {
-								configuration.addWorkerModificationStrategy(c.getLabel());
-							}
-						}
-
-						configuration.setMaxNrMatings(Integer.valueOf(maxNrMatingsField.getText()));
-						configuration.setPopSize(Integer.valueOf(popSizeField.getText()));
-						configuration.setInitialSpeed(Integer.valueOf(initialSpeedField.getText()));
-						configuration.setInitialEnergy(Integer.valueOf(initialEnergyField.getText()));
-						configuration.setSpeedReductionFactor(Double.valueOf(speedReductionFactorField.getText()));
-						configuration.setEnergyReductionAmount(Double.valueOf(energyReductionAmountField.getText()));
-						configuration.setProbabilityToMateDroneThreshold(Double
-								.valueOf(probabilityToMateDroneThresholdField.getText()));
-
-						Diet4Elders d4e = new Diet4Elders();
-						d4e.run(configuration);
+				AlgorithmConfiguration configuration = new AlgorithmConfiguration();
+				for (Checkbox c : broodModificationStrategiesCheckboxList) {
+					if (c.getState() == true) {
+						configuration.setBroodModificationStrategy(c.getLabel());
+						break;
 					}
-				//}.start();
-			//}
+				}
+
+				configuration.clearWorkerModificationStrategies();
+				for (Checkbox c : workerModificationStrategiesCheckboxList) {
+					if (c.getState() == true) {
+						configuration.addWorkerModificationStrategy(c.getLabel());
+					}
+				}
+
+				configuration.setMaxNrMatings(Integer.valueOf(maxNrMatingsField.getText()));
+				configuration.setPopSize(Integer.valueOf(popSizeField.getText()));
+				configuration.setInitialSpeed(Integer.valueOf(initialSpeedField.getText()));
+				configuration.setInitialEnergy(Integer.valueOf(initialEnergyField.getText()));
+				configuration.setSpeedReductionFactor(Double.valueOf(speedReductionFactorField.getText()));
+				configuration.setEnergyReductionAmount(Double.valueOf(energyReductionAmountField.getText()));
+				configuration.setProbabilityToMateDroneThreshold(Double.valueOf(probabilityToMateDroneThresholdField
+						.getText()));
+
+				Diet4Elders d4e = new Diet4Elders();
+				d4e.run(configuration);
+				outputTextArea.setText(baos.toString());
+				outputTextArea.setCaretPosition(baos.toString().length());
+			}
+			// }.start();
+			// }
 		});
 
 		add(runPopSizeVariationConfigurationButton);
@@ -224,23 +228,21 @@ public class Main extends Applet implements MouseListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new Diet4Elders().run(ConfigurationsGenerator.getConfigFromIniFile("d:\\Poli\\cercetare\\HBMO_Eclipse\\diet4elders\\configs.ini"));
+				new Diet4Elders().run(ConfigurationsGenerator.getConfigFromIniFile("configs.ini"));
 			}
 		});
 
 		// hack to redirect stdout to the text area:
 		// 1) first redirect to a stream
-		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		System.setOut(new PrintStream(baos));
 
 		// 2) refresh every X seconds: copy the content of the stream in the text area
 		new Thread() {
 			@Override
 			public void run() {
 				while (!isInterrupted()) {
-					outputTextArea.setText(baos.toString());
-					if (mousePress == false)
-						outputTextArea.setCaretPosition(baos.toString().length());
+					// outputTextArea.setText(baos.toString());
+					// if (mousePress == false)
+					// outputTextArea.setCaretPosition(baos.toString().length());
 					// outputTextArea.setCaretPosition(outputTextArea.getText().length());
 					try {
 						Thread.sleep(400);

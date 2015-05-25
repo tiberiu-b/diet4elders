@@ -34,7 +34,7 @@ public class BusinessLogicCacheFilteredOpt implements IBusinessLogic {
 	protected ArrayList<Menu> menuListCache;
 	protected ArrayList<FoodProviderPackage> packageListCache;
 	private ArrayList<String> allergyList;
-
+	private Random r = new Random();
 	private BusinessLogicCacheFilteredOpt() {
 		allergyList = new ArrayList<String>();
 	}
@@ -112,28 +112,24 @@ public class BusinessLogicCacheFilteredOpt implements IBusinessLogic {
 	}
 
 	public FoodProviderPackage generateSingleBreakfastPackages() {
-		Random r = new Random();
+		
 		return breakfastPackageListCache.get(r.nextInt(breakfastPackageListCache.size()));
 	}
 
 	public FoodProviderPackage generateSingleLunchPackages() {
-		Random r = new Random();
 		return lunchPackageListCache.get(r.nextInt(lunchPackageListCache.size()));
 	}
 
 	public FoodProviderPackage generateSingleDinnerPackages() {
-		Random r = new Random();
 		return dinnerPackageListCache.get(r.nextInt(dinnerPackageListCache.size()));
 	}
 
 	public FoodProviderPackage generateSingleSnackPackages() {
-		Random r = new Random();
 		return snackPackageListCache.get(r.nextInt(snackPackageListCache.size()));
 	}
 
 	public ArrayList<FoodProviderPackage> generateBreakfastPackages(int numberOfSolutions) {
 		ArrayList<FoodProviderPackage> breakfastPackageList = new ArrayList<>();
-		Random r = new Random();
 		for (int i = 0; i < numberOfSolutions; i++) {
 			breakfastPackageList.add(breakfastPackageListCache.get(r.nextInt(breakfastPackageListCache.size())));
 		}
@@ -142,7 +138,6 @@ public class BusinessLogicCacheFilteredOpt implements IBusinessLogic {
 
 	public ArrayList<FoodProviderPackage> generateLunchPackages(int numberOfSolutions) {
 		ArrayList<FoodProviderPackage> lunchPackageList = new ArrayList<>();
-		Random r = new Random();
 		for (int i = 0; i < numberOfSolutions; i++) {
 			lunchPackageList.add(lunchPackageListCache.get(r.nextInt(lunchPackageListCache.size())));
 		}
@@ -151,7 +146,6 @@ public class BusinessLogicCacheFilteredOpt implements IBusinessLogic {
 
 	public ArrayList<FoodProviderPackage> generateDinnerPackages(int numberOfSolutions) {
 		ArrayList<FoodProviderPackage> dinnerPackageList = new ArrayList<>();
-		Random r = new Random();
 		for (int i = 0; i < numberOfSolutions; i++) {
 			dinnerPackageList.add(dinnerPackageListCache.get(r.nextInt(dinnerPackageListCache.size())));
 		}
@@ -160,7 +154,6 @@ public class BusinessLogicCacheFilteredOpt implements IBusinessLogic {
 
 	public ArrayList<FoodProviderPackage> generateSnackPackages(int numberOfSolutions) {
 		ArrayList<FoodProviderPackage> snackPackageList = new ArrayList<>();
-		Random r = new Random();
 		for (int i = 0; i < numberOfSolutions; i++) {
 			snackPackageList.add(snackPackageListCache.get(r.nextInt(snackPackageListCache.size())));
 		}

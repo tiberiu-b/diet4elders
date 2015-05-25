@@ -3,6 +3,7 @@ package org.licenta.d4elders.algorithm;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Random;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.logging.Level;
@@ -60,9 +61,19 @@ public class HoneyBeeMatingOptimization extends MainAlgorithm {
 		BroodImproverHelper broodImprover = new BroodImproverHelper();
 
 		// an initial set of solutions (bees) is generated
-		SortedSet<Solution> solutions = InitialSolutionsGenerator.generateRandomSolutions(algorithmConfiguration
-				.getPopSize());
+		// SortedSet<Solution> solutions =
+		// InitialSolutionsGenerator.generateRandomSolutions(algorithmConfiguration
+		// .getPopSize());
+		SortedSet<Solution> solutions = InitialSolutionsGenerator.generateRandomSolutionsWithSimilarityCoeff(
+				algorithmConfiguration.getPopSize(), algorithmConfiguration.getSimilarityCoefficientThreshold());
 
+		// for (Solution sol : solutions) {
+		// System.out.println(sol.getDailyMenu().getBreakfast().getPackageId() + ", "
+		// + sol.getDailyMenu().getLunch().getPackageId() + ", "
+		// + sol.getDailyMenu().getDinner().getPackageId() + ", "
+		// + sol.getDailyMenu().getSnack1().getPackageId() + ", "
+		// + sol.getDailyMenu().getSnack2().getPackageId());
+		// }
 		// the bee with the highest fitness function is selected, the others
 		// become drones
 		Solution queen = solutions.last();
@@ -94,6 +105,8 @@ public class HoneyBeeMatingOptimization extends MainAlgorithm {
 					// broods.addAll((queen.createBroods(drone)));
 					broods.addAll(workerModificationStrategy(drone, queen));
 				}
+				if (nrOfDronesTheQueenMatedWith > algorithmConfiguration.getMaxNrMatings())
+					break;
 			}
 
 			// If there is no drone with good enough fitness generate new random
@@ -113,13 +126,25 @@ public class HoneyBeeMatingOptimization extends MainAlgorithm {
 			// current solutions
 			// The old drones die, thus the new drones will be top 40 broods
 			// that have the best fitness (take the last 40 broods)
+			// solutions = new TreeSet<Solution>();
+			// int nrOfBadBroods = broods.size() - algorithmConfiguration.getPopSize();
+			// for (Solution br : broods) {
+			// if (nrOfBadBroods > 0)
+			// nrOfBadBroods--;
+			// else
+			// solutions.add(br);
+			// }
+			// select new population randomly
 			solutions = new TreeSet<Solution>();
-			int nrOfBadBroods = broods.size() - algorithmConfiguration.getPopSize();
-			for (Solution br : broods) {
-				if (nrOfBadBroods > 0)
-					nrOfBadBroods--;
-				else
-					solutions.add(br);
+			int curPopSize = algorithmConfiguration.getPopSize();
+			Random r = new Random();
+			for (Solution sol : broods) {
+				if (r.nextBoolean()) {
+					solutions.add(sol);
+					curPopSize--;
+				}
+				if (curPopSize <= 0)
+					break;
 			}
 			// printNewSetOfSolutions(solutions);
 
@@ -128,9 +153,11 @@ public class HoneyBeeMatingOptimization extends MainAlgorithm {
 			// if bestBrood has a greater fitness function then
 			if (bestBrood.compareTo(queen) > 0) {
 				queen = bestBrood;
-				/*
-				 * System.out .println("Found better! Queen is replaced with brood");
-				 */
+				System.out.println(queen.getDailyMenu().getBreakfast().getPackageId() + ", "
+						+ queen.getDailyMenu().getLunch().getPackageId() + ", "
+						+ queen.getDailyMenu().getDinner().getPackageId() + ", "
+						+ queen.getDailyMenu().getSnack1().getPackageId() + ", "
+						+ queen.getDailyMenu().getSnack2().getPackageId());
 			}
 
 			/*
@@ -146,7 +173,6 @@ public class HoneyBeeMatingOptimization extends MainAlgorithm {
 		duration = System.currentTimeMillis() - startTime;
 		return queen;
 	}
-
 
 	@Override
 	public ArrayList<String> getCustomHeadersForExportedData() {

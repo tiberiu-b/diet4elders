@@ -25,9 +25,9 @@ public class UserProfileStub {
 
 	private void generateMockupValues() {
 		// Default value for PAF is 1.2
-		setAge(50);
-		setHeight(165);
-		setWeight(100);
+		setAge(25);
+		setHeight(180);
+		setWeight(78);
 		setGender(GenderType.Male);
 		setPAF(1.7);
 
@@ -37,9 +37,9 @@ public class UserProfileStub {
 		getDislikeList().add("Gingernut biscuits");
 		getDislikeList().add("Oat based biscuits");
 
-		 getAllergyList().add("butter");
-		 getAllergyList().add("milk");
-		 getAllergyList().add("apricot");
+		// getAllergyList().add("butter");
+		// getAllergyList().add("milk");
+		// getAllergyList().add("apricot");
 
 	}
 

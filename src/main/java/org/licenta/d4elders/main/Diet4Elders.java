@@ -16,6 +16,7 @@ import org.licenta.d4elders.helper.DataExporter;
 import org.licenta.d4elders.helper.DataExporterException;
 import org.licenta.d4elders.model.Solution;
 import org.licenta.d4elders.model.user_profile.NutritionalRecommandationHelper;
+import org.licenta.d4elders.model.user_profile.UserProfileHelper;
 import org.licenta.d4elders.model.user_profile.UserProfileStub;
 
 public class Diet4Elders {
@@ -31,7 +32,6 @@ public class Diet4Elders {
 		// BusinessLogicCache bLogicCache = BusinessLogicCache.getInstance();
 		BusinessLogicCacheFilteredOpt blCacheFiltered = BusinessLogicCacheFilteredOpt.getInstance();
 		blCacheFiltered.loadOntologyDataIntoMemory(userProfile.getAllergyList());
-
 	}
 
 	public void run(AlgorithmConfiguration configuration) {

@@ -28,7 +28,7 @@ public class AlgorithmRunner {
 		System.out.println("Number of iterations: " + info.nrOfItertions);
 
 		System.out.println("Duration of execution(in millis): " + info.duration);
-
+		System.out.println();
 		// Export data
 		ArrayList<String> data = configuration.getAllDataAsString();
 		data.add(String.valueOf(queen.getFitness()));
@@ -43,8 +43,8 @@ public class AlgorithmRunner {
 		}
 	}
 
-	public static void run(ArrayList<AlgorithmConfiguration> configurations){
-		for(AlgorithmConfiguration config : configurations){
+	public static void run(ArrayList<AlgorithmConfiguration> configurations) {
+		for (AlgorithmConfiguration config : configurations) {
 			run(config);
 		}
 	}
