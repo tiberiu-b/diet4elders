@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.SortedSet;
 
 import org.junit.Test;
-import org.licenta.d4elders.main.InitialSolutionsGenerator;
+import org.licenta.d4elders.dal.helper.RandomSolutionsGenerator;
 import org.licenta.d4elders.model.Solution;
 
 public class BusinessLogicTest {

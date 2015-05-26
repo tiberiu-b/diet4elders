@@ -10,9 +10,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.licenta.d4elders.algorithm.broodImprover.BroodImproverHelper;
-import org.licenta.d4elders.helper.AlgorithmConfiguration;
-import org.licenta.d4elders.helper.AvailableProgramConfigurationOptions;
-import org.licenta.d4elders.main.InitialSolutionsGenerator;
+import org.licenta.d4elders.algorithm.helper.*;
+import org.licenta.d4elders.dal.helper.RandomSolutionsGenerator;
+import org.licenta.d4elders.dal.helper.SolutionsGenerator;
+import org.licenta.d4elders.main.*;
 import org.licenta.d4elders.model.Solution;
 
 /**
@@ -25,6 +26,8 @@ import org.licenta.d4elders.model.Solution;
 public class HoneyBeeMatingOptimization extends MainAlgorithm {
 	private static final Logger log = Logger
 			.getLogger(HoneyBeeMatingOptimization.class.getName());
+
+	private SolutionsGenerator solGenerator;
 
 	private AlgorithmConfiguration algorithmConfiguration = null;
 
@@ -44,13 +47,14 @@ public class HoneyBeeMatingOptimization extends MainAlgorithm {
 
 	}
 
-	public HoneyBeeMatingOptimization() {
-		this(null);
+	public HoneyBeeMatingOptimization(SolutionsGenerator solGenerator) {
+		this.setSolGenerator(solGenerator);
 	}
 
-	public HoneyBeeMatingOptimization(
+	public HoneyBeeMatingOptimization(SolutionsGenerator solutionsGenerator,
 			AlgorithmConfiguration algorithmConfiguration) {
 		setAlgorithmConfiguration(algorithmConfiguration);
+		setSolGenerator(solutionsGenerator);
 	}
 
 	@Override
@@ -69,7 +73,7 @@ public class HoneyBeeMatingOptimization extends MainAlgorithm {
 		// SortedSet<Solution> solutions =
 		// InitialSolutionsGenerator.generateRandomSolutions(algorithmConfiguration
 		// .getPopSize());
-		SortedSet<Solution> solutions = InitialSolutionsGenerator
+		SortedSet<Solution> solutions = getSolGenerator()
 				.generateRandomSolutionsWithSimilarityCoeff(
 						algorithmConfiguration.getPopSize(),
 						algorithmConfiguration
@@ -127,9 +131,8 @@ public class HoneyBeeMatingOptimization extends MainAlgorithm {
 			// if needed or not
 			if (broods.isEmpty()) {
 				System.out.println("Generating new set of solutions..");
-				solutions = InitialSolutionsGenerator
-						.generateRandomSolutions(algorithmConfiguration
-								.getPopSize());
+				solutions = getSolGenerator().generateRandomSolutions(
+						algorithmConfiguration.getPopSize());
 				queen.nextIteration();
 				continue;
 			}
@@ -232,5 +235,13 @@ public class HoneyBeeMatingOptimization extends MainAlgorithm {
 		log.log(Level.SEVERE,
 				"Returning null due to invalid worker modification strategy!");
 		return null;
+	}
+
+	public SolutionsGenerator getSolGenerator() {
+		return solGenerator;
+	}
+
+	public void setSolGenerator(SolutionsGenerator solGenerator) {
+		this.solGenerator = solGenerator;
 	}
 }

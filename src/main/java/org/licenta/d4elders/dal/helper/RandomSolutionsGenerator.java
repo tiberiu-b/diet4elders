@@ -1,4 +1,4 @@
-package org.licenta.d4elders.main;
+package org.licenta.d4elders.dal.helper;
 
 /*
  import org.licenta.d4elders.dal.FoodFactory;
@@ -26,7 +26,7 @@ import org.licenta.d4elders.model.food_package.FoodProviderPackage;
 import org.licenta.d4elders.model.food_package.Menu;
 import org.licenta.d4elders.model.user_profile.NutritionalRecommendation;
 
-public class InitialSolutionsGenerator {
+public class RandomSolutionsGenerator extends SolutionsGenerator {
 
 	public static final int NR_INITIAL_SOLUTIONS = 100;
 	// public static final double MIN = 0.8;
@@ -41,14 +41,17 @@ public class InitialSolutionsGenerator {
 	 *
 	 * @return A SortedSet (Tree) filled with random solutions.
 	 */
-	public static TreeSet<Solution> generateRandomSolutions(int size) {
+	@Override
+	public TreeSet<Solution> generateRandomSolutions(int size) {
 		TreeSet<Solution> solutions = new TreeSet<Solution>();
 		// BusinessLogic bl = new BusinessLogic();
 		// BusinessLogicCache bl = BusinessLogicCache.getInstance();
-		BusinessLogicCacheFilteredOpt bl = BusinessLogicCacheFilteredOpt.getInstance();
+		BusinessLogicCacheFilteredOpt bl = BusinessLogicCacheFilteredOpt
+				.getInstance();
 
 		for (int i = 0; i < size; i++) {
-			FoodProviderPackage breakfast = bl.generateSingleBreakfastPackages();
+			FoodProviderPackage breakfast = bl
+					.generateSingleBreakfastPackages();
 			FoodProviderPackage lunch = bl.generateSingleLunchPackages();
 			FoodProviderPackage dinner = bl.generateSingleDinnerPackages();
 			FoodProviderPackage snack1 = bl.generateSingleSnackPackages();
@@ -57,14 +60,15 @@ public class InitialSolutionsGenerator {
 			while (maxCount > 0) {
 				maxCount--;
 				snack2 = bl.generateSingleSnackPackages();
-				if (snack1.getMenu().getMainCourse().getMainDish().getDishId() != snack2.getMenu().getMainCourse()
-						.getMainDish().getDishId())
+				if (snack1.getMenu().getMainCourse().getMainDish().getDishId() != snack2
+						.getMenu().getMainCourse().getMainDish().getDishId())
 					break;
 			}
 			if (snack2 == null)
 				snack2 = snack1;
 
-			DailyMenu dailyMenu = new DailyMenu(breakfast, lunch, dinner, snack1, snack2);
+			DailyMenu dailyMenu = new DailyMenu(breakfast, lunch, dinner,
+					snack1, snack2);
 			Solution curSol = new Solution(dailyMenu);
 
 			if (solutions.add(curSol) == false) {
@@ -82,14 +86,18 @@ public class InitialSolutionsGenerator {
 	 *
 	 * @return A SortedSet (Tree) filled with random solutions.
 	 */
-	public static TreeSet<Solution> generateRandomSolutionsWithSimilarityCoeff(int size, double similarityCoefficientThreshold) {
+	@Override
+	public TreeSet<Solution> generateRandomSolutionsWithSimilarityCoeff(
+			int size, double similarityCoefficientThreshold) {
 		TreeSet<Solution> solutions = new TreeSet<Solution>();
 		// BusinessLogic bl = new BusinessLogic();
 		// BusinessLogicCache bl = BusinessLogicCache.getInstance();
-		BusinessLogicCacheFilteredOpt bl = BusinessLogicCacheFilteredOpt.getInstance();
+		BusinessLogicCacheFilteredOpt bl = BusinessLogicCacheFilteredOpt
+				.getInstance();
 
 		for (int i = 0; i < size; i++) {
-			FoodProviderPackage breakfast = bl.generateSingleBreakfastPackages();
+			FoodProviderPackage breakfast = bl
+					.generateSingleBreakfastPackages();
 			FoodProviderPackage lunch = bl.generateSingleLunchPackages();
 			FoodProviderPackage dinner = bl.generateSingleDinnerPackages();
 			FoodProviderPackage snack1 = bl.generateSingleSnackPackages();
@@ -98,18 +106,20 @@ public class InitialSolutionsGenerator {
 			while (maxCount > 0) {
 				maxCount--;
 				snack2 = bl.generateSingleSnackPackages();
-				if (snack1.getMenu().getMainCourse().getMainDish().getDishId() != snack2.getMenu().getMainCourse()
-						.getMainDish().getDishId())
+				if (snack1.getMenu().getMainCourse().getMainDish().getDishId() != snack2
+						.getMenu().getMainCourse().getMainDish().getDishId())
 					break;
 			}
 			if (snack2 == null)
 				snack2 = snack1;
 
-			DailyMenu dailyMenu = new DailyMenu(breakfast, lunch, dinner, snack1, snack2);
+			DailyMenu dailyMenu = new DailyMenu(breakfast, lunch, dinner,
+					snack1, snack2);
 			Solution curSol = new Solution(dailyMenu);
 			boolean solutionValid = true;
 			for (Solution s : solutions) {
-				if (s.getSolutionSimilarityCoefficient(curSol) > similarityCoefficientThreshold) {
+				double similarity = s.getSolutionSimilarityCoefficient(curSol);
+				if (similarity > similarityCoefficientThreshold) {
 					solutionValid = false;
 					break;
 				}
@@ -128,7 +138,8 @@ public class InitialSolutionsGenerator {
 		return solutions;
 	}
 
-	public static SortedSet<Solution> generateRandomSolutions() {
+	@Override
+	public SortedSet<Solution> generateRandomSolutions() {
 		return generateRandomSolutions(NR_INITIAL_SOLUTIONS);
 	}
 

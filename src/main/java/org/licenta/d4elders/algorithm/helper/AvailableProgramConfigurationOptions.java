@@ -1,4 +1,4 @@
-package org.licenta.d4elders.helper;
+package org.licenta.d4elders.algorithm.helper;
 
 import java.util.ArrayList;
 

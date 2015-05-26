@@ -1,4 +1,4 @@
-package org.licenta.d4elders.main;
+package org.licenta.d4elders.dal.helper;
 
 import org.licenta.d4elders.ontology.FoodProviderOntology;
 import com.hp.hpl.jena.rdf.model.Model;

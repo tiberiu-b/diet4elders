@@ -6,12 +6,13 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.SortedSet;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.licenta.d4elders.algorithm.AnnealingScheduler;
-import org.licenta.d4elders.main.InitialSolutionsGenerator;
+import org.licenta.d4elders.dal.helper.RandomSolutionsGenerator;
 import org.licenta.d4elders.model.Solution;
 import org.licenta.d4elders.model.user_profile.NutritionalRecommandationHelper;
 import org.licenta.d4elders.model.user_profile.UserProfileStub;
@@ -43,7 +44,7 @@ public class BroodImproverTest {
 	@Test
 	public void testImprove() {
 
-		Solution sol = InitialSolutionsGenerator.generateRandomSolutions(1).first();
+		Solution sol = RandomSolutionsGenerator.generateRandomSolutions(1).first();
 		double fintess1 = sol.getFitness();
 
 		sol = new SimulatedAnnealingBroodImprover(new AnnealingScheduler(1, 90, 0.1)).improve(sol);
@@ -62,7 +63,7 @@ public class BroodImproverTest {
 	public void testImproveCollection(){
 		final int size = 1000;
 
-		SortedSet<Solution> solutions = InitialSolutionsGenerator.generateRandomSolutions(size);
+		SortedSet<Solution> solutions = RandomSolutionsGenerator.generateRandomSolutions(size);
 		double fitnessAvg = fitnessAverage(solutions);
 
 		long startTime1 = System.currentTimeMillis();
