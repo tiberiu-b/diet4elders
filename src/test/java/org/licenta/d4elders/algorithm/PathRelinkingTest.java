@@ -15,19 +15,21 @@ import org.licenta.d4elders.model.user_profile.UserProfileStub;
 public class PathRelinkingTest {
 
 	@Before
-	public void init(){
+	public void init() {
 		new NutritionalRecommandationHelper(new UserProfileStub());
 	}
 
 	@Test
 	public void testPathRelinking() {
-		SortedSet<Solution> solutions = RandomSolutionsGenerator.generateRandomSolutions(5);
+		RandomSolutionsGenerator gen = new RandomSolutionsGenerator();
+		SortedSet<Solution> solutions = gen.generateRandomSolutions(5);
 		Solution queen = solutions.last();
 		Solution drone = solutions.first();
 
-		SortedSet<Solution> relinkedPath = PathRelinking.pathRelinking(drone, queen);
+		SortedSet<Solution> relinkedPath = PathRelinking.pathRelinking(drone,
+				queen);
 
-		for(Solution brood : relinkedPath){
+		for (Solution brood : relinkedPath) {
 			System.out.println(brood.getFitness());
 		}
 	}
