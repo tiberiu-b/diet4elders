@@ -30,9 +30,10 @@ public class Solution implements Comparable<Solution> {
 	private int speed = initialSpeed;
 	private int energy = initialEnergy;
 	private double fitness = 0;
-
+	private double f1,f2,f3;
 	private static int initialSpeed = 0;
 	private static int initialEnergy = 0;
+	private static double errorMargin2_K;
 	public static double speedReductionFactor = 0;
 	public static double energyReductionAmount = 0;
 	public static double probabilityToMateDroneThreshold = 0;
@@ -46,6 +47,7 @@ public class Solution implements Comparable<Solution> {
 				.getEnergyReductionAmount();
 		probabilityToMateDroneThreshold = algorithmConfiguration
 				.getProbabilityToMateDroneThreshold();
+		errorMargin2_K = algorithmConfiguration.getErrorMargin2_K();
 	}
 
 	public Solution() {
@@ -87,10 +89,16 @@ public class Solution implements Comparable<Solution> {
 	 * @return The fitness function of this solution.
 	 */
 	private void computeFitness() {
-		// return (Math.exp(-x * x) + Math.exp(-y * y)) / 2.0;
-		// return 0.5 * (getFitnessLevel1() + getFitnessLevel2());
-		// fitness = 0.5 * (getFitnessLevel1() + getFitnessLevel2());
-		fitness = getFitnessLevel1();
+		setF1(getFitnessLevel1());
+		setF2(getFitnessLevel2());
+		setF3(getFitnessLevel3());
+		int w1 = 1;
+		// if user did not add any food item preferences => weight is 0
+		int w2 = (UserProfileHelper.getPreferenceList().size() == 0) ? 0 : 1;
+		int w3 = 1;
+
+		float topF = (float) ((w1 * getF1() + w2 * getF2() + w3 * getF3()) / (w1 + w2 + w3));
+		fitness = topF;
 	}
 
 	private float getFitnessLevel1() {
@@ -112,19 +120,19 @@ public class Solution implements Comparable<Solution> {
 						.getCarbohydratesLowerLimit(),
 				NutritionalRecommandationHelper.nutrR
 						.getCarbohydratesUpperLimit());
-		ironErr = errorMargin(dailyMenu.getIron(),
+		ironErr = errorMarginLevel1(dailyMenu.getIron(),
 				NutritionalRecommandationHelper.nutrR.getIronFixed());
-		calciumErr = errorMargin(dailyMenu.getCalcium(),
+		calciumErr = errorMarginLevel1(dailyMenu.getCalcium(),
 				NutritionalRecommandationHelper.nutrR.getCalciumFixed());
-		sodiumErr = errorMargin(dailyMenu.getSodium(),
+		sodiumErr = errorMarginLevel1(dailyMenu.getSodium(),
 				NutritionalRecommandationHelper.nutrR.getSodiumFixed());
-		vitAErr = errorMargin(dailyMenu.getVitA(),
+		vitAErr = errorMarginLevel1(dailyMenu.getVitA(),
 				NutritionalRecommandationHelper.nutrR.getVitAFixed());
-		vitBErr = errorMargin(dailyMenu.getVitB(),
+		vitBErr = errorMarginLevel1(dailyMenu.getVitB(),
 				NutritionalRecommandationHelper.nutrR.getVitBFixed());
-		vitCErr = errorMargin(dailyMenu.getVitC(),
+		vitCErr = errorMarginLevel1(dailyMenu.getVitC(),
 				NutritionalRecommandationHelper.nutrR.getVitCFixed());
-		vitDErr = errorMargin(dailyMenu.getVitD(),
+		vitDErr = errorMarginLevel1(dailyMenu.getVitD(),
 				NutritionalRecommandationHelper.nutrR.getVitDFixed());
 
 		sum += proteinsErr
@@ -166,63 +174,63 @@ public class Solution implements Comparable<Solution> {
 		return sum / sum_weights;
 	}
 
-	// private double getFitnessLevel2() {
-	// Set<String> dayMealIngredientsSet =
-	// dayMeal.getNutrientsValuesMap().keySet();
-	// Set<String> preferenceSet = UserProfileHelper.getPreferenceSet();
-	// Set<String> allIngredientsSet = new
-	// TreeSet<String>(dayMealIngredientsSet);
-	// allIngredientsSet.addAll(preferenceSet);
-	//
-	// Set<String> likeSet = UserProfileHelper.getLikeList();
-	// Set<String> disLikeSet = UserProfileHelper.getDisLikeList();
-	//
-	// final int weight = 1;
-	// int sum_weights = 0;
-	// double sum = 0;
-	// int ideal = 0;
-	// int real = 0;
-	//
-	// for (String ingredient : preferenceSet) {
-	//
-	// ideal = likeSet.contains(ingredient) ? 1 : 0; // 1 for likeSet, 0 for
-	// disLike
-	// real = dayMealIngredientsSet.contains(ingredient) ? 1 : 0;
-	//
-	// sum += weight * errorMarginIngredients(real, ideal);
-	// sum_weights += weight;
-	//
-	// }
-	//
-	// return sum / sum_weights;
-	// }
-	/**
-	 * Computes the error margin for fitness level 2. It is based on the lookup
-	 * table described in the documentation.
-	 *
-	 * @param real
-	 *            the
-	 * @param ideal
-	 * @return
-	 */
-	private double errorMarginIngredients(int real, int ideal) {
-		// Look table
-		if (real == 1)
-			return ideal;
+	private float getFitnessLevel2() {
 
-		if (ideal == 0)
-			return 1;
+		ArrayList<String> ingrList = dailyMenu.getIngredientList();
+		ArrayList<String> prefList = UserProfileHelper.getPreferenceList();
+		ArrayList<String> likeList = UserProfileHelper.getLikeList();
+		ArrayList<String> dislikeList = UserProfileHelper.getDislikeList();
 
-		return .7;
+		final int weight = 1;
+		int sum_weights = 0;
+		double sum = 0;
+		int ideal = 0;
+		int real = 0;
+
+		for (String ingr : prefList) {
+			ideal = likeList.contains(ingr) ? 1 : 0; // 1 for likeList, 0 for
+														// dislike list
+			real = ingrList.contains(ingr) ? 1 : 0;
+
+			sum += weight * errorMarginLevel2(real, ideal);
+			sum_weights += weight;
+
+		}
+
+		return (float) (sum / sum_weights);
 	}
 
-	private double errorMargin(Float x, Float lower_limit) {
+	private float getFitnessLevel3() {
+		double totalMenusCost = dailyMenu.getBreakfast().getCost()
+				+ dailyMenu.getLunch().getCost()
+				+ dailyMenu.getDinner().getCost()
+				+ dailyMenu.getSnack1().getCost()
+				+ dailyMenu.getSnack2().getCost();
+		double costErrorMargin = errorMarginLevel3(totalMenusCost,
+				UserProfileHelper.getAvgCost());
+		double avgDeliveryTime = (dailyMenu.getBreakfast().getDeliveryTime()
+				+ dailyMenu.getLunch().getDeliveryTime()
+				+ dailyMenu.getDinner().getDeliveryTime()
+				+ dailyMenu.getSnack1().getDeliveryTime() + dailyMenu
+				.getSnack2().getDeliveryTime()) / 5.0;
+		double deliveryTimeErrorMargin = errorMarginLevel3(avgDeliveryTime,
+				UserProfileHelper.getAvgDeliveryTime());
+		double wCost = 1;
+		double wDelivery = 1;
+		double fitnessValue = (wCost * costErrorMargin + wDelivery
+				* deliveryTimeErrorMargin)
+				/ (wCost + wDelivery);
+		return (float) fitnessValue;
+	}
+
+	private double errorMarginLevel1(Float x, Float lower_limit) {
 		final Float MAX = new Float(1);
 
 		lower_limit = (float) ((lower_limit != 0) ? lower_limit : 0.000001); // don't
 																				// divide
 																				// by
 																				// 0
+
 		x = (float) (x * MAX / lower_limit);
 		lower_limit = MAX;
 
@@ -234,9 +242,36 @@ public class Solution implements Comparable<Solution> {
 		if (lower_limit <= x && x <= upper_limit)
 			return (float) 1;
 		else if (x < lower_limit)
-			return (float) errorMargin(x, lower_limit);
+			return (float) errorMarginLevel1(x, lower_limit);
 		else
-			return (float) errorMargin(x, upper_limit);
+			return (float) errorMarginLevel1(x, upper_limit);
+	}
+
+	/**
+	 * Computes the error margin for fitness level 2. It is based on the lookup
+	 * table described in the documentation.
+	 *
+	 * @param real
+	 *            the
+	 * @param ideal
+	 * @return
+	 */
+	private double errorMarginLevel2(int real, int ideal) {
+		// Look table
+		if (real == 1)
+			return ideal;
+
+		if (ideal == 0)
+			return 1;
+
+		return errorMargin2_K;
+	}
+
+	private double errorMarginLevel3(double real, double ideal) {
+		double c = 0.35;
+		if (real < ideal)
+			return 1;
+		return Math.exp(-(1 - real / ideal) * (1 - real / ideal) / c);
 	}
 
 	/**
@@ -544,6 +579,30 @@ public class Solution implements Comparable<Solution> {
 				.getSnack2().getMenu().getMenuId())
 			sumComp++;
 		return sumComp / sumOfWeights;
+	}
+
+	public double getF1() {
+		return f1;
+	}
+
+	public void setF1(double f1) {
+		this.f1 = f1;
+	}
+
+	public double getF2() {
+		return f2;
+	}
+
+	public void setF2(double f2) {
+		this.f2 = f2;
+	}
+
+	public double getF3() {
+		return f3;
+	}
+
+	public void setF3(double f3) {
+		this.f3 = f3;
 	}
 
 	/**

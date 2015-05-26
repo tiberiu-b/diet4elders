@@ -29,7 +29,36 @@ public class AlgorithmRunner {
 
 		// Print results
 		System.out.println("___\nFinal Result:");
-		System.out.println(queen + "\nFitness: " + queen.getFitness());
+		System.out.println("	Breakfast: MenuId "
+				+ queen.getDailyMenu().getBreakfast().getMenu().getMenuId()
+				+ " Cost: " + queen.getDailyMenu().getBreakfast().getCost()
+				+ " DeliveryTime: "
+				+ queen.getDailyMenu().getBreakfast().getDeliveryTime());
+		System.out.println("	Lunch: MenuId "
+				+ queen.getDailyMenu().getLunch().getMenu().getMenuId()
+				+ " Cost: " + queen.getDailyMenu().getLunch().getCost()
+				+ " DeliveryTime: "
+				+ queen.getDailyMenu().getLunch().getDeliveryTime());
+		System.out.println("	Dinner: MenuId "
+				+ queen.getDailyMenu().getDinner().getMenu().getMenuId()
+				+ " Cost: " + queen.getDailyMenu().getDinner().getCost()
+				+ " DeliveryTime: "
+				+ queen.getDailyMenu().getDinner().getDeliveryTime());
+		System.out.println("	Snack1: MenuId "
+				+ queen.getDailyMenu().getSnack1().getMenu().getMenuId()
+				+ " Cost: " + queen.getDailyMenu().getSnack1().getCost()
+				+ " DeliveryTime: "
+				+ queen.getDailyMenu().getSnack1().getDeliveryTime());
+		System.out.println("	Snack2: MenuId "
+				+ queen.getDailyMenu().getSnack2().getMenu().getMenuId()
+				+ " Cost: " + queen.getDailyMenu().getSnack2().getCost()
+				+ " DeliveryTime: "
+				+ queen.getDailyMenu().getSnack2().getDeliveryTime());
+		// System.out.println(queen);
+		System.out.println("Fitness: " + queen.getFitness() + "--- f1: "
+				+ queen.getF1() + "--- f2: " + queen.getF2() + "--- f3: "
+				+ queen.getF3());
+		//
 		System.out.println("Number of iterations: " + info.nrOfItertions);
 
 		System.out

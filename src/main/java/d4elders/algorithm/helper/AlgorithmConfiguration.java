@@ -6,7 +6,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class AlgorithmConfiguration {
-	private static final Logger log = Logger.getLogger(AlgorithmConfiguration.class.getName());
+	private static final Logger log = Logger
+			.getLogger(AlgorithmConfiguration.class.getName());
 
 	private String broodModificationStrategy;
 	private ArrayList<String> workerModificationStrategies = new ArrayList<String>();
@@ -18,15 +19,14 @@ public class AlgorithmConfiguration {
 	private double energyReductionAmount;
 	private double probabilityToMateDroneThreshold;
 	private double similarityCoefficientThreshold = 0.8;
-
-
+	private double errorMargin2_K = 0.7;
 
 	public AlgorithmConfiguration(String broodModificationStrategy,
 			ArrayList<String> workerModificationStrategies, int maxNrMatings,
 			int popSize, int initialSpeed, int initialEnergy,
 			double speedReductionFactor, double energyReductionAmount,
 			double probabilityToMateDroneThreshold,
-			double similarityCoefficientThreshold) {
+			double similarityCoefficientThreshold, double errorMargin2_K) {
 		super();
 		this.broodModificationStrategy = broodModificationStrategy;
 		this.workerModificationStrategies = workerModificationStrategies;
@@ -38,6 +38,7 @@ public class AlgorithmConfiguration {
 		this.energyReductionAmount = energyReductionAmount;
 		this.probabilityToMateDroneThreshold = probabilityToMateDroneThreshold;
 		this.similarityCoefficientThreshold = similarityCoefficientThreshold;
+		this.setErrorMargin2_K(errorMargin2_K);
 	}
 
 	/**
@@ -45,9 +46,12 @@ public class AlgorithmConfiguration {
 	 */
 	public AlgorithmConfiguration() {
 		broodModificationStrategy = AvailableProgramConfigurationOptions.SIMPLE_CROSSOVER;
-		workerModificationStrategies.add(AvailableProgramConfigurationOptions.HILL_CLIMBING);
-		workerModificationStrategies.add(AvailableProgramConfigurationOptions.SIMULATED_ANNEALING);
-		workerModificationStrategies.add(AvailableProgramConfigurationOptions.SIMPLE_TABU_SEARCH);
+		workerModificationStrategies
+				.add(AvailableProgramConfigurationOptions.HILL_CLIMBING);
+		workerModificationStrategies
+				.add(AvailableProgramConfigurationOptions.SIMULATED_ANNEALING);
+		workerModificationStrategies
+				.add(AvailableProgramConfigurationOptions.SIMPLE_TABU_SEARCH);
 		maxNrMatings = 15;
 		popSize = 20;
 		initialSpeed = 100;
@@ -59,30 +63,40 @@ public class AlgorithmConfiguration {
 
 	@Override
 	public String toString() {
-		return "broodModificationStrategy=" + broodModificationStrategy + "\n" + "workerModificationStrategies="
-				+ workerModificationStrategies + "\n" + "maxNrMatings=" + maxNrMatings + "\npopSize=" + popSize
-				+ "\ninitialSpeed=" + initialSpeed + "\ninitialEnergy=" + initialEnergy + "\nspeedReductionFactor="
-				+ speedReductionFactor + "\nenergyReductionAmount=" + energyReductionAmount
-				+ "\nprobabilityToMateDroneThreshold=" + probabilityToMateDroneThreshold;
+		return "broodModificationStrategy=" + broodModificationStrategy + "\n"
+				+ "workerModificationStrategies="
+				+ workerModificationStrategies + "\n" + "maxNrMatings="
+				+ maxNrMatings + "\npopSize=" + popSize + "\ninitialSpeed="
+				+ initialSpeed + "\ninitialEnergy=" + initialEnergy
+				+ "\nspeedReductionFactor=" + speedReductionFactor
+				+ "\nenergyReductionAmount=" + energyReductionAmount
+				+ "\nprobabilityToMateDroneThreshold="
+				+ probabilityToMateDroneThreshold;
 	}
 
 	/**
-	 * Returns the stored information in a nice format: Map[param]=value NOT Anymore - just a list
+	 * Returns the stored information in a nice format: Map[param]=value NOT
+	 * Anymore - just a list
+	 * 
 	 * @return a Map from param to its value
 	 */
-	public ArrayList<String> getAllDataAsString(){
+	public ArrayList<String> getAllDataAsString() {
 		/*
-		Map<String, String> data = new HashMap<String, String>();
-		data.put("broodModificationStrategy", AvailableProgramConfigurationOptions.SIMPLE_CROSSOVER.toString());
-		data.put("workerModificationStrategies", workerModificationStrategies.toString());
-		data.put("maxNrMatings", String.valueOf(maxNrMatings));
-		data.put("popSize", String.valueOf(popSize));
-		data.put("initialSpeed", String.valueOf(initialSpeed));
-		data.put("initialEnergy", String.valueOf(initialEnergy));
-		data.put("speedReductionFactor", String.valueOf(speedReductionFactor));
-		data.put("energyReductionAmount", String.valueOf(energyReductionAmount));
-		data.put("probabilityToMateDroneThreshold", String.valueOf(probabilityToMateDroneThreshold));
-		*/
+		 * Map<String, String> data = new HashMap<String, String>();
+		 * data.put("broodModificationStrategy",
+		 * AvailableProgramConfigurationOptions.SIMPLE_CROSSOVER.toString());
+		 * data.put("workerModificationStrategies",
+		 * workerModificationStrategies.toString()); data.put("maxNrMatings",
+		 * String.valueOf(maxNrMatings)); data.put("popSize",
+		 * String.valueOf(popSize)); data.put("initialSpeed",
+		 * String.valueOf(initialSpeed)); data.put("initialEnergy",
+		 * String.valueOf(initialEnergy)); data.put("speedReductionFactor",
+		 * String.valueOf(speedReductionFactor));
+		 * data.put("energyReductionAmount",
+		 * String.valueOf(energyReductionAmount));
+		 * data.put("probabilityToMateDroneThreshold",
+		 * String.valueOf(probabilityToMateDroneThreshold));
+		 */
 		ArrayList<String> data = new ArrayList<String>();
 		data.add(broodModificationStrategy.toString());
 		data.add(workerModificationStrategies.toString());
@@ -103,8 +117,10 @@ public class AlgorithmConfiguration {
 	}
 
 	public void addWorkerModificationStrategy(String strategy) {
-		if (!AvailableProgramConfigurationOptions.getAvailableWorkerModificationStrategies().contains(strategy)) {
-			log.log(Level.SEVERE, "Invalid worker modification strategy " + strategy);
+		if (!AvailableProgramConfigurationOptions
+				.getAvailableWorkerModificationStrategies().contains(strategy)) {
+			log.log(Level.SEVERE, "Invalid worker modification strategy "
+					+ strategy);
 		}
 
 		workerModificationStrategies.add(strategy);
@@ -115,8 +131,10 @@ public class AlgorithmConfiguration {
 	}
 
 	public void setBroodModificationStrategy(String strategy) {
-		if (!AvailableProgramConfigurationOptions.getAvailableBroodModificationStrategies().contains(strategy)) {
-			log.log(Level.SEVERE, "Invalid brood modification strategy " + strategy);
+		if (!AvailableProgramConfigurationOptions
+				.getAvailableBroodModificationStrategies().contains(strategy)) {
+			log.log(Level.SEVERE, "Invalid brood modification strategy "
+					+ strategy);
 		}
 		broodModificationStrategy = strategy;
 	}
@@ -149,7 +167,8 @@ public class AlgorithmConfiguration {
 		return probabilityToMateDroneThreshold;
 	}
 
-	public void setProbabilityToMateDroneThreshold(double probabilityToMateDroneThreshold) {
+	public void setProbabilityToMateDroneThreshold(
+			double probabilityToMateDroneThreshold) {
 		this.probabilityToMateDroneThreshold = probabilityToMateDroneThreshold;
 	}
 
@@ -189,8 +208,17 @@ public class AlgorithmConfiguration {
 		return similarityCoefficientThreshold;
 	}
 
-	public void setSimilarityCoefficientThreshold(double similarityCoefficientThreshold) {
+	public void setSimilarityCoefficientThreshold(
+			double similarityCoefficientThreshold) {
 		this.similarityCoefficientThreshold = similarityCoefficientThreshold;
+	}
+
+	public double getErrorMargin2_K() {
+		return errorMargin2_K;
+	}
+
+	public void setErrorMargin2_K(double errorMargin2_K) {
+		this.errorMargin2_K = errorMargin2_K;
 	}
 
 }

@@ -14,15 +14,17 @@ public class UserProfileHelper {
 		return userProfileStub.getLikeList();
 	}
 
-	public static ArrayList<String> getDisLikeList() {
+	public static ArrayList<String> getDislikeList() {
 		return userProfileStub.getDislikeList();
 	}
 
 	public static ArrayList<String> getPreferenceList() {
-		return unionList(userProfileStub.getLikeList(), userProfileStub.getDislikeList());
+		return unionList(userProfileStub.getLikeList(),
+				userProfileStub.getDislikeList());
 	}
 
-	private static ArrayList<String> unionList(ArrayList<String> A, ArrayList<String> B) {
+	private static ArrayList<String> unionList(ArrayList<String> A,
+			ArrayList<String> B) {
 		ArrayList<String> result = A;
 		for (String b : B) {
 			if (!result.contains(b))
@@ -41,6 +43,14 @@ public class UserProfileHelper {
 			newSet.add(s);
 		}
 		return newSet;
+	}
+
+	public static double getAvgCost() {
+		return userProfileStub.getDailyMenuAvgCost();
+	}
+
+	public static double getAvgDeliveryTime() {
+		return userProfileStub.getMenuAvgDeliveryTime();
 	}
 
 }

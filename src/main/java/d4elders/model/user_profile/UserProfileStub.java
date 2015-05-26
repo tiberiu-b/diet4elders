@@ -15,6 +15,9 @@ public class UserProfileStub {
 	private boolean weight_loss = false;
 	private GenderType gender;
 
+	private double dailyMenuAvgCost;
+	private double menuAvgDeliveryTime;
+
 	private ArrayList<String> likeList = new ArrayList<String>();
 	private ArrayList<String> dislikeList = new ArrayList<String>();
 	private ArrayList<String> allergyList = new ArrayList<String>();
@@ -30,6 +33,9 @@ public class UserProfileStub {
 		setWeight(78);
 		setGender(GenderType.Male);
 		setPAF(1.7);
+
+		setDailyMenuAvgCost(150);
+		setMenuAvgDeliveryTime(50);
 
 		getLikeList().add("Chocolate biscuits, full coated");
 		getLikeList().add("Chocolate biscuits, cream filled, full coated");
@@ -117,8 +123,10 @@ public class UserProfileStub {
 
 	@Override
 	public String toString() {
-		return "UserProfileStub{" + "weight=" + weight + ", height=" + height + ", age=" + age + ", PAF=" + PAF
-				+ ", weight_gain=" + weight_gain + ", weight_loss=" + weight_loss + ", gender=" + gender + '}';
+		return "UserProfileStub{" + "weight=" + weight + ", height=" + height
+				+ ", age=" + age + ", PAF=" + PAF + ", weight_gain="
+				+ weight_gain + ", weight_loss=" + weight_loss + ", gender="
+				+ gender + '}';
 	}
 
 	public ArrayList<String> getLikeList() {
@@ -143,6 +151,22 @@ public class UserProfileStub {
 
 	public void setAllergyList(ArrayList<String> allergyList) {
 		this.allergyList = allergyList;
+	}
+
+	public double getDailyMenuAvgCost() {
+		return dailyMenuAvgCost;
+	}
+
+	public void setDailyMenuAvgCost(double dailyMenuAvgCost) {
+		this.dailyMenuAvgCost = dailyMenuAvgCost;
+	}
+
+	public double getMenuAvgDeliveryTime() {
+		return menuAvgDeliveryTime;
+	}
+
+	public void setMenuAvgDeliveryTime(double menuAvgDeliveryTime) {
+		this.menuAvgDeliveryTime = menuAvgDeliveryTime;
 	}
 
 }
