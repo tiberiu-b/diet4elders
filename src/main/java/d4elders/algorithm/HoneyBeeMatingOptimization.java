@@ -73,12 +73,13 @@ public class HoneyBeeMatingOptimization extends MainAlgorithm {
 		// SortedSet<Solution> solutions =
 		// InitialSolutionsGenerator.generateRandomSolutions(algorithmConfiguration
 		// .getPopSize());
+		long start = System.currentTimeMillis();
 		SortedSet<Solution> solutions = getSolGenerator()
 				.generateRandomSolutionsWithSimilarityCoeff(
 						algorithmConfiguration.getPopSize(),
 						algorithmConfiguration
 								.getSimilarityCoefficientThreshold());
-
+		long duration = System.currentTimeMillis() - start;
 		// for (Solution sol : solutions) {
 		// System.out.println(sol.getDailyMenu().getBreakfast().getPackageId() +
 		// ", "
@@ -97,6 +98,7 @@ public class HoneyBeeMatingOptimization extends MainAlgorithm {
 		// TODO: de fiecare data cand intram in iteratie, populatia are sizeul
 		// fix, popSize
 		while (queen.hasEnergy() && queen.hasSpeed()) {
+			start = System.currentTimeMillis();
 			nrOfIterations++;
 			int nrOfDronesTheQueenMatedWith = 0;
 
@@ -124,7 +126,6 @@ public class HoneyBeeMatingOptimization extends MainAlgorithm {
 						.getMaxNrMatings())
 					break;
 			}
-
 			// If there is no drone with good enough fitness generate new random
 			// set of solutions
 			// This step is not documented in the algorithm, should be devised
@@ -137,8 +138,9 @@ public class HoneyBeeMatingOptimization extends MainAlgorithm {
 				continue;
 			}
 
-			broods = broodImprover.improve(broods);
-
+			// broods = broodImprover.improve(broods);
+			// duration = System.currentTimeMillis() - start;
+			// System.out.println();
 			// TODO: add broods to population and then select the best 40, do
 			// not throw away the
 			// current solutions
@@ -154,6 +156,7 @@ public class HoneyBeeMatingOptimization extends MainAlgorithm {
 			// solutions.add(br);
 			// }
 			// select new population randomly
+
 			solutions = new TreeSet<Solution>();
 			int curPopSize = algorithmConfiguration.getPopSize();
 			Random r = new Random();

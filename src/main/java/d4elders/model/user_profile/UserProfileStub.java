@@ -34,14 +34,15 @@ public class UserProfileStub {
 		setGender(GenderType.Male);
 		setPAF(1.7);
 
-		setDailyMenuAvgCost(150);
+		setDailyMenuAvgCost(70);
 		setMenuAvgDeliveryTime(50);
 
-		getLikeList().add("Chocolate biscuits, full coated");
-		getLikeList().add("Chocolate biscuits, cream filled, full coated");
+		getLikeList().add("ham");
+		getLikeList().add("nut");
+		getLikeList().add("lettuce");
 
-		getDislikeList().add("Gingernut biscuits");
-		getDislikeList().add("Oat based biscuits");
+		getDislikeList().add("pepper");
+		getDislikeList().add("apricot");
 
 		// getAllergyList().add("butter");
 		// getAllergyList().add("milk");

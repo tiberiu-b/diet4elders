@@ -30,7 +30,7 @@ public class Solution implements Comparable<Solution> {
 	private int speed = initialSpeed;
 	private int energy = initialEnergy;
 	private double fitness = 0;
-	private double f1,f2,f3;
+	private double f1, f2, f3;
 	private static int initialSpeed = 0;
 	private static int initialEnergy = 0;
 	private static double errorMargin2_K;
@@ -90,14 +90,18 @@ public class Solution implements Comparable<Solution> {
 	 */
 	private void computeFitness() {
 		setF1(getFitnessLevel1());
+
 		setF2(getFitnessLevel2());
+
 		setF3(getFitnessLevel3());
+
 		int w1 = 1;
 		// if user did not add any food item preferences => weight is 0
-		int w2 = (UserProfileHelper.getPreferenceList().size() == 0) ? 0 : 1;
+		int w2 = (UserProfileHelper.getPreferenceList().size() == 0) ? 0 : 5;
 		int w3 = 1;
 
-		float topF = (float) ((w1 * getF1() + w2 * getF2() + w3 * getF3()) / (w1 + w2 + w3));
+		float topF = (float) ((w1 * getF1() + w2 * getF2() + w3 * getF3()) / (w1
+				+ w2 + w3));
 		fitness = topF;
 	}
 
@@ -176,7 +180,7 @@ public class Solution implements Comparable<Solution> {
 
 	private float getFitnessLevel2() {
 
-		ArrayList<String> ingrList = dailyMenu.getIngredientList();
+		// ArrayList<String> ingrList = dailyMenu.getIngredientList();
 		ArrayList<String> prefList = UserProfileHelper.getPreferenceList();
 		ArrayList<String> likeList = UserProfileHelper.getLikeList();
 		ArrayList<String> dislikeList = UserProfileHelper.getDislikeList();
@@ -186,11 +190,12 @@ public class Solution implements Comparable<Solution> {
 		double sum = 0;
 		int ideal = 0;
 		int real = 0;
-
+		String likeString = likeList.toString();
+		String ingrString = dailyMenu.getIngredientsString();
 		for (String ingr : prefList) {
 			ideal = likeList.contains(ingr) ? 1 : 0; // 1 for likeList, 0 for
 														// dislike list
-			real = ingrList.contains(ingr) ? 1 : 0;
+			real = ingrString.contains(ingr) ? 1 : 0;
 
 			sum += weight * errorMarginLevel2(real, ideal);
 			sum_weights += weight;
