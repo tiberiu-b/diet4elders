@@ -5,7 +5,7 @@ import java.util.Random;
 import d4elders.algorithm.AnnealingScheduler;
 import d4elders.model.Solution;
 
-class SimulatedAnnealingBroodImprover implements BroodImproverAlgorithm {
+public class SimulatedAnnealingBroodImprover implements BroodImproverAlgorithm {
 
 	private final AnnealingScheduler scheduler;
 
