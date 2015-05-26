@@ -7,10 +7,12 @@ import java.util.TreeSet;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.licenta.d4elders.dal.helper.RandomSolutionsGenerator;
-import org.licenta.d4elders.model.Solution;
-import org.licenta.d4elders.model.user_profile.NutritionalRecommandationHelper;
-import org.licenta.d4elders.model.user_profile.UserProfileStub;
+
+import d4elders.algorithm.PathRelinking;
+import d4elders.dal.helper.RandomSolutionsGenerator;
+import d4elders.model.Solution;
+import d4elders.model.user_profile.NutritionalRecommandationHelper;
+import d4elders.model.user_profile.UserProfileStub;
 
 public class PathRelinkingTest {
 

@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import java.util.SortedSet;
 
 import org.junit.Test;
-import org.licenta.d4elders.dal.helper.RandomSolutionsGenerator;
-import org.licenta.d4elders.model.Solution;
+
+import d4elders.dal.BusinessLogic;
+import d4elders.dal.helper.RandomSolutionsGenerator;
+import d4elders.model.Solution;
 
 public class BusinessLogicTest {
 

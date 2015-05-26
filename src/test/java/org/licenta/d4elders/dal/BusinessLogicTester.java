@@ -1,7 +1,8 @@
 package org.licenta.d4elders.dal;
 
 import java.util.ArrayList;
-import org.licenta.d4elders.dal.BusinessLogic;
+
+import d4elders.dal.BusinessLogic;
 
 public class BusinessLogicTester {
 

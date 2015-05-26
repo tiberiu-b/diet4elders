@@ -11,11 +11,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.licenta.d4elders.algorithm.AnnealingScheduler;
-import org.licenta.d4elders.dal.helper.RandomSolutionsGenerator;
-import org.licenta.d4elders.model.Solution;
-import org.licenta.d4elders.model.user_profile.NutritionalRecommandationHelper;
-import org.licenta.d4elders.model.user_profile.UserProfileStub;
+
+import d4elders.algorithm.AnnealingScheduler;
+import d4elders.algorithm.broodImprover.BroodImproverHelper;
+import d4elders.algorithm.broodImprover.SimulatedAnnealingBroodImprover;
+import d4elders.dal.helper.RandomSolutionsGenerator;
+import d4elders.model.Solution;
+import d4elders.model.user_profile.NutritionalRecommandationHelper;
+import d4elders.model.user_profile.UserProfileStub;
 
 /**
  * Tests different aspects of the brood improvement feature.
