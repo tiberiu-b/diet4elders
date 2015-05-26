@@ -21,9 +21,9 @@ import java.util.ArrayList;
 
 import javax.swing.text.DefaultCaret;
 
-import org.licenta.d4elders.helper.AlgorithmConfiguration;
-import org.licenta.d4elders.helper.AvailableProgramConfigurationOptions;
-import org.licenta.d4elders.helper.ConfigurationsGenerator;
+import org.licenta.d4elders.algorithm.helper.AlgorithmConfiguration;
+import org.licenta.d4elders.algorithm.helper.AvailableProgramConfigurationOptions;
+import org.licenta.d4elders.algorithm.helper.ConfigurationsGenerator;
 
 /**
  * Created by cristiprg on 1/18/2015.
@@ -237,6 +237,8 @@ public class Main extends Applet implements MouseListener {
 						.valueOf(energyReductionAmountField.getText()));
 				configuration.setProbabilityToMateDroneThreshold(Double
 						.valueOf(probabilityToMateDroneThresholdField.getText()));
+				configuration.setSimilarityCoefficientThreshold(Double
+						.valueOf(similarityCoefficientThresholdField.getText()));
 				runButton.setEnabled(false);
 				Diet4Elders d4e = new Diet4Elders();
 				d4e.run(configuration);

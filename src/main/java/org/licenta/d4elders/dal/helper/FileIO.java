@@ -1,4 +1,4 @@
-package org.licenta.d4elders.dal;
+package org.licenta.d4elders.dal.helper;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

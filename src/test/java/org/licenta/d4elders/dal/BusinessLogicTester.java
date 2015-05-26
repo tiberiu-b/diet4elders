@@ -1,4 +1,4 @@
-package org.licenta.d4elders.main;
+package org.licenta.d4elders.dal;
 
 import java.util.ArrayList;
 import org.licenta.d4elders.dal.BusinessLogic;
