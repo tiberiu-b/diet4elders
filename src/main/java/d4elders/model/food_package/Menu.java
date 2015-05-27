@@ -20,6 +20,7 @@ public class Menu extends FoodNutrients implements Serializable {
 	private String ingredients = "";
 
 	public void computeIngredientsList(){
+		ingredients = "";
 		if (starter != null){
 			ingredients += starter
 				.getMainDish()

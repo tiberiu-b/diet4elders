@@ -257,6 +257,9 @@ public class FileIO {
 			ObjectInput input = new ObjectInputStream(buffer);
 			try {
 				ArrayList<FoodProviderPackage> list = (ArrayList<FoodProviderPackage>) input.readObject();
+				for (FoodProviderPackage fp : list){
+					fp.getMenu().computeIngredientsList();
+				}
 				return list;
 			} finally {
 				input.close();
