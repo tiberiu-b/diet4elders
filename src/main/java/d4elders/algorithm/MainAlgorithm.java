@@ -12,7 +12,7 @@ import d4elders.model.Solution;
  */
 public abstract class MainAlgorithm {
 	protected int nrOfIterations;
-	protected long duration;
+	protected long algDuration;
 
 
 	// Abstract methods
@@ -54,7 +54,7 @@ public abstract class MainAlgorithm {
 
 	MainAlgorithm(){
 		nrOfIterations = 0;
-		duration = 0;
+		algDuration = 0;
 	}
 
 	/**
@@ -62,7 +62,7 @@ public abstract class MainAlgorithm {
 	 * @return an instance of RunInformation containing information regarding the last run of the algorithm
 	 */
 	public RunInformation getLastRunInformation(){
-		return new RunInformation(nrOfIterations, duration);
+		return new RunInformation(nrOfIterations, algDuration);
 	}
 
 

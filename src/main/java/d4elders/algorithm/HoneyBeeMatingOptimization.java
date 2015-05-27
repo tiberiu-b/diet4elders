@@ -138,9 +138,9 @@ public class HoneyBeeMatingOptimization extends MainAlgorithm {
 				continue;
 			}
 
-			// broods = broodImprover.improve(broods);
-			// duration = System.currentTimeMillis() - start;
-			// System.out.println();
+			//broods = broodImprover.improve(broods);
+			duration = System.currentTimeMillis() - start;
+			System.out.println();
 			// TODO: add broods to population and then select the best 40, do
 			// not throw away the
 			// current solutions
@@ -198,7 +198,7 @@ public class HoneyBeeMatingOptimization extends MainAlgorithm {
 
 		}
 
-		duration = System.currentTimeMillis() - startTime;
+		algDuration = System.currentTimeMillis() - startTime;
 		return queen;
 	}
 
