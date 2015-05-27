@@ -235,6 +235,9 @@ public class FileIO {
 			ObjectInput input = new ObjectInputStream(buffer);
 			try {
 				ArrayList<Menu> list = (ArrayList<Menu>) input.readObject();
+				for(Menu menu : list){
+					menu.computeIngredientsList();
+				}
 				return list;
 			} finally {
 				input.close();

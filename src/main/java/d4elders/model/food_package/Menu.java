@@ -17,6 +17,40 @@ public class Menu extends FoodNutrients implements Serializable {
 	private MealVariant mainCourse;
 	private MealVariant desert;
 	private MealType mealType;
+	private String ingredients = "";
+
+	public void computeIngredientsList(){
+		if (starter != null){
+			ingredients += starter
+				.getMainDish()
+				.getRecipe()
+				.getIngredientList();
+		}
+
+		if (desert != null){
+			ingredients += desert
+				.getMainDish()
+				.getRecipe()
+				.getIngredientList();
+		}
+
+		if(mainCourse != null){
+			ingredients += mainCourse
+				.getMainDish()
+				.getRecipe()
+				.getIngredientList();
+
+			if (getMainCourse().getSideDish() != null)
+				ingredients += getMainCourse()
+				.getSideDish()
+				.getRecipe()
+				.getIngredientList();
+		}
+	}
+
+	public String getIngredientsString(){
+		return ingredients;
+	}
 
 	public int getMenuId() {
 		return menuId;
@@ -175,66 +209,77 @@ public class Menu extends FoodNutrients implements Serializable {
 		setVitD(getVitD_custom());
 	}
 
+	@Override
 	public Float getProteins() {
 		if (proteins == null)
 			computeNutrientValues();
 		return proteins;
 	}
 
+	@Override
 	public Float getLipids() {
 		if (lipids == null)
 			computeNutrientValues();
 		return lipids;
 	}
 
+	@Override
 	public Float getCarbohydrates() {
 		if (carbohydrates == null)
 			computeNutrientValues();
 		return carbohydrates;
 	}
 
+	@Override
 	public Float getEnergy() {
 		if (energy == null)
 			computeNutrientValues();
 		return energy;
 	}
 
+	@Override
 	public Float getCalcium() {
 		if (calcium == null)
 			computeNutrientValues();
 		return calcium;
 	}
 
+	@Override
 	public Float getIron() {
 		if (iron == null)
 			computeNutrientValues();
 		return iron;
 	}
 
+	@Override
 	public Float getSodium() {
 		if (sodium == null)
 			computeNutrientValues();
 		return sodium;
 	}
 
+	@Override
 	public Float getVitA() {
 		if (vitA == null)
 			computeNutrientValues();
 		return vitA;
 	}
 
+	@Override
 	public Float getVitB() {
 		if (vitB == null)
 			computeNutrientValues();
 		return vitB;
 	}
 
+	@Override
 	public Float getVitC() {
 		if (vitC == null)
 			computeNutrientValues();
 		return vitC;
 	}
 
+	@Override
 	public Float getVitD() {
 		if (vitD == null)
 			computeNutrientValues();
@@ -249,6 +294,7 @@ public class Menu extends FoodNutrients implements Serializable {
 		this.mealType = mealType;
 	}
 
+	@Override
 	public String toString() {
 		if (starter == null && desert == null)
 			return "MenuId: " + menuId + " Starter: -no starter" + " MainCourse: " + mainCourse.toString()
