@@ -19,7 +19,7 @@ import d4elders.model.Solution;
 /**
  * TODO: adaguam vreo 10 FoodProviders care au 25% din retete (da, overlapping),
  * delivery cost, time
- * 
+ *
  * @author cristiprg
  *
  */
@@ -36,15 +36,15 @@ public class HoneyBeeMatingOptimization extends MainAlgorithm {
 	}
 
 	/**
-	 * Applies the configuration in Solution class too.
-	 * 
+	 * Applies the configuration in Solution and BroodImproverHelper classs too.
+	 *
 	 * @param algorithmConfiguration
 	 */
 	public void setAlgorithmConfiguration(
 			AlgorithmConfiguration algorithmConfiguration) {
 		this.algorithmConfiguration = algorithmConfiguration;
 		Solution.applyConfiguration(algorithmConfiguration);
-
+		BroodImproverHelper.applyConfiguration(algorithmConfiguration);
 	}
 
 	public HoneyBeeMatingOptimization(SolutionsGenerator solGenerator) {
@@ -138,7 +138,7 @@ public class HoneyBeeMatingOptimization extends MainAlgorithm {
 				continue;
 			}
 
-			//broods = broodImprover.improve(broods);
+			broods = broodImprover.improve(broods);
 			duration = System.currentTimeMillis() - start;
 			System.out.println();
 			// TODO: add broods to population and then select the best 40, do

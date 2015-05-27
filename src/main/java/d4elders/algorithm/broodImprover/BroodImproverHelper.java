@@ -9,6 +9,8 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import d4elders.algorithm.AnnealingScheduler;
+import d4elders.algorithm.helper.AlgorithmConfiguration;
+import d4elders.algorithm.helper.AvailableProgramConfigurationOptions;
 import d4elders.model.Solution;
 
 public class BroodImproverHelper{
@@ -23,10 +25,21 @@ public class BroodImproverHelper{
 		SEARCH_ALGOS.add(algo);
 	}
 
-	static {
-		addSearchAlgorithm("Simulated Annealing", new SimulatedAnnealingBroodImprover(new AnnealingScheduler(1, 90, 0.1)));
-		addSearchAlgorithm("Hill Climbing", new HillClimbingBroodImprover());
-		addSearchAlgorithm("Tabu Search", new TabuSearchBroodImprover());
+	public static void applyConfiguration(AlgorithmConfiguration algorithmConfiguration) {
+		SEARCH_ALGOS.clear();
+		for (String strategy : algorithmConfiguration.getWorkerModificationStrategies())
+			switch(strategy)
+			{
+			case AvailableProgramConfigurationOptions.SIMULATED_ANNEALING:
+				addSearchAlgorithm("Simulated Annealing", new SimulatedAnnealingBroodImprover(new AnnealingScheduler(1, 90, 0.1)));
+				break;
+			case AvailableProgramConfigurationOptions.HILL_CLIMBING:
+				addSearchAlgorithm("Hill Climbing", new HillClimbingBroodImprover());
+				break;
+			case AvailableProgramConfigurationOptions.SIMPLE_TABU_SEARCH:
+				addSearchAlgorithm("Tabu Search", new TabuSearchBroodImprover());
+				break;
+			}
 	}
 
 	/**
@@ -37,6 +50,11 @@ public class BroodImproverHelper{
 	 * @return the set of improved broods
 	 */
 	public SortedSet<Solution> improve(Collection<Solution> broods, int numberOfThreads){
+
+		// If no algorithms were specified, don't do a thing.
+		if(SEARCH_ALGOS.size() == 0)
+			return (SortedSet<Solution>) broods;
+
 		// array of threads
 		ArrayList<Thread> threadsList = new ArrayList<Thread>();
 
