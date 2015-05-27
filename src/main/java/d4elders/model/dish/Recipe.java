@@ -2,12 +2,13 @@ package d4elders.model.dish;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import d4elders.model.FoodNutrients;
 
 public class Recipe extends FoodNutrients implements Serializable {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	private int recipeId;
@@ -15,6 +16,7 @@ public class Recipe extends FoodNutrients implements Serializable {
 	private String description;
 	private DishType dishType;
 	private ArrayList<String> ingredientList;
+	private HashSet<String> ingredientsHashSet;
 
 	public Recipe() {
 		ingredientList = new ArrayList<>();

@@ -2,6 +2,8 @@ package d4elders.model.food_package;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 
 import d4elders.model.FoodNutrients;
 import d4elders.model.meal.MealType;
@@ -9,7 +11,7 @@ import d4elders.model.meal.MealVariant;
 
 public class Menu extends FoodNutrients implements Serializable {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	private int menuId;
@@ -17,39 +19,54 @@ public class Menu extends FoodNutrients implements Serializable {
 	private MealVariant mainCourse;
 	private MealVariant desert;
 	private MealType mealType;
-	private String ingredients = "";
+	private HashSet<String> ingredients;
+	//private String ingredients = "";
 
 	public void computeIngredientsList(){
-		ingredients = "";
+		ArrayList<String> localIngredients = new ArrayList<String>();
+		ingredients = new HashSet<String>();
 		if (starter != null){
-			ingredients += starter
+			localIngredients = starter
 				.getMainDish()
 				.getRecipe()
 				.getIngredientList();
+
+			for(String ing : localIngredients){
+				ingredients.addAll(Arrays.asList(ing.split("\\, |\\ |\\,")));
+			}
 		}
 
 		if (desert != null){
-			ingredients += desert
+			localIngredients = desert
 				.getMainDish()
 				.getRecipe()
 				.getIngredientList();
+			for(String ing : localIngredients){
+				ingredients.addAll(Arrays.asList(ing.split("\\,|\\ ")));
+			}
 		}
 
 		if(mainCourse != null){
-			ingredients += mainCourse
+			localIngredients = mainCourse
 				.getMainDish()
 				.getRecipe()
 				.getIngredientList();
+			for(String ing : localIngredients){
+				ingredients.addAll(Arrays.asList(ing.split("\\,|\\ ")));
+			}
 
 			if (getMainCourse().getSideDish() != null)
-				ingredients += getMainCourse()
+				localIngredients = getMainCourse()
 				.getSideDish()
 				.getRecipe()
 				.getIngredientList();
+				for(String ing : localIngredients){
+					ingredients.addAll(Arrays.asList(ing.split("\\,|\\ ")));
+				}
 		}
 	}
 
-	public String getIngredientsString(){
+	public HashSet<String> getIngredientsString(){
 		return ingredients;
 	}
 

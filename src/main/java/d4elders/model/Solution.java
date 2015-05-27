@@ -191,7 +191,7 @@ public class Solution implements Comparable<Solution> {
 		int ideal = 0;
 		int real = 0;
 		String likeString = likeList.toString();
-		String ingrString = dailyMenu.getIngredientsString();
+		ArrayList<String> ingrString = dailyMenu.getIngredientsString();
 		for (String ingr : prefList) {
 			ideal = likeList.contains(ingr) ? 1 : 0; // 1 for likeList, 0 for
 														// dislike list
@@ -351,7 +351,7 @@ public class Solution implements Comparable<Solution> {
 	/**
 	 * Performs crossover only on a single element. The result will be the same
 	 * as drone with <i>type</i> stolen from this queen.
-	 * 
+	 *
 	 * @param drone
 	 * @param type
 	 * @return
@@ -440,7 +440,7 @@ public class Solution implements Comparable<Solution> {
 	 * Returns a new instance of Solution which has exactly the same components
 	 * as this exept one component randomly selected which is replaced with a
 	 * random value.
-	 * 
+	 *
 	 * @return a new Solution
 	 */
 	public Solution randomMutation() {

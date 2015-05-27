@@ -2,26 +2,28 @@ package d4elders.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.TreeSet;
 
 import d4elders.model.food_package.FoodProviderPackage;
 import d4elders.model.food_package.Menu;
 
 /**
- * 
+ *
  */
 public class DailyMenu extends FoodNutrients implements Serializable {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	protected FoodProviderPackage breakfast;
 	protected FoodProviderPackage dinner;
 	protected FoodProviderPackage lunch;
 	protected FoodProviderPackage snack1, snack2;
-	private String ingredientsList = "";
+	private ArrayList<String> ingredientsList = new ArrayList<String>();
 
 	/**
-     * 
+     *
      */
 	public DailyMenu() {
 	}
@@ -39,12 +41,12 @@ public class DailyMenu extends FoodNutrients implements Serializable {
 	}
 
 	private void computeIngredientsList() {
-		ingredientsList = "";
-		ingredientsList += breakfast.getMenu().getIngredientsString();
-		ingredientsList += lunch.getMenu().getIngredientsString();
-		ingredientsList += dinner.getMenu().getIngredientsString();
-		ingredientsList += snack1.getMenu().getIngredientsString();
-		ingredientsList += snack2.getMenu().getIngredientsString();
+		ingredientsList.clear();
+		ingredientsList.addAll(breakfast.getMenu().getIngredientsString());
+		ingredientsList.addAll(lunch.getMenu().getIngredientsString());
+		ingredientsList.addAll(dinner.getMenu().getIngredientsString());
+		ingredientsList.addAll(snack1.getMenu().getIngredientsString());
+		ingredientsList.addAll(snack2.getMenu().getIngredientsString());
 	}
 
 	@Override
@@ -309,7 +311,7 @@ public class DailyMenu extends FoodNutrients implements Serializable {
 		return ingredientList;
 	}
 
-	public String getIngredientsString() {
+	public ArrayList<String> getIngredientsString() {
 		return ingredientsList;
 	}
 
