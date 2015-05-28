@@ -191,7 +191,7 @@ public class Solution implements Comparable<Solution> {
 		int ideal = 0;
 		int real = 0;
 		String likeString = likeList.toString();
-		ArrayList<String> ingrString = dailyMenu.getIngredientsString();
+		HashSet<String> ingrString = dailyMenu.getIngredientsString();
 		for (String ingr : prefList) {
 			ideal = likeList.contains(ingr) ? 1 : 0; // 1 for likeList, 0 for
 														// dislike list

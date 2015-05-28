@@ -3,10 +3,8 @@ package d4elders.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.TreeSet;
 
 import d4elders.model.food_package.FoodProviderPackage;
-import d4elders.model.food_package.Menu;
 
 /**
  *
@@ -20,7 +18,7 @@ public class DailyMenu extends FoodNutrients implements Serializable {
 	protected FoodProviderPackage dinner;
 	protected FoodProviderPackage lunch;
 	protected FoodProviderPackage snack1, snack2;
-	private ArrayList<String> ingredientsList = new ArrayList<String>();
+	private HashSet<String> ingredientsList = new HashSet<String>();
 
 	/**
      *
@@ -311,7 +309,7 @@ public class DailyMenu extends FoodNutrients implements Serializable {
 		return ingredientList;
 	}
 
-	public ArrayList<String> getIngredientsString() {
+	public HashSet<String> getIngredientsString() {
 		return ingredientsList;
 	}
 
