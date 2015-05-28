@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import d4elders.dal.helper.IngredientsDataStructure;
 import d4elders.model.food_package.FoodProviderPackage;
+import d4elders.model.food_package.Menu;
 
 /**
  *
@@ -18,7 +20,8 @@ public class DailyMenu extends FoodNutrients implements Serializable {
 	protected FoodProviderPackage dinner;
 	protected FoodProviderPackage lunch;
 	protected FoodProviderPackage snack1, snack2;
-	private HashSet<String> ingredientsList = new HashSet<String>();
+	//private HashSet<String> ingredientsList = new HashSet<String>();
+	private IngredientsDataStructure ingredientsList = new IngredientsDataStructure();
 
 	/**
      *
@@ -39,12 +42,13 @@ public class DailyMenu extends FoodNutrients implements Serializable {
 	}
 
 	private void computeIngredientsList() {
-		ingredientsList.clear();
-		ingredientsList.addAll(breakfast.getMenu().getIngredientsString());
-		ingredientsList.addAll(lunch.getMenu().getIngredientsString());
-		ingredientsList.addAll(dinner.getMenu().getIngredientsString());
-		ingredientsList.addAll(snack1.getMenu().getIngredientsString());
-		ingredientsList.addAll(snack2.getMenu().getIngredientsString());
+		//ingredientsList.clear();
+		ingredientsList.addAll(breakfast.getMenu().getIngredientsDataStructure());
+		ingredientsList.addAll(lunch.getMenu().getIngredientsDataStructure());
+		ingredientsList.addAll(dinner.getMenu().getIngredientsDataStructure());
+		ingredientsList.addAll(snack1.getMenu().getIngredientsDataStructure());
+		ingredientsList.addAll(snack2.getMenu().getIngredientsDataStructure());
+		//System.out.println(ingredientsList);
 	}
 
 	@Override
@@ -180,17 +184,77 @@ public class DailyMenu extends FoodNutrients implements Serializable {
 	}
 
 	public void computeNutrientValues() {
-		setProteins(getProteins_custom());
-		setLipids(getLipids_custom());
-		setCarbohydrates(getCarbohydrates_custom());
-		setEnergy(getEnergy_custom());
-		setCalcium(getCalcium_custom());
-		setIron(getIron_custom());
-		setSodium(getSodium_custom());
-		setVitA(getVitA_custom());
-		setVitB(getVitB_custom());
-		setVitC(getVitC_custom());
-		setVitD(getVitD_custom());
+		Menu breakfastMenu = breakfast.getMenu();
+		Menu lunchMenu = lunch.getMenu();
+		Menu dinnerMenu = dinner.getMenu();
+		Menu snack1Menu = snack1.getMenu();
+		Menu snack2Menu = snack2.getMenu();
+
+		proteins = 	breakfastMenu.getProteins()	+
+					lunchMenu.getProteins()		+
+					dinnerMenu.getProteins()	+
+					snack1Menu.getProteins()	+
+					snack2Menu.getProteins();
+
+		lipids = 	breakfastMenu.getLipids()	+
+					lunchMenu.getLipids()		+
+					dinnerMenu.getLipids()		+
+					snack1Menu.getLipids()		+
+					snack2Menu.getLipids();
+
+		carbohydrates = 	breakfastMenu.getCarbohydrates()	+
+							lunchMenu.getCarbohydrates()		+
+							dinnerMenu.getCarbohydrates()		+
+							snack1Menu.getCarbohydrates()		+
+							snack2Menu.getCarbohydrates();
+
+		energy =	breakfastMenu.getEnergy()	+
+					lunchMenu.getEnergy()		+
+					dinnerMenu.getEnergy()		+
+					snack1Menu.getEnergy()		+
+					snack2Menu.getEnergy();
+
+		iron = 	breakfastMenu.getIron()	+
+				lunchMenu.getIron()		+
+				dinnerMenu.getIron()	+
+				snack1Menu.getIron()	+
+				snack2Menu.getIron();
+
+		calcium = 	breakfastMenu.getCalcium()	+
+				lunchMenu.getCalcium()		+
+				dinnerMenu.getCalcium()	+
+				snack1Menu.getCalcium()	+
+				snack2Menu.getCalcium();
+
+		sodium = 	breakfastMenu.getSodium()	+
+				lunchMenu.getSodium()		+
+				dinnerMenu.getSodium()		+
+				snack1Menu.getSodium()		+
+				snack2Menu.getSodium();
+
+		vitA = 	breakfastMenu.getVitA()	+
+				lunchMenu.getVitA()		+
+				dinnerMenu.getVitA()	+
+				snack1Menu.getVitA()	+
+				snack2Menu.getVitA();
+
+		vitB = 	breakfastMenu.getVitB()	+
+				lunchMenu.getVitB()		+
+				dinnerMenu.getVitB()	+
+				snack1Menu.getVitB()	+
+				snack2Menu.getVitB();
+
+		vitC = 	breakfastMenu.getVitC()	+
+				lunchMenu.getVitC()		+
+				dinnerMenu.getVitC()	+
+				snack1Menu.getVitC()	+
+				snack2Menu.getVitC();
+
+		vitD = 	breakfastMenu.getVitD()	+
+				lunchMenu.getVitD()		+
+				dinnerMenu.getVitD()	+
+				snack1Menu.getVitD()	+
+				snack2Menu.getVitD();
 	}
 
 	@Override
@@ -309,7 +373,7 @@ public class DailyMenu extends FoodNutrients implements Serializable {
 		return ingredientList;
 	}
 
-	public HashSet<String> getIngredientsString() {
+	public IngredientsDataStructure getIngredientsString() {
 		return ingredientsList;
 	}
 
@@ -323,6 +387,10 @@ public class DailyMenu extends FoodNutrients implements Serializable {
 		return (breakfast.getDeliveryTime() + lunch.getDeliveryTime()
 				+ dinner.getDeliveryTime() + snack1.getDeliveryTime() + snack2
 					.getDeliveryTime()) / 5.0;
+	}
+
+	public IngredientsDataStructure getIngredientsDataStructure() {
+		return ingredientsList;
 	}
 
 }

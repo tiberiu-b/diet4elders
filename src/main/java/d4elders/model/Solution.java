@@ -7,6 +7,7 @@ import d4elders.algorithm.helper.AlgorithmConfiguration;
 import d4elders.dal.BusinessLogic;
 import d4elders.dal.BusinessLogicCache;
 import d4elders.dal.BusinessLogicCacheFiltered;
+import d4elders.dal.helper.IngredientsDataStructure;
 import d4elders.model.food_package.FoodProviderPackage;
 import d4elders.model.user_profile.NutritionalRecommandationHelper;
 import d4elders.model.user_profile.UserProfileHelper;
@@ -191,7 +192,7 @@ public class Solution implements Comparable<Solution> {
 		int ideal = 0;
 		int real = 0;
 		String likeString = likeList.toString();
-		HashSet<String> ingrString = dailyMenu.getIngredientsString();
+		IngredientsDataStructure ingrString = dailyMenu.getIngredientsDataStructure();
 		for (String ingr : prefList) {
 			ideal = likeList.contains(ingr) ? 1 : 0; // 1 for likeList, 0 for
 														// dislike list
@@ -379,20 +380,20 @@ public class Solution implements Comparable<Solution> {
 					this.dailyMenu.dinner, droneSnack1, droneSnack2);
 			break;
 		case Snack1:
-			if (this.dailyMenu.snack1.getMenu().getMenuId() == droneSnack2
+			/*if (this.dailyMenu.snack1.getMenu().getMenuId() == droneSnack2
 					.getMenu().getMenuId())
 				dailyMenu = new DailyMenu(droneBreakfast, droneLunch,
 						droneDinner, droneSnack1, droneSnack2);
-			else
+			else*/
 				dailyMenu = new DailyMenu(droneBreakfast, droneLunch,
 						droneDinner, this.dailyMenu.snack1, droneSnack2);
 			break;
 		case Snack2:
-			if (this.dailyMenu.snack2.getMenu().getMenuId() == droneSnack1
+			/*if (this.dailyMenu.snack2.getMenu().getMenuId() == droneSnack1
 					.getMenu().getMenuId())
 				dailyMenu = new DailyMenu(droneBreakfast, droneLunch,
 						droneDinner, droneSnack1, droneSnack2);
-			else
+			else*/
 				dailyMenu = new DailyMenu(droneBreakfast, droneLunch,
 						droneDinner, droneSnack1, this.dailyMenu.snack2);
 			break;

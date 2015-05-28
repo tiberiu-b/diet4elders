@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 
+import d4elders.dal.helper.IngredientsDataStructure;
 import d4elders.model.FoodNutrients;
 import d4elders.model.meal.MealType;
 import d4elders.model.meal.MealVariant;
@@ -21,6 +22,16 @@ public class Menu extends FoodNutrients implements Serializable {
 	private MealType mealType;
 	private HashSet<String> ingredients;
 	//private String ingredients = "";
+	private IngredientsDataStructure ingredientsDataStructure = new IngredientsDataStructure();
+
+	public IngredientsDataStructure getIngredientsDataStructure(){
+		return ingredientsDataStructure;
+	}
+
+	public void finalizeIngredientsDataStructure(){
+		ingredientsDataStructure = new IngredientsDataStructure();
+		ingredientsDataStructure.setIngredients(ingredients);
+	}
 
 	public void computeIngredientsList(){
 		ArrayList<String> localIngredients = new ArrayList<String>();
@@ -42,7 +53,7 @@ public class Menu extends FoodNutrients implements Serializable {
 				.getRecipe()
 				.getIngredientList();
 			for(String ing : localIngredients){
-				ingredients.addAll(Arrays.asList(ing.split("\\,|\\ ")));
+				ingredients.addAll(Arrays.asList(ing.split("\\, |\\,|\\ ")));
 			}
 		}
 
@@ -52,7 +63,7 @@ public class Menu extends FoodNutrients implements Serializable {
 				.getRecipe()
 				.getIngredientList();
 			for(String ing : localIngredients){
-				ingredients.addAll(Arrays.asList(ing.split("\\,|\\ ")));
+				ingredients.addAll(Arrays.asList(ing.split("\\, |\\,|\\ ")));
 			}
 
 			if (getMainCourse().getSideDish() != null)
@@ -61,7 +72,7 @@ public class Menu extends FoodNutrients implements Serializable {
 				.getRecipe()
 				.getIngredientList();
 				for(String ing : localIngredients){
-					ingredients.addAll(Arrays.asList(ing.split("\\,|\\ ")));
+					ingredients.addAll(Arrays.asList(ing.split("\\, |\\,|\\ ")));
 				}
 		}
 	}

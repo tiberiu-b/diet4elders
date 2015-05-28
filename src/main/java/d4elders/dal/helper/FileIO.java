@@ -12,6 +12,7 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -255,11 +256,24 @@ public class FileIO {
 			InputStream file = new FileInputStream(packageCacheFile);
 			InputStream buffer = new BufferedInputStream(file);
 			ObjectInput input = new ObjectInputStream(buffer);
+			HashSet<String> ingredients = new HashSet<String>();
 			try {
 				ArrayList<FoodProviderPackage> list = (ArrayList<FoodProviderPackage>) input.readObject();
 				for (FoodProviderPackage fp : list){
 					fp.getMenu().computeIngredientsList();
+					fp.getMenu().computeNutrientValues();
+					ingredients.addAll(fp.getMenu().getIngredientsString());
 				}
+
+				System.out.println("nr ingredients: " + ingredients.size() );
+				// 1. we have the list of available ingredients
+				IngredientsDataStructure.setAvailableIngredients(ingredients);
+
+				// 2. construct the arrays for each menu
+				for (FoodProviderPackage fp : list){
+					fp.getMenu().finalizeIngredientsDataStructure();
+				}
+
 				return list;
 			} finally {
 				input.close();
