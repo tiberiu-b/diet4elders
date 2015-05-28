@@ -97,6 +97,8 @@ public class AlgorithmConfigurationArrays {
 		if (similarityCoefficientThreshold.isEmpty())
 			similarityCoefficientThreshold.add(config
 					.getSimilarityCoefficientThreshold());
+		if(errorMargin2_K.isEmpty())
+			errorMargin2_K.add(config.getErrorMargin2_K());
 
 		/*
 		 * private ArrayList<String> broodModificationStrategy = new
