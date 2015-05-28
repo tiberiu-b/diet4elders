@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import d4elders.model.food_package.FoodProviderPackage;
+import d4elders.model.food_package.Menu;
 
 /**
  * 
@@ -17,6 +18,7 @@ public class DailyMenu extends FoodNutrients implements Serializable {
 	protected FoodProviderPackage dinner;
 	protected FoodProviderPackage lunch;
 	protected FoodProviderPackage snack1, snack2;
+	private String ingredientsList = "";
 
 	/**
      * 
@@ -33,6 +35,16 @@ public class DailyMenu extends FoodNutrients implements Serializable {
 		this.snack1 = snack1;
 		this.snack2 = snack2;
 		computeNutrientValues();
+		computeIngredientsList();
+	}
+
+	private void computeIngredientsList() {
+		ingredientsList = "";
+		ingredientsList += breakfast.getMenu().getIngredientsString();
+		ingredientsList += lunch.getMenu().getIngredientsString();
+		ingredientsList += dinner.getMenu().getIngredientsString();
+		ingredientsList += snack1.getMenu().getIngredientsString();
+		ingredientsList += snack2.getMenu().getIngredientsString();
 	}
 
 	@Override
@@ -298,40 +310,7 @@ public class DailyMenu extends FoodNutrients implements Serializable {
 	}
 
 	public String getIngredientsString() {
-		String ingredients = "";
-		ingredients += breakfast.getMenu().getDesert().getMainDish()
-				.getRecipe().getIngredientList().toString();
-		ingredients += breakfast.getMenu().getMainCourse().getMainDish()
-				.getRecipe().getIngredientList();
-		if (breakfast.getMenu().getMainCourse().getSideDish() != null)
-			ingredients += breakfast.getMenu().getMainCourse().getSideDish()
-					.getRecipe().getIngredientList();
-
-		ingredients += lunch.getMenu().getStarter().getMainDish().getRecipe()
-				.getIngredientList();
-		ingredients += lunch.getMenu().getDesert().getMainDish().getRecipe()
-				.getIngredientList();
-		ingredients += lunch.getMenu().getMainCourse().getMainDish()
-				.getRecipe().getIngredientList();
-		if (lunch.getMenu().getMainCourse().getSideDish() != null)
-			ingredients += lunch.getMenu().getMainCourse().getSideDish()
-					.getRecipe().getIngredientList();
-
-		ingredients += dinner.getMenu().getStarter().getMainDish().getRecipe()
-				.getIngredientList();
-		ingredients += dinner.getMenu().getDesert().getMainDish().getRecipe()
-				.getIngredientList();
-		ingredients += dinner.getMenu().getMainCourse().getMainDish()
-				.getRecipe().getIngredientList();
-		if (dinner.getMenu().getMainCourse().getSideDish() != null)
-			ingredients += dinner.getMenu().getMainCourse().getSideDish()
-					.getRecipe().getIngredientList();
-
-		ingredients += snack1.getMenu().getMainCourse().getMainDish()
-				.getRecipe().getIngredientList();
-		ingredients += snack2.getMenu().getMainCourse().getMainDish()
-				.getRecipe().getIngredientList();
-		return ingredients;
+		return ingredientsList;
 	}
 
 	public double getCost() {

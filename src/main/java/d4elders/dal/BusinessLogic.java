@@ -2,13 +2,18 @@ package d4elders.dal;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.lang.model.type.ErrorType;
+
+import org.openjena.atlas.logging.Log;
 
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.Model;
 
+import d4elders.algorithm.HoneyBeeMatingOptimization;
 import d4elders.dal.helper.FileIO;
 import d4elders.model.*;
 import d4elders.model.dish.*;
@@ -21,6 +26,9 @@ import d4elders.model.meal.MealVariant;
 import d4elders.ontology.FoodProviderOntology;
 
 public class BusinessLogic implements IBusinessLogic {
+	private static final Logger log = Logger
+			.getLogger(BusinessLogic.class.getName());
+
 	private static BusinessLogic bl;
 	private FoodProviderOntology foodProviderOntology;
 	private Model model;
@@ -138,6 +146,7 @@ public class BusinessLogic implements IBusinessLogic {
 						break;
 					}
 				}
+				menu.computeIngredientsList();
 			}
 		}
 		int whatCount = 0;
@@ -549,26 +558,31 @@ public class BusinessLogic implements IBusinessLogic {
 		ser.serializeFoodProviderPackage(packageListCache);
 	}
 
+	@Override
 	public FoodProviderPackage generateSingleBreakfastPackages() {
 		Random r = new Random();
 		return breakfastPackageListCache.get(r.nextInt(breakfastPackageListCache.size()));
 	}
 
+	@Override
 	public FoodProviderPackage generateSingleLunchPackages() {
 		Random r = new Random();
 		return lunchPackageListCache.get(r.nextInt(lunchPackageListCache.size()));
 	}
 
+	@Override
 	public FoodProviderPackage generateSingleDinnerPackages() {
 		Random r = new Random();
 		return dinnerPackageListCache.get(r.nextInt(dinnerPackageListCache.size()));
 	}
 
+	@Override
 	public FoodProviderPackage generateSingleSnackPackages() {
 		Random r = new Random();
 		return snackPackageListCache.get(r.nextInt(snackPackageListCache.size()));
 	}
 
+	@Override
 	public ArrayList<FoodProviderPackage> generateBreakfastPackages(int numberOfSolutions) {
 		ArrayList<FoodProviderPackage> breakfastPackageList = new ArrayList<>();
 		Random r = new Random();
@@ -578,6 +592,7 @@ public class BusinessLogic implements IBusinessLogic {
 		return breakfastPackageList;
 	}
 
+	@Override
 	public ArrayList<FoodProviderPackage> generateLunchPackages(int numberOfSolutions) {
 		ArrayList<FoodProviderPackage> lunchPackageList = new ArrayList<>();
 		Random r = new Random();
@@ -587,6 +602,7 @@ public class BusinessLogic implements IBusinessLogic {
 		return lunchPackageList;
 	}
 
+	@Override
 	public ArrayList<FoodProviderPackage> generateDinnerPackages(int numberOfSolutions) {
 		ArrayList<FoodProviderPackage> dinnerPackageList = new ArrayList<>();
 		Random r = new Random();
@@ -596,6 +612,7 @@ public class BusinessLogic implements IBusinessLogic {
 		return dinnerPackageList;
 	}
 
+	@Override
 	public ArrayList<FoodProviderPackage> generateSnackPackages(int numberOfSolutions) {
 		ArrayList<FoodProviderPackage> snackPackageList = new ArrayList<>();
 		Random r = new Random();
@@ -605,6 +622,7 @@ public class BusinessLogic implements IBusinessLogic {
 		return snackPackageList;
 	}
 
+	@Override
 	public ArrayList<FoodProviderPackage> getAllBreakfastPackages() {
 		if (breakfastPackageListCache == null) {
 			loadCache();
@@ -612,6 +630,7 @@ public class BusinessLogic implements IBusinessLogic {
 		return breakfastPackageListCache;
 	}
 
+	@Override
 	public ArrayList<FoodProviderPackage> getAllLunchPackages() {
 		if (lunchPackageListCache == null) {
 			loadCache();
@@ -619,6 +638,7 @@ public class BusinessLogic implements IBusinessLogic {
 		return lunchPackageListCache;
 	}
 
+	@Override
 	public ArrayList<FoodProviderPackage> getAllDinnerPackages() {
 		if (dinnerPackageListCache == null) {
 			loadCache();
@@ -626,6 +646,7 @@ public class BusinessLogic implements IBusinessLogic {
 		return dinnerPackageListCache;
 	}
 
+	@Override
 	public ArrayList<FoodProviderPackage> getAllSnackPackages() {
 		if (snackPackageListCache == null) {
 			loadCache();
