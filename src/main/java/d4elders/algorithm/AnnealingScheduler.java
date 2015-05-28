@@ -38,7 +38,8 @@ public class AnnealingScheduler {
 	 */
 	public int getNumberOfEvaluations(int t){
 		if(t < limit){
-			double res = limit - (double) t / limit * 10;
+			//double res = limit - (double) t / limit * 10;
+			double res = limit / t / 10;
 			return (int)res;
 		}else{
 			return 0;
