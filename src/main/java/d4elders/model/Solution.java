@@ -379,20 +379,20 @@ public class Solution implements Comparable<Solution> {
 					this.dailyMenu.dinner, droneSnack1, droneSnack2);
 			break;
 		case Snack1:
-			if (this.dailyMenu.snack1.getMenu().getMenuId() == droneSnack2
+			/*if (this.dailyMenu.snack1.getMenu().getMenuId() == droneSnack2
 					.getMenu().getMenuId())
 				dailyMenu = new DailyMenu(droneBreakfast, droneLunch,
 						droneDinner, droneSnack1, droneSnack2);
-			else
+			else*/
 				dailyMenu = new DailyMenu(droneBreakfast, droneLunch,
 						droneDinner, this.dailyMenu.snack1, droneSnack2);
 			break;
 		case Snack2:
-			if (this.dailyMenu.snack2.getMenu().getMenuId() == droneSnack1
+			/*if (this.dailyMenu.snack2.getMenu().getMenuId() == droneSnack1
 					.getMenu().getMenuId())
 				dailyMenu = new DailyMenu(droneBreakfast, droneLunch,
 						droneDinner, droneSnack1, droneSnack2);
-			else
+			else*/
 				dailyMenu = new DailyMenu(droneBreakfast, droneLunch,
 						droneDinner, droneSnack1, this.dailyMenu.snack2);
 			break;

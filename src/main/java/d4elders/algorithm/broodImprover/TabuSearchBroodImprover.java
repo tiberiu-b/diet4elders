@@ -14,7 +14,7 @@ public class TabuSearchBroodImprover implements BroodImproverAlgorithm {
 	@Override
 	public Solution improve(Solution brood) {
 		final int limit = 100;
-		final int maxTabuSize = 100;
+		final int maxTabuSize = 10;
 		final int neighbourhoodSize = 10;
 
 		int timeStep = 0;

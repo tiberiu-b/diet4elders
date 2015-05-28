@@ -64,7 +64,7 @@ public class BroodImproverHelper{
 		// TODO: decide whether to improve the entire or only a subset.
 		// For now, we take the first 100 only.
 		Iterator<Solution> it = broods.iterator();
-		for(int i = 0; i < 5 && it.hasNext(); ++i){
+		for(int i = 0; i < 4 && it.hasNext(); ++i){
 			broodsList.add(it.next());
 		}
 
