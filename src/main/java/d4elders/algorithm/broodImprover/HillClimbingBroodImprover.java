@@ -16,7 +16,7 @@ public class HillClimbingBroodImprover implements BroodImproverAlgorithm {
 			++timeStep;
 			localMaximum = true;
 			for(int i = neighbourhoodSize; i > 0; i--){
-				Solution newBrood = brood.randomMutation();
+				Solution newBrood = brood.randomSingleGenotypeMutation();
 				if(newBrood.getFitness() > brood.getFitness()){
 					brood = newBrood;
 					localMaximum = false;

@@ -35,7 +35,7 @@ public class SimulatedAnnealingBroodImprover implements BroodImproverAlgorithm {
 			//int neighbourhoodSize = 1;
 
 			for(int i = neighbourhoodSize; i > 0; --i){
-				Solution newBrood = brood.randomMutation();
+				Solution newBrood = brood.randomSingleGenotypeMutation();
 				double deltaE = newBrood.getFitness() - brood.getFitness();
 
 				if(shouldAccept(temperature, deltaE)){

@@ -21,9 +21,12 @@ import java.util.ArrayList;
 
 import javax.swing.text.DefaultCaret;
 
+import d4elders.algorithm.CuckooSearch;
 import d4elders.algorithm.helper.AlgorithmConfiguration;
 import d4elders.algorithm.helper.AvailableProgramConfigurationOptions;
 import d4elders.algorithm.helper.ConfigurationsGenerator;
+import d4elders.dal.helper.RandomSolutionsGenerator;
+import d4elders.dal.helper.SolutionsGenerator;
 
 /**
  * Created by cristiprg on 1/18/2015.
@@ -63,10 +66,7 @@ public class Main extends Applet implements MouseListener {
 	TextField similarityCoefficientThresholdField;
 
 	public static void main(String args[]) {
-		// run with the default configuration
-		// new Main().d4e.run(new AlgorithmConfiguration());
-
-		new Main().d4e.run(ConfigurationsGenerator.varPopSize(2));
+		new Main().d4e.runCuckoo();
 	}
 
 	@Override
@@ -207,7 +207,10 @@ public class Main extends Applet implements MouseListener {
 				// new Thread() {
 				// @Override
 				// public void run() {
+				d4e.runCuckoo();
 
+
+/*
 				AlgorithmConfiguration configuration = new AlgorithmConfiguration();
 				for (Checkbox c : broodModificationStrategiesCheckboxList) {
 					if (c.getState() == true) {
@@ -243,8 +246,12 @@ public class Main extends Applet implements MouseListener {
 				Diet4Elders d4e = new Diet4Elders();
 				d4e.run(configuration);
 				runButton.setEnabled(true);
+
+*/
 				outputTextArea.setText(baos.toString());
 				outputTextArea.setCaretPosition(baos.toString().length());
+
+
 			}
 			// }.start();
 			// }

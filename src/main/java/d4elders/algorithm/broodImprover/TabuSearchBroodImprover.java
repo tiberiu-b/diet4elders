@@ -69,7 +69,7 @@ public class TabuSearchBroodImprover implements BroodImproverAlgorithm {
 		TreeSet<Solution> set = new TreeSet<Solution>();
 		Solution candidate = null;
 		for(int i = neighbourhoodSize; i > 0; i--){
-			candidate = brood.randomMutation();
+			candidate = brood.randomSingleGenotypeMutation();
 			if (!tabuListContains(tabuList, candidate)){
 				set.add(candidate);
 			}

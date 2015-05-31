@@ -4,6 +4,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import d4elders.algorithm.CuckooSearch;
 import d4elders.algorithm.HoneyBeeMatingOptimization;
 import d4elders.algorithm.MainAlgorithm.RunInformation;
 import d4elders.algorithm.broodImprover.BusinessLogicCacheFilteredOpt;
@@ -47,5 +48,13 @@ public class Diet4Elders {
 
 	public void run(ArrayList<AlgorithmConfiguration> configurations) {
 		AlgorithmRunner.run(solGenerator, configurations);
+	}
+
+	public void runCuckoo(){
+
+		CuckooSearch c = new CuckooSearch(new RandomSolutionsGenerator());
+		Solution res = c.performAlgorithm();
+		RunInformation info = c.getLastRunInformation();
+		System.out.println(res + "\n" + res.getFitness() + "\n" + info.duration );
 	}
 }

@@ -31,6 +31,8 @@ public class Solution implements Comparable<Solution> {
 	private int energy = initialEnergy;
 	private double fitness = 0;
 	private double f1, f2, f3;
+
+	public static int nrOfPackages = 5;
 	private static int initialSpeed = 0;
 	private static int initialEnergy = 0;
 	private static double errorMargin2_K;
@@ -351,7 +353,7 @@ public class Solution implements Comparable<Solution> {
 	/**
 	 * Performs crossover only on a single element. The result will be the same
 	 * as drone with <i>type</i> stolen from this queen.
-	 * 
+	 *
 	 * @param drone
 	 * @param type
 	 * @return
@@ -443,7 +445,7 @@ public class Solution implements Comparable<Solution> {
 	 * 
 	 * @return a new Solution
 	 */
-	public Solution randomMutation() {
+	public Solution randomSingleGenotypeMutation() {
 		// BusinessLogic bl = new BusinessLogic();
 		// BusinessLogicCache bl = BusinessLogicCache.getInstance();
 		BusinessLogicCacheFilteredOpt bl = BusinessLogicCacheFilteredOpt
@@ -495,6 +497,33 @@ public class Solution implements Comparable<Solution> {
 			return null;
 		}
 	}
+
+	public Solution randomGenotypesMutation() {
+		  Random r = new Random();
+		  BusinessLogicCacheFilteredOpt bl = BusinessLogicCacheFilteredOpt
+		    .getInstance();
+		  FoodProviderPackage breakfast = r.nextBoolean() ? bl
+		    .generateSingleBreakfastPackages() : this.dailyMenu
+		    .getBreakfast();
+		  FoodProviderPackage lunch = r.nextBoolean() ? bl
+		    .generateSingleLunchPackages() : this.dailyMenu.getLunch();
+		  FoodProviderPackage dinner = r.nextBoolean() ? bl
+		    .generateSingleDinnerPackages() : this.dailyMenu.getDinner();
+		  FoodProviderPackage snack1 = r.nextBoolean() ? bl
+		    .generateSingleSnackPackages() : this.dailyMenu.getSnack1();
+		  FoodProviderPackage snack2 = r.nextBoolean() ? bl
+		    .generateSingleSnackPackages() : this.dailyMenu.getSnack2();
+		  DailyMenu newdailyMenu = null;
+		  if (snack1.getMenu().getMenuId() == snack2.getMenu().getMenuId())
+		   newdailyMenu = new DailyMenu(breakfast, lunch, dinner, this
+		     .getDailyMenu().getSnack1(), this.getDailyMenu()
+		     .getSnack2());
+		  else
+		   newdailyMenu = new DailyMenu(breakfast, lunch, dinner, snack1,
+		     snack2);
+
+		  return new Solution(newdailyMenu);
+		 }
 
 	public boolean hasEnergy() {
 		return energy > 0;
@@ -565,26 +594,29 @@ public class Solution implements Comparable<Solution> {
 	}
 
 	public float getSolutionSimilarityCoefficient(Solution drone) {
-		float sumComp = 0;
-		float sumOfWeights = 5;
-		// 5 meals / day with weight of 1
-		if (this.dailyMenu.getBreakfast().getMenu().getMenuId() == drone.dailyMenu
-				.getBreakfast().getMenu().getMenuId())
-			sumComp++;
-		if (this.dailyMenu.getLunch().getMenu().getMenuId() == drone.dailyMenu
-				.getLunch().getMenu().getMenuId())
-			sumComp++;
-		if (this.dailyMenu.getDinner().getMenu().getMenuId() == drone.dailyMenu
-				.getDinner().getMenu().getMenuId())
-			sumComp++;
-		if (this.dailyMenu.getSnack1().getMenu().getMenuId() == drone.dailyMenu
-				.getSnack1().getMenu().getMenuId())
-			sumComp++;
-		if (this.dailyMenu.getSnack2().getMenu().getMenuId() == drone.dailyMenu
-				.getSnack2().getMenu().getMenuId())
-			sumComp++;
-		return sumComp / sumOfWeights;
-	}
+		  return getSolutionSimilarityCoefficientInteger(drone) / nrOfPackages ;
+		 }
+
+		 public int getSolutionSimilarityCoefficientInteger(Solution drone) {
+		  int sumComp = 0;
+		  // 5 meals / day with weight of 1
+		  if (this.dailyMenu.getBreakfast().getMenu().getMenuId() == drone.dailyMenu
+		    .getBreakfast().getMenu().getMenuId())
+		   sumComp++;
+		  if (this.dailyMenu.getLunch().getMenu().getMenuId() == drone.dailyMenu
+		    .getLunch().getMenu().getMenuId())
+		   sumComp++;
+		  if (this.dailyMenu.getDinner().getMenu().getMenuId() == drone.dailyMenu
+		    .getDinner().getMenu().getMenuId())
+		   sumComp++;
+		  if (this.dailyMenu.getSnack1().getMenu().getMenuId() == drone.dailyMenu
+		    .getSnack1().getMenu().getMenuId())
+		   sumComp++;
+		  if (this.dailyMenu.getSnack2().getMenu().getMenuId() == drone.dailyMenu
+		    .getSnack2().getMenu().getMenuId())
+		   sumComp++;
+		  return sumComp;
+		 }
 
 	public double getF1() {
 		return f1;
