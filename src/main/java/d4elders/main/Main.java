@@ -207,10 +207,7 @@ public class Main extends Applet implements MouseListener {
 				// new Thread() {
 				// @Override
 				// public void run() {
-				d4e.runCuckoo();
 
-
-/*
 				AlgorithmConfiguration configuration = new AlgorithmConfiguration();
 				for (Checkbox c : broodModificationStrategiesCheckboxList) {
 					if (c.getState() == true) {
@@ -247,7 +244,7 @@ public class Main extends Applet implements MouseListener {
 				d4e.run(configuration);
 				runButton.setEnabled(true);
 
-*/
+
 				outputTextArea.setText(baos.toString());
 				outputTextArea.setCaretPosition(baos.toString().length());
 
