@@ -31,13 +31,17 @@ public class BroodImproverHelper{
 			switch(strategy)
 			{
 			case AvailableProgramConfigurationOptions.SIMULATED_ANNEALING:
-				addSearchAlgorithm("Simulated Annealing", new SimulatedAnnealingBroodImprover(new AnnealingScheduler(1, 90, 0.1)));
+				addSearchAlgorithm("Simulated Annealing", new SimulatedAnnealingBroodImprover(new AnnealingScheduler(
+						algorithmConfiguration.getT0(),algorithmConfiguration.getAlpha(), algorithmConfiguration.getTmin())));
 				break;
 			case AvailableProgramConfigurationOptions.HILL_CLIMBING:
-				addSearchAlgorithm("Hill Climbing", new HillClimbingBroodImprover());
+				addSearchAlgorithm("Hill Climbing", new HillClimbingBroodImprover(algorithmConfiguration.getHillClimbingNeighborhoodSize()));
 				break;
 			case AvailableProgramConfigurationOptions.SIMPLE_TABU_SEARCH:
-				addSearchAlgorithm("Tabu Search", new TabuSearchBroodImprover());
+				addSearchAlgorithm("Tabu Search", new TabuSearchBroodImprover(
+						algorithmConfiguration.getMaxNrIterations(),
+						algorithmConfiguration.getTabuSize(),
+						algorithmConfiguration.getTabuNeighborhoodSize()));
 				break;
 			}
 	}

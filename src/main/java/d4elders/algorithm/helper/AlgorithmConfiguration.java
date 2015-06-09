@@ -9,6 +9,7 @@ public class AlgorithmConfiguration {
 	private static final Logger log = Logger
 			.getLogger(AlgorithmConfiguration.class.getName());
 
+	// HBMO
 	private String broodModificationStrategy;
 	private ArrayList<String> workerModificationStrategies = new ArrayList<String>();
 	private int maxNrMatings;
@@ -21,6 +22,22 @@ public class AlgorithmConfiguration {
 	private double similarityCoefficientThreshold = 0.8;
 	private double errorMargin2_K = 0.7;
 
+	// Hill Climbing
+	private int hillClimbingNeighborhoodSize = 10;
+
+	// Simulated Annealing
+	private double T0 = 0.001;
+	private double alpha = 0.7;
+	private double Tmin = 0.0001;
+
+	// Tabu Searh
+	private int maxNrIterations = 100;
+	private int tabuSize = 10;
+	private int tabuNeighborhoodSize = 10;
+
+	/**
+	 * Initialize only HBMO parameters.
+	 */
 	public AlgorithmConfiguration(String broodModificationStrategy,
 			ArrayList<String> workerModificationStrategies, int maxNrMatings,
 			int popSize, int initialSpeed, int initialEnergy,
@@ -77,7 +94,7 @@ public class AlgorithmConfiguration {
 	/**
 	 * Returns the stored information in a nice format: Map[param]=value NOT
 	 * Anymore - just a list
-	 * 
+	 *
 	 * @return a Map from param to its value
 	 */
 	public ArrayList<String> getAllDataAsString() {
@@ -220,5 +237,63 @@ public class AlgorithmConfiguration {
 	public void setErrorMargin2_K(double errorMargin2_K) {
 		this.errorMargin2_K = errorMargin2_K;
 	}
+
+	public int getHillClimbingNeighborhoodSize() {
+		return hillClimbingNeighborhoodSize;
+	}
+
+	public void setHillClimbingNeighborhoodSize(int hillClimbingNeighborhoodSize) {
+		this.hillClimbingNeighborhoodSize = hillClimbingNeighborhoodSize;
+	}
+
+	public double getT0() {
+		return T0;
+	}
+
+	public void setT0(double t0) {
+		T0 = t0;
+	}
+
+	public double getAlpha() {
+		return alpha;
+	}
+
+	public void setAlpha(double alpha) {
+		this.alpha = alpha;
+	}
+
+	public double getTmin() {
+		return Tmin;
+	}
+
+	public void setTmin(double tmin) {
+		Tmin = tmin;
+	}
+
+	public int getMaxNrIterations() {
+		return maxNrIterations;
+	}
+
+	public void setMaxNrIterations(int maxNrIterations) {
+		this.maxNrIterations = maxNrIterations;
+	}
+
+	public int getTabuSize() {
+		return tabuSize;
+	}
+
+	public void setTabuSize(int tabuSize) {
+		this.tabuSize = tabuSize;
+	}
+
+	public int getTabuNeighborhoodSize() {
+		return tabuNeighborhoodSize;
+	}
+
+	public void setTabuNeighborhoodSize(int tabuNeighborhoodSize) {
+		this.tabuNeighborhoodSize = tabuNeighborhoodSize;
+	}
+
+
 
 }

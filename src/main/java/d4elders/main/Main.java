@@ -13,6 +13,8 @@ import java.awt.TextArea;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.ByteArrayOutputStream;
@@ -54,6 +56,20 @@ public class Main extends Applet implements MouseListener {
 	Label probabilityToMateDroneThresholdLabel;
 	Label similarityCoefficientThresholdLabel;
 
+	// Hill Climbing
+	Label hillClimbingNeighborhoodSizeLabel;
+
+	// Simulated Annealing
+	Label T0Label;
+	Label alphaLabel;
+	Label TminLabel;
+
+	// Tabu Searh
+	Label maxNrIterationsLabel;
+	Label tabuSizeLabel;
+	Label tabuNeighborhoodSizeLabel;
+
+
 	ArrayList<Checkbox> broodModificationStrategiesCheckboxList;
 	ArrayList<Checkbox> workerModificationStrategiesCheckboxList;
 	TextField maxNrMatingsField;
@@ -64,6 +80,19 @@ public class Main extends Applet implements MouseListener {
 	TextField energyReductionAmountField;
 	TextField probabilityToMateDroneThresholdField;
 	TextField similarityCoefficientThresholdField;
+
+	// Hill Climbing
+	TextField hillClimbingNeighborhoodSizeTextField;
+
+	// Simulated Annealing
+	TextField T0TextField;
+	TextField alphaTextField;
+	TextField TminTextField;
+
+	// Tabu Searh
+	TextField maxNrIterationsTextField;
+	TextField tabuSizeTextField;
+	TextField tabuNeighborhoodSizeTextField;
 
 	public static void main(String args[]) {
 		new Main().d4e.runCuckoo();
@@ -92,8 +121,61 @@ public class Main extends Applet implements MouseListener {
 		similarityCoefficientThresholdLabel = new Label(
 				"Solutions similarity threshold: ");
 
+		// Hill Climbing
+		Label hillClimbingNeighborhoodSizeLabel = new Label("Hill-Climb neigh size: ");
+
+		// Simulated Annealing
+		Label T0Label = new Label("T0: ");
+		Label alphaLabel = new Label("alpha: ");
+		Label TminLabel = new Label("Tmin: ");
+
+		// Tabu Searh
+		Label maxNrIterationsLabel = new Label("TabuSearch iterations: ");
+		Label tabuSizeLabel = new Label("Tabu Size");
+		Label tabuNeighborhoodSizeLabel = new Label("Tabu neigh size: ");
+
 		// Initialize input elements
 		AlgorithmConfiguration defaultConfiguration = new AlgorithmConfiguration();
+
+		// Hill Climbing
+		TextField hillClimbingNeighborhoodSizeTextField = new TextField(String.valueOf(defaultConfiguration
+				.getHillClimbingNeighborhoodSize()), 10);
+
+		// Simulated Annealing
+		TextField T0TextField = new TextField(String.valueOf(defaultConfiguration
+				.getT0()), 10);
+		TextField alphaTextField = new TextField(String.valueOf(defaultConfiguration
+				.getAlpha()), 10);
+		TextField TminTextField = new TextField(String.valueOf(defaultConfiguration
+				.getTmin()), 10);
+
+		// Tabu Searh
+		TextField maxNrIterationsTextField = new TextField(String.valueOf(defaultConfiguration
+				.getMaxNrIterations()), 10);
+		TextField tabuSizeTextField = new TextField(String.valueOf(defaultConfiguration
+				.getTabuSize()), 10);
+		TextField tabuNeighborhoodSizeTextField = new TextField(String.valueOf(defaultConfiguration
+				.getTabuNeighborhoodSize()), 10);
+
+		// hide heuristics elements
+		hillClimbingNeighborhoodSizeLabel.setVisible(false);
+		hillClimbingNeighborhoodSizeTextField.setVisible(false);
+
+		T0Label.setVisible(false);
+		T0TextField.setVisible(false);
+		alphaLabel.setVisible(false);
+		alphaTextField.setVisible(false);
+		TminLabel.setVisible(false);
+		TminTextField.setVisible(false);
+
+		maxNrIterationsLabel.setVisible(false);
+		maxNrIterationsTextField.setVisible(false);
+		tabuSizeLabel.setVisible(false);
+		tabuSizeTextField.setVisible(false);
+		tabuNeighborhoodSizeLabel.setVisible(false);
+		tabuNeighborhoodSizeTextField.setVisible(false);
+
+
 
 		CheckboxGroup grp = new CheckboxGroup();
 		broodModificationStrategiesCheckboxList = new ArrayList<Checkbox>();
@@ -110,8 +192,62 @@ public class Main extends Applet implements MouseListener {
 		workerModificationStrategiesCheckboxList = new ArrayList<Checkbox>();
 		for (String strategy : AvailableProgramConfigurationOptions
 				.getAvailableWorkerModificationStrategies()) {
-			Checkbox checkbox = new Checkbox(strategy, null, true);
+			Checkbox checkbox = new Checkbox(strategy, null, false);
 			workerModificationStrategiesCheckboxList.add(checkbox);
+
+			/*
+			 * // Hill Climbing
+		leftPanel.add(hillClimbingNeighborhoodSizeLabel);
+		leftPanel.add(hillClimbingNeighborhoodSizeTextField);
+
+		// Simulated Annealing
+		leftPanel.add(T0Label);
+		leftPanel.add(T0TextField);
+		leftPanel.add(alphaLabel);
+		leftPanel.add(alphaTextField);
+		leftPanel.add(TminLabel);
+		leftPanel.add(TminTextField);
+
+		// Tabu Searh
+		leftPanel.add(maxNrIterationsLabel);
+		leftPanel.add(maxNrIterationsTextField);
+		leftPanel.add(tabuSizeLabel);
+		leftPanel.add(tabuSizeTextField);
+		leftPanel.add(tabuNeighborhoodSizeLabel);
+		leftPanel.add(tabuNeighborhoodSizeTextField);
+
+			 */
+
+			checkbox.addItemListener(new ItemListener() {
+				@Override
+				public void itemStateChanged(ItemEvent e) {
+					boolean currentState = e.getStateChange() == 1 ? true : false;
+
+					switch(strategy){
+					case AvailableProgramConfigurationOptions.HILL_CLIMBING:
+						hillClimbingNeighborhoodSizeLabel.setVisible(currentState);
+						hillClimbingNeighborhoodSizeTextField.setVisible(currentState);
+						break;
+					case AvailableProgramConfigurationOptions.SIMULATED_ANNEALING:
+						T0Label.setVisible(currentState);
+						T0TextField.setVisible(currentState);
+						alphaLabel.setVisible(currentState);
+						alphaTextField.setVisible(currentState);
+						TminLabel.setVisible(currentState);
+						TminTextField.setVisible(currentState);
+						break;
+					case AvailableProgramConfigurationOptions.SIMPLE_TABU_SEARCH:
+						maxNrIterationsLabel.setVisible(currentState);
+						maxNrIterationsTextField.setVisible(currentState);
+						tabuSizeLabel.setVisible(currentState);
+						tabuSizeTextField.setVisible(currentState);
+						tabuNeighborhoodSizeLabel.setVisible(currentState);
+						tabuNeighborhoodSizeTextField.setVisible(currentState);
+						break;
+					}
+					leftPanel.revalidate();
+				}
+			});
 		}
 
 		maxNrMatingsField = new TextField(String.valueOf(defaultConfiguration
@@ -134,6 +270,7 @@ public class Main extends Applet implements MouseListener {
 		similarityCoefficientThresholdField = new TextField(
 				String.valueOf(defaultConfiguration
 						.getSimilarityCoefficientThreshold()), 10);
+
 		// The text area on the right
 		outputTextArea = new TextArea(17, 150);
 
@@ -191,8 +328,31 @@ public class Main extends Applet implements MouseListener {
 		// prob to mate drone
 		leftPanel.add(similarityCoefficientThresholdLabel);
 		leftPanel.add(similarityCoefficientThresholdField);
+
+		// Hill Climbing
+		leftPanel.add(hillClimbingNeighborhoodSizeLabel);
+		leftPanel.add(hillClimbingNeighborhoodSizeTextField);
+
+		// Simulated Annealing
+		leftPanel.add(T0Label);
+		leftPanel.add(T0TextField);
+		leftPanel.add(alphaLabel);
+		leftPanel.add(alphaTextField);
+		leftPanel.add(TminLabel);
+		leftPanel.add(TminTextField);
+
+		// Tabu Searh
+		leftPanel.add(maxNrIterationsLabel);
+		leftPanel.add(maxNrIterationsTextField);
+		leftPanel.add(tabuSizeLabel);
+		leftPanel.add(tabuSizeTextField);
+		leftPanel.add(tabuNeighborhoodSizeLabel);
+		leftPanel.add(tabuNeighborhoodSizeTextField);
+
+
 		leftPanel.add(runButton);
 		leftPanel.add(runConfiguration1Button);
+
 
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = 0;
@@ -221,6 +381,22 @@ public class Main extends Applet implements MouseListener {
 					if (c.getState() == true) {
 						configuration.addWorkerModificationStrategy(c
 								.getLabel());
+
+						switch(c.getLabel()){
+						case AvailableProgramConfigurationOptions.HILL_CLIMBING:
+							configuration.setHillClimbingNeighborhoodSize(Integer.valueOf(hillClimbingNeighborhoodSizeTextField.getText()));
+							break;
+						case AvailableProgramConfigurationOptions.SIMULATED_ANNEALING:
+							configuration.setT0(Double.valueOf(T0TextField.getText()));
+							configuration.setAlpha(Double.valueOf(alphaTextField.getText()));
+							configuration.setTmin(Double.valueOf(TminTextField.getText()));
+							break;
+						case AvailableProgramConfigurationOptions.SIMPLE_TABU_SEARCH:
+							configuration.setMaxNrIterations(Integer.valueOf(maxNrIterationsTextField.getText()));
+							configuration.setTabuSize(Integer.valueOf(tabuSizeTextField.getText()));
+							configuration.setTabuNeighborhoodSize(Integer.valueOf(tabuNeighborhoodSizeTextField.getText()));
+							break;
+						}
 					}
 				}
 
