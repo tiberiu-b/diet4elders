@@ -26,7 +26,7 @@ public class AlgorithmRunner {
 				solutionsGenerator, configuration);
 		long tMin = 99999, tMax = -1, tTotal = 0;
 		double fMin = 100, fMax = -1, fAvg, fTotal = 0, tAvg;
-		final int NrIter = 2;
+		final int NrIter = 10;
 		for(int i = 0; i < NrIter; ++i)
 		{
 			queen = HBMO.performAlgorithm();
