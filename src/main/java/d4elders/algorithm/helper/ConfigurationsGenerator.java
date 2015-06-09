@@ -3,6 +3,7 @@ package d4elders.algorithm.helper;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -49,6 +50,17 @@ public class ConfigurationsGenerator {
 				case "BroodModificationStrategy":
 					for(String value : values)
 						config.addBroodModificationStrategy(value);
+					break;
+				case "BroodImprovementStrategies":
+					for(String value : values)
+					{
+						ArrayList<String> strategies = new ArrayList<String>();
+						for(String strategy : value.split(";"))
+						{
+							strategies.add(strategy.trim());
+						}
+						config.addWorkerModificationStrategies(strategies);
+					}
 					break;
 				case "PopSize":
 					for(String value : values)
