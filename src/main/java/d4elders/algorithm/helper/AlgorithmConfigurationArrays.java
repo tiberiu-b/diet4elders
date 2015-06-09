@@ -19,13 +19,20 @@ public class AlgorithmConfigurationArrays {
 	private ArrayList<Double> probabilityToMateDroneThreshold = new ArrayList<Double>();
 	private ArrayList<Double> similarityCoefficientThreshold = new ArrayList<Double>();
 	private ArrayList<Double> errorMargin2_K = new ArrayList<Double>();
+	private ArrayList<Integer> hillClimbingNeighborhoodSize = new ArrayList<Integer>();
+	private ArrayList<Double> T0 = new ArrayList<Double>();
+	private ArrayList<Double> alpha = new ArrayList<Double>();
+	private ArrayList<Double> Tmin = new ArrayList<Double>();
+	private ArrayList<Integer> maxNrIterations = new ArrayList<Integer>();
+	private ArrayList<Integer> tabuSize = new ArrayList<Integer>();
+	private ArrayList<Integer> tabuNeighborhoodSize = new ArrayList<Integer>();
 
 	public AlgorithmConfigurationArrays() {
 	}
 
 	/**
 	 * Computes all the possible combinations.
-	 * 
+	 *
 	 * @return
 	 */
 	public ArrayList<AlgorithmConfiguration> getAllConfigrations() {
@@ -43,18 +50,33 @@ public class AlgorithmConfigurationArrays {
 										for (double probabilityToMateDroneThreshold : this.probabilityToMateDroneThreshold) {
 											for (double similarityCoefficientThreshold : this.similarityCoefficientThreshold) {
 												for (double errorMargin2_K : this.errorMargin2_K) {
-													configs.add(new AlgorithmConfiguration(
-															broodModificationStrategy,
-															workerModificationStrategies,
-															maxNrMatings,
-															popSize,
-															initialSpeed,
-															initialEnergy,
-															speedReductionFactor,
-															energyReductionAmount,
-															probabilityToMateDroneThreshold,
-															similarityCoefficientThreshold,
-															errorMargin2_K));
+													for (int hillClimbingNeighborhoodSize : this.hillClimbingNeighborhoodSize){
+														for(double T0 : this.T0){
+															for(double alpha : this.alpha){
+																for(double Tmin : this.Tmin){
+																	for(int maxNrIterations : this.maxNrIterations){
+																		for(int tabuSize : this.tabuSize){
+																			for(int tabuNeighborhoodSize : this.tabuNeighborhoodSize){
+																				configs.add(new AlgorithmConfiguration(
+																						broodModificationStrategy,
+																						workerModificationStrategies,
+																						maxNrMatings,
+																						popSize,
+																						initialSpeed,
+																						initialEnergy,
+																						speedReductionFactor,
+																						energyReductionAmount,
+																						probabilityToMateDroneThreshold,
+																						similarityCoefficientThreshold,
+																						errorMargin2_K,hillClimbingNeighborhoodSize, T0, alpha, Tmin, maxNrIterations, tabuSize, tabuNeighborhoodSize));
+
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
 												}
 											}
 										}
@@ -99,6 +121,20 @@ public class AlgorithmConfigurationArrays {
 					.getSimilarityCoefficientThreshold());
 		if(errorMargin2_K.isEmpty())
 			errorMargin2_K.add(config.getErrorMargin2_K());
+		if(hillClimbingNeighborhoodSize.isEmpty())
+			hillClimbingNeighborhoodSize.add(config.getHillClimbingNeighborhoodSize());
+		if(T0.isEmpty())
+			T0.add(config.getT0());
+		if(alpha.isEmpty())
+			alpha.add(config.getAlpha());
+		if(Tmin.isEmpty())
+			Tmin.add(config.getTmin());
+		if(maxNrIterations.isEmpty())
+			maxNrIterations.add(config.getMaxNrIterations());
+		if(tabuSize.isEmpty())
+			tabuSize.add(config.getTabuSize());
+		if(tabuNeighborhoodSize.isEmpty())
+			tabuNeighborhoodSize.add(config.getTabuNeighborhoodSize());
 
 		/*
 		 * private ArrayList<String> broodModificationStrategy = new
@@ -114,6 +150,13 @@ public class AlgorithmConfigurationArrays {
 		 * probabilityToMateDroneThreshold = new ArrayList<Double>(); private
 		 * ArrayList<Double> similarityCoefficientThreshold = new
 		 * ArrayList<Double>();
+		 * private ArrayList<Integer> hillClimbingNeighborhoodSize = new ArrayList<Integer>();
+	private ArrayList<Double> T0 = new ArrayList<Double>();
+	private ArrayList<Double> alpha = new ArrayList<Double>();
+	private ArrayList<Double> Tmin = new ArrayList<Double>();
+	private ArrayList<Integer> maxNrIterations = new ArrayList<Integer>();
+	private ArrayList<Integer> tabuSize = new ArrayList<Integer>();
+	private ArrayList<Integer> tabuNeighborhoodSize = new ArrayList<Integer>();
 		 */
 	}
 
@@ -172,4 +215,56 @@ public class AlgorithmConfigurationArrays {
 		this.similarityCoefficientThreshold.add(value);
 	}
 
+	public void addHillClimbingNeighborhoodSize(int value){
+		this.hillClimbingNeighborhoodSize.add(value);
+	}
+
+	public void addT0(double value) {
+		this.T0.add(value);
+	}
+
+	public void addAlpha(double value) {
+		this.alpha.add(value);
+
+	}
+
+	public void addTmin(double value) {
+		this.Tmin.add(value);
+	}
+
+	public void addMaxNrIterations(int value) {
+		this.maxNrIterations.add(value);
+
+	}
+
+	public void addTabuSize(int value) {
+		this.tabuSize.add(value);
+	}
+
+	public void addTabuNeighSize(int value) {
+		this.tabuNeighborhoodSize.add(value);
+
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

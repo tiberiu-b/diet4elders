@@ -59,6 +59,39 @@ public class AlgorithmConfiguration {
 	}
 
 	/**
+	 * Initialize only HBMO parameters and heuristics
+	 */
+	public AlgorithmConfiguration(String broodModificationStrategy,
+			ArrayList<String> workerModificationStrategies, int maxNrMatings,
+			int popSize, int initialSpeed, int initialEnergy,
+			double speedReductionFactor, double energyReductionAmount,
+			double probabilityToMateDroneThreshold,
+			double similarityCoefficientThreshold, double errorMargin2_K,
+			int hillClimbingNeighborhoodSize, double t0, double alpha,
+			double tmin, int maxNrIterations, int tabuSize,
+			int tabuNeighborhoodSize) {
+		super();
+		this.broodModificationStrategy = broodModificationStrategy;
+		this.workerModificationStrategies = workerModificationStrategies;
+		this.maxNrMatings = maxNrMatings;
+		this.popSize = popSize;
+		this.initialSpeed = initialSpeed;
+		this.initialEnergy = initialEnergy;
+		this.speedReductionFactor = speedReductionFactor;
+		this.energyReductionAmount = energyReductionAmount;
+		this.probabilityToMateDroneThreshold = probabilityToMateDroneThreshold;
+		this.similarityCoefficientThreshold = similarityCoefficientThreshold;
+		this.errorMargin2_K = errorMargin2_K;
+		this.hillClimbingNeighborhoodSize = hillClimbingNeighborhoodSize;
+		T0 = t0;
+		this.alpha = alpha;
+		Tmin = tmin;
+		this.maxNrIterations = maxNrIterations;
+		this.tabuSize = tabuSize;
+		this.tabuNeighborhoodSize = tabuNeighborhoodSize;
+	}
+
+	/**
 	 * Initialize an instance with the default values.
 	 */
 	public AlgorithmConfiguration() {
@@ -124,6 +157,13 @@ public class AlgorithmConfiguration {
 		data.add(String.valueOf(speedReductionFactor));
 		data.add(String.valueOf(energyReductionAmount));
 		data.add(String.valueOf(probabilityToMateDroneThreshold));
+		data.add(String.valueOf(hillClimbingNeighborhoodSize));
+		data.add(String.valueOf(T0));
+		data.add(String.valueOf(alpha));
+		data.add(String.valueOf(Tmin));
+		data.add(String.valueOf(maxNrIterations));
+		data.add(String.valueOf(tabuSize));
+		data.add(String.valueOf(tabuNeighborhoodSize));
 		return data;
 	}
 

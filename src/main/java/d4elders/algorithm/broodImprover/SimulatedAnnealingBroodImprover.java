@@ -65,10 +65,10 @@ public class SimulatedAnnealingBroodImprover implements BroodImproverAlgorithm {
 	// if /\E > 0 then current <- next
 	// else current <- next only with probability e^(/\E/T)
 	private boolean shouldAccept(double temperature, double deltaE) {
-		/*return (deltaE > 0.0)
+		return (deltaE > 0.0)
 				|| (new Random().nextDouble() <= probabilityOfAcceptance(
-						temperature, deltaE));*/
-		return deltaE > 0.0;
+						temperature, deltaE));
+		//return deltaE > 0.0;
 	}
 
 }

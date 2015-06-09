@@ -82,6 +82,34 @@ public class ConfigurationsGenerator {
 					for(String value : values)
 						config.addSimilarityCoefficientThreshold(Double.valueOf(value));
 					break;
+				case "hillClimbNeighSize":
+					for(String value : values)
+						config.addHillClimbingNeighborhoodSize(Integer.valueOf(value));
+					break;
+				case "T0":
+					for(String value : values)
+						config.addT0(Double.valueOf(value));
+					break;
+				case "alpha":
+					for(String value : values)
+						config.addAlpha(Double.valueOf(value));
+					break;
+				case "Tmin":
+					for(String value : values)
+						config.addTmin(Double.valueOf(value));
+					break;
+				case "tabuSearchIters":
+					for(String value : values)
+						config.addMaxNrIterations(Integer.valueOf(value));
+					break;
+				case "tabuSize":
+					for(String value : values)
+						config.addTabuSize(Integer.valueOf(value));
+					break;
+				case "tabuNeighSize":
+					for(String value : values)
+						config.addTabuNeighSize(Integer.valueOf(value));
+					break;
 				default:
 					log.log(Level.WARNING, "Unkown key " + optionKey + " in the ini configuration file.");
 				}

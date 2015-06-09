@@ -24,10 +24,35 @@ public class AlgorithmRunner {
 		// + configuration);
 		HoneyBeeMatingOptimization HBMO = new HoneyBeeMatingOptimization(
 				solutionsGenerator, configuration);
-		queen = HBMO.performAlgorithm();
-		info = HBMO.getLastRunInformation();
+		long tMin = 99999, tMax = -1, tTotal = 0;
+		double fMin = 100, fMax = -1, fAvg, fTotal = 0, tAvg;
+		final int NrIter = 2;
+		for(int i = 0; i < NrIter; ++i)
+		{
+			queen = HBMO.performAlgorithm();
+			info = HBMO.getLastRunInformation();
 
+			if(info.duration < tMin)
+				tMin = info.duration;
+
+			if(info.duration > tMax)
+				tMax = info.duration;
+			tTotal += info.duration;
+
+			if(queen.getFitness() < fMin)
+				fMin = queen.getFitness();
+
+			if(queen.getFitness() > fMax)
+				fMax = queen.getFitness();
+			fTotal = queen.getFitness();
+		}
+
+		tAvg = (double)tTotal / NrIter;
+		fAvg = fTotal / NrIter;
+		System.out.println("Time Average     : " + tAvg);
+		System.out.println("Fitness Avgerage : " + fAvg);
 		// Print results
+/*
 		System.out.println("___\nFinal Result:");
 		System.out.println("	Breakfast: MenuId "
 				+ queen.getDailyMenu().getBreakfast().getMenu().getMenuId()
@@ -84,11 +109,21 @@ public class AlgorithmRunner {
 		System.out
 				.println("Duration of execution(in millis): " + info.duration);
 		System.out.println();
+*/
 		// Export data
 		ArrayList<String> data = configuration.getAllDataAsString();
-		data.add(String.valueOf(queen.getFitness()));
+
 		data.add(String.valueOf(info.nrOfItertions));
-		data.add(String.valueOf(info.duration));
+		//data.add(String.valueOf(info.duration));
+
+		data.add(String.valueOf(fMin));
+		data.add(String.valueOf(fMax));
+		data.add(String.valueOf(fAvg));
+
+		data.add(String.valueOf(tMin));
+		data.add(String.valueOf(tMax));
+		data.add(String.valueOf(tAvg));
+
 		data.addAll(queen.exportDataAsString());
 		try {
 			DataExporter.exportData(Paths.get("data\\HBMO_data.csv"),
