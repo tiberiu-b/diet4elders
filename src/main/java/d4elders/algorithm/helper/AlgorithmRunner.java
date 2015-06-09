@@ -1,7 +1,11 @@
 package d4elders.algorithm.helper;
 
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import d4elders.algorithm.HoneyBeeMatingOptimization;
 import d4elders.algorithm.MainAlgorithm.RunInformation;
@@ -10,6 +14,8 @@ import d4elders.dal.helper.SolutionsGenerator;
 import d4elders.model.Solution;
 
 public class AlgorithmRunner {
+	private static final Logger log = Logger
+			.getLogger(AlgorithmRunner.class.getName());
 	public static void run(SolutionsGenerator solutionsGenerator,
 			AlgorithmConfiguration configuration) {
 
@@ -136,8 +142,12 @@ public class AlgorithmRunner {
 
 	public static void run(SolutionsGenerator solutionsGenerator,
 			ArrayList<AlgorithmConfiguration> configurations) {
+		String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+		log.log(Level.INFO, "BEGIN: " + timeStamp);
 		for (AlgorithmConfiguration config : configurations) {
 			run(solutionsGenerator, config);
 		}
+		timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+		log.log(Level.INFO, "END: " + timeStamp);
 	}
 }

@@ -55,7 +55,7 @@ public class ConfigurationsGenerator {
 						break;
 					case "BroodModificationStrategy":
 						for(String value : values)
-							config.addBroodModificationStrategy(value);
+							config.addBroodModificationStrategy(value.trim());
 						break;
 					case "BroodImprovementStrategies":
 						for(String value : values)
