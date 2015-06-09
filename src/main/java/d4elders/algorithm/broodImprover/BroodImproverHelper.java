@@ -95,7 +95,9 @@ public class BroodImproverHelper{
 			}
 		}
 
-		return new TreeSet<Solution>(broodsList);
+		TreeSet<Solution> returnValue = new TreeSet<Solution>(broodsList);
+		returnValue.addAll(broods);
+		return returnValue;
 	}
 
 	/**
