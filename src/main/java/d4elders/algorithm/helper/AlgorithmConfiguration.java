@@ -9,7 +9,7 @@ public class AlgorithmConfiguration {
 	private static final Logger log = Logger
 			.getLogger(AlgorithmConfiguration.class.getName());
 
-	private String exportFileName = "";
+	private String exportFileName = "data\\HBMO_data.csv";
 
 	// HBMO
 	private String broodModificationStrategy;
@@ -33,7 +33,7 @@ public class AlgorithmConfiguration {
 	private double Tmin = 0.0001;
 
 	// Tabu Searh
-	private int maxNrIterations = 100;
+	private int maxNrIterations = 10;
 	private int tabuSize = 10;
 	private int tabuNeighborhoodSize = 10;
 
