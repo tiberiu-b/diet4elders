@@ -126,7 +126,7 @@ public class AlgorithmRunner {
 
 		data.addAll(queen.exportDataAsString());
 		try {
-			DataExporter.exportData(Paths.get("data\\HBMO_data.csv"),
+			DataExporter.exportData(Paths.get(configuration.getExportFileName()),
 					HBMO.getCustomHeadersForExportedData(), data);
 		} catch (DataExporterException e) {
 			// TODO Auto-generated catch block

@@ -9,6 +9,8 @@ public class AlgorithmConfiguration {
 	private static final Logger log = Logger
 			.getLogger(AlgorithmConfiguration.class.getName());
 
+	private String exportFileName = "";
+
 	// HBMO
 	private String broodModificationStrategy;
 	private ArrayList<String> workerModificationStrategies = new ArrayList<String>();
@@ -334,6 +336,11 @@ public class AlgorithmConfiguration {
 		this.tabuNeighborhoodSize = tabuNeighborhoodSize;
 	}
 
+	public String getExportFileName() {
+		return exportFileName;
+	}
 
-
+	public void setExportFileName(String exportFileName) {
+		this.exportFileName = exportFileName;
+	}
 }

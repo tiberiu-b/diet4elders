@@ -8,6 +8,7 @@ public class AlgorithmConfigurationArrays {
 	private static final Logger log = Logger
 			.getLogger(AlgorithmConfigurationArrays.class.getName());
 
+	private String exportFileName = "data\\HBMO_data.csv";
 	private ArrayList<String> broodModificationStrategy = new ArrayList<String>();
 	private ArrayList<ArrayList<String>> workerModificationStrategies = new ArrayList<ArrayList<String>>();
 	private ArrayList<Integer> maxNrMatings = new ArrayList<Integer>();
@@ -57,19 +58,23 @@ public class AlgorithmConfigurationArrays {
 																	for(int maxNrIterations : this.maxNrIterations){
 																		for(int tabuSize : this.tabuSize){
 																			for(int tabuNeighborhoodSize : this.tabuNeighborhoodSize){
-																				configs.add(new AlgorithmConfiguration(
-																						broodModificationStrategy,
-																						workerModificationStrategies,
-																						maxNrMatings,
-																						popSize,
-																						initialSpeed,
-																						initialEnergy,
-																						speedReductionFactor,
-																						energyReductionAmount,
-																						probabilityToMateDroneThreshold,
-																						similarityCoefficientThreshold,
-																						errorMargin2_K,hillClimbingNeighborhoodSize, T0, alpha, Tmin, maxNrIterations, tabuSize, tabuNeighborhoodSize));
+																				AlgorithmConfiguration algorithmConfiguration =
+																						new AlgorithmConfiguration(
+																							broodModificationStrategy,
+																							workerModificationStrategies,
+																							maxNrMatings,
+																							popSize,
+																							initialSpeed,
+																							initialEnergy,
+																							speedReductionFactor,
+																							energyReductionAmount,
+																							probabilityToMateDroneThreshold,
+																							similarityCoefficientThreshold,
+																							errorMargin2_K,hillClimbingNeighborhoodSize, T0, alpha, Tmin,
+																							maxNrIterations, tabuSize, tabuNeighborhoodSize);
 
+																				algorithmConfiguration.setExportFileName(exportFileName);
+																				configs.add(algorithmConfiguration);
 																			}
 																		}
 																	}
@@ -244,6 +249,14 @@ public class AlgorithmConfigurationArrays {
 	public void addTabuNeighSize(int value) {
 		this.tabuNeighborhoodSize.add(value);
 
+	}
+
+	public String getExportFileName() {
+		return exportFileName;
+	}
+
+	public void setExportFileName(String exportFileName) {
+		this.exportFileName = exportFileName;
 	}
 }
 

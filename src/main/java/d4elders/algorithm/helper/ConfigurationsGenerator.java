@@ -51,6 +51,7 @@ public class ConfigurationsGenerator {
 					String[] values = section.get(optionKey).split(",");
 					switch(optionKey){
 					case "fileName":
+						config.setExportFileName(values[0]);
 						break;
 					case "BroodModificationStrategy":
 						for(String value : values)
