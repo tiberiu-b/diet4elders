@@ -50,7 +50,7 @@ public class AlgorithmRunner {
 
 			if(queen.getFitness() > fMax)
 				fMax = queen.getFitness();
-			fTotal = queen.getFitness();
+			fTotal += queen.getFitness();
 		}
 
 		tAvg = (double)tTotal / NrIter;
