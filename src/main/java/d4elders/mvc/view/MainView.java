@@ -16,7 +16,6 @@ public class MainView extends JApplet {
 		if (algorithmToRun == 0) {
 			CuckooAdminPanel cuckooPanel = new CuckooAdminPanel();
 			this.add(cuckooPanel);
-			//hbmoPanel.setVisible(false);
 			cuckooPanel.setVisible(true);
 			this.setSize(1100, 640);
 		}
@@ -24,7 +23,6 @@ public class MainView extends JApplet {
 			HBMOAdminPanel hbmoPanel = new HBMOAdminPanel();
 			this.add(hbmoPanel);
 			hbmoPanel.setVisible(true);
-			//cuckooPanel.setVisible(false);
 			this.setSize(1100, 640);
 		}
 	}

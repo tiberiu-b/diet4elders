@@ -30,6 +30,7 @@ public class AlgorithmConfigurationCuckoo {
 	private int nestSize;
 	private int maxIterations;
 	private double pa;
+	private CuckooAlgorithmVersion algorithmVersion;
 
 	// Hill Climbing
 		private int hillClimbingNeighborhoodSize = 10;
@@ -50,6 +51,8 @@ public class AlgorithmConfigurationCuckoo {
 		setNestSize(5);
 		setMaxIterations(500);
 		setPa(0.7);
+		setAlgorithmVersion(CuckooAlgorithmVersion.Version1);
+
 	}
 
 
@@ -202,4 +205,13 @@ public class AlgorithmConfigurationCuckoo {
 	public void setExportFileName(String exportFileName) {
 		this.exportFileName = exportFileName;
 	}
+
+	public CuckooAlgorithmVersion getAlgorithmVersion() {
+		return algorithmVersion;
+	}
+
+	public void setAlgorithmVersion(CuckooAlgorithmVersion algorithmVersion) {
+		this.algorithmVersion = algorithmVersion;
+	}
+
 }

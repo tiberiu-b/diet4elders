@@ -57,7 +57,6 @@ public class HBMOAdminPanel extends JPanel implements ActionListener {
 	TextField probabilityToMateDroneThresholdField;
 	TextField similarityCoefficientThresholdField;
 
-
 	// Hill Climbing
 	Label hillClimbingNeighborhoodSizeLabel;
 
@@ -116,26 +115,20 @@ public class HBMOAdminPanel extends JPanel implements ActionListener {
 		Label tabuSizeLabel = new Label("Tabu Size");
 		Label tabuNeighborhoodSizeLabel = new Label("Tabu neigh size: ");
 
-
 		// Hill Climbing
 		hillClimbingNeighborhoodSizeTextField = new TextField(String.valueOf(defaultConfiguration
 				.getHillClimbingNeighborhoodSize()), 10);
 
 		// Simulated Annealing
-		T0TextField = new TextField(String.valueOf(defaultConfiguration
-				.getT0()), 10);
-		alphaTextField = new TextField(String.valueOf(defaultConfiguration
-				.getAlpha()), 10);
-		TminTextField = new TextField(String.valueOf(defaultConfiguration
-				.getTmin()), 10);
+		T0TextField = new TextField(String.valueOf(defaultConfiguration.getT0()), 10);
+		alphaTextField = new TextField(String.valueOf(defaultConfiguration.getAlpha()), 10);
+		TminTextField = new TextField(String.valueOf(defaultConfiguration.getTmin()), 10);
 
 		// Tabu Searh
-		maxNrIterationsTextField = new TextField(String.valueOf(defaultConfiguration
-				.getMaxNrIterations()), 10);
-		tabuSizeTextField = new TextField(String.valueOf(defaultConfiguration
-				.getTabuSize()), 10);
-		tabuNeighborhoodSizeTextField = new TextField(String.valueOf(defaultConfiguration
-				.getTabuNeighborhoodSize()), 10);
+		maxNrIterationsTextField = new TextField(String.valueOf(defaultConfiguration.getMaxNrIterations()), 10);
+		tabuSizeTextField = new TextField(String.valueOf(defaultConfiguration.getTabuSize()), 10);
+		tabuNeighborhoodSizeTextField = new TextField(String.valueOf(defaultConfiguration.getTabuNeighborhoodSize()),
+				10);
 
 		// hide heuristics elements
 		hillClimbingNeighborhoodSizeLabel.setVisible(false);
@@ -155,7 +148,6 @@ public class HBMOAdminPanel extends JPanel implements ActionListener {
 		tabuNeighborhoodSizeLabel.setVisible(false);
 		tabuNeighborhoodSizeTextField.setVisible(false);
 
-
 		CheckboxGroup grp = new CheckboxGroup();
 		broodModificationStrategiesCheckboxList = new ArrayList<Checkbox>();
 		for (String strategy : AvailableProgramConfigurationOptions.getAvailableBroodModificationStrategies()) {
@@ -167,40 +159,33 @@ public class HBMOAdminPanel extends JPanel implements ActionListener {
 		}
 
 		workerModificationStrategiesCheckboxList = new ArrayList<Checkbox>();
-		for (String strategy : AvailableProgramConfigurationOptions
-				.getAvailableWorkerModificationStrategies()) {
+		for (String strategy : AvailableProgramConfigurationOptions.getAvailableWorkerModificationStrategies()) {
 			Checkbox checkbox = new Checkbox(strategy, null, false);
 			workerModificationStrategiesCheckboxList.add(checkbox);
 
 			/*
-			 * // Hill Climbing
-			 * leftPanel.add(hillClimbingNeighborhoodSizeLabel);
+			 * // Hill Climbing leftPanel.add(hillClimbingNeighborhoodSizeLabel);
 			 * leftPanel.add(hillClimbingNeighborhoodSizeTextField);
-			 *
-			 * // Simulated Annealing leftPanel.add(T0Label);
-			 * leftPanel.add(T0TextField); leftPanel.add(alphaLabel);
-			 * leftPanel.add(alphaTextField); leftPanel.add(TminLabel);
+			 * 
+			 * // Simulated Annealing leftPanel.add(T0Label); leftPanel.add(T0TextField);
+			 * leftPanel.add(alphaLabel); leftPanel.add(alphaTextField); leftPanel.add(TminLabel);
 			 * leftPanel.add(TminTextField);
-			 *
+			 * 
 			 * // Tabu Searh leftPanel.add(maxNrIterationsLabel);
-			 * leftPanel.add(maxNrIterationsTextField);
-			 * leftPanel.add(tabuSizeLabel); leftPanel.add(tabuSizeTextField);
-			 * leftPanel.add(tabuNeighborhoodSizeLabel);
+			 * leftPanel.add(maxNrIterationsTextField); leftPanel.add(tabuSizeLabel);
+			 * leftPanel.add(tabuSizeTextField); leftPanel.add(tabuNeighborhoodSizeLabel);
 			 * leftPanel.add(tabuNeighborhoodSizeTextField);
 			 */
 
 			checkbox.addItemListener(new ItemListener() {
 				@Override
 				public void itemStateChanged(ItemEvent e) {
-					boolean currentState = e.getStateChange() == 1 ? true
-							: false;
+					boolean currentState = e.getStateChange() == 1 ? true : false;
 
 					switch (strategy) {
 					case AvailableProgramConfigurationOptions.HILL_CLIMBING:
-						hillClimbingNeighborhoodSizeLabel
-								.setVisible(currentState);
-						hillClimbingNeighborhoodSizeTextField
-								.setVisible(currentState);
+						hillClimbingNeighborhoodSizeLabel.setVisible(currentState);
+						hillClimbingNeighborhoodSizeTextField.setVisible(currentState);
 						break;
 					case AvailableProgramConfigurationOptions.SIMULATED_ANNEALING:
 						T0Label.setVisible(currentState);
@@ -223,7 +208,6 @@ public class HBMOAdminPanel extends JPanel implements ActionListener {
 				}
 			});
 
-
 		}
 
 		maxNrMatingsField = new TextField(String.valueOf(defaultConfiguration.getMaxNrMatings()), 10);
@@ -237,7 +221,7 @@ public class HBMOAdminPanel extends JPanel implements ActionListener {
 		similarityCoefficientThresholdField = new TextField(String.valueOf(defaultConfiguration
 				.getSimilarityCoefficientThreshold()), 10);
 		// The text area on the right
-		outputTextArea = new TextArea(17, 150);
+		outputTextArea = new TextArea(13, 150);
 
 		// The run button
 		runButton = new Button("Run");
@@ -291,8 +275,6 @@ public class HBMOAdminPanel extends JPanel implements ActionListener {
 		mainPanel.add(similarityCoefficientThresholdLabel);
 		mainPanel.add(similarityCoefficientThresholdField);
 
-
-
 		// Hill Climbing
 		mainPanel.add(hillClimbingNeighborhoodSizeLabel);
 		mainPanel.add(hillClimbingNeighborhoodSizeTextField);
@@ -312,7 +294,6 @@ public class HBMOAdminPanel extends JPanel implements ActionListener {
 		mainPanel.add(tabuSizeTextField);
 		mainPanel.add(tabuNeighborhoodSizeLabel);
 		mainPanel.add(tabuNeighborhoodSizeTextField);
-
 
 		mainPanel.add(runButton);
 		mainPanel.add(runConfigurationButton);
@@ -354,9 +335,10 @@ public class HBMOAdminPanel extends JPanel implements ActionListener {
 				if (c.getState() == true) {
 					defaultConfiguration.addWorkerModificationStrategy(c.getLabel());
 
-					switch(c.getLabel()){
+					switch (c.getLabel()) {
 					case AvailableProgramConfigurationOptions.HILL_CLIMBING:
-						defaultConfiguration.setHillClimbingNeighborhoodSize(Integer.valueOf(hillClimbingNeighborhoodSizeTextField.getText()));
+						defaultConfiguration.setHillClimbingNeighborhoodSize(Integer
+								.valueOf(hillClimbingNeighborhoodSizeTextField.getText()));
 						break;
 					case AvailableProgramConfigurationOptions.SIMULATED_ANNEALING:
 						defaultConfiguration.setT0(Double.valueOf(T0TextField.getText()));
@@ -366,7 +348,8 @@ public class HBMOAdminPanel extends JPanel implements ActionListener {
 					case AvailableProgramConfigurationOptions.SIMPLE_TABU_SEARCH:
 						defaultConfiguration.setMaxNrIterations(Integer.valueOf(maxNrIterationsTextField.getText()));
 						defaultConfiguration.setTabuSize(Integer.valueOf(tabuSizeTextField.getText()));
-						defaultConfiguration.setTabuNeighborhoodSize(Integer.valueOf(tabuNeighborhoodSizeTextField.getText()));
+						defaultConfiguration.setTabuNeighborhoodSize(Integer.valueOf(tabuNeighborhoodSizeTextField
+								.getText()));
 						break;
 					}
 				}
@@ -382,10 +365,11 @@ public class HBMOAdminPanel extends JPanel implements ActionListener {
 					.getText()));
 			defaultConfiguration.setSimilarityCoefficientThreshold(Double.valueOf(similarityCoefficientThresholdField
 					.getText()));
-			runButton.setEnabled(false);
 
+			runButton.setEnabled(false);
 			controller.runHBMO(defaultConfiguration);
 			runButton.setEnabled(true);
+
 			outputTextArea.setText(baos.toString());
 			outputTextArea.setCaretPosition(baos.toString().length());
 
