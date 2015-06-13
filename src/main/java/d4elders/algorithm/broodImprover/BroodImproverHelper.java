@@ -7,22 +7,32 @@ import java.util.List;
 import java.util.Random;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.logging.Logger;
+
+import java.util.logging.Level;
 
 import d4elders.algorithm.AnnealingScheduler;
+import d4elders.algorithm.helper.AlgorithmConfigurationCuckoo;
 import d4elders.algorithm.helper.AlgorithmConfigurationHBMO;
 import d4elders.algorithm.helper.AvailableProgramConfigurationOptions;
 import d4elders.model.Solution;
+import d4elders.mvc.controller.Controller;
 
 public class BroodImproverHelper {
+
+	private static final Logger log = Logger
+			.getLogger(BroodImproverHelper.class.getName());
 
 	private final static int defaultNumberOfThreads = 4;
 
 	/** List of supported search algorithms. */
 	protected static List<BroodImproverAlgorithm> SEARCH_ALGOS = new ArrayList<BroodImproverAlgorithm>();
+	protected static List<String> SEARCH_ALGOS_NAMES = new ArrayList<String>(); //hack to quickly find an algorithm
 
 	/** Adds a new item to the list of supported search algorithms. */
 	public static void addSearchAlgorithm(String name, BroodImproverAlgorithm algo) {
 		SEARCH_ALGOS.add(algo);
+		SEARCH_ALGOS_NAMES.add(name);
 	}
 
 	public static void applyConfiguration(AlgorithmConfigurationHBMO algorithmConfiguration) {
@@ -30,14 +40,37 @@ public class BroodImproverHelper {
 		for (String strategy : algorithmConfiguration.getWorkerModificationStrategies())
 			switch (strategy) {
 			case AvailableProgramConfigurationOptions.SIMULATED_ANNEALING:
-				addSearchAlgorithm("Simulated Annealing", new SimulatedAnnealingBroodImprover(new AnnealingScheduler(1,
-						90, 0.1)));
+				addSearchAlgorithm("Simulated Annealing", new SimulatedAnnealingBroodImprover(new AnnealingScheduler(
+						algorithmConfiguration.getT0(),algorithmConfiguration.getAlpha(), algorithmConfiguration.getTmin())));
 				break;
 			case AvailableProgramConfigurationOptions.HILL_CLIMBING:
-				addSearchAlgorithm("Hill Climbing", new HillClimbingBroodImprover());
+				addSearchAlgorithm("Hill Climbing", new HillClimbingBroodImprover(algorithmConfiguration.getHillClimbingNeighborhoodSize()));
 				break;
 			case AvailableProgramConfigurationOptions.SIMPLE_TABU_SEARCH:
-				addSearchAlgorithm("Tabu Search", new TabuSearchBroodImprover());
+				addSearchAlgorithm("Tabu Search", new TabuSearchBroodImprover(
+						algorithmConfiguration.getMaxNrIterations(),
+						algorithmConfiguration.getTabuSize(),
+						algorithmConfiguration.getTabuNeighborhoodSize()));
+				break;
+			}
+	}
+
+	public static void applyConfiguration(AlgorithmConfigurationCuckoo algorithmConfiguration) {
+		SEARCH_ALGOS.clear();
+		for (String strategy : algorithmConfiguration.getWorkerModificationStrategies())
+			switch (strategy) {
+			case AvailableProgramConfigurationOptions.SIMULATED_ANNEALING:
+				addSearchAlgorithm("Simulated Annealing", new SimulatedAnnealingBroodImprover(new AnnealingScheduler(
+						algorithmConfiguration.getT0(),algorithmConfiguration.getAlpha(), algorithmConfiguration.getTmin())));
+				break;
+			case AvailableProgramConfigurationOptions.HILL_CLIMBING:
+				addSearchAlgorithm("Hill Climbing", new HillClimbingBroodImprover(algorithmConfiguration.getHillClimbingNeighborhoodSize()));
+				break;
+			case AvailableProgramConfigurationOptions.SIMPLE_TABU_SEARCH:
+				addSearchAlgorithm("Tabu Search", new TabuSearchBroodImprover(
+						algorithmConfiguration.getMaxNrIterations(),
+						algorithmConfiguration.getTabuSize(),
+						algorithmConfiguration.getTabuNeighborhoodSize()));
 				break;
 			}
 	}
@@ -46,7 +79,7 @@ public class BroodImproverHelper {
 	 * TODO: revise the type of broods. Collection might not be the best one because it is
 	 * immedately transformed into an array. Improves all the solutions contained in broods using
 	 * numberOfThreads threads.
-	 * 
+	 *
 	 * @param broods
 	 *            the initial set of broods
 	 * @param numberOfThreads
@@ -57,7 +90,7 @@ public class BroodImproverHelper {
 
 		// If no algorithms were specified, don't do a thing.
 		if (SEARCH_ALGOS.size() == 0)
-			return (SortedSet<Solution>) broods;
+			return new TreeSet<Solution>();
 
 		// array of threads
 		ArrayList<Thread> threadsList = new ArrayList<Thread>();
@@ -96,12 +129,14 @@ public class BroodImproverHelper {
 			}
 		}
 
-		return new TreeSet<Solution>(broodsList);
+		TreeSet<Solution> returnValue = new TreeSet<Solution>(broodsList);
+		returnValue.addAll(broods);
+		return returnValue;
 	}
 
 	/**
 	 * Improves all the solutios contained in broods using the default number of threads.
-	 * 
+	 *
 	 * @param broods
 	 *            the initial set of broods
 	 * @return the set of improved broods
@@ -112,7 +147,7 @@ public class BroodImproverHelper {
 
 	/**
 	 * Improves one single brood using a random heuristic.
-	 * 
+	 *
 	 * @param brood
 	 * @return a new, improved brood
 	 */
@@ -121,34 +156,56 @@ public class BroodImproverHelper {
 	}
 
 	/**
-	 * Improves one single brood using a random heuristic.
-	 * 
+	 * Improves one single brood using Hill Climbing.
+	 *
 	 * @param brood
 	 * @return a new, improved brood
 	 */
 	public Solution improveWithHillClimbing(Solution brood) {
-		return improve(brood, new HillClimbingBroodImprover());
+		return improve(brood, "Hill Climbing");
 	}
-	
+
 	/**
-	 * Improves one single brood using a random heuristic.
-	 * 
+	 * Improves one single brood using Tabu Search.
+	 *
 	 * @param brood
 	 * @return a new, improved brood
 	 */
 	public Solution improveWithTabuSearch(Solution brood) {
-		return improve(brood, new TabuSearchBroodImprover());
+		return improve(brood, "Tabu Search");
+	}
+
+	/**
+	 * Improves one single brood using Simulated Annealing.
+	 *
+	 * @param brood
+	 * @return a new, improved brood
+	 */
+	public Solution improveWithSimulatedAnnealing(Solution brood) {
+		return improve(brood, "Simulated Annealing");
 	}
 
 	/**
 	 * Modifies the brood by performing mutation operations, i.e. changing components (dishes), in
 	 * order to improve its fitness value.
-	 * 
+	 *
 	 * @param brood
 	 * @param algorithm
 	 */
 	private Solution improve(Solution brood, BroodImproverAlgorithm algorithm) {
 		return algorithm.improve(brood);
+	}
+
+	private Solution improve(Solution brood, String algorithmName){
+		int i = 0;
+		for(String algoName : SEARCH_ALGOS_NAMES){
+			if(algoName.equals(algorithmName))
+				return improve(brood, SEARCH_ALGOS.get(i));
+			++i;
+		}
+
+		log.log(Level.SEVERE, "Error finding " + algorithmName +"! Did you add it to the configuration?");
+		return brood;
 	}
 
 	private class AlgorithmJob implements Runnable {
@@ -168,4 +225,6 @@ public class BroodImproverHelper {
 			}
 		}
 	}
+
+
 }

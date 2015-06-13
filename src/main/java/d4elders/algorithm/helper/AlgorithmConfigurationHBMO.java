@@ -9,6 +9,9 @@ public class AlgorithmConfigurationHBMO {
 	private static final Logger log = Logger
 			.getLogger(AlgorithmConfigurationHBMO.class.getName());
 
+	private String exportFileName = "data\\HBMO_data.csv";
+
+	// HBMO
 	private String broodModificationStrategy;
 	private ArrayList<String> workerModificationStrategies = new ArrayList<String>();
 	private int maxNrMatings;
@@ -21,6 +24,22 @@ public class AlgorithmConfigurationHBMO {
 	private double similarityCoefficientThreshold = 0.8;
 	private double errorMargin2_K = 0.7;
 
+	// Hill Climbing
+	private int hillClimbingNeighborhoodSize = 10;
+
+	// Simulated Annealing
+	private double T0 = 0.001;
+	private double alpha = 0.7;
+	private double Tmin = 0.0001;
+
+	// Tabu Searh
+	private int maxNrIterations = 10;
+	private int tabuSize = 10;
+	private int tabuNeighborhoodSize = 10;
+
+	/**
+	 * Initialize only HBMO parameters.
+	 */
 	public AlgorithmConfigurationHBMO(String broodModificationStrategy,
 			ArrayList<String> workerModificationStrategies, int maxNrMatings,
 			int popSize, int initialSpeed, int initialEnergy,
@@ -39,6 +58,39 @@ public class AlgorithmConfigurationHBMO {
 		this.probabilityToMateDroneThreshold = probabilityToMateDroneThreshold;
 		this.similarityCoefficientThreshold = similarityCoefficientThreshold;
 		this.setErrorMargin2_K(errorMargin2_K);
+	}
+
+	/**
+	 * Initialize only HBMO parameters and heuristics
+	 */
+	public AlgorithmConfigurationHBMO(String broodModificationStrategy,
+			ArrayList<String> workerModificationStrategies, int maxNrMatings,
+			int popSize, int initialSpeed, int initialEnergy,
+			double speedReductionFactor, double energyReductionAmount,
+			double probabilityToMateDroneThreshold,
+			double similarityCoefficientThreshold, double errorMargin2_K,
+			int hillClimbingNeighborhoodSize, double t0, double alpha,
+			double tmin, int maxNrIterations, int tabuSize,
+			int tabuNeighborhoodSize) {
+		super();
+		this.broodModificationStrategy = broodModificationStrategy;
+		this.workerModificationStrategies = workerModificationStrategies;
+		this.maxNrMatings = maxNrMatings;
+		this.popSize = popSize;
+		this.initialSpeed = initialSpeed;
+		this.initialEnergy = initialEnergy;
+		this.speedReductionFactor = speedReductionFactor;
+		this.energyReductionAmount = energyReductionAmount;
+		this.probabilityToMateDroneThreshold = probabilityToMateDroneThreshold;
+		this.similarityCoefficientThreshold = similarityCoefficientThreshold;
+		this.errorMargin2_K = errorMargin2_K;
+		this.hillClimbingNeighborhoodSize = hillClimbingNeighborhoodSize;
+		T0 = t0;
+		this.alpha = alpha;
+		Tmin = tmin;
+		this.maxNrIterations = maxNrIterations;
+		this.tabuSize = tabuSize;
+		this.tabuNeighborhoodSize = tabuNeighborhoodSize;
 	}
 
 	/**
@@ -77,7 +129,7 @@ public class AlgorithmConfigurationHBMO {
 	/**
 	 * Returns the stored information in a nice format: Map[param]=value NOT
 	 * Anymore - just a list
-	 * 
+	 *
 	 * @return a Map from param to its value
 	 */
 	public ArrayList<String> getAllDataAsString() {
@@ -107,6 +159,13 @@ public class AlgorithmConfigurationHBMO {
 		data.add(String.valueOf(speedReductionFactor));
 		data.add(String.valueOf(energyReductionAmount));
 		data.add(String.valueOf(probabilityToMateDroneThreshold));
+		data.add(String.valueOf(hillClimbingNeighborhoodSize));
+		data.add(String.valueOf(T0));
+		data.add(String.valueOf(alpha));
+		data.add(String.valueOf(Tmin));
+		data.add(String.valueOf(maxNrIterations));
+		data.add(String.valueOf(tabuSize));
+		data.add(String.valueOf(tabuNeighborhoodSize));
 		return data;
 	}
 
@@ -221,4 +280,67 @@ public class AlgorithmConfigurationHBMO {
 		this.errorMargin2_K = errorMargin2_K;
 	}
 
+	public int getHillClimbingNeighborhoodSize() {
+		return hillClimbingNeighborhoodSize;
+	}
+
+	public void setHillClimbingNeighborhoodSize(int hillClimbingNeighborhoodSize) {
+		this.hillClimbingNeighborhoodSize = hillClimbingNeighborhoodSize;
+	}
+
+	public double getT0() {
+		return T0;
+	}
+
+	public void setT0(double t0) {
+		T0 = t0;
+	}
+
+	public double getAlpha() {
+		return alpha;
+	}
+
+	public void setAlpha(double alpha) {
+		this.alpha = alpha;
+	}
+
+	public double getTmin() {
+		return Tmin;
+	}
+
+	public void setTmin(double tmin) {
+		Tmin = tmin;
+	}
+
+	public int getMaxNrIterations() {
+		return maxNrIterations;
+	}
+
+	public void setMaxNrIterations(int maxNrIterations) {
+		this.maxNrIterations = maxNrIterations;
+	}
+
+	public int getTabuSize() {
+		return tabuSize;
+	}
+
+	public void setTabuSize(int tabuSize) {
+		this.tabuSize = tabuSize;
+	}
+
+	public int getTabuNeighborhoodSize() {
+		return tabuNeighborhoodSize;
+	}
+
+	public void setTabuNeighborhoodSize(int tabuNeighborhoodSize) {
+		this.tabuNeighborhoodSize = tabuNeighborhoodSize;
+	}
+
+	public String getExportFileName() {
+		return exportFileName;
+	}
+
+	public void setExportFileName(String exportFileName) {
+		this.exportFileName = exportFileName;
+	}
 }

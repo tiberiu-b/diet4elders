@@ -67,6 +67,7 @@ public class SimulatedAnnealingBroodImprover implements BroodImproverAlgorithm {
 		return (deltaE > 0.0)
 				|| (new Random().nextDouble() <= probabilityOfAcceptance(
 						temperature, deltaE));
+		//return deltaE > 0.0;
 	}
 
 }

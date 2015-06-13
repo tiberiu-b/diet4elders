@@ -58,6 +58,10 @@ public class Controller {
 
 	}
 
+	public void runCuckoo(ArrayList<AlgorithmConfigurationCuckoo> configurations){
+		AlgorithmRunner.runCuckoo(solGenerator, configurations);
+	}
+
 	public static AlgorithmConfigurationHBMO getHbmoConf() {
 		return hbmoConf;
 	}

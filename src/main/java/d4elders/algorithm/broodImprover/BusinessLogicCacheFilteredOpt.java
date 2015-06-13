@@ -58,27 +58,27 @@ public class BusinessLogicCacheFilteredOpt implements IBusinessLogic {
 	public void loadCache2() {
 		FileIO des = new FileIO();
 		long startTime = System.currentTimeMillis();
-		recipeListCache = des.deserializeRecipe();
+		//recipeListCache = des.deserializeRecipe();
 		long stopTime = System.currentTimeMillis();
 		System.out.println("Time for recipeCache " + (stopTime - startTime));
 		startTime = System.currentTimeMillis();
-		dishListCache = des.deserializeDish();
+		//dishListCache = des.deserializeDish();
 		stopTime = System.currentTimeMillis();
 		System.out.println("Time for dishCache " + (stopTime - startTime));
 		startTime = System.currentTimeMillis();
-		mealVariantListCache = des.deserializeMealVariant();
+		//mealVariantListCache = des.deserializeMealVariant();
 		stopTime = System.currentTimeMillis();
 		System.out.println("Time for mealVariantCache " + (stopTime - startTime));
 		startTime = System.currentTimeMillis();
-		geoAreaListCache = des.deserializeGeographicalArea();
+		//geoAreaListCache = des.deserializeGeographicalArea();
 		stopTime = System.currentTimeMillis();
 		System.out.println("Time for geoAreaCache" + (stopTime - startTime));
 		startTime = System.currentTimeMillis();
-		foodProviderListCache = des.deserializeFoodServiceProvider();
+		//foodProviderListCache = des.deserializeFoodServiceProvider();
 		stopTime = System.currentTimeMillis();
 		System.out.println("Time for foodProviderCache " + (stopTime - startTime));
 		startTime = System.currentTimeMillis();
-		menuListCache = des.deserializeMenu();
+		//menuListCache = des.deserializeMenu();
 		stopTime = System.currentTimeMillis();
 		System.out.println("Time for menuCache" + (stopTime - startTime));
 		startTime = System.currentTimeMillis();
@@ -111,23 +111,28 @@ public class BusinessLogicCacheFilteredOpt implements IBusinessLogic {
 		System.out.println("Hello");
 	}
 
+	@Override
 	public FoodProviderPackage generateSingleBreakfastPackages() {
-		
+
 		return breakfastPackageListCache.get(r.nextInt(breakfastPackageListCache.size()));
 	}
 
+	@Override
 	public FoodProviderPackage generateSingleLunchPackages() {
 		return lunchPackageListCache.get(r.nextInt(lunchPackageListCache.size()));
 	}
 
+	@Override
 	public FoodProviderPackage generateSingleDinnerPackages() {
 		return dinnerPackageListCache.get(r.nextInt(dinnerPackageListCache.size()));
 	}
 
+	@Override
 	public FoodProviderPackage generateSingleSnackPackages() {
 		return snackPackageListCache.get(r.nextInt(snackPackageListCache.size()));
 	}
 
+	@Override
 	public ArrayList<FoodProviderPackage> generateBreakfastPackages(int numberOfSolutions) {
 		ArrayList<FoodProviderPackage> breakfastPackageList = new ArrayList<>();
 		for (int i = 0; i < numberOfSolutions; i++) {
@@ -136,6 +141,7 @@ public class BusinessLogicCacheFilteredOpt implements IBusinessLogic {
 		return breakfastPackageList;
 	}
 
+	@Override
 	public ArrayList<FoodProviderPackage> generateLunchPackages(int numberOfSolutions) {
 		ArrayList<FoodProviderPackage> lunchPackageList = new ArrayList<>();
 		for (int i = 0; i < numberOfSolutions; i++) {
@@ -144,6 +150,7 @@ public class BusinessLogicCacheFilteredOpt implements IBusinessLogic {
 		return lunchPackageList;
 	}
 
+	@Override
 	public ArrayList<FoodProviderPackage> generateDinnerPackages(int numberOfSolutions) {
 		ArrayList<FoodProviderPackage> dinnerPackageList = new ArrayList<>();
 		for (int i = 0; i < numberOfSolutions; i++) {
@@ -152,6 +159,7 @@ public class BusinessLogicCacheFilteredOpt implements IBusinessLogic {
 		return dinnerPackageList;
 	}
 
+	@Override
 	public ArrayList<FoodProviderPackage> generateSnackPackages(int numberOfSolutions) {
 		ArrayList<FoodProviderPackage> snackPackageList = new ArrayList<>();
 		for (int i = 0; i < numberOfSolutions; i++) {
@@ -160,6 +168,7 @@ public class BusinessLogicCacheFilteredOpt implements IBusinessLogic {
 		return snackPackageList;
 	}
 
+	@Override
 	public ArrayList<FoodProviderPackage> getAllBreakfastPackages() {
 		if (breakfastPackageListCache == null) {
 			loadCache2();
@@ -167,6 +176,7 @@ public class BusinessLogicCacheFilteredOpt implements IBusinessLogic {
 		return breakfastPackageListCache;
 	}
 
+	@Override
 	public ArrayList<FoodProviderPackage> getAllLunchPackages() {
 		if (lunchPackageListCache == null) {
 			loadCache2();
@@ -174,6 +184,7 @@ public class BusinessLogicCacheFilteredOpt implements IBusinessLogic {
 		return lunchPackageListCache;
 	}
 
+	@Override
 	public ArrayList<FoodProviderPackage> getAllDinnerPackages() {
 		if (dinnerPackageListCache == null) {
 			loadCache2();
@@ -181,6 +192,7 @@ public class BusinessLogicCacheFilteredOpt implements IBusinessLogic {
 		return dinnerPackageListCache;
 	}
 
+	@Override
 	public ArrayList<FoodProviderPackage> getAllSnackPackages() {
 		if (snackPackageListCache == null) {
 			loadCache2();

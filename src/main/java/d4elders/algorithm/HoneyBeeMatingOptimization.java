@@ -129,6 +129,7 @@ public class HoneyBeeMatingOptimization extends MainAlgorithm {
 
 			broods.addAll(broodImprover.improve(broods));
 			duration = System.currentTimeMillis() - start;
+			// System.out.println();
 			// TODO: add broods to population and then select the best 40, do
 			// not throw away the
 			// current solutions
@@ -163,6 +164,16 @@ public class HoneyBeeMatingOptimization extends MainAlgorithm {
 			// if bestBrood has a greater fitness function then
 			if (bestBrood.compareTo(queen) > 0) {
 				queen = bestBrood;
+				/*System.out.println(queen.getDailyMenu().getBreakfast()
+						.getPackageId()
+						+ ", "
+						+ queen.getDailyMenu().getLunch().getPackageId()
+						+ ", "
+						+ queen.getDailyMenu().getDinner().getPackageId()
+						+ ", "
+						+ queen.getDailyMenu().getSnack1().getPackageId()
+						+ ", "
+						+ queen.getDailyMenu().getSnack2().getPackageId());*/
 			}
 
 			/*
@@ -191,9 +202,23 @@ public class HoneyBeeMatingOptimization extends MainAlgorithm {
 		headers.add("Speed reduction factor");
 		headers.add("Energy reduction amount");
 		headers.add("Probability to mate drone threshold");
-		headers.add("Fitness values");
+		headers.add("Hill-Climb negih size");
+		headers.add("T0");
+		headers.add("alpha");
+		headers.add("Tmin");
+		headers.add("TabuSearchIters");
+		headers.add("Tabu Size");
+		headers.add("Tabu neigh size");
+
 		headers.add("Number of iterations");
-		headers.add("Duration");
+		headers.add("Fitness Min");
+		headers.add("Fitness Max");
+		headers.add("Fitness Avg");
+		headers.add("Duration Min");
+		headers.add("Duration Max");
+		headers.add("Duration Avg");
+
+
 
 		super.addDefaultHeadersForExportedData(headers);
 

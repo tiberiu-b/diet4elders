@@ -11,21 +11,20 @@ public class MainView extends JApplet {
 
 	public MainView() {
 
-		int algorithmToRun = 0;
-
-		HBMOAdminPanel hbmoPanel = new HBMOAdminPanel();
-		CuckooAdminPanel cuckooPanel = new CuckooAdminPanel();
+		int algorithmToRun = 1;
 
 		if (algorithmToRun == 0) {
+			CuckooAdminPanel cuckooPanel = new CuckooAdminPanel();
 			this.add(cuckooPanel);
-			hbmoPanel.setVisible(false);
+			//hbmoPanel.setVisible(false);
 			cuckooPanel.setVisible(true);
 			this.setSize(1100, 640);
 		}
 		if (algorithmToRun == 1) {
+			HBMOAdminPanel hbmoPanel = new HBMOAdminPanel();
 			this.add(hbmoPanel);
 			hbmoPanel.setVisible(true);
-			cuckooPanel.setVisible(false);
+			//cuckooPanel.setVisible(false);
 			this.setSize(1100, 640);
 		}
 	}

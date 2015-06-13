@@ -11,11 +11,19 @@ import d4elders.model.Solution;
  */
 public class TabuSearchBroodImprover implements BroodImproverAlgorithm {
 
+	private int limit = 100;
+	private int maxTabuSize = 10;
+	private int neighbourhoodSize = 10;
+
+	public TabuSearchBroodImprover(int limit, int maxTabuSize, int neighSize) {
+		this.limit = limit;
+		this.maxTabuSize = maxTabuSize;
+		this.neighbourhoodSize = neighSize;
+	}
+
 	@Override
 	public Solution improve(Solution brood) {
-		final int limit = 100;
-		final int maxTabuSize = 10;
-		final int neighbourhoodSize = 10;
+
 
 		int timeStep = 0;
 
@@ -73,6 +81,11 @@ public class TabuSearchBroodImprover implements BroodImproverAlgorithm {
 			if (!tabuListContains(tabuList, candidate)){
 				set.add(candidate);
 			}
+		}
+
+		// make sure there is at least one candidate
+		if(set.size() == 0){
+			set.add(candidate);
 		}
 
 		return set;

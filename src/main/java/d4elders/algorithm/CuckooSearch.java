@@ -30,16 +30,18 @@ public class CuckooSearch extends MainAlgorithm {
 	 */
 	public void setAlgorithmConfiguration(AlgorithmConfigurationCuckoo algorithmConfiguration) {
 		this.algorithmConfiguration = algorithmConfiguration;
+		BroodImproverHelper.applyConfiguration(algorithmConfiguration);
 	}
 
 	public CuckooSearch(SolutionsGenerator solGenerator, AlgorithmConfigurationCuckoo config) {
 		this.solGenerator = solGenerator;
 		this.algorithmConfiguration = config;
+		setAlgorithmConfiguration(config);
 	}
 
 	@Override
 	public Solution performAlgorithm() {
-
+		return csVersion1();
 	}
 
 	private Solution csVersion1() {
@@ -77,6 +79,7 @@ public class CuckooSearch extends MainAlgorithm {
 				// cuckoos[i] = nests[i].randomGenotypesMutation();
 
 				cuckoos[i] = broodImprover.improveWithHillClimbing(nests[i]);
+				cuckoos[i] = broodImprover.improveWithTabuSearch(nests[i]);
 
 				// cuckoos[i] = broodImprover.improveWithTabuSearch(nests[i]);
 				// varianta 2: crossover cu best - mutatie ghidata

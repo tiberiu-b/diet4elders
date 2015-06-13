@@ -1,7 +1,11 @@
 package d4elders.algorithm.helper;
 
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import d4elders.algorithm.CuckooSearch;
 import d4elders.algorithm.HoneyBeeMatingOptimization;
@@ -11,7 +15,11 @@ import d4elders.dal.helper.SolutionsGenerator;
 import d4elders.model.Solution;
 
 public class AlgorithmRunner {
-	public static void runHBMO(SolutionsGenerator solutionsGenerator, AlgorithmConfigurationHBMO configuration) {
+	private static final Logger log = Logger
+			.getLogger(AlgorithmRunner.class.getName());
+
+	public static void runHBMO(SolutionsGenerator solutionsGenerator,
+			AlgorithmConfigurationHBMO configuration) {
 
 		Solution queen = null;
 		RunInformation info = null;
@@ -23,10 +31,35 @@ public class AlgorithmRunner {
 		// System.out.println("Running Honey Bee Mating Optimization with the following configuration\n"
 		// + configuration);
 		HoneyBeeMatingOptimization HBMO = new HoneyBeeMatingOptimization(solutionsGenerator, configuration);
-		queen = HBMO.performAlgorithm();
-		info = HBMO.getLastRunInformation();
+		long tMin = 99999, tMax = -1, tTotal = 0;
+		double fMin = 100, fMax = -1, fAvg, fTotal = 0, tAvg;
+		final int NrIter = 10;
+		for(int i = 0; i < NrIter; ++i)
+		{
+			queen = HBMO.performAlgorithm();
+			info = HBMO.getLastRunInformation();
 
+			if(info.duration < tMin)
+				tMin = info.duration;
+
+			if(info.duration > tMax)
+				tMax = info.duration;
+			tTotal += info.duration;
+
+			if(queen.getFitness() < fMin)
+				fMin = queen.getFitness();
+
+			if(queen.getFitness() > fMax)
+				fMax = queen.getFitness();
+			fTotal += queen.getFitness();
+		}
+
+		tAvg = (double)tTotal / NrIter;
+		fAvg = fTotal / NrIter;
+		System.out.println("Time Average     : " + tAvg);
+		System.out.println("Fitness Avgerage : " + fAvg);
 		// Print results
+
 		System.out.println("___\nFinal Result:");
 		System.out.println("	Breakfast: MenuId " + queen.getDailyMenu().getBreakfast().getMenu().getMenuId()
 				+ " Cost: " + queen.getDailyMenu().getBreakfast().getCost() + " DeliveryTime: "
@@ -56,14 +89,25 @@ public class AlgorithmRunner {
 
 		System.out.println("Duration of execution(in millis): " + info.duration);
 		System.out.println();
+
 		// Export data
 		ArrayList<String> data = configuration.getAllDataAsString();
-		data.add(String.valueOf(queen.getFitness()));
+
 		data.add(String.valueOf(info.nrOfItertions));
-		data.add(String.valueOf(info.duration));
+		//data.add(String.valueOf(info.duration));
+
+		data.add(String.valueOf(fMin));
+		data.add(String.valueOf(fMax));
+		data.add(String.valueOf(fAvg));
+
+		data.add(String.valueOf(tMin));
+		data.add(String.valueOf(tMax));
+		data.add(String.valueOf(tAvg));
+
 		data.addAll(queen.exportDataAsString());
 		try {
-			DataExporter.exportData(Paths.get("data\\HBMO_data.csv"), HBMO.getCustomHeadersForExportedData(), data);
+			DataExporter.exportData(Paths.get(configuration.getExportFileName()),
+					HBMO.getCustomHeadersForExportedData(), data);
 		} catch (DataExporterException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -72,12 +116,19 @@ public class AlgorithmRunner {
 
 	public static void runHBMO(SolutionsGenerator solutionsGenerator,
 			ArrayList<AlgorithmConfigurationHBMO> configurations) {
+		String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+		log.log(Level.INFO, "BEGIN: " + timeStamp);
 		for (AlgorithmConfigurationHBMO config : configurations) {
 			runHBMO(solutionsGenerator, config);
 		}
+		timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+		log.log(Level.INFO, "END: " + timeStamp);
 	}
 
 	public static void runCuckoo(SolutionsGenerator solutionsGenerator, AlgorithmConfigurationCuckoo config) {
+
+		System.out.println("Running the following configuration: " + config.toString());
+
 		RunInformation info = null;
 
 		CuckooSearch cuckoo = new CuckooSearch(solutionsGenerator, config);

@@ -11,6 +11,8 @@ import java.awt.TextArea;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -55,6 +57,33 @@ public class HBMOAdminPanel extends JPanel implements ActionListener {
 	TextField probabilityToMateDroneThresholdField;
 	TextField similarityCoefficientThresholdField;
 
+
+	// Hill Climbing
+	Label hillClimbingNeighborhoodSizeLabel;
+
+	// Simulated Annealing
+	Label T0Label;
+	Label alphaLabel;
+	Label TminLabel;
+
+	// Tabu Searh
+	Label maxNrIterationsLabel;
+	Label tabuSizeLabel;
+	Label tabuNeighborhoodSizeLabel;
+
+	// Hill Climbing
+	TextField hillClimbingNeighborhoodSizeTextField;
+
+	// Simulated Annealing
+	TextField T0TextField;
+	TextField alphaTextField;
+	TextField TminTextField;
+
+	// Tabu Searh
+	TextField maxNrIterationsTextField;
+	TextField tabuSizeTextField;
+	TextField tabuNeighborhoodSizeTextField;
+
 	public HBMOAdminPanel() {
 
 		defaultConfiguration = Controller.getHbmoConf();
@@ -74,6 +103,59 @@ public class HBMOAdminPanel extends JPanel implements ActionListener {
 		probabilityToMateDroneThresholdLabel = new Label("Probability to mate dron threshold: ");
 		similarityCoefficientThresholdLabel = new Label("Solutions similarity threshold: ");
 
+		// Hill Climbing
+		Label hillClimbingNeighborhoodSizeLabel = new Label("Hill-Climb neigh size: ");
+
+		// Simulated Annealing
+		Label T0Label = new Label("T0: ");
+		Label alphaLabel = new Label("alpha: ");
+		Label TminLabel = new Label("Tmin: ");
+
+		// Tabu Searh
+		Label maxNrIterationsLabel = new Label("TabuSearch iterations: ");
+		Label tabuSizeLabel = new Label("Tabu Size");
+		Label tabuNeighborhoodSizeLabel = new Label("Tabu neigh size: ");
+
+
+		// Hill Climbing
+		hillClimbingNeighborhoodSizeTextField = new TextField(String.valueOf(defaultConfiguration
+				.getHillClimbingNeighborhoodSize()), 10);
+
+		// Simulated Annealing
+		T0TextField = new TextField(String.valueOf(defaultConfiguration
+				.getT0()), 10);
+		alphaTextField = new TextField(String.valueOf(defaultConfiguration
+				.getAlpha()), 10);
+		TminTextField = new TextField(String.valueOf(defaultConfiguration
+				.getTmin()), 10);
+
+		// Tabu Searh
+		maxNrIterationsTextField = new TextField(String.valueOf(defaultConfiguration
+				.getMaxNrIterations()), 10);
+		tabuSizeTextField = new TextField(String.valueOf(defaultConfiguration
+				.getTabuSize()), 10);
+		tabuNeighborhoodSizeTextField = new TextField(String.valueOf(defaultConfiguration
+				.getTabuNeighborhoodSize()), 10);
+
+		// hide heuristics elements
+		hillClimbingNeighborhoodSizeLabel.setVisible(false);
+		hillClimbingNeighborhoodSizeTextField.setVisible(false);
+
+		T0Label.setVisible(false);
+		T0TextField.setVisible(false);
+		alphaLabel.setVisible(false);
+		alphaTextField.setVisible(false);
+		TminLabel.setVisible(false);
+		TminTextField.setVisible(false);
+
+		maxNrIterationsLabel.setVisible(false);
+		maxNrIterationsTextField.setVisible(false);
+		tabuSizeLabel.setVisible(false);
+		tabuSizeTextField.setVisible(false);
+		tabuNeighborhoodSizeLabel.setVisible(false);
+		tabuNeighborhoodSizeTextField.setVisible(false);
+
+
 		CheckboxGroup grp = new CheckboxGroup();
 		broodModificationStrategiesCheckboxList = new ArrayList<Checkbox>();
 		for (String strategy : AvailableProgramConfigurationOptions.getAvailableBroodModificationStrategies()) {
@@ -85,9 +167,63 @@ public class HBMOAdminPanel extends JPanel implements ActionListener {
 		}
 
 		workerModificationStrategiesCheckboxList = new ArrayList<Checkbox>();
-		for (String strategy : AvailableProgramConfigurationOptions.getAvailableWorkerModificationStrategies()) {
-			Checkbox checkbox = new Checkbox(strategy, null, true);
+		for (String strategy : AvailableProgramConfigurationOptions
+				.getAvailableWorkerModificationStrategies()) {
+			Checkbox checkbox = new Checkbox(strategy, null, false);
 			workerModificationStrategiesCheckboxList.add(checkbox);
+
+			/*
+			 * // Hill Climbing
+			 * leftPanel.add(hillClimbingNeighborhoodSizeLabel);
+			 * leftPanel.add(hillClimbingNeighborhoodSizeTextField);
+			 *
+			 * // Simulated Annealing leftPanel.add(T0Label);
+			 * leftPanel.add(T0TextField); leftPanel.add(alphaLabel);
+			 * leftPanel.add(alphaTextField); leftPanel.add(TminLabel);
+			 * leftPanel.add(TminTextField);
+			 *
+			 * // Tabu Searh leftPanel.add(maxNrIterationsLabel);
+			 * leftPanel.add(maxNrIterationsTextField);
+			 * leftPanel.add(tabuSizeLabel); leftPanel.add(tabuSizeTextField);
+			 * leftPanel.add(tabuNeighborhoodSizeLabel);
+			 * leftPanel.add(tabuNeighborhoodSizeTextField);
+			 */
+
+			checkbox.addItemListener(new ItemListener() {
+				@Override
+				public void itemStateChanged(ItemEvent e) {
+					boolean currentState = e.getStateChange() == 1 ? true
+							: false;
+
+					switch (strategy) {
+					case AvailableProgramConfigurationOptions.HILL_CLIMBING:
+						hillClimbingNeighborhoodSizeLabel
+								.setVisible(currentState);
+						hillClimbingNeighborhoodSizeTextField
+								.setVisible(currentState);
+						break;
+					case AvailableProgramConfigurationOptions.SIMULATED_ANNEALING:
+						T0Label.setVisible(currentState);
+						T0TextField.setVisible(currentState);
+						alphaLabel.setVisible(currentState);
+						alphaTextField.setVisible(currentState);
+						TminLabel.setVisible(currentState);
+						TminTextField.setVisible(currentState);
+						break;
+					case AvailableProgramConfigurationOptions.SIMPLE_TABU_SEARCH:
+						maxNrIterationsLabel.setVisible(currentState);
+						maxNrIterationsTextField.setVisible(currentState);
+						tabuSizeLabel.setVisible(currentState);
+						tabuSizeTextField.setVisible(currentState);
+						tabuNeighborhoodSizeLabel.setVisible(currentState);
+						tabuNeighborhoodSizeTextField.setVisible(currentState);
+						break;
+					}
+					mainPanel.revalidate();
+				}
+			});
+
+
 		}
 
 		maxNrMatingsField = new TextField(String.valueOf(defaultConfiguration.getMaxNrMatings()), 10);
@@ -154,8 +290,33 @@ public class HBMOAdminPanel extends JPanel implements ActionListener {
 		// prob to mate drone
 		mainPanel.add(similarityCoefficientThresholdLabel);
 		mainPanel.add(similarityCoefficientThresholdField);
+
+
+
+		// Hill Climbing
+		mainPanel.add(hillClimbingNeighborhoodSizeLabel);
+		mainPanel.add(hillClimbingNeighborhoodSizeTextField);
+
+		// Simulated Annealing
+		mainPanel.add(T0Label);
+		mainPanel.add(T0TextField);
+		mainPanel.add(alphaLabel);
+		mainPanel.add(alphaTextField);
+		mainPanel.add(TminLabel);
+		mainPanel.add(TminTextField);
+
+		// Tabu Searh
+		mainPanel.add(maxNrIterationsLabel);
+		mainPanel.add(maxNrIterationsTextField);
+		mainPanel.add(tabuSizeLabel);
+		mainPanel.add(tabuSizeTextField);
+		mainPanel.add(tabuNeighborhoodSizeLabel);
+		mainPanel.add(tabuNeighborhoodSizeTextField);
+
+
 		mainPanel.add(runButton);
 		mainPanel.add(runConfigurationButton);
+
 		JPanel outputPanel = new JPanel();
 		outputPanel.add(outputTextArea);
 		baos = new ByteArrayOutputStream();
@@ -176,7 +337,7 @@ public class HBMOAdminPanel extends JPanel implements ActionListener {
 
 		// run results generator
 		if (source.getLabel().equals(runConfigurationButton.getLabel()))
-			controller.runHBMO(ConfigurationsGenerator.getConfigFromIniFile("configs.ini"));
+			controller.runHBMO(ConfigurationsGenerator.getHBMOConfigFromIniFile("configs.ini"));
 
 		// run HBMO
 		if (source.getLabel().equals(runButton.getLabel())) {
@@ -192,6 +353,22 @@ public class HBMOAdminPanel extends JPanel implements ActionListener {
 			for (Checkbox c : workerModificationStrategiesCheckboxList) {
 				if (c.getState() == true) {
 					defaultConfiguration.addWorkerModificationStrategy(c.getLabel());
+
+					switch(c.getLabel()){
+					case AvailableProgramConfigurationOptions.HILL_CLIMBING:
+						defaultConfiguration.setHillClimbingNeighborhoodSize(Integer.valueOf(hillClimbingNeighborhoodSizeTextField.getText()));
+						break;
+					case AvailableProgramConfigurationOptions.SIMULATED_ANNEALING:
+						defaultConfiguration.setT0(Double.valueOf(T0TextField.getText()));
+						defaultConfiguration.setAlpha(Double.valueOf(alphaTextField.getText()));
+						defaultConfiguration.setTmin(Double.valueOf(TminTextField.getText()));
+						break;
+					case AvailableProgramConfigurationOptions.SIMPLE_TABU_SEARCH:
+						defaultConfiguration.setMaxNrIterations(Integer.valueOf(maxNrIterationsTextField.getText()));
+						defaultConfiguration.setTabuSize(Integer.valueOf(tabuSizeTextField.getText()));
+						defaultConfiguration.setTabuNeighborhoodSize(Integer.valueOf(tabuNeighborhoodSizeTextField.getText()));
+						break;
+					}
 				}
 			}
 

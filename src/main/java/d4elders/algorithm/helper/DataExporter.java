@@ -28,6 +28,7 @@ public class DataExporter {
 
 		if(!dataFile.exists()){
 			log.log(Level.WARNING, "File " + dataFile.getAbsolutePath() + " not found => no history!");
+			dataFile.getParentFile().mkdirs();
 			writeHeaders = true;
 		}
 
