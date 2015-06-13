@@ -83,6 +83,11 @@ public class TabuSearchBroodImprover implements BroodImproverAlgorithm {
 			}
 		}
 
+		// make sure there is at least one candidate
+		if(set.size() == 0){
+			set.add(candidate);
+		}
+
 		return set;
 	}
 
