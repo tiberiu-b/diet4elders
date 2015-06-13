@@ -11,7 +11,7 @@ public class MainView extends JApplet {
 
 	public MainView() {
 
-		int algorithmToRun = 1;
+		int algorithmToRun = 0;
 
 		if (algorithmToRun == 0) {
 			CuckooAdminPanel cuckooPanel = new CuckooAdminPanel();

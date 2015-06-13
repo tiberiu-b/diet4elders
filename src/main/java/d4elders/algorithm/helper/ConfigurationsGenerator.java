@@ -183,38 +183,19 @@ public class ConfigurationsGenerator {
 							config.addWorkerModificationStrategies(strategies);
 						}
 						break;
-					case "PopSize":
+					case "NestSize":
 						for(String value : values)
-							config.addPopSize(Integer.valueOf(value));
+							config.addNestSize(Integer.valueOf(value));
 						break;
-					case "MaxNrMatings":
+					case "MaxIterations":
 						for(String value : values)
-							config.addMaxNrMatings(Integer.valueOf(value));
+							config.addMaxIterations(Integer.valueOf(value));
 						break;
-					case "InitialSpeed":
+					case "pa":
 						for(String value : values)
-							config.addInitialSpeed(Integer.valueOf(value));
+							config.addPa(Double.valueOf(value));
 						break;
-					case "initialEnergy":
-						for(String value : values)
-							config.addInitialSpeed(Integer.valueOf(value));
-						break;
-					case "speedReductionFactor":
-						for(String value : values)
-							config.addSpeedReductionFactor(Double.valueOf(value));
-						break;
-					case "energyReductionAmount":
-						for(String value : values)
-							config.addEnergyReductionAmlount(Double.valueOf(value));
-						break;
-					case "probabilityToMateDroneThreshold":
-						for(String value : values)
-							config.addProbabilityToMateDroneThreshold(Double.valueOf(value));
-						break;
-					case "similarityCoefficientThreshold":
-						for(String value : values)
-							config.addSimilarityCoefficientThreshold(Double.valueOf(value));
-						break;
+
 					case "hillClimbNeighSize":
 						for(String value : values)
 							config.addHillClimbingNeighborhoodSize(Integer.valueOf(value));

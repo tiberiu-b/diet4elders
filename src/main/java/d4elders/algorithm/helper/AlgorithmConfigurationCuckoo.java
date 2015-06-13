@@ -53,6 +53,30 @@ public class AlgorithmConfigurationCuckoo {
 	}
 
 
+
+	public AlgorithmConfigurationCuckoo(
+			String broodModificationStrategy,
+			ArrayList<String> workerModificationStrategies, int nestSize,
+			int maxIterations, double pa, int hillClimbingNeighborhoodSize,
+			double t0, double alpha, double tmin, int maxNrIterations,
+			int tabuSize, int tabuNeighborhoodSize) {
+		super();
+		this.broodModificationStrategy = broodModificationStrategy;
+		this.workerModificationStrategies = workerModificationStrategies;
+		this.nestSize = nestSize;
+		this.maxIterations = maxIterations;
+		this.pa = pa;
+		this.hillClimbingNeighborhoodSize = hillClimbingNeighborhoodSize;
+		T0 = t0;
+		this.alpha = alpha;
+		Tmin = tmin;
+		this.maxNrIterations = maxNrIterations;
+		this.tabuSize = tabuSize;
+		this.tabuNeighborhoodSize = tabuNeighborhoodSize;
+	}
+
+
+
 	public void addWorkerModificationStrategy(Collection<String> strategies) {
 		for (String strategy : strategies) {
 			addWorkerModificationStrategy(strategy);
