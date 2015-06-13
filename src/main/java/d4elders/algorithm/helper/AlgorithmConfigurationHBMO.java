@@ -5,9 +5,9 @@ import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class AlgorithmConfiguration {
+public class AlgorithmConfigurationHBMO {
 	private static final Logger log = Logger
-			.getLogger(AlgorithmConfiguration.class.getName());
+			.getLogger(AlgorithmConfigurationHBMO.class.getName());
 
 	private String broodModificationStrategy;
 	private ArrayList<String> workerModificationStrategies = new ArrayList<String>();
@@ -21,7 +21,7 @@ public class AlgorithmConfiguration {
 	private double similarityCoefficientThreshold = 0.8;
 	private double errorMargin2_K = 0.7;
 
-	public AlgorithmConfiguration(String broodModificationStrategy,
+	public AlgorithmConfigurationHBMO(String broodModificationStrategy,
 			ArrayList<String> workerModificationStrategies, int maxNrMatings,
 			int popSize, int initialSpeed, int initialEnergy,
 			double speedReductionFactor, double energyReductionAmount,
@@ -44,7 +44,7 @@ public class AlgorithmConfiguration {
 	/**
 	 * Initialize an instance with the default values.
 	 */
-	public AlgorithmConfiguration() {
+	public AlgorithmConfigurationHBMO() {
 		broodModificationStrategy = AvailableProgramConfigurationOptions.SIMPLE_CROSSOVER;
 		workerModificationStrategies
 				.add(AvailableProgramConfigurationOptions.HILL_CLIMBING);

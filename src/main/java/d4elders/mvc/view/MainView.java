@@ -1,0 +1,36 @@
+package d4elders.mvc.view;
+
+import javax.swing.JApplet;
+
+/**
+ * Created by cristiprg on 1/18/2015.
+ */
+public class MainView extends JApplet {
+
+	private static final long serialVersionUID = 1L;
+
+	public MainView() {
+
+		int algorithmToRun = 0;
+
+		HBMOAdminPanel hbmoPanel = new HBMOAdminPanel();
+		CuckooAdminPanel cuckooPanel = new CuckooAdminPanel();
+
+		if (algorithmToRun == 0) {
+			this.add(cuckooPanel);
+			hbmoPanel.setVisible(false);
+			cuckooPanel.setVisible(true);
+			this.setSize(1100, 640);
+		}
+		if (algorithmToRun == 1) {
+			this.add(hbmoPanel);
+			hbmoPanel.setVisible(true);
+			cuckooPanel.setVisible(false);
+			this.setSize(1100, 640);
+		}
+	}
+
+	public static void main(String[] args) {
+		new MainView();
+	}
+}

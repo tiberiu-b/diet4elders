@@ -17,21 +17,19 @@ import d4elders.main.*;
 import d4elders.model.Solution;
 
 /**
- * TODO: adaguam vreo 10 FoodProviders care au 25% din retete (da, overlapping),
- * delivery cost, time
+ * TODO: adaguam vreo 10 FoodProviders care au 25% din retete (da, overlapping), delivery cost, time
  *
  * @author cristiprg
  *
  */
 public class HoneyBeeMatingOptimization extends MainAlgorithm {
-	private static final Logger log = Logger
-			.getLogger(HoneyBeeMatingOptimization.class.getName());
+	private static final Logger log = Logger.getLogger(HoneyBeeMatingOptimization.class.getName());
 
 	private SolutionsGenerator solGenerator;
 
-	private AlgorithmConfiguration algorithmConfiguration = null;
+	private AlgorithmConfigurationHBMO algorithmConfiguration = null;
 
-	public AlgorithmConfiguration getAlgorithmConfiguration() {
+	public AlgorithmConfigurationHBMO getAlgorithmConfiguration() {
 		return algorithmConfiguration;
 	}
 
@@ -40,8 +38,7 @@ public class HoneyBeeMatingOptimization extends MainAlgorithm {
 	 *
 	 * @param algorithmConfiguration
 	 */
-	public void setAlgorithmConfiguration(
-			AlgorithmConfiguration algorithmConfiguration) {
+	public void setAlgorithmConfiguration(AlgorithmConfigurationHBMO algorithmConfiguration) {
 		this.algorithmConfiguration = algorithmConfiguration;
 		Solution.applyConfiguration(algorithmConfiguration);
 		BroodImproverHelper.applyConfiguration(algorithmConfiguration);
@@ -52,7 +49,7 @@ public class HoneyBeeMatingOptimization extends MainAlgorithm {
 	}
 
 	public HoneyBeeMatingOptimization(SolutionsGenerator solutionsGenerator,
-			AlgorithmConfiguration algorithmConfiguration) {
+			AlgorithmConfigurationHBMO algorithmConfiguration) {
 		setAlgorithmConfiguration(algorithmConfiguration);
 		setSolGenerator(solutionsGenerator);
 	}
@@ -60,8 +57,7 @@ public class HoneyBeeMatingOptimization extends MainAlgorithm {
 	@Override
 	public Solution performAlgorithm() {
 		if (algorithmConfiguration == null) {
-			log.log(Level.SEVERE,
-					"Cannot perform algorithm, no algorithmConfiguration given!");
+			log.log(Level.SEVERE, "Cannot perform algorithm, no algorithmConfiguration given!");
 			return null;
 		}
 
@@ -74,11 +70,8 @@ public class HoneyBeeMatingOptimization extends MainAlgorithm {
 		// InitialSolutionsGenerator.generateRandomSolutions(algorithmConfiguration
 		// .getPopSize());
 		long start = System.currentTimeMillis();
-		SortedSet<Solution> solutions = getSolGenerator()
-				.generateRandomSolutionsWithSimilarityCoeff(
-						algorithmConfiguration.getPopSize(),
-						algorithmConfiguration
-								.getSimilarityCoefficientThreshold());
+		SortedSet<Solution> solutions = getSolGenerator().generateRandomSolutionsWithSimilarityCoeff(
+				algorithmConfiguration.getPopSize(), algorithmConfiguration.getSimilarityCoefficientThreshold());
 		long duration = System.currentTimeMillis() - start;
 		// for (Solution sol : solutions) {
 		// System.out.println(sol.getDailyMenu().getBreakfast().getPackageId() +
@@ -103,8 +96,7 @@ public class HoneyBeeMatingOptimization extends MainAlgorithm {
 			int nrOfDronesTheQueenMatedWith = 0;
 
 			/*
-			 * System.out.println("------\nQueen:" + queen + " Fitness: " +
-			 * queen.getFitness());
+			 * System.out.println("------\nQueen:" + queen + " Fitness: " + queen.getFitness());
 			 */
 			SortedSet<Solution> broods = new TreeSet<Solution>();
 			for (Solution drone : solutions) {
@@ -122,8 +114,7 @@ public class HoneyBeeMatingOptimization extends MainAlgorithm {
 					// broods.addAll((queen.createBroods(drone)));
 					broods.addAll(workerModificationStrategy(drone, queen));
 				}
-				if (nrOfDronesTheQueenMatedWith > algorithmConfiguration
-						.getMaxNrMatings())
+				if (nrOfDronesTheQueenMatedWith > algorithmConfiguration.getMaxNrMatings())
 					break;
 			}
 			// If there is no drone with good enough fitness generate new random
@@ -131,16 +122,13 @@ public class HoneyBeeMatingOptimization extends MainAlgorithm {
 			// This step is not documented in the algorithm, should be devised
 			// if needed or not
 			if (broods.isEmpty()) {
-				System.out.println("Generating new set of solutions..");
-				solutions = getSolGenerator().generateRandomSolutions(
-						algorithmConfiguration.getPopSize());
+				solutions = getSolGenerator().generateRandomSolutions(algorithmConfiguration.getPopSize());
 				queen.nextIteration();
 				continue;
 			}
 
-			broods = broodImprover.improve(broods);
+			broods.addAll(broodImprover.improve(broods));
 			duration = System.currentTimeMillis() - start;
-			System.out.println();
 			// TODO: add broods to population and then select the best 40, do
 			// not throw away the
 			// current solutions
@@ -175,22 +163,11 @@ public class HoneyBeeMatingOptimization extends MainAlgorithm {
 			// if bestBrood has a greater fitness function then
 			if (bestBrood.compareTo(queen) > 0) {
 				queen = bestBrood;
-				System.out.println(queen.getDailyMenu().getBreakfast()
-						.getPackageId()
-						+ ", "
-						+ queen.getDailyMenu().getLunch().getPackageId()
-						+ ", "
-						+ queen.getDailyMenu().getDinner().getPackageId()
-						+ ", "
-						+ queen.getDailyMenu().getSnack1().getPackageId()
-						+ ", "
-						+ queen.getDailyMenu().getSnack2().getPackageId());
 			}
 
 			/*
-			 * System.out.println("Nr of MatingDrones: " +
-			 * nrOfDronesTheQueenMatedWith + ", Broods Generated:" +
-			 * broods.size());
+			 * System.out.println("Nr of MatingDrones: " + nrOfDronesTheQueenMatedWith +
+			 * ", Broods Generated:" + broods.size());
 			 */
 
 			// Reduce speed and energy of queen
@@ -225,8 +202,7 @@ public class HoneyBeeMatingOptimization extends MainAlgorithm {
 
 	// private methods
 
-	private Collection<? extends Solution> workerModificationStrategy(
-			Solution drone, Solution queen) {
+	private Collection<? extends Solution> workerModificationStrategy(Solution drone, Solution queen) {
 
 		switch (algorithmConfiguration.getBroodModificationStrategy()) {
 		case AvailableProgramConfigurationOptions.PATH_RELINKING:
@@ -235,8 +211,7 @@ public class HoneyBeeMatingOptimization extends MainAlgorithm {
 			return queen.createBroods(drone);
 		}
 
-		log.log(Level.SEVERE,
-				"Returning null due to invalid worker modification strategy!");
+		log.log(Level.SEVERE, "Returning null due to invalid worker modification strategy!");
 		return null;
 	}
 

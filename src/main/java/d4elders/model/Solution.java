@@ -3,7 +3,7 @@ package d4elders.model;
 import com.sun.istack.internal.NotNull;
 
 import d4elders.algorithm.broodImprover.BusinessLogicCacheFilteredOpt;
-import d4elders.algorithm.helper.AlgorithmConfiguration;
+import d4elders.algorithm.helper.AlgorithmConfigurationHBMO;
 import d4elders.dal.BusinessLogic;
 import d4elders.dal.BusinessLogicCache;
 import d4elders.dal.BusinessLogicCacheFiltered;
@@ -41,7 +41,7 @@ public class Solution implements Comparable<Solution> {
 	public static double probabilityToMateDroneThreshold = 0;
 
 	public static void applyConfiguration(
-			AlgorithmConfiguration algorithmConfiguration) {
+			AlgorithmConfigurationHBMO algorithmConfiguration) {
 		initialSpeed = algorithmConfiguration.getInitialSpeed();
 		initialEnergy = algorithmConfiguration.getInitialEnergy();
 		speedReductionFactor = algorithmConfiguration.getSpeedReductionFactor();
@@ -99,7 +99,7 @@ public class Solution implements Comparable<Solution> {
 
 		int w1 = 1;
 		// if user did not add any food item preferences => weight is 0
-		int w2 = (UserProfileHelper.getPreferenceList().size() == 0) ? 0 : 5;
+		int w2 = (UserProfileHelper.getPreferenceList().size() == 0) ? 0 : 2;
 		int w3 = 1;
 
 		float topF = (float) ((w1 * getF1() + w2 * getF2() + w3 * getF3()) / (w1

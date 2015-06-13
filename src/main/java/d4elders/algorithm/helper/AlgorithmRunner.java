@@ -3,6 +3,7 @@ package d4elders.algorithm.helper;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import d4elders.algorithm.CuckooSearch;
 import d4elders.algorithm.HoneyBeeMatingOptimization;
 import d4elders.algorithm.MainAlgorithm.RunInformation;
 import d4elders.dal.helper.RandomSolutionsGenerator;
@@ -10,8 +11,7 @@ import d4elders.dal.helper.SolutionsGenerator;
 import d4elders.model.Solution;
 
 public class AlgorithmRunner {
-	public static void run(SolutionsGenerator solutionsGenerator,
-			AlgorithmConfiguration configuration) {
+	public static void runHBMO(SolutionsGenerator solutionsGenerator, AlgorithmConfigurationHBMO configuration) {
 
 		Solution queen = null;
 		RunInformation info = null;
@@ -22,67 +22,39 @@ public class AlgorithmRunner {
 		// configuration);
 		// System.out.println("Running Honey Bee Mating Optimization with the following configuration\n"
 		// + configuration);
-		HoneyBeeMatingOptimization HBMO = new HoneyBeeMatingOptimization(
-				solutionsGenerator, configuration);
+		HoneyBeeMatingOptimization HBMO = new HoneyBeeMatingOptimization(solutionsGenerator, configuration);
 		queen = HBMO.performAlgorithm();
 		info = HBMO.getLastRunInformation();
 
 		// Print results
 		System.out.println("___\nFinal Result:");
-		System.out.println("	Breakfast: MenuId "
-				+ queen.getDailyMenu().getBreakfast().getMenu().getMenuId()
-				+ " Cost: "
-				+ queen.getDailyMenu().getBreakfast().getCost()
-				+ " DeliveryTime: "
-				+ queen.getDailyMenu().getBreakfast().getDeliveryTime()
-				+ " Food provider Id: "
-				+ queen.getDailyMenu().getBreakfast().getFoodProv()
-						.getFoodProviderId());
-		System.out.println("	Lunch: MenuId "
-				+ queen.getDailyMenu().getLunch().getMenu().getMenuId()
-				+ " Cost: "
-				+ queen.getDailyMenu().getLunch().getCost()
-				+ " DeliveryTime: "
-				+ queen.getDailyMenu().getLunch().getDeliveryTime()
-				+ " Food provider Id: "
-				+ queen.getDailyMenu().getLunch().getFoodProv()
-						.getFoodProviderId());
-		System.out.println("	Dinner: MenuId "
-				+ queen.getDailyMenu().getDinner().getMenu().getMenuId()
-				+ " Cost: "
-				+ queen.getDailyMenu().getDinner().getCost()
-				+ " DeliveryTime: "
-				+ queen.getDailyMenu().getDinner().getDeliveryTime()
-				+ " Food provider Id: "
-				+ queen.getDailyMenu().getDinner().getFoodProv()
-						.getFoodProviderId());
-		System.out.println("	Snack1: MenuId "
-				+ queen.getDailyMenu().getSnack1().getMenu().getMenuId()
-				+ " Cost: "
-				+ queen.getDailyMenu().getSnack1().getCost()
-				+ " DeliveryTime: "
-				+ queen.getDailyMenu().getSnack1().getDeliveryTime()
-				+ " Food provider Id: "
-				+ queen.getDailyMenu().getSnack1().getFoodProv()
-						.getFoodProviderId());
-		System.out.println("	Snack2: MenuId "
-				+ queen.getDailyMenu().getSnack2().getMenu().getMenuId()
-				+ " Cost: "
-				+ queen.getDailyMenu().getSnack2().getCost()
-				+ " DeliveryTime: "
-				+ queen.getDailyMenu().getSnack2().getDeliveryTime()
-				+ " Food provider Id: "
-				+ queen.getDailyMenu().getSnack2().getFoodProv()
-						.getFoodProviderId());
+		System.out.println("	Breakfast: MenuId " + queen.getDailyMenu().getBreakfast().getMenu().getMenuId()
+				+ " Cost: " + queen.getDailyMenu().getBreakfast().getCost() + " DeliveryTime: "
+				+ queen.getDailyMenu().getBreakfast().getDeliveryTime() + " Food provider Id: "
+				+ queen.getDailyMenu().getBreakfast().getFoodProv().getFoodProviderId());
+		System.out.println("	Lunch: MenuId " + queen.getDailyMenu().getLunch().getMenu().getMenuId() + " Cost: "
+				+ queen.getDailyMenu().getLunch().getCost() + " DeliveryTime: "
+				+ queen.getDailyMenu().getLunch().getDeliveryTime() + " Food provider Id: "
+				+ queen.getDailyMenu().getLunch().getFoodProv().getFoodProviderId());
+		System.out.println("	Dinner: MenuId " + queen.getDailyMenu().getDinner().getMenu().getMenuId() + " Cost: "
+				+ queen.getDailyMenu().getDinner().getCost() + " DeliveryTime: "
+				+ queen.getDailyMenu().getDinner().getDeliveryTime() + " Food provider Id: "
+				+ queen.getDailyMenu().getDinner().getFoodProv().getFoodProviderId());
+		System.out.println("	Snack1: MenuId " + queen.getDailyMenu().getSnack1().getMenu().getMenuId() + " Cost: "
+				+ queen.getDailyMenu().getSnack1().getCost() + " DeliveryTime: "
+				+ queen.getDailyMenu().getSnack1().getDeliveryTime() + " Food provider Id: "
+				+ queen.getDailyMenu().getSnack1().getFoodProv().getFoodProviderId());
+		System.out.println("	Snack2: MenuId " + queen.getDailyMenu().getSnack2().getMenu().getMenuId() + " Cost: "
+				+ queen.getDailyMenu().getSnack2().getCost() + " DeliveryTime: "
+				+ queen.getDailyMenu().getSnack2().getDeliveryTime() + " Food provider Id: "
+				+ queen.getDailyMenu().getSnack2().getFoodProv().getFoodProviderId());
 		System.out.println(queen);
-		System.out.println("Fitness: " + queen.getFitness() + "--- f1: "
-				+ queen.getF1() + "--- f2: " + queen.getF2() + "--- f3: "
-				+ queen.getF3());
+		System.out.println("Fitness: " + queen.getFitness() + "--- f1: " + queen.getF1() + "--- f2: " + queen.getF2()
+				+ "--- f3: " + queen.getF3());
 		//
 		System.out.println("Number of iterations: " + info.nrOfItertions);
 
-		System.out
-				.println("Duration of execution(in millis): " + info.duration);
+		System.out.println("Duration of execution(in millis): " + info.duration);
 		System.out.println();
 		// Export data
 		ArrayList<String> data = configuration.getAllDataAsString();
@@ -91,18 +63,65 @@ public class AlgorithmRunner {
 		data.add(String.valueOf(info.duration));
 		data.addAll(queen.exportDataAsString());
 		try {
-			DataExporter.exportData(Paths.get("data\\HBMO_data.csv"),
-					HBMO.getCustomHeadersForExportedData(), data);
+			DataExporter.exportData(Paths.get("data\\HBMO_data.csv"), HBMO.getCustomHeadersForExportedData(), data);
 		} catch (DataExporterException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	public static void run(SolutionsGenerator solutionsGenerator,
-			ArrayList<AlgorithmConfiguration> configurations) {
-		for (AlgorithmConfiguration config : configurations) {
-			run(solutionsGenerator, config);
+	public static void runHBMO(SolutionsGenerator solutionsGenerator,
+			ArrayList<AlgorithmConfigurationHBMO> configurations) {
+		for (AlgorithmConfigurationHBMO config : configurations) {
+			runHBMO(solutionsGenerator, config);
 		}
 	}
+
+	public static void runCuckoo(SolutionsGenerator solutionsGenerator, AlgorithmConfigurationCuckoo config) {
+		RunInformation info = null;
+
+		CuckooSearch cuckoo = new CuckooSearch(solutionsGenerator, config);
+		Solution bestCuckoo = cuckoo.performAlgorithm();
+		info = cuckoo.getLastRunInformation();
+
+		// Print results
+		System.out.println("___\nFinal Result:");
+		System.out.println("	Breakfast: MenuId " + bestCuckoo.getDailyMenu().getBreakfast().getMenu().getMenuId()
+				+ " Cost: " + bestCuckoo.getDailyMenu().getBreakfast().getCost() + " DeliveryTime: "
+				+ bestCuckoo.getDailyMenu().getBreakfast().getDeliveryTime() + " Food provider Id: "
+				+ bestCuckoo.getDailyMenu().getBreakfast().getFoodProv().getFoodProviderId());
+		System.out.println("	Lunch: MenuId " + bestCuckoo.getDailyMenu().getLunch().getMenu().getMenuId() + " Cost: "
+				+ bestCuckoo.getDailyMenu().getLunch().getCost() + " DeliveryTime: "
+				+ bestCuckoo.getDailyMenu().getLunch().getDeliveryTime() + " Food provider Id: "
+				+ bestCuckoo.getDailyMenu().getLunch().getFoodProv().getFoodProviderId());
+		System.out.println("	Dinner: MenuId " + bestCuckoo.getDailyMenu().getDinner().getMenu().getMenuId() + " Cost: "
+				+ bestCuckoo.getDailyMenu().getDinner().getCost() + " DeliveryTime: "
+				+ bestCuckoo.getDailyMenu().getDinner().getDeliveryTime() + " Food provider Id: "
+				+ bestCuckoo.getDailyMenu().getDinner().getFoodProv().getFoodProviderId());
+		System.out.println("	Snack1: MenuId " + bestCuckoo.getDailyMenu().getSnack1().getMenu().getMenuId() + " Cost: "
+				+ bestCuckoo.getDailyMenu().getSnack1().getCost() + " DeliveryTime: "
+				+ bestCuckoo.getDailyMenu().getSnack1().getDeliveryTime() + " Food provider Id: "
+				+ bestCuckoo.getDailyMenu().getSnack1().getFoodProv().getFoodProviderId());
+		System.out.println("	Snack2: MenuId " + bestCuckoo.getDailyMenu().getSnack2().getMenu().getMenuId() + " Cost: "
+				+ bestCuckoo.getDailyMenu().getSnack2().getCost() + " DeliveryTime: "
+				+ bestCuckoo.getDailyMenu().getSnack2().getDeliveryTime() + " Food provider Id: "
+				+ bestCuckoo.getDailyMenu().getSnack2().getFoodProv().getFoodProviderId());
+		System.out.println(bestCuckoo);
+		System.out.println("Fitness: " + bestCuckoo.getFitness() + "--- f1: " + bestCuckoo.getF1() + "--- f2: "
+				+ bestCuckoo.getF2() + "--- f3: " + bestCuckoo.getF3());
+		//
+		System.out.println("Number of iterations: " + info.nrOfItertions);
+
+		System.out.println("Duration of execution(in millis): " + info.duration);
+		System.out.println();
+
+	}
+
+	public static void runCuckoo(SolutionsGenerator solutionsGenerator,
+			ArrayList<AlgorithmConfigurationCuckoo> configurations) {
+		for (AlgorithmConfigurationCuckoo config : configurations) {
+			runCuckoo(solutionsGenerator, config);
+		}
+	}
+
 }

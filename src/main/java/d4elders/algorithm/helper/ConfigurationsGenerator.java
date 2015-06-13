@@ -15,16 +15,16 @@ public class ConfigurationsGenerator {
 	private static final Logger log = Logger.getLogger(ConfigurationsGenerator.class.getName());
 
 	/**
-	 * Generates an ArrayList of length nrConfigs instances of {@link AlgorithmConfiguration} having
+	 * Generates an ArrayList of length nrConfigs instances of {@link AlgorithmConfigurationHBMO} having
 	 * the following popSize values: 1, 3, 5, ...
 	 * @param nrConfigs
 	 * @return
 	 */
-	public static ArrayList<AlgorithmConfiguration> varPopSize(int nrConfigs){
-		ArrayList<AlgorithmConfiguration> configs = new ArrayList<AlgorithmConfiguration>();
+	public static ArrayList<AlgorithmConfigurationHBMO> varPopSize(int nrConfigs){
+		ArrayList<AlgorithmConfigurationHBMO> configs = new ArrayList<AlgorithmConfigurationHBMO>();
 
 		for (int i = 0; i < nrConfigs; ++i){
-			AlgorithmConfiguration config = new AlgorithmConfiguration();
+			AlgorithmConfigurationHBMO config = new AlgorithmConfigurationHBMO();
 			config.setPopSize(i * 2 + 1 );
 			configs.add(config);
 		}
@@ -33,11 +33,11 @@ public class ConfigurationsGenerator {
 	}
 
 	/**
-	 * Returns all the possible combinations of {@link AlgorithmConfiguration} from the ini file.
+	 * Returns all the possible combinations of {@link AlgorithmConfigurationHBMO} from the ini file.
 	 * @param iniFilePath
 	 * @return an ArrayList<AlgorithmConfiguration> that contains all the possible combinations.
 	 */
-	public static ArrayList<AlgorithmConfiguration> getConfigFromIniFile(String iniFilePath){
+	public static ArrayList<AlgorithmConfigurationHBMO> getConfigFromIniFile(String iniFilePath){
 		AlgorithmConfigurationArrays config = new AlgorithmConfigurationArrays();
 		// ini examples here: http://ini4j.sourceforge.net/tutorial/OneMinuteTutorial.java.html
 		try {

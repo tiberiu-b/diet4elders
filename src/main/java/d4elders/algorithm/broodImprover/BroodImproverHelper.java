@@ -9,11 +9,11 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import d4elders.algorithm.AnnealingScheduler;
-import d4elders.algorithm.helper.AlgorithmConfiguration;
+import d4elders.algorithm.helper.AlgorithmConfigurationHBMO;
 import d4elders.algorithm.helper.AvailableProgramConfigurationOptions;
 import d4elders.model.Solution;
 
-public class BroodImproverHelper{
+public class BroodImproverHelper {
 
 	private final static int defaultNumberOfThreads = 4;
 
@@ -25,13 +25,13 @@ public class BroodImproverHelper{
 		SEARCH_ALGOS.add(algo);
 	}
 
-	public static void applyConfiguration(AlgorithmConfiguration algorithmConfiguration) {
+	public static void applyConfiguration(AlgorithmConfigurationHBMO algorithmConfiguration) {
 		SEARCH_ALGOS.clear();
 		for (String strategy : algorithmConfiguration.getWorkerModificationStrategies())
-			switch(strategy)
-			{
+			switch (strategy) {
 			case AvailableProgramConfigurationOptions.SIMULATED_ANNEALING:
-				addSearchAlgorithm("Simulated Annealing", new SimulatedAnnealingBroodImprover(new AnnealingScheduler(1, 90, 0.1)));
+				addSearchAlgorithm("Simulated Annealing", new SimulatedAnnealingBroodImprover(new AnnealingScheduler(1,
+						90, 0.1)));
 				break;
 			case AvailableProgramConfigurationOptions.HILL_CLIMBING:
 				addSearchAlgorithm("Hill Climbing", new HillClimbingBroodImprover());
@@ -43,46 +43,51 @@ public class BroodImproverHelper{
 	}
 
 	/**
-	 * TODO: revise the type of broods. Collection might not be the best one because it is immedately transformed into an array.
-	 * Improves all the solutions contained in broods using numberOfThreads threads.
-	 * @param broods the initial set of broods
-	 * @param numberOfThreads the number of threads used to improve the broods
+	 * TODO: revise the type of broods. Collection might not be the best one because it is
+	 * immedately transformed into an array. Improves all the solutions contained in broods using
+	 * numberOfThreads threads.
+	 * 
+	 * @param broods
+	 *            the initial set of broods
+	 * @param numberOfThreads
+	 *            the number of threads used to improve the broods
 	 * @return the set of improved broods
 	 */
-	public SortedSet<Solution> improve(Collection<Solution> broods, int numberOfThreads){
+	public SortedSet<Solution> improve(Collection<Solution> broods, int numberOfThreads) {
 
 		// If no algorithms were specified, don't do a thing.
-		if(SEARCH_ALGOS.size() == 0)
+		if (SEARCH_ALGOS.size() == 0)
 			return (SortedSet<Solution>) broods;
 
 		// array of threads
 		ArrayList<Thread> threadsList = new ArrayList<Thread>();
 
-		// The broods collection is going to be partitioned into numberOfThreads buckets and must be transformed into an array first.
+		// The broods collection is going to be partitioned into numberOfThreads buckets and must be
+		// transformed into an array first.
 		ArrayList<Solution> broodsList = new ArrayList<Solution>();
 
 		// TODO: decide whether to improve the entire or only a subset.
 		// For now, we take the first 100 only.
 		Iterator<Solution> it = broods.iterator();
-		for(int i = 0; i < 4 && it.hasNext(); ++i){
+		for (int i = 0; i < 4 && it.hasNext(); ++i) {
 			broodsList.add(it.next());
 		}
 
 		// Compute the size of each bucket.
 		int bucketSize = broodsList.size() / numberOfThreads;
-		if(broodsList.size() % numberOfThreads != 0){
+		if (broodsList.size() % numberOfThreads != 0) {
 			bucketSize++;
 		}
 
 		List<List<Solution>> partition = MyPartition.partition(broodsList, bucketSize);
 
-		for(final List<Solution> bucket : partition){
+		for (final List<Solution> bucket : partition) {
 			Thread thread = new Thread(new AlgorithmJob(bucket));
 			threadsList.add(thread);
 			thread.start();
 		}
 
-		for(Thread t : threadsList){
+		for (Thread t : threadsList) {
 			try {
 				t.join();
 			} catch (InterruptedException e) {
@@ -96,33 +101,57 @@ public class BroodImproverHelper{
 
 	/**
 	 * Improves all the solutios contained in broods using the default number of threads.
-	 * @param broods the initial set of broods
+	 * 
+	 * @param broods
+	 *            the initial set of broods
 	 * @return the set of improved broods
 	 */
-	public SortedSet<Solution> improve(Collection<Solution> broods){
+	public SortedSet<Solution> improve(Collection<Solution> broods) {
 		return improve(broods, defaultNumberOfThreads);
 	}
 
 	/**
 	 * Improves one single brood using a random heuristic.
+	 * 
 	 * @param brood
 	 * @return a new, improved brood
 	 */
-	public Solution improve(Solution brood){
+	public Solution improve(Solution brood) {
 		return improve(brood, SEARCH_ALGOS.get(new Random().nextInt(SEARCH_ALGOS.size())));
 	}
 
 	/**
-	 * Modifies the brood by performing mutation operations, i.e. changing components (dishes),
-	 * in order to improve its fitness value.
+	 * Improves one single brood using a random heuristic.
+	 * 
+	 * @param brood
+	 * @return a new, improved brood
+	 */
+	public Solution improveWithHillClimbing(Solution brood) {
+		return improve(brood, new HillClimbingBroodImprover());
+	}
+	
+	/**
+	 * Improves one single brood using a random heuristic.
+	 * 
+	 * @param brood
+	 * @return a new, improved brood
+	 */
+	public Solution improveWithTabuSearch(Solution brood) {
+		return improve(brood, new TabuSearchBroodImprover());
+	}
+
+	/**
+	 * Modifies the brood by performing mutation operations, i.e. changing components (dishes), in
+	 * order to improve its fitness value.
+	 * 
 	 * @param brood
 	 * @param algorithm
 	 */
-	private Solution improve(Solution brood, BroodImproverAlgorithm algorithm){
+	private Solution improve(Solution brood, BroodImproverAlgorithm algorithm) {
 		return algorithm.improve(brood);
 	}
 
-	private class AlgorithmJob implements Runnable{
+	private class AlgorithmJob implements Runnable {
 
 		List<Solution> bucket;
 
@@ -133,7 +162,7 @@ public class BroodImproverHelper{
 		@Override
 		public void run() {
 			int size = bucket.size();
-			for(int i = size-1; i >= 0; --i){
+			for (int i = size - 1; i >= 0; --i) {
 				// Replace the solution on the current index with the improved one.
 				bucket.set(i, improve(bucket.get(i)));
 			}

@@ -28,9 +28,9 @@ public class AlgorithmConfigurationArrays {
 	 * 
 	 * @return
 	 */
-	public ArrayList<AlgorithmConfiguration> getAllConfigrations() {
+	public ArrayList<AlgorithmConfigurationHBMO> getAllConfigrations() {
 		populateEmptyArray();
-		ArrayList<AlgorithmConfiguration> configs = new ArrayList<AlgorithmConfiguration>();
+		ArrayList<AlgorithmConfigurationHBMO> configs = new ArrayList<AlgorithmConfigurationHBMO>();
 
 		for (String broodModificationStrategy : this.broodModificationStrategy) {
 			for (ArrayList<String> workerModificationStrategies : this.workerModificationStrategies) {
@@ -43,7 +43,7 @@ public class AlgorithmConfigurationArrays {
 										for (double probabilityToMateDroneThreshold : this.probabilityToMateDroneThreshold) {
 											for (double similarityCoefficientThreshold : this.similarityCoefficientThreshold) {
 												for (double errorMargin2_K : this.errorMargin2_K) {
-													configs.add(new AlgorithmConfiguration(
+													configs.add(new AlgorithmConfigurationHBMO(
 															broodModificationStrategy,
 															workerModificationStrategies,
 															maxNrMatings,
@@ -72,7 +72,7 @@ public class AlgorithmConfigurationArrays {
 
 	private void populateEmptyArray() {
 		// initialize the arrays with the default values from a configurtion
-		AlgorithmConfiguration config = new AlgorithmConfiguration();
+		AlgorithmConfigurationHBMO config = new AlgorithmConfigurationHBMO();
 		if (broodModificationStrategy.isEmpty())
 			broodModificationStrategy
 					.add(config.getBroodModificationStrategy());
