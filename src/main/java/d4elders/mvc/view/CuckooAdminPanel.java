@@ -17,6 +17,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
 import d4elders.algorithm.helper.*;
@@ -36,10 +37,12 @@ public class CuckooAdminPanel extends JPanel implements ActionListener {
 	Label nestSizeLabel;
 	Label maxIterationsLabel;
 	Label paLabel;
+	Label csVersionLabel;
 
 	TextField nestSizeField;
 	TextField maxIterationsField;
 	TextField paField;
+	JComboBox<CuckooAlgorithmVersion> csVersion;
 
 	Label broodModificationStrategyLabel;
 	Label workerModificationStrategiesLabel;
@@ -92,11 +95,10 @@ public class CuckooAdminPanel extends JPanel implements ActionListener {
 		nestSizeLabel = new Label("Nest size: ");
 		maxIterationsLabel = new Label("Max iterations: ");
 		paLabel = new Label("PA coefficient: ");
+		csVersionLabel = new Label("Cuckoo Search Algorithm Version");
 
-		broodModificationStrategyLabel = new Label(
-				"Brood Modification Strategy: ");
-		workerModificationStrategiesLabel = new Label(
-				"Worker Modification Strategies: ");
+		broodModificationStrategyLabel = new Label("Brood Modification Strategy: ");
+		workerModificationStrategiesLabel = new Label("Worker Modification Strategies: ");
 
 		// Hill Climbing
 		Label hillClimbingNeighborhoodSizeLabel = new Label("Hill-Climb neigh size: ");
@@ -114,26 +116,22 @@ public class CuckooAdminPanel extends JPanel implements ActionListener {
 		nestSizeField = new TextField(String.valueOf(defaultConfiguration.getNestSize()), 10);
 		maxIterationsField = new TextField(String.valueOf(defaultConfiguration.getMaxIterations()), 10);
 		paField = new TextField(String.valueOf(defaultConfiguration.getPa()), 10);
+		csVersion = new JComboBox<CuckooAlgorithmVersion>(CuckooAlgorithmVersion.values());
 
 		// Hill Climbing
-		 hillClimbingNeighborhoodSizeTextField = new TextField(String.valueOf(defaultConfiguration
+		hillClimbingNeighborhoodSizeTextField = new TextField(String.valueOf(defaultConfiguration
 				.getHillClimbingNeighborhoodSize()), 10);
 
 		// Simulated Annealing
-		 T0TextField = new TextField(String.valueOf(defaultConfiguration
-				.getT0()), 10);
-		 alphaTextField = new TextField(String.valueOf(defaultConfiguration
-				.getAlpha()), 10);
-		 TminTextField = new TextField(String.valueOf(defaultConfiguration
-				.getTmin()), 10);
+		T0TextField = new TextField(String.valueOf(defaultConfiguration.getT0()), 10);
+		alphaTextField = new TextField(String.valueOf(defaultConfiguration.getAlpha()), 10);
+		TminTextField = new TextField(String.valueOf(defaultConfiguration.getTmin()), 10);
 
 		// Tabu Searh
-		 maxNrIterationsTextField = new TextField(String.valueOf(defaultConfiguration
-				.getMaxNrIterations()), 10);
-		 tabuSizeTextField = new TextField(String.valueOf(defaultConfiguration
-				.getTabuSize()), 10);
-		 tabuNeighborhoodSizeTextField = new TextField(String.valueOf(defaultConfiguration
-				.getTabuNeighborhoodSize()), 10);
+		maxNrIterationsTextField = new TextField(String.valueOf(defaultConfiguration.getMaxNrIterations()), 10);
+		tabuSizeTextField = new TextField(String.valueOf(defaultConfiguration.getTabuSize()), 10);
+		tabuNeighborhoodSizeTextField = new TextField(String.valueOf(defaultConfiguration.getTabuNeighborhoodSize()),
+				10);
 
 		// hide heuristics elements
 		hillClimbingNeighborhoodSizeLabel.setVisible(false);
@@ -153,46 +151,33 @@ public class CuckooAdminPanel extends JPanel implements ActionListener {
 		tabuNeighborhoodSizeLabel.setVisible(false);
 		tabuNeighborhoodSizeTextField.setVisible(false);
 
-
 		CheckboxGroup grp = new CheckboxGroup();
 		broodModificationStrategiesCheckboxList = new ArrayList<Checkbox>();
-		for (String strategy : AvailableProgramConfigurationOptions
-				.getAvailableBroodModificationStrategies()) {
+		for (String strategy : AvailableProgramConfigurationOptions.getAvailableBroodModificationStrategies()) {
 			Checkbox checkbox = new Checkbox(strategy, grp, false);
 			broodModificationStrategiesCheckboxList.add(checkbox);
 
-			if (strategy
-					.equals(AvailableProgramConfigurationOptions.SIMPLE_CROSSOVER))
+			if (strategy.equals(AvailableProgramConfigurationOptions.SIMPLE_CROSSOVER))
 				checkbox.setState(true);
 		}
 
 		workerModificationStrategiesCheckboxList = new ArrayList<Checkbox>();
-		for (String strategy : AvailableProgramConfigurationOptions
-				.getAvailableWorkerModificationStrategies()) {
+		for (String strategy : AvailableProgramConfigurationOptions.getAvailableWorkerModificationStrategies()) {
 			Checkbox checkbox = new Checkbox(strategy, null, false);
 			workerModificationStrategiesCheckboxList.add(checkbox);
 
 			/*
-			 * // Hill Climbing
-		leftPanel.add(hillClimbingNeighborhoodSizeLabel);
-		leftPanel.add(hillClimbingNeighborhoodSizeTextField);
-
-		// Simulated Annealing
-		leftPanel.add(T0Label);
-		leftPanel.add(T0TextField);
-		leftPanel.add(alphaLabel);
-		leftPanel.add(alphaTextField);
-		leftPanel.add(TminLabel);
-		leftPanel.add(TminTextField);
-
-		// Tabu Searh
-		leftPanel.add(maxNrIterationsLabel);
-		leftPanel.add(maxNrIterationsTextField);
-		leftPanel.add(tabuSizeLabel);
-		leftPanel.add(tabuSizeTextField);
-		leftPanel.add(tabuNeighborhoodSizeLabel);
-		leftPanel.add(tabuNeighborhoodSizeTextField);
-
+			 * // Hill Climbing leftPanel.add(hillClimbingNeighborhoodSizeLabel);
+			 * leftPanel.add(hillClimbingNeighborhoodSizeTextField);
+			 * 
+			 * // Simulated Annealing leftPanel.add(T0Label); leftPanel.add(T0TextField);
+			 * leftPanel.add(alphaLabel); leftPanel.add(alphaTextField); leftPanel.add(TminLabel);
+			 * leftPanel.add(TminTextField);
+			 * 
+			 * // Tabu Searh leftPanel.add(maxNrIterationsLabel);
+			 * leftPanel.add(maxNrIterationsTextField); leftPanel.add(tabuSizeLabel);
+			 * leftPanel.add(tabuSizeTextField); leftPanel.add(tabuNeighborhoodSizeLabel);
+			 * leftPanel.add(tabuNeighborhoodSizeTextField);
 			 */
 
 			checkbox.addItemListener(new ItemListener() {
@@ -200,7 +185,7 @@ public class CuckooAdminPanel extends JPanel implements ActionListener {
 				public void itemStateChanged(ItemEvent e) {
 					boolean currentState = e.getStateChange() == 1 ? true : false;
 
-					switch(strategy){
+					switch (strategy) {
 					case AvailableProgramConfigurationOptions.HILL_CLIMBING:
 						hillClimbingNeighborhoodSizeLabel.setVisible(currentState);
 						hillClimbingNeighborhoodSizeTextField.setVisible(currentState);
@@ -227,14 +212,6 @@ public class CuckooAdminPanel extends JPanel implements ActionListener {
 			});
 		}
 
-		// brood modification strategies
-		mainPanel.add(broodModificationStrategyLabel);
-		Panel broodsPanel = new Panel();
-		for (Checkbox c : broodModificationStrategiesCheckboxList) {
-			broodsPanel.add(c);
-		}
-		mainPanel.add(broodsPanel);
-
 		// worker modification strategies
 		mainPanel.add(workerModificationStrategiesLabel);
 		Panel workersPanel = new Panel();
@@ -258,6 +235,8 @@ public class CuckooAdminPanel extends JPanel implements ActionListener {
 		mainPanel.add(paLabel);
 		mainPanel.add(paField);
 
+		mainPanel.add(csVersionLabel);
+		mainPanel.add(csVersion);
 		// Hill Climbing
 		mainPanel.add(hillClimbingNeighborhoodSizeLabel);
 		mainPanel.add(hillClimbingNeighborhoodSizeTextField);
@@ -306,13 +285,12 @@ public class CuckooAdminPanel extends JPanel implements ActionListener {
 		// run HBMO
 		if (source.getLabel().equals(runButton.getLabel())) {
 
-			defaultConfiguration.setNestSize(Integer.valueOf(nestSizeField
-					.getText()));
-			defaultConfiguration.setMaxIterations(Integer
-					.valueOf(maxIterationsField.getText()));
+			defaultConfiguration.setNestSize(Integer.valueOf(nestSizeField.getText()));
+			defaultConfiguration.setMaxIterations(Integer.valueOf(maxIterationsField.getText()));
 			defaultConfiguration.setPa(Double.valueOf(paField.getText()));
-			runButton.setEnabled(false);
+			defaultConfiguration.setAlgorithmVersion((CuckooAlgorithmVersion) csVersion.getSelectedItem());
 
+			runButton.setEnabled(false);
 
 			for (Checkbox c : broodModificationStrategiesCheckboxList) {
 				if (c.getState() == true) {
@@ -329,25 +307,18 @@ public class CuckooAdminPanel extends JPanel implements ActionListener {
 					switch (c.getLabel()) {
 					case AvailableProgramConfigurationOptions.HILL_CLIMBING:
 						defaultConfiguration.setHillClimbingNeighborhoodSize(Integer
-								.valueOf(hillClimbingNeighborhoodSizeTextField
-										.getText()));
+								.valueOf(hillClimbingNeighborhoodSizeTextField.getText()));
 						break;
 					case AvailableProgramConfigurationOptions.SIMULATED_ANNEALING:
-						defaultConfiguration.setT0(Double.valueOf(T0TextField
-								.getText()));
-						defaultConfiguration.setAlpha(Double.valueOf(alphaTextField
-								.getText()));
-						defaultConfiguration.setTmin(Double.valueOf(TminTextField
-								.getText()));
+						defaultConfiguration.setT0(Double.valueOf(T0TextField.getText()));
+						defaultConfiguration.setAlpha(Double.valueOf(alphaTextField.getText()));
+						defaultConfiguration.setTmin(Double.valueOf(TminTextField.getText()));
 						break;
 					case AvailableProgramConfigurationOptions.SIMPLE_TABU_SEARCH:
-						defaultConfiguration.setMaxNrIterations(Integer
-								.valueOf(maxNrIterationsTextField.getText()));
-						defaultConfiguration.setTabuSize(Integer
-								.valueOf(tabuSizeTextField.getText()));
-						defaultConfiguration.setTabuNeighborhoodSize(Integer
-								.valueOf(tabuNeighborhoodSizeTextField
-										.getText()));
+						defaultConfiguration.setMaxNrIterations(Integer.valueOf(maxNrIterationsTextField.getText()));
+						defaultConfiguration.setTabuSize(Integer.valueOf(tabuSizeTextField.getText()));
+						defaultConfiguration.setTabuNeighborhoodSize(Integer.valueOf(tabuNeighborhoodSizeTextField
+								.getText()));
 						break;
 					}
 				}
