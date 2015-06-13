@@ -358,8 +358,34 @@ public class CuckooSearch extends MainAlgorithm {
 
 	@Override
 	public ArrayList<String> getCustomHeadersForExportedData() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<String> headers = new ArrayList<String>();
+		//headers.add("Brood Modification Strategy");
+		//headers.add("Worker Modification Strategy");
+		headers.add("AlgVersion");
+		headers.add("Nest Size");
+		headers.add("Max Iterations");
+		headers.add("PA");
+		headers.add("Hill-Climb negih size");
+		headers.add("T0");
+		headers.add("alpha");
+		headers.add("Tmin");
+		headers.add("TabuSearchIters");
+		headers.add("Tabu Size");
+		headers.add("Tabu neigh size");
+
+		headers.add("Number of iterations");
+		headers.add("Fitness Min");
+		headers.add("Fitness Max");
+		headers.add("Fitness Avg");
+		headers.add("Duration Min");
+		headers.add("Duration Max");
+		headers.add("Duration Avg");
+
+
+
+		super.addDefaultHeadersForExportedData(headers);
+
+		return headers;
 	}
 
 	private double meanFitness(Solution[] sols) {

@@ -62,7 +62,7 @@ public class AlgorithmConfigurationCuckoo {
 			ArrayList<String> workerModificationStrategies, int nestSize,
 			int maxIterations, double pa, int hillClimbingNeighborhoodSize,
 			double t0, double alpha, double tmin, int maxNrIterations,
-			int tabuSize, int tabuNeighborhoodSize) {
+			int tabuSize, int tabuNeighborhoodSize, CuckooAlgorithmVersion algorithmVersion) {
 		super();
 		this.broodModificationStrategy = broodModificationStrategy;
 		this.workerModificationStrategies = workerModificationStrategies;
@@ -76,6 +76,41 @@ public class AlgorithmConfigurationCuckoo {
 		this.maxNrIterations = maxNrIterations;
 		this.tabuSize = tabuSize;
 		this.tabuNeighborhoodSize = tabuNeighborhoodSize;
+		this.algorithmVersion = algorithmVersion;
+	}
+
+	public ArrayList<String> getAllDataAsString() {
+		/*
+		 * Map<String, String> data = new HashMap<String, String>();
+		 * data.put("broodModificationStrategy",
+		 * AvailableProgramConfigurationOptions.SIMPLE_CROSSOVER.toString());
+		 * data.put("workerModificationStrategies",
+		 * workerModificationStrategies.toString()); data.put("maxNrMatings",
+		 * String.valueOf(maxNrMatings)); data.put("popSize",
+		 * String.valueOf(popSize)); data.put("initialSpeed",
+		 * String.valueOf(initialSpeed)); data.put("initialEnergy",
+		 * String.valueOf(initialEnergy)); data.put("speedReductionFactor",
+		 * String.valueOf(speedReductionFactor));
+		 * data.put("energyReductionAmount",
+		 * String.valueOf(energyReductionAmount));
+		 * data.put("probabilityToMateDroneThreshold",
+		 * String.valueOf(probabilityToMateDroneThreshold));
+		 */
+		ArrayList<String> data = new ArrayList<String>();
+		//data.add(broodModificationStrategy.toString());
+		//data.add(workerModificationStrategies.toString());
+		data.add(String.valueOf(algorithmVersion));
+		data.add(String.valueOf(nestSize));
+		data.add(String.valueOf(maxIterations));
+		data.add(String.valueOf(pa));
+		data.add(String.valueOf(hillClimbingNeighborhoodSize));
+		data.add(String.valueOf(T0));
+		data.add(String.valueOf(alpha));
+		data.add(String.valueOf(Tmin));
+		data.add(String.valueOf(maxNrIterations));
+		data.add(String.valueOf(tabuSize));
+		data.add(String.valueOf(tabuNeighborhoodSize));
+		return data;
 	}
 
 
@@ -92,8 +127,8 @@ public class AlgorithmConfigurationCuckoo {
 			log.log(Level.SEVERE, "Invalid worker modification strategy "
 					+ strategy);
 		}
-
-		workerModificationStrategies.add(strategy);
+		if(!workerModificationStrategies.contains(strategy))
+			workerModificationStrategies.add(strategy);
 	}
 
 	public void clearWorkerModificationStrategies() {

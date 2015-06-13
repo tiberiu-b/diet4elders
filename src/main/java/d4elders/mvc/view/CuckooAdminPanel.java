@@ -169,11 +169,11 @@ public class CuckooAdminPanel extends JPanel implements ActionListener {
 			/*
 			 * // Hill Climbing leftPanel.add(hillClimbingNeighborhoodSizeLabel);
 			 * leftPanel.add(hillClimbingNeighborhoodSizeTextField);
-			 * 
+			 *
 			 * // Simulated Annealing leftPanel.add(T0Label); leftPanel.add(T0TextField);
 			 * leftPanel.add(alphaLabel); leftPanel.add(alphaTextField); leftPanel.add(TminLabel);
 			 * leftPanel.add(TminTextField);
-			 * 
+			 *
 			 * // Tabu Searh leftPanel.add(maxNrIterationsLabel);
 			 * leftPanel.add(maxNrIterationsTextField); leftPanel.add(tabuSizeLabel);
 			 * leftPanel.add(tabuSizeTextField); leftPanel.add(tabuNeighborhoodSizeLabel);
@@ -281,7 +281,7 @@ public class CuckooAdminPanel extends JPanel implements ActionListener {
 
 		// run results generator
 		if (source.getLabel().equals(runConfigurationButton.getLabel())) {
-			controller.runCuckoo(ConfigurationsGenerator.getCuckooConfigFromIniFile("configs.ini"));
+			controller.runCuckoo(ConfigurationsGenerator.getCuckooConfigFromIniFile("cuckoo_configs.ini"));
 		}
 		// run HBMO
 		if (source.getLabel().equals(runButton.getLabel())) {

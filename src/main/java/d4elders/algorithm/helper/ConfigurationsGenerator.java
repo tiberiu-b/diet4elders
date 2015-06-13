@@ -168,7 +168,7 @@ public class ConfigurationsGenerator {
 					case "fileName":
 						config.setExportFileName(values[0]);
 						break;
-					case "BroodModificationStrategy":
+					/*case "BroodModificationStrategy":
 						for(String value : values)
 							config.addBroodModificationStrategy(value.trim());
 						break;
@@ -182,7 +182,7 @@ public class ConfigurationsGenerator {
 							}
 							config.addWorkerModificationStrategies(strategies);
 						}
-						break;
+						break;*/
 					case "NestSize":
 						for(String value : values)
 							config.addNestSize(Integer.valueOf(value));
@@ -223,6 +223,10 @@ public class ConfigurationsGenerator {
 					case "tabuNeighSize":
 						for(String value : values)
 							config.addTabuNeighSize(Integer.valueOf(value));
+						break;
+					case "algVersion":
+						for(String value : values)
+							config.addAlgorithmVersion(CuckooAlgorithmVersion.values()[Integer.valueOf(value)-1]);
 						break;
 					default:
 						log.log(Level.WARNING, "Unkown key " + optionKey + " in the ini configuration file.");

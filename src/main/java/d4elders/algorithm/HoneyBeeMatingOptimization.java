@@ -13,7 +13,6 @@ import d4elders.algorithm.broodImprover.BroodImproverHelper;
 import d4elders.algorithm.helper.*;
 import d4elders.dal.helper.RandomSolutionsGenerator;
 import d4elders.dal.helper.SolutionsGenerator;
-import d4elders.main.*;
 import d4elders.model.Solution;
 
 /**

@@ -21,6 +21,7 @@ public class AlgorithmConfigurationArraysCuckoo {
 	private ArrayList<Integer> maxNrIterations = new ArrayList<Integer>();
 	private ArrayList<Integer> tabuSize = new ArrayList<Integer>();
 	private ArrayList<Integer> tabuNeighborhoodSize = new ArrayList<Integer>();
+	private ArrayList<CuckooAlgorithmVersion> algorithmVersion = new ArrayList<CuckooAlgorithmVersion>();
 
 	public AlgorithmConfigurationArraysCuckoo() {
 	}
@@ -46,6 +47,7 @@ public class AlgorithmConfigurationArraysCuckoo {
 											for (int maxNrIterations : this.maxNrIterations) {
 												for (int tabuSize : this.tabuSize) {
 													for (int tabuNeighborhoodSize : this.tabuNeighborhoodSize) {
+														for(CuckooAlgorithmVersion algorithmVersion : this.algorithmVersion){
 														AlgorithmConfigurationCuckoo algorithmConfiguration = new AlgorithmConfigurationCuckoo(
 																broodModificationStrategy,
 																workerModificationStrategies,
@@ -58,11 +60,13 @@ public class AlgorithmConfigurationArraysCuckoo {
 																Tmin,
 																maxNrIterations,
 																tabuSize,
-																tabuNeighborhoodSize);
+																tabuNeighborhoodSize, algorithmVersion
+																);
 
 														algorithmConfiguration
 																.setExportFileName(exportFileName);
 														configs.add(algorithmConfiguration);
+														}
 													}
 												}
 											}
@@ -81,7 +85,7 @@ public class AlgorithmConfigurationArraysCuckoo {
 
 	private void populateEmptyArray() {
 		// initialize the arrays with the default values from a configurtion
-		AlgorithmConfigurationHBMO config = new AlgorithmConfigurationHBMO();
+		AlgorithmConfigurationCuckoo config = new AlgorithmConfigurationCuckoo();
 		if (broodModificationStrategy.isEmpty())
 			broodModificationStrategy
 					.add(config.getBroodModificationStrategy());
@@ -89,11 +93,11 @@ public class AlgorithmConfigurationArraysCuckoo {
 			workerModificationStrategies.add(config
 					.getWorkerModificationStrategies());
 		if (nestSize.isEmpty())
-			nestSize.add(config.getMaxNrMatings());
+			nestSize.add(config.getNestSize());
 		if (maxIterations.isEmpty())
-			maxIterations.add(config.getPopSize());
+			maxIterations.add(config.getMaxIterations());
 		if (pa.isEmpty())
-			pa.add(config.getSpeedReductionFactor());
+			pa.add(config.getPa());
 		if(hillClimbingNeighborhoodSize.isEmpty())
 			hillClimbingNeighborhoodSize.add(config.getHillClimbingNeighborhoodSize());
 		if(T0.isEmpty())
@@ -108,6 +112,8 @@ public class AlgorithmConfigurationArraysCuckoo {
 			tabuSize.add(config.getTabuSize());
 		if(tabuNeighborhoodSize.isEmpty())
 			tabuNeighborhoodSize.add(config.getTabuNeighborhoodSize());
+		if(algorithmVersion.isEmpty())
+			algorithmVersion.add(config.getAlgorithmVersion());
 
 		/*
 		 * private ArrayList<String> broodModificationStrategy = new
@@ -205,6 +211,14 @@ public class AlgorithmConfigurationArraysCuckoo {
 
 	public void setExportFileName(String exportFileName) {
 		this.exportFileName = exportFileName;
+	}
+
+	public ArrayList<CuckooAlgorithmVersion> getAlgorithmVersion() {
+		return algorithmVersion;
+	}
+
+	public void addAlgorithmVersion(CuckooAlgorithmVersion algorithmVersion) {
+		this.algorithmVersion.add(algorithmVersion);
 	}
 }
 

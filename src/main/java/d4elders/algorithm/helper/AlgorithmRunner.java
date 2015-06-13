@@ -131,9 +131,43 @@ public class AlgorithmRunner {
 
 		RunInformation info = null;
 
-		CuckooSearch cuckoo = new CuckooSearch(solutionsGenerator, config);
-		Solution bestCuckoo = cuckoo.performAlgorithm();
-		info = cuckoo.getLastRunInformation();
+		// TODO: hack sa ai la dispozitie euristicile, pentru ca la cukoo search am decis
+		// ca avem CuckooAlgorithmVersion care selecteaza hardcodat euristice, in contrast cu HBMO
+		config.addWorkerModificationStrategy(AvailableProgramConfigurationOptions.HILL_CLIMBING);
+		config.addWorkerModificationStrategy(AvailableProgramConfigurationOptions.SIMULATED_ANNEALING);
+		config.addWorkerModificationStrategy(AvailableProgramConfigurationOptions.SIMPLE_TABU_SEARCH);
+		CuckooSearch cuckooSearch = new CuckooSearch(solutionsGenerator, config);
+
+		Solution bestCuckoo = null;
+
+
+		long tMin = 99999, tMax = -1, tTotal = 0;
+		double fMin = 100, fMax = -1, fAvg, fTotal = 0, tAvg;
+		final int NrIter = 10;
+		for(int i = 0; i < NrIter; ++i)
+		{
+			bestCuckoo = cuckooSearch.performAlgorithm();
+			info = cuckooSearch.getLastRunInformation();
+
+			if(info.duration < tMin)
+				tMin = info.duration;
+
+			if(info.duration > tMax)
+				tMax = info.duration;
+			tTotal += info.duration;
+
+			if(bestCuckoo.getFitness() < fMin)
+				fMin = bestCuckoo.getFitness();
+
+			if(bestCuckoo.getFitness() > fMax)
+				fMax = bestCuckoo.getFitness();
+			fTotal += bestCuckoo.getFitness();
+		}
+
+		tAvg = (double)tTotal / NrIter;
+		fAvg = fTotal / NrIter;
+		System.out.println("Time Average     : " + tAvg);
+		System.out.println("Fitness Avgerage : " + fAvg);
 
 		// Print results
 		System.out.println("___\nFinal Result:");
@@ -165,6 +199,30 @@ public class AlgorithmRunner {
 
 		System.out.println("Duration of execution(in millis): " + info.duration);
 		System.out.println();
+
+		// Export data
+		ArrayList<String> data = config.getAllDataAsString();
+
+		data.add(String.valueOf(info.nrOfItertions));
+		// data.add(String.valueOf(info.duration));
+
+		data.add(String.valueOf(fMin));
+		data.add(String.valueOf(fMax));
+		data.add(String.valueOf(fAvg));
+
+		data.add(String.valueOf(tMin));
+		data.add(String.valueOf(tMax));
+		data.add(String.valueOf(tAvg));
+
+		data.addAll(bestCuckoo.exportDataAsString());
+		try {
+			DataExporter.exportData(
+					Paths.get(config.getExportFileName()),
+					cuckooSearch.getCustomHeadersForExportedData(), data);
+		} catch (DataExporterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
