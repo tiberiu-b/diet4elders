@@ -163,7 +163,7 @@ public class CuckooAdminPanel extends JPanel implements ActionListener {
 
 		workerModificationStrategiesCheckboxList = new ArrayList<Checkbox>();
 		for (String strategy : AvailableProgramConfigurationOptions.getAvailableWorkerModificationStrategies()) {
-			Checkbox checkbox = new Checkbox(strategy, null, false);
+			Checkbox checkbox = new Checkbox(strategy, null, true);
 			workerModificationStrategiesCheckboxList.add(checkbox);
 
 			/*
@@ -218,6 +218,7 @@ public class CuckooAdminPanel extends JPanel implements ActionListener {
 		for (Checkbox c : workerModificationStrategiesCheckboxList) {
 			workersPanel.add(c);
 		}
+
 		mainPanel.add(workersPanel);
 
 		outputTextArea = new TextArea(17, 150);

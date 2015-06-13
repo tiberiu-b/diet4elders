@@ -221,7 +221,7 @@ public class HBMOAdminPanel extends JPanel implements ActionListener {
 		similarityCoefficientThresholdField = new TextField(String.valueOf(defaultConfiguration
 				.getSimilarityCoefficientThreshold()), 10);
 		// The text area on the right
-		outputTextArea = new TextArea(17, 130);
+		outputTextArea = new TextArea(13, 150);
 
 		// The run button
 		runButton = new Button("Run");

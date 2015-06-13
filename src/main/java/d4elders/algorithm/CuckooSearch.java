@@ -31,11 +31,13 @@ public class CuckooSearch extends MainAlgorithm {
 	 */
 	public void setAlgorithmConfiguration(AlgorithmConfigurationCuckoo algorithmConfiguration) {
 		this.algorithmConfiguration = algorithmConfiguration;
+		BroodImproverHelper.applyConfiguration(algorithmConfiguration);
+
 	}
 
 	public CuckooSearch(SolutionsGenerator solGenerator, AlgorithmConfigurationCuckoo config) {
 		this.solGenerator = solGenerator;
-		this.algorithmConfiguration = config;
+		setAlgorithmConfiguration(config);
 	}
 
 	@Override
